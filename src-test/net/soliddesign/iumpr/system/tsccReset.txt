@@ -1,0 +1,169 @@
+2007-12-03T10:15:30.000 I U M P R Data Collection Tool for 13 CCR 1971.1(l)(2) and (h)(1.7)
+2007-12-03T10:15:30.000 I U M P R Data Collection Tool version 0.2.3 - 2017/02/25 07:45
+
+IIIIIIIII  UUU     UUU  MMM       MMM  PPPPPPPP     RRRRRRRR     DATA PLATE REPORT
+IIIIIIIII  UUU     UUU  MMMM     MMMM  PPPPPPPPP    RRRRRRRRR    DATA PLATE REPORT
+   III     UUU     UUU  MMMMM   MMMMM  PPP    PPP   RRR    RRR   DATA PLATE REPORT
+   III     UUU     UUU  MMMMMMMMMMMMM  PPP     PPP  RRR     RRR  DATA PLATE REPORT
+   III     UUU     UUU  MMM  MMM  MMM  PPP     PPP  RRR     RRR  DATA PLATE REPORT
+   III     UUU     UUU  MMM   M   MMM  PPP    PPP   RRR    RRR   DATA PLATE REPORT
+   III     UUU     UUU  MMM       MMM  PPPPPPPPP    RRRRRRRRR    DATA PLATE REPORT
+   III     UUU     UUU  MMM       MMM  PPPPPPPP     RRRRRRRR     DATA PLATE REPORT
+   III     UUU     UUU  MMM       MMM  PPP          RRR RRR      DATA PLATE REPORT
+   III     UUU     UUU  MMM       MMM  PPP          RRR  RRR     DATA PLATE REPORT
+   III     UUU     UUU  MMM       MMM  PPP          RRR   RRR    DATA PLATE REPORT
+IIIIIIIII  UUUUUUUUUUU  MMM       MMM  PPP          RRR    RRR   DATA PLATE REPORT
+IIIIIIIII   UUUUUUUUU   MMM       MMM  PPP          RRR     RRR  DATA PLATE REPORT
+
+2007-12-03T10:15:30.000 I U M P R Data Collection Tool Data Plate Report
+
+2007-12-03T10:15:30.000 New File: /var/folders/rd/2dqrb_s97xlbh9g37r55rwzr0000gn/T/testing267240083027587940.iumpr
+
+2007-12-03T10:15:30.000 Global VIN Request
+2007-12-03T10:15:30.000 18EAFFF9 EC FE 00 (TX)
+2007-12-03T10:15:30.000 18FEEC00 33 48 41 4D 4B 53 54 4E 30 46 4C 35 37 35 30 31 32 2A
+Vehicle Identification from Engine #1 (0): 3HAMKSTN0FL575012
+
+2007-12-03T10:15:30.000 Global DM19 (Calibration Information) Request
+2007-12-03T10:15:30.000 18EAFFF9 00 D3 00 (TX)
+2007-12-03T10:15:30.000 18D30000 96 BF DC 40 50 42 54 35 4D 50 52 33 20 20 20 20 20 20 20 20 20
+DM19 from Engine #1 (0): CAL ID of PBT5MPR3 and CVN of 0x40DCBF96
+
+2007-12-03T10:15:30.000 Global DM21 Request
+2007-12-03T10:15:30.000 18EAFFF9 00 C1 00 (TX)
+2007-12-03T10:15:30.000 18C10000 00 00 00 00 00 00 00 BB
+DM21 from Engine #1 (0): [
+  Distance Traveled While MIL is Activated:     0 km (0 mi)
+  Time Run by Engine While MIL is Activated:    0 minutes
+  Distance Since DTCs Cleared:                  0 km (0 mi)
+  Time Since DTCs Cleared:                      47,872 minutes
+]
+
+2007-12-03T10:15:30.000 Global DM5 Request
+2007-12-03T10:15:30.000 18EAFFF9 CE FE 00 (TX)
+2007-12-03T10:15:30.000 18FECE00 00 00 14 37 E0 1E E0 1E
+Engine #1 (0) reported as an HD-OBD Module.
+
+2007-12-03T10:15:30.000 Global Component Identification Request
+2007-12-03T10:15:30.000 18EAFFF9 EB FE 00 (TX)
+2007-12-03T10:15:30.000 18FEEB00 49 4E 54 2A 35 37 30 32 36 31 32 32 31 33 31 35 36 34 36 4D 31 33 2A 35 37 30 48 4D 32 55 33 35 34 35 32 37 37 2A 2A
+Component Identification from Engine #1 (0): Make: INT, Model: 570261221315646M13, Serial Number: 570HM2U3545277, Unit Number: 
+
+2007-12-03T10:15:30.000 Clearing Diagnostic Trouble Codes
+2007-12-03T10:15:30.000 Destination Specific DM11 Request to Engine #1 (0)
+2007-12-03T10:15:30.000 18EA00F9 D3 FE 00 (TX)
+2007-12-03T10:15:30.000 18E8FF00 00 FF FF FF F9 D3 FE 00
+DM11 from Engine #1 (0): Response is Acknowledged
+2007-12-03T10:15:30.000 Diagnostic Trouble Codes were successfully cleared.
+
+2007-12-03T10:15:30.000 Global DM5 Request
+2007-12-03T10:15:30.000 18EAFFF9 CE FE 00 (TX)
+2007-12-03T10:15:30.000 18FECE00 00 00 14 37 E0 1E E0 1E
+DM5 from Engine #1 (0): OBD Compliance: HD OBD (20), Active Codes: 0, Previously Active Codes: 0
+
+2007-12-03T10:15:30.000 Vehicle Composite of DM5:
+A/C system refrigerant monitoring                      disabled/not supported
+Boost pressure control system monitoring               not complete
+Catalyst monitoring                                    disabled/not supported
+Cold start aid system monitoring                       disabled/not supported
+Comprehensive component monitoring                         complete
+Diesel Particulate Filter (DPF) monitoring             not complete
+EGR/VVT system monitoring                              not complete
+Evaporative system monitoring                          disabled/not supported
+Exhaust Gas Sensor heater monitoring                   not complete
+Exhaust Gas Sensor monitoring                          not complete
+Fuel System monitoring                                 not complete
+Heated catalyst monitoring                             disabled/not supported
+Misfire monitoring                                     not complete
+NMHC converting catalyst monitoring                    not complete
+NOx converting catalyst and/or NOx adsorber monitoring not complete
+Secondary air system monitoring                        disabled/not supported
+
+2007-12-03T10:15:30.000 Global DM26 Request
+2007-12-03T10:15:30.000 18EAFFF9 B8 FD 00 (TX)
+2007-12-03T10:15:30.000 18FDB800 00 00 00 37 C0 1E C0 1E
+DM26 from Engine #1 (0): Warm-ups: 0, Time Since Engine Start: 0 seconds
+
+2007-12-03T10:15:30.000 Vehicle Composite of DM26:
+A/C system refrigerant monitoring                      disabled/not supported
+Boost pressure control system monitoring               not complete
+Catalyst monitoring                                    disabled/not supported
+Cold start aid system monitoring                       disabled/not supported
+Comprehensive component monitoring                         complete
+Diesel Particulate Filter (DPF) monitoring             not complete
+EGR/VVT system monitoring                              not complete
+Evaporative system monitoring                          disabled/not supported
+Exhaust Gas Sensor heater monitoring                   not complete
+Exhaust Gas Sensor monitoring                          disabled/not supported
+Fuel System monitoring                                 not complete
+Heated catalyst monitoring                             disabled/not supported
+Misfire monitoring                                     not complete
+NMHC converting catalyst monitoring                    not complete
+NOx converting catalyst and/or NOx adsorber monitoring not complete
+Secondary air system monitoring                        disabled/not supported
+
+2007-12-03T10:15:30.000 Global DM20 Request
+2007-12-03T10:15:30.000 18EAFFF9 00 C2 00 (TX)
+2007-12-03T10:15:30.000 18C20000 0C 00 00 00 CA 14 F8 00 00 00 00 B8 12 F8 00 00 00 00 BC 14 F8 01 00 00 00 F8 0B F8 00 00 00 00 C6 14 F8 00 00 00 00 F2 0B F8 00 00 00 00 C9 14 F8 00 00 00 00 EF 0B F8 00 00 00 00
+DM20 from Engine #1 (0):  [
+                                                                  NUM'OR / DEM'OR
+Ignition Cycles                                                                12
+OBD Monitoring Conditions Encountered                                           0
+SPN 5322 Aftertreatment NMHC Converting Catalyst System Monitor        0 /      0
+SPN 4792 Aftertreatment 1 Selective Catalytic Reduction System         0 /      0
+SPN 5308 Aftertreatment 1 NOx Adsorber Catalyst System Monitor         1 /      0
+SPN 3064 Aftertreatment Diesel Particulate Filter System Monitor       0 /      0
+SPN 5318 Aftertreatment Exhaust Gas Sensor System Monitor              0 /      0
+SPN 3058 Engine Exhaust Gas Recirculation System Monitor               0 /      0
+SPN 5321 Engine Intake Manifold Pressure System Monitor                0 /      0
+SPN 3055 Engine Fuel System Monitor                                    0 /      0
+]
+
+2007-12-03T10:15:30.000 Global DM6 Request
+2007-12-03T10:15:30.000 18EAFFF9 CF FE 00 (TX)
+2007-12-03T10:15:30.000 18FECF00 00 00 00 00 00
+DM6 from Engine #1 (0): MIL: Off, RSL: Off, AWL: Off, PL: Off
+No DTCs
+
+2007-12-03T10:15:30.000 Global DM12 Request
+2007-12-03T10:15:30.000 18EAFFF9 D4 FE 00 (TX)
+2007-12-03T10:15:30.000 18FED400 00 00 00 00 00
+DM12 from Engine #1 (0): MIL: Off, RSL: Off, AWL: Off, PL: Off
+No DTCs
+
+2007-12-03T10:15:30.000 Global DM23 Request
+2007-12-03T10:15:30.000 18EAFFF9 B5 FD 00 (TX)
+2007-12-03T10:15:30.000 18FDB500 00 00 00 00 00
+DM23 from Engine #1 (0): MIL: Off, RSL: Off, AWL: Off, PL: Off
+No DTCs
+
+2007-12-03T10:15:30.000 Global DM28 Request
+2007-12-03T10:15:30.000 18EAFFF9 80 FD 00 (TX)
+2007-12-03T10:15:30.000 18FD8000 00 00 00 00 00
+DM28 from Engine #1 (0): MIL: Off, RSL: Off, AWL: Off, PL: Off
+No DTCs
+
+2007-12-03T10:15:30.000 Global DM21 Request
+2007-12-03T10:15:30.000 18EAFFF9 00 C1 00 (TX)
+2007-12-03T10:15:30.000 18C10000 00 00 00 00 00 00 00 BB
+DM21 from Engine #1 (0): [
+  Distance Traveled While MIL is Activated:     0 km (0 mi)
+  Time Run by Engine While MIL is Activated:    0 minutes
+  Distance Since DTCs Cleared:                  0 km (0 mi)
+  Time Since DTCs Cleared:                      47,872 minutes
+]
+2007-12-03T10:15:30.000 Time Since Code Cleared Gap of 0 minutes
+
+2007-12-03T10:15:30.000 Vehicle Distance
+2007-12-03T10:15:30.000 18FEE000 FF FF FF FF C8 4A 1F 00
+Total Vehicle Distance from Engine #1 (0): 256,345 km (159,285.398 mi)
+
+2007-12-03T10:15:30.000 Engine Hours Request
+2007-12-03T10:15:30.000 18EA00F9 E5 FE 00 (TX)
+2007-12-03T10:15:30.000 18FEE500 70 16 01 00 FF FF FF FF
+Engine Hours from Engine #1 (0): 3,564 hours
+
+2007-12-03T10:15:30.000 Total Queries: 15
+2007-12-03T10:15:30.000 Total Time Out Errors: 0
+
+2007-12-03T10:15:30.000 I U M P R Data Collection Tool Data Plate Report END OF REPORT

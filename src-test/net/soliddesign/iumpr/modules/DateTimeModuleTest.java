@@ -1,0 +1,61 @@
+/**
+ * Copyright 2017 Equipment & Tool Institute
+ */
+package net.soliddesign.iumpr.modules;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.time.LocalDateTime;
+
+import org.junit.Before;
+import org.junit.Test;
+
+/**
+ * The Unit tests for the {@link DateTimeModule}
+ *
+ * @author Matt Gumbel (matt@soliddesign.net)
+ *
+ */
+public class DateTimeModuleTest {
+
+    private DateTimeModule instance;
+
+    @Before
+    public void setUp() {
+        instance = new DateTimeModule();
+    }
+
+    @Test
+    public void testFormat() throws Exception {
+        LocalDateTime time = LocalDateTime.parse("2007-12-03T10:15:30.000");
+        assertEquals("2007-12-03T10:15:30.000", instance.format(time));
+    }
+
+    @Test
+    public void testGetDateTime() {
+        DateTimeModule instance = new DateTimeModule() {
+            @Override
+            protected LocalDateTime now() {
+                return LocalDateTime.parse("2007-12-03T10:15:30.000");
+            }
+        };
+        assertEquals("2007-12-03T10:15:30.000", instance.getDateTime());
+    }
+
+    @Test
+    public void testNow() {
+        LocalDateTime before = LocalDateTime.now();
+        LocalDateTime actual = instance.now();
+        LocalDateTime after = LocalDateTime.now();
+
+        assertTrue(before.isBefore(actual) || before.isEqual(actual));
+        assertTrue(after.isAfter(actual) || after.isEqual(actual));
+    }
+
+    @Test
+    public void testParse() throws Exception {
+        LocalDateTime expected = LocalDateTime.parse("2007-12-03T10:15:30.000");
+        assertEquals(expected, instance.parse("2007-12-03T10:15:30.000"));
+    }
+}

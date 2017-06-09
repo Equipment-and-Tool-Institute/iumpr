@@ -1,0 +1,347 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252"><title>Help2</title>
+
+<meta name="generator" content="LibreOffice 5.2.5.1 (Windows)">
+<meta name="created" content="00:00:00">
+<meta name="changed" content="2017-03-09T10:51:05.465000000">
+<meta name="created" content="2017-03-09T09:07:24.103000000">
+<meta name="changed" content="2017-03-09T10:49:08.296000000">
+<style type="text/css">
+h2.cjk { font-family: "SimSun" }
+h2.ctl { font-family: "Arial" }
+h3.cjk { font-family: "SimSun" }
+h3.ctl { font-family: "Arial" }
+h4.cjk { font-family: "SimSun" }
+h4.ctl { font-family: "Arial" }
+</style>
+</head>
+<body style="direction: ltr;" lang="en-US">
+<h1>Introduction</h1>
+<p>The IUMPR Data Collection Tool allows manufacturers to
+automate
+analysis of on-board data as the test vehicle is driven to verify
+that the subjected monitors are running on the road, and that the
+vehicle software is appropriately updating the relevant data
+parameters. This provides for consistent and uniform testing among
+the heavy-duty engine manufacturers and provides a standardized
+report format for review by California Air Resources Board (ARB)
+staff.</p>
+<h1>Operation</h1>
+<h2 class="western">Program Initiation</h2>
+<p>Users should navigate to the location of the
+executable&nbsp;IUMPR Data Collection Tool or
+shortcut
+and double-click the file icon to launch the&nbsp;application. Upon
+launch, the main screen is presented with “Select
+Vehicle Adapter” displayed in the progress bar (middle of window, below
+buttons and just above
+blank report area of main screen). The main screen will be
+used to select the vehicle communications adapter, select or create
+the report file, and control the operation of the tool.</p>
+<br>
+<img src="Help1_html_a782fd2f961025a8.jpg" name="Image1" align="left" border="0" height="535" width="493">
+<br clear="all">
+<h2>Selecting a Vehicle Adapter
+</h2>
+<p>The user must select a vehicle communications adapter before
+any
+other actions are possible. The Select Vehicle Adapter drop down will
+be populated based upon the vehicle adapters installed on the
+computer. If there are no vehicle adapters installed, the user will
+need to install them and restart the application. [Note that
+the&nbsp;Vehicle
+Adapter drop down list of the&nbsp;IUMPR Data Collection Tool
+<span style="font-weight: bold;">PROTOTYPE</span>
+is populated with dummy adapters used for demonstration purposes only.
+&nbsp;This is only for the <span style="font-weight: bold;">PROTOTYPE</span>!]
+&nbsp;After a vehicle
+adapter is selected the user can then select or create a report file.</p>
+<h2 class="western">Selecting/Creating a Report File</h2>
+<p style="margin-bottom: 0in;">The report file can be
+selected or
+created after a vehicle adapter has been selected. Pushing the
+"Select File..." button will open a file chooser dialog.
+The file chooser dialog will allow the user to navigate to the
+desired report file directory. The user may type the name of the file
+to be used (creating a new&nbsp;file if it does not exist)
+or&nbsp;select an existing file.&nbsp;If the specified filename
+does
+not have the
+extension ".iumpr," it will be added to the filename by
+the application.</p>
+<p>If the user would like to recover previously saved
+data, they must select an existing file. &nbsp;Report files are
+stored
+in plaintext format allowing a user
+to examine contents for VIN, calibration data, time stamp data,
+etc. Upon
+selecting an existing file it will
+be validated to ensure it's suitable for use.&nbsp;If the the
+previous
+VIN and Calibration Information found in the file are inconsistent, the
+user
+will not be able to proceed. Time Stamps in an existing report file
+must monotonically increase. (Subsequent time stamps must increase or
+match preceding time stamp.) If the file is not suitable for use, the
+user will be required to choose a different report file or close the
+application.<br>
+<br>
+If there is a problem reading the file or the application cannot write
+to the file, a pop up will be presented and the user will be required
+to
+choose a different report file or close the application.</p>
+<h2 class="western">Reading Vehicle Information</h2>
+<p>After a vehicle adapter has been
+selected and a valid report file chosen, the “Read Vehicle
+Info” button will be enabled allowing the user to read VIN,
+Calibrations, and Time Since Code Clear information from the vehicle.
+VIN and Calibrations information will be displayed in the “VIN:”
+and “Cals:” areas of the main screen respectively. If an existing
+report file has been selected, VIN, Calibrations, and Time Since Code
+Clear from the vehicle will be checked against the corresponding
+information in the selected report file. If the VIN or
+Calibrations do not match, the user will be required to chose a
+different vehicle or report file to continue. After choosing a new
+report file or different vehicle, the application will require the user
+to read
+the vehicle information again before proceeding.<br>
+<br>
+Additionally, the last Time Since Code
+Clear in the file will be checked against the current Time Since
+Code Clear from the vehicle. If the Time Since Code Clear was
+reset or there is a gap of more than 60 minutes,&nbsp;a warning
+message will be displayed, but the user will be allowed to continue.<br>
+<br>
+Once it has been determined that the vehicle information matches a
+valid report file, the user will be able to Generate the Vehicle Data
+Plate. The Generate Vehicle Data Plate button will be enabled and the
+application will display “Push Generate Vehicle Data Plate
+Button” in the progress bar. If for any reason, the user does
+not want to continue with the selected adapter, report file, or
+vehicle, these can be changed prior to pushing the Generate Vehicle
+Data Plate button.</p>
+<br>
+<img src="Help1_html_b6f56c45e43733f.jpg" name="Image2" align="left" border="0" height="534" width="491">
+<br clear="all">
+<h2>Generating Vehicle Data Plate</h2>
+After the vehicle
+information has been
+read and it's been determined that the report file matches the
+connected vehicle, the user may Generate the Vehicle Data Plate by
+pushing the "Generate Vehicle Data Plate" button. The Tool
+will query the vehicle and return information to the Report Area at
+the bottom of the tool. The information appearing in the Report Area
+will also be appended to the report file.
+<p>Status information
+on the data collection process and work in progress is provided in the
+progress bar just
+above the Report Area. At any time during the vehicle data plate
+generation, the user may press the "Stop" button. If the
+"Stop" button is pressed, the data plate generation will
+stop and a message will be recorded to the file indicating the
+operation was stopped. The user will be able to press the Generate
+Vehicle Data Plate button again but will be unable to select a
+different adapter or report file. Until the vehicle data plate has
+been successfully generated the user
+will not able to proceed to any other functions.&nbsp;</p>
+<p>During the vehicle data plate
+generation, if a new file is being used, the Diagnostic Trouble Codes
+(DTCs) will be cleared. Also, for new or existing files, the emission
+related DTCs will be read. If there are DTCs present, a warning
+dialog will be presented to the user. The user then has the choice to
+continue using the tool or end the program by pushing the “Stop”
+button.<br>
+<br>
+The application indicates the successful completion of Vehicle Data
+Plate generation by showing “Data Plate
+Report Completed” on the progress bar and enabling the&nbsp;"Track
+Monitor Completion Status”
+and “Collect Tests Results” buttons.
+After the vehicle data plate has been generated, the user will not
+be able to generate additional data plates, select a different
+adapter or report file, or read information from the vehicle until the
+application has been restarted.</p>
+<h2 class="western">Tracking Monitor Completion Status</h2>
+<p style="margin-bottom: 0in;">After the Vehicle Data
+Plate has been
+generated, the user may track the monitor completion status by
+pressing the "Track Monitor Completion Status" button.
+After pressing this button a Status View will&nbsp;open as a separate
+window showing the Performance Ratios and Vehicle Monitors. &nbsp;While
+executing the Tracking Monitor Completion Status function, the
+application will compare current DM20 monitor data to the DM20 monitor
+Baseline data from the first Vehicle Data Plate in the report file. <br></p>
+<br>
+The
+Performance Ratio Table of the Status View displays the current
+Performance Ratios from the DM20 packets.&nbsp; Field
+background
+colors are used to indicate&nbsp;changes from Baseline data.&nbsp; Row
+color
+changes indicate changes during this session &nbsp;More details are
+provided in the Performance Ratio Table section below.
+<p>Monitor Completion Status tracking will continue
+indefinitely while the vehicle continues to communicate or until the
+user presses the "Stop" button on the main screen or "Stop
+Tracking Monitor Completion Status" button on the Status View
+window. It's important to note the different actions produced by these
+two different stop buttons. &nbsp;Pressing the "Stop"
+button on the main screen will interrupt the operation immediately
+without completing the Track Monitor Completion Status
+operation.
+Pressing the "Stop Tracking Monitor Completion Status"
+button on the Status View will allow the application to read additional
+information from
+the vehicle and complete the Tracking Monitor Completion Status
+operation. The Status View window can only be closed by pressing the
+"Stop" button (on main screen) or the "Stop Tracking Monitor Completion
+Status" button (on Status View window).<br>
+<br>
+If the vehicle stops providing engine speed, DM5, DM20, or DM26
+the operation will end. (Details are provided in the “Communications
+Status” section below.) If this happens, the results will be summarized
+and the
+Status View will be closed. At that time the user may track the
+monitors again or Collect Tests Results.</p>
+<h3 class="western">Status View</h3>
+<p>The Status View window is opened while the tool is tracking
+monitor
+completion status to provide useful information about the monitor
+tracking progress.
+It is composed of an “Information Table,” a “Performance
+Ratio Table,” “Vehicle Monitors Table,” a “Stop
+Tracking Monitor Completion Status Button,” and “Communications
+Status” section.</p>
+<br>
+<img src="Help1_html_ae3be7305b3d9ae7.jpg" name="Image3" align="left" border="0" height="551" width="893">
+<br clear="all">
+<h4 class="western">Information Table (Name – Value –
+Unit)</h4>
+<p>The Information Table at the top shows
+the Time and Distance since DTCs were cleared information from DM21 packets.
+It also displays the number of Ignition Cycles and OBD Monitoring
+Conditions Encountered from DM20 packets. If a value changes in a
+positive direction, the row will be colored green. If the value goes
+backwards, the row will be colored red.<br>
+<br>
+The user can sort the table by clicking on the column headings.</p>
+<h4 class="western">Performance Ratio Table (Source –
+Monitor
+from DM20 – Numerator – Denominator)</h4>
+While
+executing the Tracking Monitor Completion Status function, the
+application will compare current DM20 monitor data to the DM20 monitor
+Baseline data from the first Vehicle Data Plate in the report file. <br>
+<br>
+The
+Performance Ratio Table of the Status View displays the current
+Performance Ratios from DM20 packets.&nbsp; Field
+background
+colors indicate a Numerator&nbsp;change relative&nbsp;to the
+Baseline
+data (first Vehicle Data Plate of report file).&nbsp; If a value
+has
+changed in a positive direction, the field will be colored green. If
+the value has changed in a negative direction, the field will be
+colored red.<br>
+<br>
+If a change to a Numerator is observed while the
+application is executing the Tracking Monitor Completion Status
+function, the entire row will be highlighted in green (positive change)
+or red (negative change). &nbsp;
+<p>The user can sort the table by clicking on the column headings.
+By
+default the column will sort ratios by source, then by ratio name.</p>
+<h4 class="western">Vehicle Monitors Table (Vehicle
+Monitors –
+Trip Status (DM26) – Overall Status (DM5))</h4>
+<p>The Vehicle Monitors Table shows the composite vehicle
+monitors
+status. It shows the Trip Status from DM26 packets, and the Overall
+Status from DM5 packets. Monitors that are not supported or monitored
+are colored red. Monitors that are not complete will be the
+background color. Monitors that are complete are colored green.</p>
+<h4 class="western">Stop Tracking Monitor Completion
+Status Button
+(bottom left)</h4>
+<p>The "Stop Tracking Monitor Completion Status" button
+should be used to end the tracking process.
+Pushing this button will allow the process to gather the remaining
+information and summarize the differences in the ratios and monitors.
+&nbsp;The "Stop Tracking Monitor Completion Status" button will
+also
+close the Status View. &nbsp;After pressing this button, the
+application will show the progress through the final steps of the
+Tracking Monitor Completion Status function in the progress bar of the
+main screen.</p>
+<h4 class="western">Communication Status (bottom right)</h4>
+<p>The communication status of the DM5, DM20, DM26, and DM21
+packets
+are displayed to provide an indication of communication status. When
+a packet is received, the value in the progress bar of the appropriate
+packet is set to the
+maximum. As time passes, the value slowly decreases. If the value
+reaches zero, "Timeout" will be displayed. When a packet is
+received again, the value will return to the maximum and the process
+will continue. A communication status check is done every 10 seconds. For DM5 requests the
+application will try three times. &nbsp;Engine speed is checked every 300
+ms. If there is no response for either, the data collection will
+abort.</p>
+<h2 class="western">Collecting Tests Results</h2>
+<p>Once the Vehicle Data Plate has been generated, the user may
+collect the tests results by pressing the "Collect Tests
+Results" button. This process will query the vehicle with a DM24 message to
+determine which SPNs support tests results. &nbsp;For those
+supported
+SPNs, a DM7 will be sent. &nbsp;The results will be written to the
+report file and Report Area. Work in progress and status information
+on the collect test results process is provided in the progress bar
+just
+above the Report Area. When the process is complete, the application
+wll display "Data Collection Log Completed" in the progress bar and an END
+OF REPORT banner will be written to the Report Area and report file.
+&nbsp;</p>
+<p>At any time during the collecting test results process, the
+user may press the "Stop" button. Pressing the
+"Stop" button will
+stop the process and cause&nbsp;a data collection log stopped
+message to be recorded to the Report Area and report file. &nbsp;</p>
+<h2 class="western">Closing the Application</h2>
+<p>The user&nbsp;closes the application by pressing the "X"
+in upper right corner of the title bar. If a report file has been selected, a message will
+be written to the file indicating when the application was closed.</p>
+<h1>About</h1>
+<h2 class="western">Author</h2>
+<p>This software was developed for the <a href="http://etools.org/">Equipment
+&amp; Tool Institute</a> by <a href="http://soliddesign.net/">Solid
+Design, Inc</a>.</p>
+<h2 class="western">MIT License</h2>
+<p style="margin-bottom: 0in;">Copyright (c) 2017
+Equipment &amp; Tool
+Institute</p>
+<p style="margin-bottom: 0in;">&nbsp;<br>
+Permission is hereby granted, free of
+charge, to any person obtaining a copy of this software and
+associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the
+rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following conditions:</p>
+<p style="margin-bottom: 0in;">&nbsp;<br>
+The above copyright notice and this
+permission notice shall be included in all copies or substantial
+portions of the Software.</p>
+<p style="margin-bottom: 0in;">&nbsp;<br>
+THE SOFTWARE IS PROVIDED "AS IS",
+WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS
+OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.</p>
+<p><br>
+<br>
+</p>
+</body></html>
