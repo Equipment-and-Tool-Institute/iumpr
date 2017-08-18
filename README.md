@@ -34,7 +34,7 @@ Additionally, it's recommended that the "docs" target also be executed in order 
 To build a new release, execute the "dist" target.  It will generate the jar, followed by an exe and finally the installer.
 
 ## Author
-This software was developed for the [Equipment & Tool Institute](href=http://etools.org) by [Solid Design, Inc.](http://soliddesign.net)
+This software was developed for the [Equipment & Tool Institute](http://etools.org) by [Solid Design, Inc.](http://soliddesign.net)
 
 ## License
 
