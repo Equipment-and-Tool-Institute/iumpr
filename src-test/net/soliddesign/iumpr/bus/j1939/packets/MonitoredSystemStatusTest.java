@@ -21,7 +21,7 @@ public class MonitoredSystemStatusTest {
     public void testToString() {
         assertEquals("    complete", Status.COMPLETE.toString());
         assertEquals("not complete", Status.NOT_COMPLETE.toString());
-        assertEquals("disabled/not supported", Status.NOT_SUPPORTED.toString());
+        assertEquals("not enabled", Status.NOT_SUPPORTED.toString());
     }
 
     @Test

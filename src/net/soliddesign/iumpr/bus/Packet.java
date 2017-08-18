@@ -29,7 +29,7 @@ public class Packet {
      * @return Packet
      */
     public static Packet create(int id, int source, byte... bytes) {
-        return createPriority(6, id, source, bytes);
+        return createPriority(6, id, source, false, bytes);
     }
 
     /**
@@ -44,7 +44,7 @@ public class Packet {
      * @return Packet
      */
     public static Packet create(int id, int source, int... data) {
-        return new Packet(6, id, source, data);
+        return new Packet(6, id, source, false, data);
     }
 
     /**
@@ -56,16 +56,18 @@ public class Packet {
      *            the ID of the packet
      * @param source
      *            the source address of the packet
+     * @param transmitted
+     *            indicates the packet was sent by the application
      * @param bytes
      *            the data bytes of the packet
      * @return Packet
      */
-    public static Packet createPriority(int priority, int id, int source, byte... bytes) {
+    public static Packet createPriority(int priority, int id, int source, boolean transmitted, byte... bytes) {
         int[] data = new int[bytes.length];
         for (int i = 0; i < bytes.length; i++) {
             data[i] = bytes[i];
         }
-        return new Packet(priority, id, source, data);
+        return new Packet(priority, id, source, transmitted, data);
     }
 
     /**
@@ -77,18 +79,22 @@ public class Packet {
      */
     public static Packet parse(String string) {
         try {
+            boolean tx = string.contains(" (TX)");
+            if (tx) {
+                string = string.replace(" (TX)", "");
+            }
             String[] parts = string.split(" ");
             int header = Integer.parseInt(parts[0].trim(), 16);
             int priority = (header & 0xFF000000) >> 26;
             int id = (header & 0xFFFF00) >> 8;
             int source = header & 0xFF;
 
-            byte bytes[] = new byte[parts.length - 1];
+            byte[] bytes = new byte[parts.length - 1];
             for (int i = 1; i < parts.length; i++) {
                 bytes[i - 1] = (byte) (Integer.parseInt(parts[i].trim(), 16) & 0xFF);
             }
 
-            return Packet.createPriority(priority, id, source, bytes);
+            return Packet.createPriority(priority, id, source, tx, bytes);
         } catch (Exception e) {
             IUMPR.getLogger().log(Level.SEVERE, string + " could not be parsed into a Packet", e);
         }
@@ -103,6 +109,8 @@ public class Packet {
 
     private final int source;
 
+    private final boolean transmitted;
+
     /**
      * Creates a Packet
      *
@@ -112,13 +120,16 @@ public class Packet {
      *            the ID of the packet
      * @param source
      *            the source address of the packet
+     * @param transmitted
+     *            indicates the packet was sent by the application
      * @param data
      *            the data of the packet
      */
-    private Packet(int priority, int id, int source, int... data) {
+    private Packet(int priority, int id, int source, boolean transmitted, int... data) {
         this.priority = priority;
         this.id = id;
         this.source = source;
+        this.transmitted = transmitted;
         this.data = new int[data.length];
         for (int i = 0; i < data.length; i++) {
             this.data[i] = (0xFF & data[i]);
@@ -135,7 +146,7 @@ public class Packet {
         }
 
         Packet that = (Packet) obj;
-        return id == that.id && priority == that.priority && source == that.source
+        return id == that.id && priority == that.priority && source == that.source && transmitted == that.transmitted
                 && Objects.deepEquals(data, that.data);
     }
 
@@ -285,12 +296,22 @@ public class Packet {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, priority, source, Arrays.hashCode(data));
+        return Objects.hash(id, priority, source, transmitted, Arrays.hashCode(data));
+    }
+
+    /**
+     * Returns true if this packet was transmitted by the application
+     *
+     * @return boolean
+     */
+    public boolean isTransmitted() {
+        return transmitted;
     }
 
     @Override
     public String toString() {
         return String.format("%06X%02X %s", priority << 18 | id, source,
-                Arrays.stream(data).mapToObj(x -> String.format("%02X", x)).collect(Collectors.joining(" ")));
+                Arrays.stream(data).mapToObj(x -> String.format("%02X", x)).collect(Collectors.joining(" "))
+                        + (isTransmitted() ? " (TX)" : ""));
     }
 }

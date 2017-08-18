@@ -47,6 +47,11 @@ public class EchoBus implements Bus {
     }
 
     @Override
+    public int getConnectionSpeed() throws BusException {
+        throw new BusException("Could not be determined");
+    }
+
+    @Override
     public Stream<Packet> read(long timeout, TimeUnit unit) {
         return queue.stream(timeout, unit);
     }

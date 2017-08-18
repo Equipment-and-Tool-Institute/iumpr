@@ -39,7 +39,7 @@ public class DM20MonitorPerformanceRatioPacketTest {
 
         String expected = "";
         expected += "DM20 from Engine #1 (0):  [" + NL;
-        expected += "                                               NUM'OR / DEM'OR" + NL;
+        expected += "                                                Num'r /  Den'r" + NL;
         expected += "Ignition Cycles                                         42,405" + NL;
         expected += "OBD Monitoring Conditions Encountered                   23,130" + NL;
         expected += "SPN 524287 Manufacturer Assignable SPN 524287  65,279 / 65,535" + NL;
@@ -91,7 +91,7 @@ public class DM20MonitorPerformanceRatioPacketTest {
 
         String expected = "";
         expected += "DM20 from Engine #1 (0):  [" + NL;
-        expected += "                                                                 NUM'OR / DEM'OR" + NL;
+        expected += "                                                                  Num'r /  Den'r" + NL;
         expected += "Ignition Cycles                                                               12" + NL;
         expected += "OBD Monitoring Conditions Encountered                                          1" + NL;
         expected += "SPN 5322 Aftertreatment NMHC Converting Catalyst System Monitor       0 /      1" + NL;

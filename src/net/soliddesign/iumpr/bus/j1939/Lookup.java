@@ -35,10 +35,25 @@ public class Lookup {
     private static Map<Integer, String> fmis = loadMap("fmis.csv");
 
     /**
+     * The Map that holds the values for the Manufacturers
+     */
+    private static Map<Integer, String> manufacturers = loadMap("manufacturers.csv");
+
+    /**
      * The Map that holds the values for the Suspect Parameter Numbers
      */
     private static Map<Integer, String> spns = loadMap("spns.csv");
 
+    /**
+     * Helper method to find a value in the given map
+     *
+     * @param map
+     *            the map that contains the values
+     * @param key
+     *            the key to find in the map
+     * @return the value from the map or "Unknown" if the key does not have a
+     *         value in the map
+     */
     private static String find(Map<Integer, String> map, int key) {
         final String name = map.get(key);
         return name != null ? name : "Unknown";
@@ -65,6 +80,19 @@ public class Lookup {
      */
     public static String getFmiDescription(int fmi) {
         return find(fmis, fmi);
+    }
+
+    /**
+     * Translates the given manufacturerId into a manufacturer name as defined
+     * by SAE
+     *
+     * @param manufacturerId
+     *            the ID of the manufacturer
+     * @return the manufacturer as defined by SAE or "Unknown" if it's not
+     *         defined
+     */
+    public static String getManufacturer(int manufacturerId) {
+        return find(manufacturers, manufacturerId);
     }
 
     /**

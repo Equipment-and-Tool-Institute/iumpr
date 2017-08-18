@@ -23,7 +23,7 @@ public class SupportedSPNTest {
         assertEquals(false, instance.supportsDataStream());
         assertEquals(true, instance.supportsExpandedFreezeFrame());
         assertEquals(false, instance.supportsScaledTestResults());
-        String expected = "SPN 524030 - Manufacturer Assignable SPN 524030: Supports Expanded Freeze Frame with data length error";
+        String expected = "SPN 524030 - Manufacturer Assignable SPN 524030";
         assertEquals(expected, instance.toString());
     }
 
@@ -35,7 +35,7 @@ public class SupportedSPNTest {
         assertEquals(false, instance.supportsDataStream());
         assertEquals(false, instance.supportsExpandedFreezeFrame());
         assertEquals(false, instance.supportsScaledTestResults());
-        String expected = "SPN 524287 - Manufacturer Assignable SPN 524287: with data length 250 bytes";
+        String expected = "SPN 524287 - Manufacturer Assignable SPN 524287";
         assertEquals(expected, instance.toString());
     }
 
@@ -47,7 +47,7 @@ public class SupportedSPNTest {
         assertEquals(true, instance.supportsDataStream());
         assertEquals(true, instance.supportsExpandedFreezeFrame());
         assertEquals(true, instance.supportsScaledTestResults());
-        String expected = "SPN 0 - Unknown: Supports Data Stream, Expanded Freeze Frame, Scaled Test Results with data length 0 bytes";
+        String expected = "SPN 0 - Unknown";
         assertEquals(expected, instance.toString());
     }
 
@@ -59,7 +59,7 @@ public class SupportedSPNTest {
         assertEquals(false, instance.supportsDataStream());
         assertEquals(false, instance.supportsExpandedFreezeFrame());
         assertEquals(false, instance.supportsScaledTestResults());
-        String expected = "SPN 524287 - Manufacturer Assignable SPN 524287: with data length not available";
+        String expected = "SPN 524287 - Manufacturer Assignable SPN 524287";
         assertEquals(expected, instance.toString());
     }
 
@@ -78,7 +78,7 @@ public class SupportedSPNTest {
         assertEquals(true, instance.supportsDataStream());
         assertEquals(false, instance.supportsExpandedFreezeFrame());
         assertEquals(false, instance.supportsScaledTestResults());
-        String expected = "SPN 513 - Actual Engine - Percent Torque: Supports Data Stream with data length 8 bytes";
+        String expected = "SPN 513 - Actual Engine - Percent Torque";
         assertEquals(expected, instance.toString());
     }
 
@@ -90,7 +90,7 @@ public class SupportedSPNTest {
         assertEquals(false, instance.supportsDataStream());
         assertEquals(true, instance.supportsExpandedFreezeFrame());
         assertEquals(false, instance.supportsScaledTestResults());
-        String expected = "SPN 1027 - Trip Time in Derate by Engine: Supports Expanded Freeze Frame with data length 1 bytes";
+        String expected = "SPN 1027 - Trip Time in Derate by Engine";
         assertEquals(expected, instance.toString());
     }
 
@@ -102,7 +102,7 @@ public class SupportedSPNTest {
         assertEquals(false, instance.supportsDataStream());
         assertEquals(false, instance.supportsExpandedFreezeFrame());
         assertEquals(true, instance.supportsScaledTestResults());
-        String expected = "SPN 1541 - Reel Speed: Supports Scaled Test Results with data length 16 bytes";
+        String expected = "SPN 1541 - Reel Speed";
         assertEquals(expected, instance.toString());
     }
 

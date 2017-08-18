@@ -36,7 +36,7 @@ public class FunctionalModuleTest {
 
     @Test
     public void testGetTime() {
-        assertEquals("2007-12-03T10:15:30.000", instance.getTime());
+        assertEquals("2007-12-03T10:15:30.000", instance.getDateTime());
     }
 
     @Test

@@ -82,7 +82,7 @@ public class PerformanceRatio {
      */
     public String getName() {
         if (name == null) {
-            name = "SPN " + getSpn() + " " + Lookup.getSpnName(getSpn());
+            name = "SPN " + String.format("%1$4s", getSpn()) + " " + Lookup.getSpnName(getSpn());
         }
         return name;
     }
@@ -106,6 +106,15 @@ public class PerformanceRatio {
             source = Lookup.getAddressName(sourceAddress);
         }
         return source;
+    }
+
+    /**
+     * Returns the decimal source address for the module that sent this ratio
+     *
+     * @return int
+     */
+    public int getSourceAddress() {
+        return sourceAddress;
     }
 
     /**

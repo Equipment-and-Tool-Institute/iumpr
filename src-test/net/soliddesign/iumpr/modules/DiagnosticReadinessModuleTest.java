@@ -7,6 +7,7 @@ import static net.soliddesign.iumpr.IUMPR.NL;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
@@ -110,10 +111,10 @@ public class DiagnosticReadinessModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global DM20 Request" + NL;
-        expected += "2007-12-03T10:15:30.000 18EAFFA5 00 C2 00 (TX)" + NL;
-        expected += "2007-12-03T10:15:30.000 18C20000 11 22 33 44 55 66 77 88" + NL;
-        expected += "2007-12-03T10:15:30.000 18C20017 01 02 03 04 05 06 07 08" + NL;
-        expected += "2007-12-03T10:15:30.000 18C20021 10 20 30 40 50 60 70 80" + NL;
+        expected += "10:15:30.000 18EAFFA5 00 C2 00 (TX)" + NL;
+        expected += "10:15:30.000 18C20000 11 22 33 44 55 66 77 88" + NL;
+        expected += "10:15:30.000 18C20017 01 02 03 04 05 06 07 08" + NL;
+        expected += "10:15:30.000 18C20021 10 20 30 40 50 60 70 80" + NL;
 
         instance.getDM20Packets(listener, false);
         assertEquals(expected, listener.getResults());
@@ -123,23 +124,50 @@ public class DiagnosticReadinessModuleTest {
     }
 
     @Test
+    public void testGetDM20PacketsNoEngineResponse() {
+        final int pgn = DM20MonitorPerformanceRatioPacket.PGN;
+
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
+
+        DM20MonitorPerformanceRatioPacket packet1 = new DM20MonitorPerformanceRatioPacket(
+                Packet.create(pgn, 0x17, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08));
+        DM20MonitorPerformanceRatioPacket packet2 = new DM20MonitorPerformanceRatioPacket(
+                Packet.create(pgn, 0x21, 0x10, 0x20, 0x30, 0x40, 0x50, 0x60, 0x70, 0x80));
+        when(j1939.requestMultiple(DM20MonitorPerformanceRatioPacket.class, requestPacket))
+                .thenReturn(Stream.of(packet1, packet2)).thenReturn(Stream.of(packet1, packet2))
+                .thenReturn(Stream.of(packet1, packet2));
+
+        String expected = "";
+        expected += "2007-12-03T10:15:30.000 Global DM20 Request" + NL;
+        expected += "10:15:30.000 18EAFFA5 00 C2 00 (TX)" + NL;
+        expected += "Error: Timeout - No Response." + NL;
+        instance.getDM20Packets(listener, false);
+        assertEquals(expected, listener.getResults());
+
+        verify(j1939).createRequestPacket(pgn, 0xFF);
+        verify(j1939, times(3)).requestMultiple(DM20MonitorPerformanceRatioPacket.class, requestPacket);
+    }
+
+    @Test
     public void testGetDM20PacketsNoResponse() {
         final int pgn = DM20MonitorPerformanceRatioPacket.PGN;
 
         Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
-        when(j1939.requestMultiple(DM20MonitorPerformanceRatioPacket.class, requestPacket)).thenReturn(Stream.empty());
+        when(j1939.requestMultiple(DM20MonitorPerformanceRatioPacket.class, requestPacket)).thenReturn(Stream.empty())
+                .thenReturn(Stream.empty()).thenReturn(Stream.empty());
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global DM20 Request" + NL;
-        expected += "2007-12-03T10:15:30.000 18EAFFA5 00 C2 00 (TX)" + NL;
+        expected += "10:15:30.000 18EAFFA5 00 C2 00 (TX)" + NL;
         expected += "Error: Timeout - No Response." + NL;
         instance.getDM20Packets(listener, true);
         assertEquals(expected, listener.getResults());
 
         verify(j1939).createRequestPacket(pgn, 0xFF);
-        verify(j1939).requestMultiple(DM20MonitorPerformanceRatioPacket.class, requestPacket);
+        verify(j1939, times(3)).requestMultiple(DM20MonitorPerformanceRatioPacket.class, requestPacket);
     }
 
     @Test
@@ -160,22 +188,22 @@ public class DiagnosticReadinessModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global DM20 Request" + NL;
-        expected += "2007-12-03T10:15:30.000 18EAFFA5 00 C2 00 (TX)" + NL;
-        expected += "2007-12-03T10:15:30.000 18C20000 11 22 33 44 55 66 77 88" + NL;
+        expected += "10:15:30.000 18EAFFA5 00 C2 00 (TX)" + NL;
+        expected += "10:15:30.000 18C20000 11 22 33 44 55 66 77 88" + NL;
         expected += "DM20 from Engine #1 (0):  [" + NL;
-        expected += "                                                    NUM'OR / DEM'OR" + NL;
+        expected += "                                                     Num'r /  Den'r" + NL;
         expected += "Ignition Cycles                                               8,721" + NL;
         expected += "OBD Monitoring Conditions Encountered                        17,459" + NL;
         expected += "]" + NL;
-        expected += "2007-12-03T10:15:30.000 18C20017 01 02 03 04 05 06 07 08" + NL;
+        expected += "10:15:30.000 18C20017 01 02 03 04 05 06 07 08" + NL;
         expected += "DM20 from Instrument Cluster #1 (23):  [" + NL;
-        expected += "                                                    NUM'OR / DEM'OR" + NL;
+        expected += "                                                     Num'r /  Den'r" + NL;
         expected += "Ignition Cycles                                                 513" + NL;
         expected += "OBD Monitoring Conditions Encountered                         1,027" + NL;
         expected += "]" + NL;
-        expected += "2007-12-03T10:15:30.000 18C20021 10 20 30 40 50 60 70 80" + NL;
+        expected += "10:15:30.000 18C20021 10 20 30 40 50 60 70 80" + NL;
         expected += "DM20 from Body Controller (33):  [" + NL;
-        expected += "                                                    NUM'OR / DEM'OR" + NL;
+        expected += "                                                     Num'r /  Den'r" + NL;
         expected += "Ignition Cycles                                               8,208" + NL;
         expected += "OBD Monitoring Conditions Encountered                        16,432" + NL;
         expected += "]" + NL;
@@ -228,10 +256,10 @@ public class DiagnosticReadinessModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global DM21 Request" + NL;
-        expected += "2007-12-03T10:15:30.000 18EAFFA5 00 C1 00 (TX)" + NL;
-        expected += "2007-12-03T10:15:30.000 18C10000 11 22 33 44 55 66 77 88" + NL;
-        expected += "2007-12-03T10:15:30.000 18C10017 01 02 03 04 05 06 07 08" + NL;
-        expected += "2007-12-03T10:15:30.000 18C10021 10 20 30 40 50 60 70 80" + NL;
+        expected += "10:15:30.000 18EAFFA5 00 C1 00 (TX)" + NL;
+        expected += "10:15:30.000 18C10000 11 22 33 44 55 66 77 88" + NL;
+        expected += "10:15:30.000 18C10017 01 02 03 04 05 06 07 08" + NL;
+        expected += "10:15:30.000 18C10021 10 20 30 40 50 60 70 80" + NL;
 
         instance.getDM21Packets(listener, false);
         assertEquals(expected, listener.getResults());
@@ -241,23 +269,51 @@ public class DiagnosticReadinessModuleTest {
     }
 
     @Test
+    public void testGetDM21PacketsNoEngineResponse() {
+        final int pgn = DM21DiagnosticReadinessPacket.PGN;
+
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
+
+        DM21DiagnosticReadinessPacket packet1 = new DM21DiagnosticReadinessPacket(
+                Packet.create(pgn, 0x17, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08));
+        DM21DiagnosticReadinessPacket packet2 = new DM21DiagnosticReadinessPacket(
+                Packet.create(pgn, 0x21, 0x10, 0x20, 0x30, 0x40, 0x50, 0x60, 0x70, 0x80));
+        when(j1939.requestMultiple(DM21DiagnosticReadinessPacket.class, requestPacket))
+                .thenReturn(Stream.of(packet1, packet2)).thenReturn(Stream.of(packet1, packet2))
+                .thenReturn(Stream.of(packet1, packet2));
+
+        String expected = "";
+        expected += "2007-12-03T10:15:30.000 Global DM21 Request" + NL;
+        expected += "10:15:30.000 18EAFFA5 00 C1 00 (TX)" + NL;
+        expected += "Error: Timeout - No Response." + NL;
+
+        instance.getDM21Packets(listener, false);
+        assertEquals(expected, listener.getResults());
+
+        verify(j1939).createRequestPacket(pgn, 0xFF);
+        verify(j1939, times(3)).requestMultiple(DM21DiagnosticReadinessPacket.class, requestPacket);
+    }
+
+    @Test
     public void testGetDM21PacketsNoResponse() {
         final int pgn = DM21DiagnosticReadinessPacket.PGN;
 
         Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
-        when(j1939.requestMultiple(DM21DiagnosticReadinessPacket.class, requestPacket)).thenReturn(Stream.empty());
+        when(j1939.requestMultiple(DM21DiagnosticReadinessPacket.class, requestPacket)).thenReturn(Stream.empty())
+                .thenReturn(Stream.empty()).thenReturn(Stream.empty());
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global DM21 Request" + NL;
-        expected += "2007-12-03T10:15:30.000 18EAFFA5 00 C1 00 (TX)" + NL;
+        expected += "10:15:30.000 18EAFFA5 00 C1 00 (TX)" + NL;
         expected += "Error: Timeout - No Response." + NL;
         instance.getDM21Packets(listener, true);
         assertEquals(expected, listener.getResults());
 
         verify(j1939).createRequestPacket(pgn, 0xFF);
-        verify(j1939).requestMultiple(DM21DiagnosticReadinessPacket.class, requestPacket);
+        verify(j1939, times(3)).requestMultiple(DM21DiagnosticReadinessPacket.class, requestPacket);
     }
 
     @Test
@@ -278,22 +334,22 @@ public class DiagnosticReadinessModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global DM21 Request" + NL;
-        expected += "2007-12-03T10:15:30.000 18EAFFA5 00 C1 00 (TX)" + NL;
-        expected += "2007-12-03T10:15:30.000 18C10000 11 22 33 44 55 66 77 88" + NL;
+        expected += "10:15:30.000 18EAFFA5 00 C1 00 (TX)" + NL;
+        expected += "10:15:30.000 18C10000 11 22 33 44 55 66 77 88" + NL;
         expected += "DM21 from Engine #1 (0): [" + NL;
         expected += "  Distance Traveled While MIL is Activated:     8,721 km (5,418.978 mi)" + NL;
         expected += "  Time Run by Engine While MIL is Activated:    26,197 minutes" + NL;
         expected += "  Distance Since DTCs Cleared:                  17,459 km (10,848.52 mi)" + NL;
         expected += "  Time Since DTCs Cleared:                      34,935 minutes" + NL;
         expected += "]" + NL;
-        expected += "2007-12-03T10:15:30.000 18C10017 01 02 03 04 05 06 07 08" + NL;
+        expected += "10:15:30.000 18C10017 01 02 03 04 05 06 07 08" + NL;
         expected += "DM21 from Instrument Cluster #1 (23): [" + NL;
         expected += "  Distance Traveled While MIL is Activated:     513 km (318.763 mi)" + NL;
         expected += "  Time Run by Engine While MIL is Activated:    1,541 minutes" + NL;
         expected += "  Distance Since DTCs Cleared:                  1,027 km (638.148 mi)" + NL;
         expected += "  Time Since DTCs Cleared:                      2,055 minutes" + NL;
         expected += "]" + NL;
-        expected += "2007-12-03T10:15:30.000 18C10021 10 20 30 40 50 60 70 80" + NL;
+        expected += "10:15:30.000 18C10021 10 20 30 40 50 60 70 80" + NL;
         expected += "DM21 from Body Controller (33): [" + NL;
         expected += "  Distance Traveled While MIL is Activated:     8,208 km (5,100.215 mi)" + NL;
         expected += "  Time Run by Engine While MIL is Activated:    24,656 minutes" + NL;
@@ -349,10 +405,10 @@ public class DiagnosticReadinessModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global DM26 Request" + NL;
-        expected += "2007-12-03T10:15:30.000 18EAFFA5 B8 FD 00 (TX)" + NL;
-        expected += "2007-12-03T10:15:30.000 18FDB800 11 22 33 44 55 66 77 88" + NL;
-        expected += "2007-12-03T10:15:30.000 18FDB817 01 02 03 04 05 06 07 08" + NL;
-        expected += "2007-12-03T10:15:30.000 18FDB821 10 20 30 40 50 60 70 80" + NL;
+        expected += "10:15:30.000 18EAFFA5 B8 FD 00 (TX)" + NL;
+        expected += "10:15:30.000 18FDB800 11 22 33 44 55 66 77 88" + NL;
+        expected += "10:15:30.000 18FDB817 01 02 03 04 05 06 07 08" + NL;
+        expected += "10:15:30.000 18FDB821 10 20 30 40 50 60 70 80" + NL;
         instance.getDM26Packets(listener, false);
         assertEquals(expected, listener.getResults());
 
@@ -361,23 +417,50 @@ public class DiagnosticReadinessModuleTest {
     }
 
     @Test
-    public void testGetDM26PacketsNoResponse() {
+    public void testGetDM26PacketsNoEngineResponse() {
         final int pgn = DM26TripDiagnosticReadinessPacket.PGN;
 
         Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
-        when(j1939.requestMultiple(DM26TripDiagnosticReadinessPacket.class, requestPacket)).thenReturn(Stream.empty());
+        DM26TripDiagnosticReadinessPacket packet1 = new DM26TripDiagnosticReadinessPacket(
+                Packet.create(pgn, 0x17, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08));
+        DM26TripDiagnosticReadinessPacket packet2 = new DM26TripDiagnosticReadinessPacket(
+                Packet.create(pgn, 0x21, 0x10, 0x20, 0x30, 0x40, 0x50, 0x60, 0x70, 0x80));
+        when(j1939.requestMultiple(DM26TripDiagnosticReadinessPacket.class, requestPacket))
+                .thenReturn(Stream.of(packet1, packet2)).thenReturn(Stream.of(packet1, packet2))
+                .thenReturn(Stream.of(packet1, packet2));
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global DM26 Request" + NL;
-        expected += "2007-12-03T10:15:30.000 18EAFFA5 B8 FD 00 (TX)" + NL;
+        expected += "10:15:30.000 18EAFFA5 B8 FD 00 (TX)" + NL;
+        expected += "Error: Timeout - No Response." + NL;
+
+        instance.getDM26Packets(listener, false);
+        assertEquals(expected, listener.getResults());
+
+        verify(j1939).createRequestPacket(pgn, 0xFF);
+        verify(j1939, times(3)).requestMultiple(DM26TripDiagnosticReadinessPacket.class, requestPacket);
+    }
+
+    @Test
+    public void testGetDM26PacketsNoResponse() {
+        final int pgn = DM26TripDiagnosticReadinessPacket.PGN;
+
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
+        when(j1939.requestMultiple(DM26TripDiagnosticReadinessPacket.class, requestPacket)).thenReturn(Stream.empty())
+                .thenReturn(Stream.empty()).thenReturn(Stream.empty());
+
+        String expected = "";
+        expected += "2007-12-03T10:15:30.000 Global DM26 Request" + NL;
+        expected += "10:15:30.000 18EAFFA5 B8 FD 00 (TX)" + NL;
         expected += "Error: Timeout - No Response." + NL;
         instance.getDM26Packets(listener, true);
         assertEquals(expected, listener.getResults());
 
         verify(j1939).createRequestPacket(pgn, 0xFF);
-        verify(j1939).requestMultiple(DM26TripDiagnosticReadinessPacket.class, requestPacket);
+        verify(j1939, times(3)).requestMultiple(DM26TripDiagnosticReadinessPacket.class, requestPacket);
     }
 
     @Test
@@ -398,14 +481,14 @@ public class DiagnosticReadinessModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global DM26 Request" + NL;
-        expected += "2007-12-03T10:15:30.000 18EAFFA5 B8 FD 00 (TX)" + NL;
-        expected += "2007-12-03T10:15:30.000 18FDB800 11 22 33 44 55 66 77 88" + NL;
+        expected += "10:15:30.000 18EAFFA5 B8 FD 00 (TX)" + NL;
+        expected += "10:15:30.000 18FDB800 11 22 33 44 55 66 77 88" + NL;
         expected += "DM26 from Engine #1 (0): Warm-ups: 51, Time Since Engine Start: 8,721 seconds"
                 + NL;
-        expected += "2007-12-03T10:15:30.000 18FDB817 01 02 03 04 05 06 07 08" + NL;
+        expected += "10:15:30.000 18FDB817 01 02 03 04 05 06 07 08" + NL;
         expected += "DM26 from Instrument Cluster #1 (23): Warm-ups: 3, Time Since Engine Start: 513 seconds"
                 + NL;
-        expected += "2007-12-03T10:15:30.000 18FDB821 10 20 30 40 50 60 70 80" + NL;
+        expected += "10:15:30.000 18FDB821 10 20 30 40 50 60 70 80" + NL;
         expected += "DM26 from Body Controller (33): Warm-ups: 48, Time Since Engine Start: 8,208 seconds"
                 + NL;
 
@@ -457,10 +540,10 @@ public class DiagnosticReadinessModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global DM5 Request" + NL;
-        expected += "2007-12-03T10:15:30.000 18EAFFA5 CE FE 00 (TX)" + NL;
-        expected += "2007-12-03T10:15:30.000 18FECE00 11 22 33 44 55 66 77 88" + NL;
-        expected += "2007-12-03T10:15:30.000 18FECE17 01 02 03 04 05 06 07 08" + NL;
-        expected += "2007-12-03T10:15:30.000 18FECE21 10 20 30 40 50 60 70 80" + NL;
+        expected += "10:15:30.000 18EAFFA5 CE FE 00 (TX)" + NL;
+        expected += "10:15:30.000 18FECE00 11 22 33 44 55 66 77 88" + NL;
+        expected += "10:15:30.000 18FECE17 01 02 03 04 05 06 07 08" + NL;
+        expected += "10:15:30.000 18FECE21 10 20 30 40 50 60 70 80" + NL;
 
         instance.getDM5Packets(listener, false);
         assertEquals(expected, listener.getResults());
@@ -470,23 +553,51 @@ public class DiagnosticReadinessModuleTest {
     }
 
     @Test
+    public void testGetDM5PacketsNoEngineResponse() {
+        final int pgn = DM5DiagnosticReadinessPacket.PGN;
+
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
+
+        DM5DiagnosticReadinessPacket packet1 = new DM5DiagnosticReadinessPacket(
+                Packet.create(pgn, 0x17, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08));
+        DM5DiagnosticReadinessPacket packet2 = new DM5DiagnosticReadinessPacket(
+                Packet.create(pgn, 0x21, 0x10, 0x20, 0x30, 0x40, 0x50, 0x60, 0x70, 0x80));
+        when(j1939.requestMultiple(DM5DiagnosticReadinessPacket.class, requestPacket))
+                .thenReturn(Stream.of(packet1, packet2)).thenReturn(Stream.of(packet1, packet2))
+                .thenReturn(Stream.of(packet1, packet2));
+
+        String expected = "";
+        expected += "2007-12-03T10:15:30.000 Global DM5 Request" + NL;
+        expected += "10:15:30.000 18EAFFA5 CE FE 00 (TX)" + NL;
+        expected += "Error: Timeout - No Response." + NL;
+
+        instance.getDM5Packets(listener, false);
+        assertEquals(expected, listener.getResults());
+
+        verify(j1939).createRequestPacket(pgn, 0xFF);
+        verify(j1939, times(3)).requestMultiple(DM5DiagnosticReadinessPacket.class, requestPacket);
+    }
+
+    @Test
     public void testGetDM5PacketsNoResponse() {
         final int pgn = DM5DiagnosticReadinessPacket.PGN;
 
         Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
-        when(j1939.requestMultiple(DM5DiagnosticReadinessPacket.class, requestPacket)).thenReturn(Stream.empty());
+        when(j1939.requestMultiple(DM5DiagnosticReadinessPacket.class, requestPacket)).thenReturn(Stream.empty())
+                .thenReturn(Stream.empty()).thenReturn(Stream.empty());
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global DM5 Request" + NL;
-        expected += "2007-12-03T10:15:30.000 18EAFFA5 CE FE 00 (TX)" + NL;
+        expected += "10:15:30.000 18EAFFA5 CE FE 00 (TX)" + NL;
         expected += "Error: Timeout - No Response." + NL;
         instance.getDM5Packets(listener, true);
         assertEquals(expected, listener.getResults());
 
         verify(j1939).createRequestPacket(pgn, 0xFF);
-        verify(j1939).requestMultiple(DM5DiagnosticReadinessPacket.class, requestPacket);
+        verify(j1939, times(3)).requestMultiple(DM5DiagnosticReadinessPacket.class, requestPacket);
     }
 
     @Test
@@ -507,14 +618,14 @@ public class DiagnosticReadinessModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global DM5 Request" + NL;
-        expected += "2007-12-03T10:15:30.000 18EAFFA5 CE FE 00 (TX)" + NL;
-        expected += "2007-12-03T10:15:30.000 18FECE00 11 22 33 44 55 66 77 88" + NL;
+        expected += "10:15:30.000 18EAFFA5 CE FE 00 (TX)" + NL;
+        expected += "10:15:30.000 18FECE00 11 22 33 44 55 66 77 88" + NL;
         expected += "DM5 from Engine #1 (0): OBD Compliance: Reserved for SAE/Unknown (51), Active Codes: 17, Previously Active Codes: 34"
                 + NL;
-        expected += "2007-12-03T10:15:30.000 18FECE17 01 02 03 04 05 06 07 08" + NL;
+        expected += "10:15:30.000 18FECE17 01 02 03 04 05 06 07 08" + NL;
         expected += "DM5 from Instrument Cluster #1 (23): OBD Compliance: OBD and OBD II (3), Active Codes: 1, Previously Active Codes: 2"
                 + NL;
-        expected += "2007-12-03T10:15:30.000 18FECE21 10 20 30 40 50 60 70 80" + NL;
+        expected += "10:15:30.000 18FECE21 10 20 30 40 50 60 70 80" + NL;
         expected += "DM5 from Body Controller (33): OBD Compliance: Reserved for SAE/Unknown (48), Active Codes: 16, Previously Active Codes: 32"
                 + NL;
 
@@ -626,12 +737,12 @@ public class DiagnosticReadinessModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global DM5 Request" + NL;
-        expected += "2007-12-03T10:15:30.000 18EAFFA5 CE FE 00 (TX)" + NL;
-        expected += "2007-12-03T10:15:30.000 18FECE00 11 22 14 44 55 66 77 88" + NL;
-        expected += "2007-12-03T10:15:30.000 18FECE00 11 22 14 44 55 66 77 88" + NL;
-        expected += "2007-12-03T10:15:30.000 18FECE17 01 02 03 04 05 06 07 08" + NL;
-        expected += "2007-12-03T10:15:30.000 18FECE17 01 02 03 04 05 06 07 08" + NL;
-        expected += "2007-12-03T10:15:30.000 18FECE21 10 20 13 40 50 60 70 80" + NL;
+        expected += "10:15:30.000 18EAFFA5 CE FE 00 (TX)" + NL;
+        expected += "10:15:30.000 18FECE00 11 22 14 44 55 66 77 88" + NL;
+        expected += "10:15:30.000 18FECE00 11 22 14 44 55 66 77 88" + NL;
+        expected += "10:15:30.000 18FECE17 01 02 03 04 05 06 07 08" + NL;
+        expected += "10:15:30.000 18FECE17 01 02 03 04 05 06 07 08" + NL;
+        expected += "10:15:30.000 18FECE21 10 20 13 40 50 60 70 80" + NL;
         expected += "Engine #1 (0) reported as an HD-OBD Module." + NL;
         expected += "Body Controller (33) reported as an HD-OBD Module." + NL;
 
@@ -732,22 +843,22 @@ public class DiagnosticReadinessModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global DM20 Request" + NL;
-        expected += "2007-12-03T10:15:30.000 18EAFFA5 00 C2 00 (TX)" + NL;
-        expected += "2007-12-03T10:15:30.000 18C20000 11 22 33 44 55 66 77 88" + NL;
+        expected += "10:15:30.000 18EAFFA5 00 C2 00 (TX)" + NL;
+        expected += "10:15:30.000 18C20000 11 22 33 44 55 66 77 88" + NL;
         expected += "DM20 from Engine #1 (0):  [" + NL;
-        expected += "                                                    NUM'OR / DEM'OR" + NL;
+        expected += "                                                     Num'r /  Den'r" + NL;
         expected += "Ignition Cycles                                               8,721" + NL;
         expected += "OBD Monitoring Conditions Encountered                        17,459" + NL;
         expected += "]" + NL;
-        expected += "2007-12-03T10:15:30.000 18C20017 01 02 03 04 05 06 07 08" + NL;
+        expected += "10:15:30.000 18C20017 01 02 03 04 05 06 07 08" + NL;
         expected += "DM20 from Instrument Cluster #1 (23):  [" + NL;
-        expected += "                                                    NUM'OR / DEM'OR" + NL;
+        expected += "                                                     Num'r /  Den'r" + NL;
         expected += "Ignition Cycles                                                 513" + NL;
         expected += "OBD Monitoring Conditions Encountered                         1,027" + NL;
         expected += "]" + NL;
-        expected += "2007-12-03T10:15:30.000 18C20021 10 20 30 40 50 60 70 80" + NL;
+        expected += "10:15:30.000 18C20021 10 20 30 40 50 60 70 80" + NL;
         expected += "DM20 from Body Controller (33):  [" + NL;
-        expected += "                                                    NUM'OR / DEM'OR" + NL;
+        expected += "                                                     Num'r /  Den'r" + NL;
         expected += "Ignition Cycles                                               8,208" + NL;
         expected += "OBD Monitoring Conditions Encountered                        16,432" + NL;
         expected += "]" + NL;
@@ -765,16 +876,18 @@ public class DiagnosticReadinessModuleTest {
 
         Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
+        when(j1939.requestMultiple(DM20MonitorPerformanceRatioPacket.class, requestPacket)).thenReturn(Stream.empty())
+                .thenReturn(Stream.empty()).thenReturn(Stream.empty());
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global DM20 Request" + NL;
-        expected += "2007-12-03T10:15:30.000 18EAFFA5 00 C2 00 (TX)" + NL;
+        expected += "10:15:30.000 18EAFFA5 00 C2 00 (TX)" + NL;
         expected += "Error: Timeout - No Response." + NL;
         assertEquals(false, instance.reportDM20(listener));
         assertEquals(expected, listener.getResults());
 
         verify(j1939).createRequestPacket(pgn, 0xFF);
-        verify(j1939).requestMultiple(DM20MonitorPerformanceRatioPacket.class, requestPacket);
+        verify(j1939, times(3)).requestMultiple(DM20MonitorPerformanceRatioPacket.class, requestPacket);
     }
 
     @Test
@@ -795,29 +908,29 @@ public class DiagnosticReadinessModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global DM21 Request" + NL;
-        expected += "2007-12-03T10:15:30.000 18EAFFA5 00 C1 00 (TX)" + NL;
-        expected += "2007-12-03T10:15:30.000 18C10000 11 22 33 44 55 66 77 88" + NL;
+        expected += "10:15:30.000 18EAFFA5 00 C1 00 (TX)" + NL;
+        expected += "10:15:30.000 18C10000 11 22 33 44 55 66 77 88" + NL;
         expected += "DM21 from Engine #1 (0): [" + NL;
         expected += "  Distance Traveled While MIL is Activated:     8,721 km (5,418.978 mi)" + NL;
         expected += "  Time Run by Engine While MIL is Activated:    26,197 minutes" + NL;
         expected += "  Distance Since DTCs Cleared:                  17,459 km (10,848.52 mi)" + NL;
         expected += "  Time Since DTCs Cleared:                      34,935 minutes" + NL;
         expected += "]" + NL;
-        expected += "2007-12-03T10:15:30.000 18C10017 01 02 03 04 05 06 77 88" + NL;
+        expected += "10:15:30.000 18C10017 01 02 03 04 05 06 77 88" + NL;
         expected += "DM21 from Instrument Cluster #1 (23): [" + NL;
         expected += "  Distance Traveled While MIL is Activated:     513 km (318.763 mi)" + NL;
         expected += "  Time Run by Engine While MIL is Activated:    1,541 minutes" + NL;
         expected += "  Distance Since DTCs Cleared:                  1,027 km (638.148 mi)" + NL;
         expected += "  Time Since DTCs Cleared:                      34,935 minutes" + NL;
         expected += "]" + NL;
-        expected += "2007-12-03T10:15:30.000 18C10021 10 20 30 40 50 60 77 88" + NL;
+        expected += "10:15:30.000 18C10021 10 20 30 40 50 60 77 88" + NL;
         expected += "DM21 from Body Controller (33): [" + NL;
         expected += "  Distance Traveled While MIL is Activated:     8,208 km (5,100.215 mi)" + NL;
         expected += "  Time Run by Engine While MIL is Activated:    24,656 minutes" + NL;
         expected += "  Distance Since DTCs Cleared:                  16,432 km (10,210.371 mi)" + NL;
         expected += "  Time Since DTCs Cleared:                      34,935 minutes" + NL;
         expected += "]" + NL;
-        expected += "2007-12-03T10:15:30.000 Time Since Code Cleared Gap of 0 minutes" + NL;
+        expected += "Time Since Code Cleared Gap of 0 minutes" + NL;
 
         instance.reportDM21(listener, 34935);
         assertEquals(expected, listener.getResults());
@@ -840,15 +953,15 @@ public class DiagnosticReadinessModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global DM21 Request" + NL;
-        expected += "2007-12-03T10:15:30.000 18EAFFA5 00 C1 00 (TX)" + NL;
-        expected += "2007-12-03T10:15:30.000 18C10000 11 22 33 44 55 66 77 88" + NL;
+        expected += "10:15:30.000 18EAFFA5 00 C1 00 (TX)" + NL;
+        expected += "10:15:30.000 18C10000 11 22 33 44 55 66 77 88" + NL;
         expected += "DM21 from Engine #1 (0): [" + NL;
         expected += "  Distance Traveled While MIL is Activated:     8,721 km (5,418.978 mi)" + NL;
         expected += "  Time Run by Engine While MIL is Activated:    26,197 minutes" + NL;
         expected += "  Distance Since DTCs Cleared:                  17,459 km (10,848.52 mi)" + NL;
         expected += "  Time Since DTCs Cleared:                      34,935 minutes" + NL;
         expected += "]" + NL;
-        expected += "2007-12-03T10:15:30.000 ERROR Excess Time Since Code Cleared Gap of 61 minutes" + NL;
+        expected += "ERROR Excess Time Since Code Cleared Gap of 61 minutes" + NL;
 
         instance.reportDM21(listener, 34874);
         assertEquals(expected, listener.getResults());
@@ -871,8 +984,8 @@ public class DiagnosticReadinessModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global DM21 Request" + NL;
-        expected += "2007-12-03T10:15:30.000 18EAFFA5 00 C1 00 (TX)" + NL;
-        expected += "2007-12-03T10:15:30.000 18C10000 11 22 33 44 55 66 77 88" + NL;
+        expected += "10:15:30.000 18EAFFA5 00 C1 00 (TX)" + NL;
+        expected += "10:15:30.000 18C10000 11 22 33 44 55 66 77 88" + NL;
         expected += "DM21 from Engine #1 (0): [" + NL;
         expected += "  Distance Traveled While MIL is Activated:     8,721 km (5,418.978 mi)" + NL;
         expected += "  Time Run by Engine While MIL is Activated:    26,197 minutes" + NL;
@@ -893,16 +1006,18 @@ public class DiagnosticReadinessModuleTest {
 
         Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
+        when(j1939.requestMultiple(DM21DiagnosticReadinessPacket.class, requestPacket)).thenReturn(Stream.empty())
+                .thenReturn(Stream.empty()).thenReturn(Stream.empty());
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global DM21 Request" + NL;
-        expected += "2007-12-03T10:15:30.000 18EAFFA5 00 C1 00 (TX)" + NL;
+        expected += "10:15:30.000 18EAFFA5 00 C1 00 (TX)" + NL;
         expected += "Error: Timeout - No Response." + NL;
         instance.reportDM21(listener, 0);
         assertEquals(expected, listener.getResults());
 
         verify(j1939).createRequestPacket(pgn, 0xFF);
-        verify(j1939).requestMultiple(DM21DiagnosticReadinessPacket.class, requestPacket);
+        verify(j1939, times(3)).requestMultiple(DM21DiagnosticReadinessPacket.class, requestPacket);
     }
 
     @Test
@@ -919,15 +1034,15 @@ public class DiagnosticReadinessModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global DM21 Request" + NL;
-        expected += "2007-12-03T10:15:30.000 18EAFFA5 00 C1 00 (TX)" + NL;
-        expected += "2007-12-03T10:15:30.000 18C10000 11 22 33 44 55 66 00 00" + NL;
+        expected += "10:15:30.000 18EAFFA5 00 C1 00 (TX)" + NL;
+        expected += "10:15:30.000 18C10000 11 22 33 44 55 66 00 00" + NL;
         expected += "DM21 from Engine #1 (0): [" + NL;
         expected += "  Distance Traveled While MIL is Activated:     8,721 km (5,418.978 mi)" + NL;
         expected += "  Time Run by Engine While MIL is Activated:    26,197 minutes" + NL;
         expected += "  Distance Since DTCs Cleared:                  17,459 km (10,848.52 mi)" + NL;
         expected += "  Time Since DTCs Cleared:                      0 minutes" + NL;
         expected += "]" + NL;
-        expected += "2007-12-03T10:15:30.000 ERROR Time Since Code Cleared Reset / Rollover" + NL;
+        expected += "ERROR Time Since Code Cleared Reset / Rollover" + NL;
 
         instance.reportDM21(listener, 34935);
         assertEquals(expected, listener.getResults());
@@ -954,34 +1069,34 @@ public class DiagnosticReadinessModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global DM26 Request" + NL;
-        expected += "2007-12-03T10:15:30.000 18EAFFA5 B8 FD 00 (TX)" + NL;
-        expected += "2007-12-03T10:15:30.000 18FDB800 11 22 33 44 55 66 77 88" + NL;
+        expected += "10:15:30.000 18EAFFA5 B8 FD 00 (TX)" + NL;
+        expected += "10:15:30.000 18FDB800 11 22 33 44 55 66 77 88" + NL;
         expected += "DM26 from Engine #1 (0): Warm-ups: 51, Time Since Engine Start: 8,721 seconds"
                 + NL;
-        expected += "2007-12-03T10:15:30.000 18FDB817 01 02 03 04 05 06 07 08" + NL;
+        expected += "10:15:30.000 18FDB817 01 02 03 04 05 06 07 08" + NL;
         expected += "DM26 from Instrument Cluster #1 (23): Warm-ups: 3, Time Since Engine Start: 513 seconds"
                 + NL;
-        expected += "2007-12-03T10:15:30.000 18FDB821 10 20 30 40 50 60 70 80" + NL;
+        expected += "10:15:30.000 18FDB821 10 20 30 40 50 60 70 80" + NL;
         expected += "DM26 from Body Controller (33): Warm-ups: 48, Time Since Engine Start: 8,208 seconds"
                 + NL;
         expected += NL;
-        expected += "2007-12-03T10:15:30.000 Vehicle Composite of DM26:" + NL;
-        expected += "A/C system refrigerant monitoring                      not complete" + NL;
-        expected += "Boost pressure control system monitoring                   complete" + NL;
-        expected += "Catalyst monitoring                                    not complete" + NL;
-        expected += "Cold start aid system monitoring                       disabled/not supported" + NL;
-        expected += "Comprehensive component monitoring                     not complete" + NL;
-        expected += "Diesel Particulate Filter (DPF) monitoring                 complete" + NL;
-        expected += "EGR/VVT system monitoring                              disabled/not supported" + NL;
-        expected += "Evaporative system monitoring                          not complete" + NL;
-        expected += "Exhaust Gas Sensor heater monitoring                   not complete" + NL;
-        expected += "Exhaust Gas Sensor monitoring                          disabled/not supported" + NL;
-        expected += "Fuel System monitoring                                 disabled/not supported" + NL;
-        expected += "Heated catalyst monitoring                             disabled/not supported" + NL;
-        expected += "Misfire monitoring                                     disabled/not supported" + NL;
-        expected += "NMHC converting catalyst monitoring                    disabled/not supported" + NL;
-        expected += "NOx converting catalyst and/or NOx adsorber monitoring disabled/not supported" + NL;
-        expected += "Secondary air system monitoring                        disabled/not supported" + NL;
+        expected += "Vehicle Composite of DM26:" + NL;
+        expected += "A/C system refrigerant     not complete" + NL;
+        expected += "Boost pressure control sys     complete" + NL;
+        expected += "Catalyst                   not complete" + NL;
+        expected += "Cold start aid system      not enabled" + NL;
+        expected += "Comprehensive component    not complete" + NL;
+        expected += "Diesel Particulate Filter      complete" + NL;
+        expected += "EGR/VVT system             not enabled" + NL;
+        expected += "Evaporative system         not complete" + NL;
+        expected += "Exhaust Gas Sensor         not enabled" + NL;
+        expected += "Exhaust Gas Sensor heater  not complete" + NL;
+        expected += "Fuel System                not enabled" + NL;
+        expected += "Heated catalyst            not enabled" + NL;
+        expected += "Misfire                    not enabled" + NL;
+        expected += "NMHC converting catalyst   not enabled" + NL;
+        expected += "NOx catalyst/adsorber      not enabled" + NL;
+        expected += "Secondary air system       not enabled" + NL;
 
         assertEquals(true, instance.reportDM26(listener));
         assertEquals(expected, listener.getResults());
@@ -996,16 +1111,18 @@ public class DiagnosticReadinessModuleTest {
 
         Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
+        when(j1939.requestMultiple(DM26TripDiagnosticReadinessPacket.class, requestPacket)).thenReturn(Stream.empty())
+                .thenReturn(Stream.empty()).thenReturn(Stream.empty());
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global DM26 Request" + NL;
-        expected += "2007-12-03T10:15:30.000 18EAFFA5 B8 FD 00 (TX)" + NL;
+        expected += "10:15:30.000 18EAFFA5 B8 FD 00 (TX)" + NL;
         expected += "Error: Timeout - No Response." + NL;
         assertEquals(false, instance.reportDM26(listener));
         assertEquals(expected, listener.getResults());
 
         verify(j1939).createRequestPacket(pgn, 0xFF);
-        verify(j1939).requestMultiple(DM26TripDiagnosticReadinessPacket.class, requestPacket);
+        verify(j1939, times(3)).requestMultiple(DM26TripDiagnosticReadinessPacket.class, requestPacket);
     }
 
     @Test
@@ -1026,34 +1143,34 @@ public class DiagnosticReadinessModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global DM5 Request" + NL;
-        expected += "2007-12-03T10:15:30.000 18EAFFA5 CE FE 00 (TX)" + NL;
-        expected += "2007-12-03T10:15:30.000 18FECE00 11 22 33 44 55 66 77 88" + NL;
+        expected += "10:15:30.000 18EAFFA5 CE FE 00 (TX)" + NL;
+        expected += "10:15:30.000 18FECE00 11 22 33 44 55 66 77 88" + NL;
         expected += "DM5 from Engine #1 (0): OBD Compliance: Reserved for SAE/Unknown (51), Active Codes: 17, Previously Active Codes: 34"
                 + NL;
-        expected += "2007-12-03T10:15:30.000 18FECE17 01 02 03 04 05 06 07 08" + NL;
+        expected += "10:15:30.000 18FECE17 01 02 03 04 05 06 07 08" + NL;
         expected += "DM5 from Instrument Cluster #1 (23): OBD Compliance: OBD and OBD II (3), Active Codes: 1, Previously Active Codes: 2"
                 + NL;
-        expected += "2007-12-03T10:15:30.000 18FECE21 10 20 30 40 50 60 70 80" + NL;
+        expected += "10:15:30.000 18FECE21 10 20 30 40 50 60 70 80" + NL;
         expected += "DM5 from Body Controller (33): OBD Compliance: Reserved for SAE/Unknown (48), Active Codes: 16, Previously Active Codes: 32"
                 + NL;
         expected += NL;
-        expected += "2007-12-03T10:15:30.000 Vehicle Composite of DM5:" + NL;
-        expected += "A/C system refrigerant monitoring                      not complete" + NL;
-        expected += "Boost pressure control system monitoring                   complete" + NL;
-        expected += "Catalyst monitoring                                    not complete" + NL;
-        expected += "Cold start aid system monitoring                       disabled/not supported" + NL;
-        expected += "Comprehensive component monitoring                     not complete" + NL;
-        expected += "Diesel Particulate Filter (DPF) monitoring                 complete" + NL;
-        expected += "EGR/VVT system monitoring                              disabled/not supported" + NL;
-        expected += "Evaporative system monitoring                          not complete" + NL;
-        expected += "Exhaust Gas Sensor heater monitoring                   not complete" + NL;
-        expected += "Exhaust Gas Sensor monitoring                          disabled/not supported" + NL;
-        expected += "Fuel System monitoring                                 disabled/not supported" + NL;
-        expected += "Heated catalyst monitoring                             disabled/not supported" + NL;
-        expected += "Misfire monitoring                                     disabled/not supported" + NL;
-        expected += "NMHC converting catalyst monitoring                    disabled/not supported" + NL;
-        expected += "NOx converting catalyst and/or NOx adsorber monitoring disabled/not supported" + NL;
-        expected += "Secondary air system monitoring                        disabled/not supported" + NL;
+        expected += "Vehicle Composite of DM5:" + NL;
+        expected += "A/C system refrigerant     not complete" + NL;
+        expected += "Boost pressure control sys     complete" + NL;
+        expected += "Catalyst                   not complete" + NL;
+        expected += "Cold start aid system      not enabled" + NL;
+        expected += "Comprehensive component    not complete" + NL;
+        expected += "Diesel Particulate Filter      complete" + NL;
+        expected += "EGR/VVT system             not enabled" + NL;
+        expected += "Evaporative system         not complete" + NL;
+        expected += "Exhaust Gas Sensor         not enabled" + NL;
+        expected += "Exhaust Gas Sensor heater  not complete" + NL;
+        expected += "Fuel System                not enabled" + NL;
+        expected += "Heated catalyst            not enabled" + NL;
+        expected += "Misfire                    not enabled" + NL;
+        expected += "NMHC converting catalyst   not enabled" + NL;
+        expected += "NOx catalyst/adsorber      not enabled" + NL;
+        expected += "Secondary air system       not enabled" + NL;
 
         assertEquals(true, instance.reportDM5(listener));
         assertEquals(expected, listener.getResults());
@@ -1068,16 +1185,18 @@ public class DiagnosticReadinessModuleTest {
 
         Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
+        when(j1939.requestMultiple(DM5DiagnosticReadinessPacket.class, requestPacket)).thenReturn(Stream.empty())
+                .thenReturn(Stream.empty()).thenReturn(Stream.empty());
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global DM5 Request" + NL;
-        expected += "2007-12-03T10:15:30.000 18EAFFA5 CE FE 00 (TX)" + NL;
+        expected += "10:15:30.000 18EAFFA5 CE FE 00 (TX)" + NL;
         expected += "Error: Timeout - No Response." + NL;
         assertEquals(false, instance.reportDM5(listener));
         assertEquals(expected, listener.getResults());
 
         verify(j1939).createRequestPacket(pgn, 0xFF);
-        verify(j1939).requestMultiple(DM5DiagnosticReadinessPacket.class, requestPacket);
+        verify(j1939, times(3)).requestMultiple(DM5DiagnosticReadinessPacket.class, requestPacket);
     }
 
     @Test
@@ -1091,103 +1210,93 @@ public class DiagnosticReadinessModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Vehicle Composite Results of DM5:" + NL;
-        expected += "+--------------------------------------------------------+-------------------------+--------------------------+"
-                + NL;
-        expected += "|                         Monitor                        |     Initial Status      |       Last Status        |"
-                + NL;
-        expected += "|                                                        | 2017-02-25T14:56:50.053 | 2017-02-25T14:56:52.513  |"
-                + NL;
-        expected += "+--------------------------------------------------------+-------------------------+--------------------------+"
-                + NL;
-        expected += "| A/C system refrigerant monitoring                      | not complete            | disabled/not supported * |"
-                + NL;
-        expected += "| Boost pressure control system monitoring               |     complete            |     complete             |"
-                + NL;
-        expected += "| Catalyst monitoring                                    | not complete            | not complete             |"
-                + NL;
-        expected += "| Cold start aid system monitoring                       | disabled/not supported  | disabled/not supported   |"
-                + NL;
-        expected += "| Comprehensive component monitoring                     | not complete            |     complete           * |"
-                + NL;
-        expected += "| Diesel Particulate Filter (DPF) monitoring             |     complete            |     complete             |"
-                + NL;
-        expected += "| EGR/VVT system monitoring                              | disabled/not supported  | disabled/not supported   |"
-                + NL;
-        expected += "| Evaporative system monitoring                          | not complete            | not complete             |"
-                + NL;
-        expected += "| Exhaust Gas Sensor heater monitoring                   | not complete            | disabled/not supported * |"
-                + NL;
-        expected += "| Exhaust Gas Sensor monitoring                          | disabled/not supported  | disabled/not supported   |"
-                + NL;
-        expected += "| Fuel System monitoring                                 | disabled/not supported  | disabled/not supported   |"
-                + NL;
-        expected += "| Heated catalyst monitoring                             | disabled/not supported  | disabled/not supported   |"
-                + NL;
-        expected += "| Misfire monitoring                                     | disabled/not supported  | disabled/not supported   |"
-                + NL;
-        expected += "| NMHC converting catalyst monitoring                    | disabled/not supported  | disabled/not supported   |"
-                + NL;
-        expected += "| NOx converting catalyst and/or NOx adsorber monitoring | disabled/not supported  | disabled/not supported   |"
-                + NL;
-        expected += "| Secondary air system monitoring                        | disabled/not supported  | disabled/not supported   |"
-                + NL;
-        expected += "+--------------------------------------------------------+-------------------------+--------------------------+"
-                + NL;
-
+        expected += "+----------------------------+----------------+----------------+" + NL;
+        expected += "|           Monitor          | Initial Status |  Last Status   |" + NL;
+        expected += "|                            |   2017-02-25   |   2017-02-25   |" + NL;
+        expected += "|                            |  14:56:50.053  |  14:56:52.513  |" + NL;
+        expected += "+----------------------------+----------------+----------------+" + NL;
+        expected += "|*A/C system refrigerant     |  not complete  |  not enabled  *|" + NL;
+        expected += "| Boost pressure control sys |      complete  |      complete  |" + NL;
+        expected += "| Catalyst                   |  not complete  |  not complete  |" + NL;
+        expected += "| Cold start aid system      |  not enabled   |  not enabled   |" + NL;
+        expected += "|*Comprehensive component    |  not complete  |      complete *|" + NL;
+        expected += "| Diesel Particulate Filter  |      complete  |      complete  |" + NL;
+        expected += "| EGR/VVT system             |  not enabled   |  not enabled   |" + NL;
+        expected += "| Evaporative system         |  not complete  |  not complete  |" + NL;
+        expected += "| Exhaust Gas Sensor         |  not enabled   |  not enabled   |" + NL;
+        expected += "|*Exhaust Gas Sensor heater  |  not complete  |  not enabled  *|" + NL;
+        expected += "| Fuel System                |  not enabled   |  not enabled   |" + NL;
+        expected += "| Heated catalyst            |  not enabled   |  not enabled   |" + NL;
+        expected += "| Misfire                    |  not enabled   |  not enabled   |" + NL;
+        expected += "| NMHC converting catalyst   |  not enabled   |  not enabled   |" + NL;
+        expected += "| NOx catalyst/adsorber      |  not enabled   |  not enabled   |" + NL;
+        expected += "| Secondary air system       |  not enabled   |  not enabled   |" + NL;
+        expected += "+----------------------------+----------------+----------------+" + NL;
         assertEquals(expected, listener.getResults());
     }
 
     @Test
     public void testReportPerformanceRatios() {
-        int[] data1 = new int[] { 0x0C, 0x00, 0x01, 0x00,
-                // One
-                0xCA, 0x14, 0xF8, 0x00, 0x00, 0x01, 0x00,
-                // Two
-                0xB8, 0x12, 0xF8, 0x03, 0x00, 0x04, 0x00,
-                // Three
-                0xBC, 0x14, 0xF8, 0x05, 0x00, 0x06, 0x00 };
-        DM20MonitorPerformanceRatioPacket packet1 = new DM20MonitorPerformanceRatioPacket(Packet.create(0, 0, data1));
+        int[] data1 = new int[] { 0x03, 0x01, 0x0C, 0x00,
+                0xC9, 0x14, 0xF8, 0x00, 0x00, 0x0C, 0x00,
+                0xF2, 0x0B, 0xF8, 0x00, 0x00, 0x0C, 0x00,
+                0xC6, 0x14, 0xF8, 0x00, 0x00, 0x0C, 0x00,
+                0xEF, 0x0B, 0xF8, 0x00, 0x00, 0x0C, 0x00,
+                0x81, 0x02, 0xF8, 0x01, 0x00, 0x02, 0x00,
+                0xB8, 0x12, 0xF8, 0x00, 0x00, 0x0B, 0x00,
+                0xF8, 0x0B, 0xF8, 0x00, 0x00, 0x0C, 0x00,
+                0xF0, 0x0B, 0xF8, 0x00, 0x00, 0x00, 0x00,
+                0xF5, 0x0B, 0xF8, 0x00, 0x00, 0x00, 0x00,
+                0xEA, 0x0B, 0xF8, 0x00, 0x00, 0x00, 0x00,
+                0xEE, 0x0B, 0xF8, 0x00, 0x00, 0x00, 0x00,
+                0xF3, 0x0B, 0xF8, 0x00, 0x00, 0x00, 0x00,
+        };
+        DM20MonitorPerformanceRatioPacket packet1 = new DM20MonitorPerformanceRatioPacket(
+                Packet.create(0xC200, 0x00, data1));
+        int[] data2 = new int[] { 0x03, 0x01, 0x0D, 0x00,
+                0xC9, 0x14, 0xF8, 0x00, 0x00, 0x0D, 0x00,
+                0xF2, 0x0B, 0xF8, 0x00, 0x00, 0x0D, 0x00,
+                0xC6, 0x14, 0xF8, 0x00, 0x00, 0x0D, 0x00,
+                0xEF, 0x0B, 0xF8, 0x00, 0x00, 0x0D, 0x00,
+                0x81, 0x02, 0xF8, 0x01, 0x00, 0x02, 0x00,
+                0xB8, 0x12, 0xF8, 0x00, 0x00, 0x0B, 0x00,
+                0xF8, 0x0B, 0xF8, 0x00, 0x00, 0x0D, 0x00,
+                0xF0, 0x0B, 0xF8, 0x00, 0x00, 0x00, 0x00,
+                0xF5, 0x0B, 0xF8, 0x00, 0x00, 0x00, 0x00,
+                0xEA, 0x0B, 0xF8, 0x00, 0x00, 0x00, 0x00,
+                0xEE, 0x0B, 0xF8, 0x00, 0x00, 0x00, 0x00,
+                0xF3, 0x0B, 0xF8, 0x00, 0x00, 0x00, 0x00,
+        };
 
-        int[] data2 = new int[] { 0x0C, 0x00, 0x01, 0x00,
-                // One
-                0xCA, 0x14, 0xF8, 0x00, 0x00, 0x02, 0x00,
-                // Two
-                0xB8, 0x12, 0xF8, 0x03, 0x00, 0x04, 0x00,
-                // Three
-                0xBC, 0x14, 0xF8, 0x06, 0x00, 0x06, 0x00 };
-        DM20MonitorPerformanceRatioPacket packet2 = new DM20MonitorPerformanceRatioPacket(Packet.create(0, 0, data2));
+        DM20MonitorPerformanceRatioPacket packet2 = new DM20MonitorPerformanceRatioPacket(
+                Packet.create(0xC200, 0x00, data2));
         instance.reportPerformanceRatios(listener, packet1.getRatios(), packet2.getRatios(), 1, 1, 3, 4,
                 "2017-02-25T14:56:50.053", "2017-02-25T14:56:52.513");
-
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Vehicle Composite Results of DM20:" + NL;
-        expected += "+---------------+-----------------------------------------------------------------+---------------------------+----------------------------+"
-                + NL;
-        expected += "|               |                                                                 |      Initial Status       |         Last Status        |"
-                + NL;
-        expected += "|               |                                                                 |  2017-02-25T14:56:50.053  |  2017-02-25T14:56:52.513   |"
-                + NL;
-        expected += "+---------------+-----------------------------------------------------------------+---------------------------+----------------------------+"
-                + NL;
-        expected += "|               | Ignition Cycles                                                 |                         1 |                         1  |"
-                + NL;
-        expected += "|               | OBD Monitoring Conditions Encountered                           |                         3 |                         4* |"
-                + NL;
-        expected += "+---------------+-----------------------------------------------------------------+-------------+-------------+-------------+--------------+"
-                + NL;
-        expected += "| Source        | Monitor Name                                                    |   Numerator | Denominator |  Numerator  | Denominator  |"
-                + NL;
-        expected += "+---------------+-----------------------------------------------------------------+-------------+-------------+-------------+--------------+"
-                + NL;
-        expected += "| Engine #1 (0) | SPN 4792 Aftertreatment 1 Selective Catalytic Reduction System  |           3 |           4 |          3  |           4  |"
-                + NL;
-        expected += "| Engine #1 (0) | SPN 5308 Aftertreatment 1 NOx Adsorber Catalyst System Monitor  |           5 |           6 |          6* |           6  |"
-                + NL;
-        expected += "| Engine #1 (0) | SPN 5322 Aftertreatment NMHC Converting Catalyst System Monitor |           0 |           1 |          0  |           2* |"
-                + NL;
-        expected += "+---------------+-----------------------------------------------------------------+-------------+-------------+-------------+--------------+"
-                + NL;
-
+        expected += "+-----+----------------------------------+-----------------+-----------------+" + NL;
+        expected += "|     |                                  |  Initial Status |   Last Status   |" + NL;
+        expected += "|     |                                  |    2017-02-25   |    2017-02-25   |" + NL;
+        expected += "|     |                                  |   14:56:50.053  |   14:56:52.513  |" + NL;
+        expected += "+-----+----------------------------------+-----------------+-----------------+" + NL;
+        expected += "|     | Ignition Cycles                  |               1 |              1  |" + NL;
+        expected += "|*    | OBD Monitoring Conditions Count  |               3 |              4 *|" + NL;
+        expected += "+-----+----------------------------------+--------+--------+--------+--------+" + NL;
+        expected += "| Src | Monitor                          |  Num'r |  Den'r |  Num'r |  Den'r |" + NL;
+        expected += "+-----+----------------------------------+--------+--------+--------+--------+" + NL;
+        expected += "|   0 |  641 Variable Geometry Turbocha..|      1 |      2 |     1  |     2  |" + NL;
+        expected += "|   0 | 3050 Catalyst 1 Sys Mon          |      0 |      0 |     0  |     0  |" + NL;
+        expected += "|   0 | 3054 2ndary Air Sys Mon          |      0 |      0 |     0  |     0  |" + NL;
+        expected += "|*  0 | 3055 Fuel Sys Mon                |      0 |     12 |     0  |    13 *|" + NL;
+        expected += "|   0 | 3056 N/O2 Exh Gas Snsr 1 Mon     |      0 |      0 |     0  |     0  |" + NL;
+        expected += "|*  0 | 3058 EGR Sys Mon                 |      0 |     12 |     0  |    13 *|" + NL;
+        expected += "|   0 | 3059 +Crankcase Vent Sys Mon     |      0 |      0 |     0  |     0  |" + NL;
+        expected += "|   0 | 3061 Cold Start Strategy Sys Mon |      0 |      0 |     0  |     0  |" + NL;
+        expected += "|*  0 | 3064 AFT DPF Sys Mon             |      0 |     12 |     0  |    13 *|" + NL;
+        expected += "|   0 | 4792 AFT 1 SCR Sys               |      0 |     11 |     0  |    11  |" + NL;
+        expected += "|*  0 | 5318 AFT Exh Gas Snsr Sys Mon    |      0 |     12 |     0  |    13 *|" + NL;
+        expected += "|*  0 | 5321 Intake Manifold Press Sys ..|      0 |     12 |     0  |    13 *|" + NL;
+        expected += "+-----+----------------------------------+--------+--------+--------+--------+" + NL;
         assertEquals(expected, listener.getResults());
     }
 
@@ -1213,32 +1322,20 @@ public class DiagnosticReadinessModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Vehicle Composite Results of DM20:" + NL;
-        expected += "+---------------+-----------------------------------------------------------------+---------------------------+----------------------------+"
-                + NL;
-        expected += "|               |                                                                 |      Initial Status       |         Last Status        |"
-                + NL;
-        expected += "|               |                                                                 |  2017-02-25T14:56:50.053  |  2017-02-25T14:56:52.513   |"
-                + NL;
-        expected += "+---------------+-----------------------------------------------------------------+---------------------------+----------------------------+"
-                + NL;
-        expected += "|               | Ignition Cycles                                                 |                         1 |                         1  |"
-                + NL;
-        expected += "|               | OBD Monitoring Conditions Encountered                           |                         3 |                         4* |"
-                + NL;
-        expected += "+---------------+-----------------------------------------------------------------+-------------+-------------+-------------+--------------+"
-                + NL;
-        expected += "| Source        | Monitor Name                                                    |   Numerator | Denominator |  Numerator  | Denominator  |"
-                + NL;
-        expected += "+---------------+-----------------------------------------------------------------+-------------+-------------+-------------+--------------+"
-                + NL;
-        expected += "| Engine #1 (0) | SPN 4792 Aftertreatment 1 Selective Catalytic Reduction System  |           3 |           4 |          3  |           4  |"
-                + NL;
-        expected += "| Engine #1 (0) | SPN 5322 Aftertreatment NMHC Converting Catalyst System Monitor |           0 |           1 |          0  |           2* |"
-                + NL;
-        expected += "| Engine #1 (0) | SPN 5308 Aftertreatment 1 NOx Adsorber Catalyst System Monitor  |          -1 |          -1 |          6* |           6* |"
-                + NL;
-        expected += "+---------------+-----------------------------------------------------------------+-------------+-------------+-------------+--------------+"
-                + NL;
+        expected += "+-----+----------------------------------+-----------------+-----------------+" + NL;
+        expected += "|     |                                  |  Initial Status |   Last Status   |" + NL;
+        expected += "|     |                                  |    2017-02-25   |    2017-02-25   |" + NL;
+        expected += "|     |                                  |   14:56:50.053  |   14:56:52.513  |" + NL;
+        expected += "+-----+----------------------------------+-----------------+-----------------+" + NL;
+        expected += "|     | Ignition Cycles                  |               1 |              1  |" + NL;
+        expected += "|*    | OBD Monitoring Conditions Count  |               3 |              4 *|" + NL;
+        expected += "+-----+----------------------------------+--------+--------+--------+--------+" + NL;
+        expected += "| Src | Monitor                          |  Num'r |  Den'r |  Num'r |  Den'r |" + NL;
+        expected += "+-----+----------------------------------+--------+--------+--------+--------+" + NL;
+        expected += "|   0 | 4792 AFT 1 SCR Sys               |      3 |      4 |     3  |     4  |" + NL;
+        expected += "|*  0 | 5322 AFT NMHC Converting Cataly..|      0 |      1 |     0  |     2 *|" + NL;
+        expected += "|*  0 | 5308 AFT 1 NOx Adsorber Catalys..|     -1 |     -1 |     6* |     6 *|" + NL;
+        expected += "+-----+----------------------------------+--------+--------+--------+--------+" + NL;
 
         assertEquals(expected, listener.getResults());
     }
@@ -1265,32 +1362,20 @@ public class DiagnosticReadinessModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Vehicle Composite Results of DM20:" + NL;
-        expected += "+---------------+-----------------------------------------------------------------+---------------------------+----------------------------+"
-                + NL;
-        expected += "|               |                                                                 |      Initial Status       |         Last Status        |"
-                + NL;
-        expected += "|               |                                                                 |  2017-02-25T14:56:50.053  |  2017-02-25T14:56:52.513   |"
-                + NL;
-        expected += "+---------------+-----------------------------------------------------------------+---------------------------+----------------------------+"
-                + NL;
-        expected += "|               | Ignition Cycles                                                 |                         1 |                         1  |"
-                + NL;
-        expected += "|               | OBD Monitoring Conditions Encountered                           |                         3 |                         4* |"
-                + NL;
-        expected += "+---------------+-----------------------------------------------------------------+-------------+-------------+-------------+--------------+"
-                + NL;
-        expected += "| Source        | Monitor Name                                                    |   Numerator | Denominator |  Numerator  | Denominator  |"
-                + NL;
-        expected += "+---------------+-----------------------------------------------------------------+-------------+-------------+-------------+--------------+"
-                + NL;
-        expected += "| Engine #1 (0) | SPN 4792 Aftertreatment 1 Selective Catalytic Reduction System  |           3 |           4 |          3  |           4  |"
-                + NL;
-        expected += "| Engine #1 (0) | SPN 5308 Aftertreatment 1 NOx Adsorber Catalyst System Monitor  |           5 |           6 |         -1* |          -1* |"
-                + NL;
-        expected += "| Engine #1 (0) | SPN 5322 Aftertreatment NMHC Converting Catalyst System Monitor |           0 |           1 |          0  |           2* |"
-                + NL;
-        expected += "+---------------+-----------------------------------------------------------------+-------------+-------------+-------------+--------------+"
-                + NL;
+        expected += "+-----+----------------------------------+-----------------+-----------------+" + NL;
+        expected += "|     |                                  |  Initial Status |   Last Status   |" + NL;
+        expected += "|     |                                  |    2017-02-25   |    2017-02-25   |" + NL;
+        expected += "|     |                                  |   14:56:50.053  |   14:56:52.513  |" + NL;
+        expected += "+-----+----------------------------------+-----------------+-----------------+" + NL;
+        expected += "|     | Ignition Cycles                  |               1 |              1  |" + NL;
+        expected += "|*    | OBD Monitoring Conditions Count  |               3 |              4 *|" + NL;
+        expected += "+-----+----------------------------------+--------+--------+--------+--------+" + NL;
+        expected += "| Src | Monitor                          |  Num'r |  Den'r |  Num'r |  Den'r |" + NL;
+        expected += "+-----+----------------------------------+--------+--------+--------+--------+" + NL;
+        expected += "|   0 | 4792 AFT 1 SCR Sys               |      3 |      4 |     3  |     4  |" + NL;
+        expected += "|*  0 | 5308 AFT 1 NOx Adsorber Catalys..|      5 |      6 |    -1* |    -1 *|" + NL;
+        expected += "|*  0 | 5322 AFT NMHC Converting Cataly..|      0 |      1 |     0  |     2 *|" + NL;
+        expected += "+-----+----------------------------------+--------+--------+--------+--------+" + NL;
 
         assertEquals(expected, listener.getResults());
     }

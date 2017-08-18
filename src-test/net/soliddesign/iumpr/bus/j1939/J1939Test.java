@@ -132,7 +132,7 @@ public class J1939Test {
     @Test
     public void testReadEngineSpeed() throws Exception {
         Packet packet1 = Packet.create(EngineSpeedPacket.PGN, 0x00, 1, 2, 3, 4, 5, 6, 7, 8);
-        when(bus.read(1250, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1));
+        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1));
 
         Optional<EngineSpeedPacket> response = instance.read(EngineSpeedPacket.class, 0x00);
         assertTrue(response.isPresent());
@@ -142,7 +142,7 @@ public class J1939Test {
 
     @Test
     public void testReadHandlesBusException() throws Exception {
-        when(bus.read(1250, TimeUnit.MILLISECONDS)).thenThrow(new BusException("Testing"));
+        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenThrow(new BusException("Testing"));
 
         Optional<EngineSpeedPacket> response = instance.read(EngineSpeedPacket.class, 0x00);
         assertFalse(response.isPresent());
@@ -156,7 +156,7 @@ public class J1939Test {
 
     @Test
     public void testReadHandlesTimeout() throws Exception {
-        when(bus.read(1250, TimeUnit.MILLISECONDS)).thenReturn(Stream.empty());
+        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.empty());
 
         Optional<EngineSpeedPacket> response = instance.read(EngineSpeedPacket.class, 0x00);
         assertFalse(response.isPresent());
@@ -167,7 +167,7 @@ public class J1939Test {
         Packet packet1 = Packet.create(EngineSpeedPacket.PGN - 1, 0x00, 1, 1, 1, 1, 1, 1, 1, 1);
         Packet packet2 = Packet.create(EngineSpeedPacket.PGN, 0x00, 1, 2, 3, 4, 5, 6, 7, 8);
         Packet packet3 = Packet.create(EngineSpeedPacket.PGN + 1, 0x00, 2, 2, 2, 2, 2, 2, 2, 2);
-        when(bus.read(1250, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1, packet2, packet3));
+        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1, packet2, packet3));
 
         Optional<EngineSpeedPacket> response = instance.read(EngineSpeedPacket.class, 0x00);
         assertTrue(response.isPresent());
@@ -180,7 +180,7 @@ public class J1939Test {
         Packet packet1 = Packet.create(EngineSpeedPacket.PGN, 0x01, 1, 1, 1, 1, 1, 1, 1, 1);
         Packet packet2 = Packet.create(EngineSpeedPacket.PGN, 0x00, 1, 2, 3, 4, 5, 6, 7, 8);
         Packet packet3 = Packet.create(EngineSpeedPacket.PGN, 0x02, 2, 2, 2, 2, 2, 2, 2, 2);
-        when(bus.read(1250, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1, packet2, packet3));
+        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1, packet2, packet3));
 
         Optional<EngineSpeedPacket> response = instance.read(EngineSpeedPacket.class, 0x00);
         assertTrue(response.isPresent());
@@ -191,7 +191,7 @@ public class J1939Test {
     @Test
     public void testReadTotalVehicleDistance() throws Exception {
         Packet packet1 = Packet.create(TotalVehicleDistancePacket.PGN, 0x00, 1, 2, 3, 4, 5, 6, 7, 8);
-        when(bus.read(1250, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1));
+        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1));
 
         Optional<TotalVehicleDistancePacket> response = instance.read(TotalVehicleDistancePacket.class, 0x00);
         assertTrue(response.isPresent());
@@ -220,7 +220,7 @@ public class J1939Test {
             String message = "Class " + clazz.getSimpleName() + " failed";
 
             Packet packet = Packet.create(id, 0x17, 11, 22, 33, 44, 55, 66, 77, 88);
-            when(bus.read(1250, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet));
+            when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet));
 
             assertTrue(message, instance.request(clazz, 0x17).isPresent());
         }
@@ -230,7 +230,7 @@ public class J1939Test {
     public void testRequestByPGN() throws Exception {
         final int pgn = VehicleIdentificationPacket.PGN;
         Packet packet1 = Packet.create(pgn, 0x00, "12345678901234567890*".getBytes(UTF8));
-        when(bus.read(1250, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1));
+        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1));
 
         Optional<VehicleIdentificationPacket> response = instance.request(VehicleIdentificationPacket.class, 0x0);
         assertTrue(response.isPresent());
@@ -255,7 +255,7 @@ public class J1939Test {
     public void testRequestDM7() throws Exception {
         Packet packet1 = Packet.create(DM30ScaledTestResultsPacket.PGN | 0xA5, 0x00, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0x0A,
                 0x0B, 0x0C, 0x0D);
-        when(bus.read(1250, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1));
+        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1));
 
         int spn = 1024;
 
@@ -280,7 +280,7 @@ public class J1939Test {
      */
     @Test
     public void testRequestDM7Timesout() throws Exception {
-        when(bus.read(1250, TimeUnit.MILLISECONDS)).thenReturn(Stream.of()).thenReturn(Stream.of())
+        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.of()).thenReturn(Stream.of())
                 .thenReturn(Stream.of());
 
         int spn = 1024;
@@ -308,7 +308,7 @@ public class J1939Test {
     public void testRequestDM7WillTryThreeTimes() throws Exception {
         Packet packet1 = Packet.create(DM30ScaledTestResultsPacket.PGN | 0xA5, 0x00, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0x0A,
                 0x0B, 0x0C, 0x0D);
-        when(bus.read(1250, TimeUnit.MILLISECONDS)).thenReturn(Stream.of()).thenReturn(Stream.of())
+        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.of()).thenReturn(Stream.of())
                 .thenReturn(Stream.of(packet1));
 
         int spn = 1024;
@@ -329,7 +329,7 @@ public class J1939Test {
 
     @Test
     public void testRequestHandlesBusException() throws Exception {
-        when(bus.read(1250, TimeUnit.MILLISECONDS)).thenThrow(new BusException("Testing"));
+        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenThrow(new BusException("Testing"));
 
         Optional<DM11ClearActiveDTCsPacket> response = instance.request(DM11ClearActiveDTCsPacket.class, 0x17);
         assertFalse(response.isPresent());
@@ -339,7 +339,7 @@ public class J1939Test {
 
     @Test
     public void testRequestHandlesBusExceptionOnSecondAttempt() throws Exception {
-        when(bus.read(1250, TimeUnit.MILLISECONDS)).thenReturn(Stream.empty()).thenThrow(new BusException("Testing"));
+        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.empty()).thenThrow(new BusException("Testing"));
 
         Optional<VehicleIdentificationPacket> response = instance.request(VehicleIdentificationPacket.class, 0x00);
         assertFalse(response.isPresent());
@@ -354,7 +354,7 @@ public class J1939Test {
         instance.setBusyRetryTime(50, TimeUnit.MILLISECONDS);
         final Packet busyPacket = Packet.create(0xE8FF, 0x17, 0x03, 0xFF, 0xFF, 0xFF, BUS_ADDR, 0xD3, 0xFE, 0x00);
         final Packet realPacket = Packet.create(0xE8FF, 0x17, 0x00, 0xFF, 0xFF, 0xFF, BUS_ADDR, 0xD3, 0xFE, 0x00);
-        when(bus.read(1250, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(busyPacket)).thenReturn(Stream.of(busyPacket))
+        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(busyPacket)).thenReturn(Stream.of(busyPacket))
                 .thenReturn(Stream.of(busyPacket)).thenReturn(Stream.of(busyPacket)).thenReturn(Stream.of(busyPacket))
                 .thenReturn(Stream.of(realPacket));
 
@@ -376,13 +376,13 @@ public class J1939Test {
     public void testRequestHandlesException() throws Exception {
         Optional<TestPacket> response = instance.request(TestPacket.class, 0x17);
         assertFalse(response.isPresent());
-        verify(bus, never()).read(1250, TimeUnit.MILLISECONDS);
+        verify(bus, never()).read(2500, TimeUnit.MILLISECONDS);
         verify(bus, never()).send(sendPacketCaptor.capture());
     }
 
     @Test
     public void testRequestHandlesTimeouts() throws Exception {
-        when(bus.read(1250, TimeUnit.MILLISECONDS)).thenReturn(Stream.empty()).thenReturn(Stream.empty())
+        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.empty()).thenReturn(Stream.empty())
                 .thenReturn(Stream.empty());
 
         Optional<VehicleIdentificationPacket> response = instance.request(VehicleIdentificationPacket.class, 0x00);
@@ -398,7 +398,7 @@ public class J1939Test {
         final Packet packet1 = Packet.create(0xE8FF, 0x17, 0x01, 0xFF, 0xFF, 0xFF, BUS_ADDR + 1, 0xD3, 0xFE, 0x00);
         final Packet packet2 = Packet.create(0xE8FF, 0x17, 0x00, 0xFF, 0xFF, 0xFF, BUS_ADDR, 0xD3, 0xFE, 0x00);
         final Packet packet3 = Packet.create(0xE8FF, 0x17, 0x02, 0xFF, 0xFF, 0xFF, BUS_ADDR + 2, 0xD3, 0xFE, 0x00);
-        when(bus.read(1250, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1, packet2, packet3));
+        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1, packet2, packet3));
 
         Optional<DM11ClearActiveDTCsPacket> response = instance.request(DM11ClearActiveDTCsPacket.class, 0x17);
         assertTrue(response.isPresent());
@@ -415,7 +415,7 @@ public class J1939Test {
         final Packet packet1 = Packet.create(0xE8FF, 0x17, 0x01, 0xFF, 0xFF, 0xFF, BUS_ADDR, 0xD2, 0xFE, 0x00);
         final Packet packet2 = Packet.create(0xE8FF, 0x17, 0x00, 0xFF, 0xFF, 0xFF, BUS_ADDR, 0xD3, 0xFE, 0x00);
         final Packet packet3 = Packet.create(0xE8FF, 0x17, 0x02, 0xFF, 0xFF, 0xFF, BUS_ADDR, 0xD4, 0xFE, 0x00);
-        when(bus.read(1250, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1, packet2, packet3));
+        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1, packet2, packet3));
 
         Optional<DM11ClearActiveDTCsPacket> response = instance.request(DM11ClearActiveDTCsPacket.class, 0x17);
         assertTrue(response.isPresent());
@@ -433,7 +433,7 @@ public class J1939Test {
         Packet packet1 = Packet.create(VehicleIdentificationPacket.PGN, 0x00, ("09876543210987654321*").getBytes(UTF8));
         Packet packet2 = Packet.create(VehicleIdentificationPacket.PGN, 0x17, (expected + "*").getBytes(UTF8));
         Packet packet3 = Packet.create(VehicleIdentificationPacket.PGN, 0x21, ("alksdfjlasdjflkajsdf*").getBytes(UTF8));
-        when(bus.read(1250, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1, packet2, packet3));
+        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1, packet2, packet3));
 
         Optional<VehicleIdentificationPacket> response = instance.request(VehicleIdentificationPacket.class, 0x17);
         assertTrue(response.isPresent());
@@ -457,7 +457,7 @@ public class J1939Test {
         Packet packet2 = Packet.create(VehicleIdentificationPacket.PGN, 0x17, (expected + "*").getBytes(UTF8));
         Packet packet3 = Packet.create(VehicleIdentificationPacket.PGN + 2, 0x17,
                 ("alksdfjlasdjflkajsdf*").getBytes(UTF8));
-        when(bus.read(1250, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1, packet2, packet3));
+        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1, packet2, packet3));
 
         Optional<VehicleIdentificationPacket> response = instance.request(VehicleIdentificationPacket.class, 0x17);
         assertTrue(response.isPresent());
@@ -653,7 +653,7 @@ public class J1939Test {
     @Test
     public void testRequestReturnsAck() throws Exception {
         final Packet packet1 = Packet.create(0xE8FF, 0x17, 0x00, 0xFF, 0xFF, 0xFF, BUS_ADDR, 0xD3, 0xFE, 0x00);
-        when(bus.read(1250, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1));
+        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1));
 
         Optional<DM11ClearActiveDTCsPacket> response = instance.request(DM11ClearActiveDTCsPacket.class, 0x17);
         assertTrue(response.isPresent());
@@ -672,7 +672,7 @@ public class J1939Test {
     @Test
     public void testRequestReturnsFirstResponse() throws Exception {
         Packet packet1 = Packet.create(VehicleIdentificationPacket.PGN, 0x17, "12345678901234567890*".getBytes(UTF8));
-        when(bus.read(1250, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1));
+        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1));
 
         Optional<VehicleIdentificationPacket> response = instance.request(VehicleIdentificationPacket.class, 0x17);
         assertTrue(response.isPresent());
@@ -691,7 +691,7 @@ public class J1939Test {
     @Test
     public void testRequestReturnsLastResponse() throws Exception {
         Packet packet1 = Packet.create(VehicleIdentificationPacket.PGN, 0x00, "12345678901234567890*".getBytes(UTF8));
-        when(bus.read(1250, TimeUnit.MILLISECONDS)).thenReturn(Stream.empty()).thenReturn(Stream.empty())
+        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.empty()).thenReturn(Stream.empty())
                 .thenReturn(Stream.of(packet1));
 
         Optional<VehicleIdentificationPacket> response = instance.request(VehicleIdentificationPacket.class, 0x00);
@@ -707,7 +707,7 @@ public class J1939Test {
     @Test
     public void testRequestReturnsSecondResponse() throws Exception {
         Packet packet1 = Packet.create(VehicleIdentificationPacket.PGN, 0x00, "12345678901234567890*".getBytes(UTF8));
-        when(bus.read(1250, TimeUnit.MILLISECONDS)).thenReturn(Stream.empty()).thenReturn(Stream.of(packet1));
+        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.empty()).thenReturn(Stream.of(packet1));
 
         Optional<VehicleIdentificationPacket> response = instance.request(VehicleIdentificationPacket.class, 0x00);
         assertTrue(response.isPresent());

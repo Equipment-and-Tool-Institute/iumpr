@@ -6,7 +6,6 @@ package net.soliddesign.iumpr.bus.j1939.packets;
 import java.util.Arrays;
 
 import net.soliddesign.iumpr.NumberFormatter;
-import net.soliddesign.iumpr.bus.j1939.Lookup;
 
 /**
  * Represents a Scaled Test Result from a {@link DM30ScaledTestResultsPacket}
@@ -159,9 +158,12 @@ public class ScaledTestResult {
             return TestResult.NOT_COMPLETE;
         } else if (getTestValue() == 0xFB01) {
             return TestResult.CANNOT_BE_PERFORMED;
+        } else if (hasMinimum() && getTestValue() < getTestMinimum()) {
+            return TestResult.FAILED;
+        } else if (hasMaximum() && getTestValue() > getTestMaximum()) {
+            return TestResult.FAILED;
         } else {
-            return getTestValue() >= getTestMinimum() && getTestValue() <= getTestMaximum() ? TestResult.PASSED
-                    : TestResult.FAILED;
+            return TestResult.PASSED;
         }
     }
 
@@ -174,19 +176,35 @@ public class ScaledTestResult {
         return testValue;
     }
 
+    /**
+     * Return true if the test has a maximum value
+     *
+     * @return boolean
+     */
+    private boolean hasMaximum() {
+        return getTestMaximum() != 0xFFFF;
+    }
+
+    /**
+     * Returns true if the test has a minimum value
+     *
+     * @return boolean
+     */
+    private boolean hasMinimum() {
+        return getTestMinimum() != 0xFFFF;
+    }
+
     @Override
     public String toString() {
-        String result = "Test " + getTestIdentifier() + ": ";
-        result += Lookup.getSpnName(getSpn()) + " (" + getSpn() + "), ";
-        result += Lookup.getFmiDescription(getFmi()) + " (" + getFmi() + "), ";
+        String result = "SPN " + getSpn() + " FMI " + getFmi() + " ";
         final TestResult testResult = getTestResult();
         result += "Result: " + testResult + ".";
         if (testResult == TestResult.PASSED || testResult == TestResult.FAILED) {
             String unit = getSlot() != null ? getSlot().getUnit() : null;
             unit = unit != null && !unit.trim().isEmpty() ? " " + unit : "";
-            result += " Min: " + NumberFormatter.format(getScaledTestMinimum()) + unit + ",";
-            result += " Value: " + NumberFormatter.format(getScaledTestValue()) + unit + ",";
-            result += " Max: " + NumberFormatter.format(getScaledTestMaximum()) + unit + "";
+            result += " Min: " + (hasMinimum() ? NumberFormatter.format(getScaledTestMinimum()) : "N/A") + ",";
+            result += " Value: " + NumberFormatter.format(getScaledTestValue()) + ",";
+            result += " Max: " + (hasMaximum() ? NumberFormatter.format(getScaledTestMaximum()) : "N/A") + unit + "";
         }
         return result;
     }

@@ -26,14 +26,14 @@ public class DiagnosticReadinessPacket extends ParsedPacket {
     private MonitoredSystem createContinouslyMonitoredSystem(String name, int completedMask) {
         int supportedMask = completedMask >> 4;
         boolean notCompleted = (getByte(3) & completedMask) == completedMask;
-        boolean supported = (getByte(3) & supportedMask) == supportedMask;
+        boolean supported = isOBDModule() && (getByte(3) & supportedMask) == supportedMask;
         MonitoredSystem.Status status = MonitoredSystem.Status.findStatus(notCompleted, supported);
         return new MonitoredSystem(name, status, getSourceAddress(), completedMask);
     }
 
     private MonitoredSystem createNonContinouslyMonitoredSystem(String name, int lowerByte, int mask) {
         boolean notCompleted = (getByte(lowerByte + 2) & mask) == mask;
-        boolean supported = (getByte(lowerByte) & mask) == mask;
+        boolean supported = isOBDModule() && (getByte(lowerByte) & mask) == mask;
         MonitoredSystem.Status status = MonitoredSystem.Status.findStatus(notCompleted, supported);
         return new MonitoredSystem(name, status, getSourceAddress(), lowerByte << 8 | mask);
     }
@@ -61,9 +61,9 @@ public class DiagnosticReadinessPacket extends ParsedPacket {
      */
     public List<MonitoredSystem> getContinuouslyMonitoredSystems() {
         List<MonitoredSystem> systems = new ArrayList<>();
-        systems.add(createContinouslyMonitoredSystem("Comprehensive component monitoring                    ", 0x40));
-        systems.add(createContinouslyMonitoredSystem("Fuel System monitoring                                ", 0x20));
-        systems.add(createContinouslyMonitoredSystem("Misfire monitoring                                    ", 0x10));
+        systems.add(createContinouslyMonitoredSystem("Comprehensive component   ", 0x40));
+        systems.add(createContinouslyMonitoredSystem("Fuel System               ", 0x20));
+        systems.add(createContinouslyMonitoredSystem("Misfire                   ", 0x10));
         return systems;
     }
 
@@ -88,32 +88,31 @@ public class DiagnosticReadinessPacket extends ParsedPacket {
     public List<MonitoredSystem> getNonContinuouslyMonitoredSystems() {
         List<MonitoredSystem> systems = new ArrayList<>();
         systems.add(
-                createNonContinouslyMonitoredSystem("EGR/VVT system monitoring                             ", 4, 0x80));
+                createNonContinouslyMonitoredSystem("EGR/VVT system            ", 4, 0x80));
         systems.add(
-                createNonContinouslyMonitoredSystem("Exhaust Gas Sensor heater monitoring                  ", 4, 0x40));
+                createNonContinouslyMonitoredSystem("Exhaust Gas Sensor heater ", 4, 0x40));
         systems.add(
-                createNonContinouslyMonitoredSystem("Exhaust Gas Sensor monitoring                         ", 4, 0x20));
+                createNonContinouslyMonitoredSystem("Exhaust Gas Sensor        ", 4, 0x20));
         systems.add(
-                createNonContinouslyMonitoredSystem("A/C system refrigerant monitoring                     ", 4, 0x10));
+                createNonContinouslyMonitoredSystem("A/C system refrigerant    ", 4, 0x10));
         systems.add(
-                createNonContinouslyMonitoredSystem("Secondary air system monitoring                       ", 4, 0x08));
+                createNonContinouslyMonitoredSystem("Secondary air system      ", 4, 0x08));
         systems.add(
-                createNonContinouslyMonitoredSystem("Evaporative system monitoring                         ", 4, 0x04));
+                createNonContinouslyMonitoredSystem("Evaporative system        ", 4, 0x04));
         systems.add(
-                createNonContinouslyMonitoredSystem("Heated catalyst monitoring                            ", 4, 0x02));
+                createNonContinouslyMonitoredSystem("Heated catalyst           ", 4, 0x02));
         systems.add(
-                createNonContinouslyMonitoredSystem("Catalyst monitoring                                   ", 4, 0x01));
-
+                createNonContinouslyMonitoredSystem("Catalyst                  ", 4, 0x01));
         systems.add(
-                createNonContinouslyMonitoredSystem("NMHC converting catalyst monitoring                   ", 5, 0x10));
+                createNonContinouslyMonitoredSystem("NMHC converting catalyst  ", 5, 0x10));
         systems.add(
-                createNonContinouslyMonitoredSystem("NOx converting catalyst and/or NOx adsorber monitoring", 5, 0x08));
+                createNonContinouslyMonitoredSystem("NOx catalyst/adsorber     ", 5, 0x08));
         systems.add(
-                createNonContinouslyMonitoredSystem("Diesel Particulate Filter (DPF) monitoring            ", 5, 0x04));
+                createNonContinouslyMonitoredSystem("Diesel Particulate Filter ", 5, 0x04));
         systems.add(
-                createNonContinouslyMonitoredSystem("Boost pressure control system monitoring              ", 5, 0x02));
+                createNonContinouslyMonitoredSystem("Boost pressure control sys", 5, 0x02));
         systems.add(
-                createNonContinouslyMonitoredSystem("Cold start aid system monitoring                      ", 5, 0x01));
+                createNonContinouslyMonitoredSystem("Cold start aid system     ", 5, 0x01));
 
         return systems;
     }
@@ -121,5 +120,14 @@ public class DiagnosticReadinessPacket extends ParsedPacket {
     @Override
     public int hashCode() {
         return Objects.hash(getContinuouslyMonitoredSystems(), getNonContinuouslyMonitoredSystems());
+    }
+
+    /**
+     * Returns true if this module is an OBD Module that supports this function
+     *
+     * @return boolean
+     */
+    private boolean isOBDModule() {
+        return getByte(2) != (byte) 0x05 && getByte(2) != (byte) 0xFF;
     }
 }

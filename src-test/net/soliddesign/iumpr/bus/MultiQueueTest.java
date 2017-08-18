@@ -77,7 +77,7 @@ public class MultiQueueTest {
             }
         }).start();
         long s1Count = s1.count();
-        assertTrue("s1Count is " + s1Count, s1Count > 17 && s1Count < 21);
+        assertTrue("s1Count is " + s1Count, s1Count > 15 && s1Count < 21);
         long s2Count = s2.count();
         assertTrue("s2Count is " + s2Count, s2Count > 30 && s2Count < 42);
     }

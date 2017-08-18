@@ -445,7 +445,7 @@ public abstract class Controller {
      *
      * @return {@link String}
      */
-    protected String getTime() {
+    protected String getDateTime() {
         return getDateTimeModule().getDateTime();
     }
 

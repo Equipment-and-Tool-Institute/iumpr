@@ -72,7 +72,7 @@ public class DataPlateController extends Controller {
 
     @Override
     protected int getTotalSteps() {
-        return 22 + 4; // +4 is for the compareToVehicle;
+        return 24 + 4; // +4 is for the compareToVehicle;
     }
 
     @Override
@@ -90,12 +90,20 @@ public class DataPlateController extends Controller {
         incrementProgress("Generating Header");
         getBannerModule().reportHeader(getListener());
 
-        // Step 14
+        // Step 14A - File name and access
         addBlankLineToReport();
         incrementProgress("Gathering File Information");
         getReportFileModule().reportFileInformation(getListener());
 
-        // Steps 15-17 is handled by the adapter
+        // Step 14B - Connection Speed
+        addBlankLineToReport();
+        incrementProgress("Reading Connection Speed");
+        getVehicleInformationModule().reportConnectionSpeed(getListener());
+
+        // Steps 15-17 - Address Claim
+        addBlankLineToReport();
+        incrementProgress("Address Claim");
+        getVehicleInformationModule().reportAddressClaim(getListener());
 
         // Steps 18/19
         addBlankLineToReport();

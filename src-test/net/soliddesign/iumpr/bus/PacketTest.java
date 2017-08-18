@@ -24,6 +24,7 @@ public class PacketTest {
         assertEquals(6, instance.getPriority());
         assertEquals(1234, instance.getId());
         assertEquals(56, instance.getSource());
+        assertEquals(false, instance.isTransmitted());
         assertEquals(3, instance.getBytes().length);
         assertEquals(11, instance.get(0));
         assertEquals(22, instance.get(1));
@@ -36,6 +37,7 @@ public class PacketTest {
         assertEquals(6, instance.getPriority());
         assertEquals(1234, instance.getId());
         assertEquals(56, instance.getSource());
+        assertEquals(false, instance.isTransmitted());
         assertEquals(3, instance.getBytes().length);
         assertEquals(11, instance.get(0));
         assertEquals(22, instance.get(1));
@@ -44,10 +46,11 @@ public class PacketTest {
 
     @Test
     public void testCreateWithPriority() {
-        Packet instance = Packet.createPriority(18, 1234, 56, new byte[] { 11, 22, 33 });
+        Packet instance = Packet.createPriority(18, 1234, 56, true, new byte[] { 11, 22, 33 });
         assertEquals(18, instance.getPriority());
         assertEquals(1234, instance.getId());
         assertEquals(56, instance.getSource());
+        assertEquals(true, instance.isTransmitted());
         assertEquals(3, instance.getBytes().length);
         assertEquals(11, instance.get(0));
         assertEquals(22, instance.get(1));
@@ -56,8 +59,8 @@ public class PacketTest {
 
     @Test
     public void testEqualsAndHashCode() {
-        Packet instance1 = Packet.createPriority(6, 1234, 56, (byte) 11, (byte) 22, (byte) 33);
-        Packet instance2 = Packet.createPriority(6, 1234, 56, (byte) 11, (byte) 22, (byte) 33);
+        Packet instance1 = Packet.createPriority(6, 1234, 56, false, (byte) 11, (byte) 22, (byte) 33);
+        Packet instance2 = Packet.createPriority(6, 1234, 56, false, (byte) 11, (byte) 22, (byte) 33);
         assertTrue(instance1.equals(instance2));
         assertTrue(instance2.equals(instance1));
         assertTrue(instance1.hashCode() == instance2.hashCode());
@@ -81,10 +84,11 @@ public class PacketTest {
     @Test
     public void testGettersAndToString() {
         byte[] bytes = new byte[] { 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, (byte) 0x88 };
-        Packet instance = Packet.createPriority(6, 1234, 56, bytes);
+        Packet instance = Packet.createPriority(6, 1234, 56, true, bytes);
         assertEquals(1234, instance.getId());
         assertEquals(6, instance.getPriority());
         assertEquals(56, instance.getSource());
+        assertEquals(true, instance.isTransmitted());
         assertArrayEquals(bytes, instance.getBytes());
         assertEquals(8, instance.getLength());
         int[] data = instance.getData(3, 6);
@@ -101,7 +105,7 @@ public class PacketTest {
         assertEquals(0x44332211, instance.get32(0));
         assertEquals(0x11223344, instance.get32Big(0));
 
-        String expected = "1804D238 11 22 33 44 55 66 77 88";
+        String expected = "1804D238 11 22 33 44 55 66 77 88 (TX)";
         assertEquals(expected, instance.toString());
     }
 
@@ -145,8 +149,8 @@ public class PacketTest {
 
     @Test
     public void testNotEqualsPriority() {
-        Packet instance1 = Packet.createPriority(6, 1234, 56);
-        Packet instance2 = Packet.createPriority(9, 1234, 56);
+        Packet instance1 = Packet.createPriority(6, 1234, 56, true);
+        Packet instance2 = Packet.createPriority(9, 1234, 56, true);
         assertFalse(instance1.equals(instance2));
         assertFalse(instance2.equals(instance1));
     }
@@ -160,10 +164,18 @@ public class PacketTest {
     }
 
     @Test
+    public void testNotEqualsTransmitted() {
+        Packet instance1 = Packet.createPriority(6, 1234, 56, true);
+        Packet instance2 = Packet.createPriority(6, 1234, 56, false);
+        assertFalse(instance1.equals(instance2));
+        assertFalse(instance2.equals(instance1));
+    }
+
+    @Test
     public void testParse() {
         byte[] bytes = new byte[] { 0x33, 0x48, 0x41, 0x4D, 0x4B, 0x53, 0x54, 0x4E, 0x30, 0x46, 0x4C, 0x35, 0x37, 0x35,
                 0x30, 0x31, 0x32, 0x2A };
-        Packet expected = Packet.createPriority(06, 0xFEEC, 0x00, bytes);
+        Packet expected = Packet.createPriority(06, 0xFEEC, 0x00, false, bytes);
         Packet instance = Packet
                 .parse("18FEEC00 33 48 41 4D 4B 53 54 4E 30 46 4C 35 37 35 30 31 32 2A");
 
@@ -180,6 +192,17 @@ public class PacketTest {
     public void testParseFailed2() {
         Packet instance = Packet.parse("This is not a parseable packet, but it was never meant to be.");
         assertEquals(null, instance);
+    }
+
+    @Test
+    public void testParseTransmitted() {
+        byte[] bytes = new byte[] { 0x33, 0x48, 0x41, 0x4D, 0x4B, 0x53, 0x54, 0x4E, 0x30, 0x46, 0x4C, 0x35, 0x37, 0x35,
+                0x30, 0x31, 0x32, 0x2A };
+        Packet expected = Packet.createPriority(06, 0xFEEC, 0x00, true, bytes);
+        Packet instance = Packet
+                .parse("18FEEC00 33 48 41 4D 4B 53 54 4E 30 46 4C 35 37 35 30 31 32 2A (TX)");
+
+        assertEquals(expected, instance);
     }
 
 }

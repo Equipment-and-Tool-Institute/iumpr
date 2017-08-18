@@ -39,7 +39,7 @@ public class BannerModuleTest {
     @Test
     public void testAbortedWithNull() {
         instance = new BannerModule(null, new TestDateTimeModule(), buildNumber);
-        String expected = "2007-12-03T10:15:30.000 I U M P R Data Collection Tool  Aborted" + NL;
+        String expected = "2007-12-03T10:15:30.000 IUMPR Data Collection Tool  Aborted" + NL;
         instance.reportAborted(listener);
         assertEquals(expected, listener.getResults());
     }
@@ -47,7 +47,7 @@ public class BannerModuleTest {
     @Test
     public void testCollectionLogAborted() {
         instance = new BannerModule(Type.COLLECTION_LOG, new TestDateTimeModule(), buildNumber);
-        String expected = "2007-12-03T10:15:30.000 I U M P R Data Collection Tool Data Collection Log Aborted"
+        String expected = "2007-12-03T10:15:30.000 IUMPR Data Collection Tool Data Collection Log Aborted"
                 + NL;
         instance.reportAborted(listener);
         assertEquals(expected, listener.getResults());
@@ -56,7 +56,7 @@ public class BannerModuleTest {
     @Test
     public void testCollectionLogFooter() {
         instance = new BannerModule(Type.COLLECTION_LOG, new TestDateTimeModule(), buildNumber);
-        String expected = "2007-12-03T10:15:30.000 I U M P R Data Collection Tool Data Collection Log END OF REPORT"
+        String expected = "2007-12-03T10:15:30.000 IUMPR Data Collection Tool Data Collection Log END OF REPORT"
                 + NL;
         instance.reportFooter(listener);
         assertEquals(expected, listener.getResults());
@@ -66,9 +66,9 @@ public class BannerModuleTest {
     public void testCollectionLogHeader() {
         instance = new BannerModule(Type.COLLECTION_LOG, new TestDateTimeModule(), buildNumber);
         String expected = "";
-        expected += "2007-12-03T10:15:30.000 I U M P R Data Collection Tool for 13 CCR 1971.1(l)(2) and (h)(1.7)"
+        expected += "2007-12-03T10:15:30.000 IUMPR Data Collection Tool for 13 CCR 1971.1(l)(2) and (h)(1.7)"
                 + NL;
-        expected += "2007-12-03T10:15:30.000 I U M P R Data Collection Tool version 1.2.0" + NL;
+        expected += "2007-12-03T10:15:30.000 IUMPR Data Collection Tool version 1.2.0" + NL;
         expected += NL;
         expected += "IIIIIIIII  UUU     UUU  MMM       MMM  PPPPPPPP     RRRRRRRR     DATA COLLECTION LOG" + NL;
         expected += "IIIIIIIII  UUU     UUU  MMMM     MMMM  PPPPPPPPP    RRRRRRRRR    DATA COLLECTION LOG" + NL;
@@ -84,7 +84,7 @@ public class BannerModuleTest {
         expected += "IIIIIIIII  UUUUUUUUUUU  MMM       MMM  PPP          RRR    RRR   DATA COLLECTION LOG" + NL;
         expected += "IIIIIIIII   UUUUUUUUU   MMM       MMM  PPP          RRR     RRR  DATA COLLECTION LOG" + NL;
         expected += NL;
-        expected += "2007-12-03T10:15:30.000 I U M P R Data Collection Tool Data Collection Log" + NL;
+        expected += "2007-12-03T10:15:30.000 IUMPR Data Collection Tool Data Collection Log" + NL;
         instance.reportHeader(listener);
         assertEquals(expected, listener.getResults());
     }
@@ -92,7 +92,7 @@ public class BannerModuleTest {
     @Test
     public void testCollectionLogStopped() {
         instance = new BannerModule(Type.COLLECTION_LOG, new TestDateTimeModule(), buildNumber);
-        String expected = "2007-12-03T10:15:30.000 I U M P R Data Collection Tool Data Collection Log Stopped"
+        String expected = "2007-12-03T10:15:30.000 IUMPR Data Collection Tool Data Collection Log Stopped"
                 + NL;
         instance.reportStopped(listener);
         assertEquals(expected, listener.getResults());
@@ -102,9 +102,9 @@ public class BannerModuleTest {
     public void testDataPlateLogHeader() {
         instance = new BannerModule(Type.DATA_PLATE, new TestDateTimeModule(), buildNumber);
         String expected = "";
-        expected += "2007-12-03T10:15:30.000 I U M P R Data Collection Tool for 13 CCR 1971.1(l)(2) and (h)(1.7)"
+        expected += "2007-12-03T10:15:30.000 IUMPR Data Collection Tool for 13 CCR 1971.1(l)(2) and (h)(1.7)"
                 + NL;
-        expected += "2007-12-03T10:15:30.000 I U M P R Data Collection Tool version 1.2.0" + NL;
+        expected += "2007-12-03T10:15:30.000 IUMPR Data Collection Tool version 1.2.0" + NL;
         expected += NL;
         expected += "IIIIIIIII  UUU     UUU  MMM       MMM  PPPPPPPP     RRRRRRRR     DATA PLATE REPORT" + NL;
         expected += "IIIIIIIII  UUU     UUU  MMMM     MMMM  PPPPPPPPP    RRRRRRRRR    DATA PLATE REPORT" + NL;
@@ -120,7 +120,7 @@ public class BannerModuleTest {
         expected += "IIIIIIIII  UUUUUUUUUUU  MMM       MMM  PPP          RRR    RRR   DATA PLATE REPORT" + NL;
         expected += "IIIIIIIII   UUUUUUUUU   MMM       MMM  PPP          RRR     RRR  DATA PLATE REPORT" + NL;
         expected += NL;
-        expected += "2007-12-03T10:15:30.000 I U M P R Data Collection Tool Data Plate Report" + NL;
+        expected += "2007-12-03T10:15:30.000 IUMPR Data Collection Tool Data Plate Report" + NL;
         instance.reportHeader(listener);
         assertEquals(expected, listener.getResults());
     }
@@ -128,7 +128,7 @@ public class BannerModuleTest {
     @Test
     public void testDatePlateAborted() {
         instance = new BannerModule(Type.DATA_PLATE, new TestDateTimeModule(), buildNumber);
-        String expected = "2007-12-03T10:15:30.000 I U M P R Data Collection Tool Data Plate Report Aborted"
+        String expected = "2007-12-03T10:15:30.000 IUMPR Data Collection Tool Data Plate Report Aborted"
                 + NL;
         instance.reportAborted(listener);
         assertEquals(expected, listener.getResults());
@@ -137,7 +137,7 @@ public class BannerModuleTest {
     @Test
     public void testDatePlateFooter() {
         instance = new BannerModule(Type.DATA_PLATE, new TestDateTimeModule(), buildNumber);
-        String expected = "2007-12-03T10:15:30.000 I U M P R Data Collection Tool Data Plate Report END OF REPORT"
+        String expected = "2007-12-03T10:15:30.000 IUMPR Data Collection Tool Data Plate Report END OF REPORT"
                 + NL;
         instance.reportFooter(listener);
         assertEquals(expected, listener.getResults());
@@ -146,7 +146,7 @@ public class BannerModuleTest {
     @Test
     public void testDatePlateStopped() {
         instance = new BannerModule(Type.DATA_PLATE, new TestDateTimeModule(), buildNumber);
-        String expected = "2007-12-03T10:15:30.000 I U M P R Data Collection Tool Data Plate Report Stopped"
+        String expected = "2007-12-03T10:15:30.000 IUMPR Data Collection Tool Data Plate Report Stopped"
                 + NL;
         instance.reportStopped(listener);
         assertEquals(expected, listener.getResults());
@@ -155,7 +155,7 @@ public class BannerModuleTest {
     @Test
     public void testFooterWithNull() {
         instance = new BannerModule(null, new TestDateTimeModule(), buildNumber);
-        String expected = "2007-12-03T10:15:30.000 I U M P R Data Collection Tool  END OF REPORT" + NL;
+        String expected = "2007-12-03T10:15:30.000 IUMPR Data Collection Tool  END OF REPORT" + NL;
         instance.reportFooter(listener);
         assertEquals(expected, listener.getResults());
     }
@@ -188,9 +188,9 @@ public class BannerModuleTest {
     public void testHeaderWithNull() {
         instance = new BannerModule(null, new TestDateTimeModule(), buildNumber);
         String expected = "";
-        expected += "2007-12-03T10:15:30.000 I U M P R Data Collection Tool for 13 CCR 1971.1(l)(2) and (h)(1.7)"
+        expected += "2007-12-03T10:15:30.000 IUMPR Data Collection Tool for 13 CCR 1971.1(l)(2) and (h)(1.7)"
                 + NL;
-        expected += "2007-12-03T10:15:30.000 I U M P R Data Collection Tool version 1.2.0" + NL;
+        expected += "2007-12-03T10:15:30.000 IUMPR Data Collection Tool version 1.2.0" + NL;
         expected += NL;
         expected += "IIIIIIIII  UUU     UUU  MMM       MMM  PPPPPPPP     RRRRRRRR     " + NL;
         expected += "IIIIIIIII  UUU     UUU  MMMM     MMMM  PPPPPPPPP    RRRRRRRRR    " + NL;
@@ -206,7 +206,7 @@ public class BannerModuleTest {
         expected += "IIIIIIIII  UUUUUUUUUUU  MMM       MMM  PPP          RRR    RRR   " + NL;
         expected += "IIIIIIIII   UUUUUUUUU   MMM       MMM  PPP          RRR     RRR  " + NL;
         expected += NL;
-        expected += "2007-12-03T10:15:30.000 I U M P R Data Collection Tool " + NL;
+        expected += "2007-12-03T10:15:30.000 IUMPR Data Collection Tool " + NL;
         instance.reportHeader(listener);
         assertEquals(expected, listener.getResults());
     }
@@ -214,7 +214,7 @@ public class BannerModuleTest {
     @Test
     public void testMonitorLogAborted() {
         instance = new BannerModule(Type.MONITOR_LOG, new TestDateTimeModule(), buildNumber);
-        String expected = "2007-12-03T10:15:30.000 I U M P R Data Collection Tool Data Monitor Log Aborted"
+        String expected = "2007-12-03T10:15:30.000 IUMPR Data Collection Tool Data Monitor Log Aborted"
                 + NL;
         instance.reportAborted(listener);
         assertEquals(expected, listener.getResults());
@@ -223,7 +223,7 @@ public class BannerModuleTest {
     @Test
     public void testMonitorLogFooter() {
         instance = new BannerModule(Type.MONITOR_LOG, new TestDateTimeModule(), buildNumber);
-        String expected = "2007-12-03T10:15:30.000 I U M P R Data Collection Tool Data Monitor Log END OF REPORT"
+        String expected = "2007-12-03T10:15:30.000 IUMPR Data Collection Tool Data Monitor Log END OF REPORT"
                 + NL;
         instance.reportFooter(listener);
         assertEquals(expected, listener.getResults());
@@ -233,9 +233,9 @@ public class BannerModuleTest {
     public void testMonitorLogHeader() {
         instance = new BannerModule(Type.MONITOR_LOG, new TestDateTimeModule(), buildNumber);
         String expected = "";
-        expected += "2007-12-03T10:15:30.000 I U M P R Data Collection Tool for 13 CCR 1971.1(l)(2) and (h)(1.7)"
+        expected += "2007-12-03T10:15:30.000 IUMPR Data Collection Tool for 13 CCR 1971.1(l)(2) and (h)(1.7)"
                 + NL;
-        expected += "2007-12-03T10:15:30.000 I U M P R Data Collection Tool version 1.2.0" + NL;
+        expected += "2007-12-03T10:15:30.000 IUMPR Data Collection Tool version 1.2.0" + NL;
         expected += NL;
         expected += "IIIIIIIII  UUU     UUU  MMM       MMM  PPPPPPPP     RRRRRRRR     DATA MONITOR LOG" + NL;
         expected += "IIIIIIIII  UUU     UUU  MMMM     MMMM  PPPPPPPPP    RRRRRRRRR    DATA MONITOR LOG" + NL;
@@ -251,7 +251,7 @@ public class BannerModuleTest {
         expected += "IIIIIIIII  UUUUUUUUUUU  MMM       MMM  PPP          RRR    RRR   DATA MONITOR LOG" + NL;
         expected += "IIIIIIIII   UUUUUUUUU   MMM       MMM  PPP          RRR     RRR  DATA MONITOR LOG" + NL;
         expected += NL;
-        expected += "2007-12-03T10:15:30.000 I U M P R Data Collection Tool Data Monitor Log" + NL;
+        expected += "2007-12-03T10:15:30.000 IUMPR Data Collection Tool Data Monitor Log" + NL;
         instance.reportHeader(listener);
         assertEquals(expected, listener.getResults());
     }
@@ -259,7 +259,7 @@ public class BannerModuleTest {
     @Test
     public void testMonitorLogStopped() {
         instance = new BannerModule(Type.MONITOR_LOG, new TestDateTimeModule(), buildNumber);
-        String expected = "2007-12-03T10:15:30.000 I U M P R Data Collection Tool Data Monitor Log Stopped"
+        String expected = "2007-12-03T10:15:30.000 IUMPR Data Collection Tool Data Monitor Log Stopped"
                 + NL;
         instance.reportStopped(listener);
         assertEquals(expected, listener.getResults());
@@ -268,7 +268,7 @@ public class BannerModuleTest {
     @Test
     public void testStoppedWithNull() {
         instance = new BannerModule(null, new TestDateTimeModule(), buildNumber);
-        String expected = "2007-12-03T10:15:30.000 I U M P R Data Collection Tool  Stopped" + NL;
+        String expected = "2007-12-03T10:15:30.000 IUMPR Data Collection Tool  Stopped" + NL;
         instance.reportStopped(listener);
         assertEquals(expected, listener.getResults());
     }

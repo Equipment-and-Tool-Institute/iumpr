@@ -11,10 +11,13 @@ import static java.time.temporal.ChronoField.NANO_OF_SECOND;
 import static java.time.temporal.ChronoField.SECOND_OF_MINUTE;
 import static java.time.temporal.ChronoField.YEAR;
 
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.SignStyle;
+import java.time.temporal.TemporalAccessor;
 
 /**
  * The Module responsible for the Date/Time
@@ -24,17 +27,23 @@ import java.time.format.SignStyle;
  */
 public class DateTimeModule {
 
-    private DateTimeFormatter formatter;
+    private DateTimeFormatter dateTimeformatter;
+
+    private DateTimeFormatter timeFormatter;
 
     /**
-     * Formats the given {@link LocalDateTime} as a {@link String}
+     * Formats the given {@link TemporalAccessor} as a {@link String}
      *
      * @param time
-     *            the {@link LocalDateTime} to format
+     *            the {@link TemporalAccessor} to format
      * @return {@link String}
      */
-    public String format(LocalDateTime time) {
-        return getFormatter().format(time);
+    public String format(TemporalAccessor time) {
+        try {
+            return getDateTimeFormatter().format(time);
+        } catch (DateTimeException e) {
+            return getTimeFormatter().format(time);
+        }
     }
 
     /**
@@ -43,7 +52,7 @@ public class DateTimeModule {
      * @return {@link String}
      */
     public String getDateTime() {
-        return getFormatter().format(now());
+        return getDateTimeFormatter().format(now());
     }
 
     /**
@@ -51,18 +60,42 @@ public class DateTimeModule {
      *
      * @return {@link DateTimeFormatter}
      */
-    private DateTimeFormatter getFormatter() {
-        if (formatter == null) {
+    private DateTimeFormatter getDateTimeFormatter() {
+        if (dateTimeformatter == null) {
             // We really want this -> DateTimeFormatter.ISO_OFFSET_DATE_TIME but
             // it doesn't have a constant number of milliseconds
-            formatter = new DateTimeFormatterBuilder().parseCaseInsensitive()
+            dateTimeformatter = new DateTimeFormatterBuilder().parseCaseInsensitive()
                     .appendValue(YEAR, 4, 10, SignStyle.EXCEEDS_PAD).appendLiteral('-').appendValue(MONTH_OF_YEAR, 2)
                     .appendLiteral('-').appendValue(DAY_OF_MONTH, 2).appendLiteral('T').appendValue(HOUR_OF_DAY, 2)
                     .appendLiteral(':').appendValue(MINUTE_OF_HOUR, 2).optionalStart().appendLiteral(':')
                     .appendValue(SECOND_OF_MINUTE, 2).optionalStart().appendFraction(NANO_OF_SECOND, 3, 3, true)
                     .toFormatter();
         }
-        return formatter;
+        return dateTimeformatter;
+    }
+
+    /**
+     * Returns the current time formatted as a {@link String}
+     *
+     * @return {@link String}
+     */
+    public String getTime() {
+        return getTimeFormatter().format(now());
+    }
+
+    /**
+     * Returns the formatter used to format the time
+     *
+     * @return the {@link DateTimeFormatter}
+     */
+    private DateTimeFormatter getTimeFormatter() {
+        if (timeFormatter == null) {
+            timeFormatter = new DateTimeFormatterBuilder().parseCaseInsensitive()
+                    .appendValue(HOUR_OF_DAY, 2).appendLiteral(':').appendValue(MINUTE_OF_HOUR, 2).optionalStart()
+                    .appendLiteral(':').appendValue(SECOND_OF_MINUTE, 2).optionalStart()
+                    .appendFraction(NANO_OF_SECOND, 3, 3, true).toFormatter();
+        }
+        return timeFormatter;
     }
 
     /**
@@ -76,14 +109,18 @@ public class DateTimeModule {
     }
 
     /**
-     * Parsed a {@link String} to return a {@link LocalDateTime}
+     * Parsed a {@link String} to return a {@link TemporalAccessor}
      *
      * @param string
      *            the {@link String} to parse
-     * @return {@link LocalDateTime}
+     * @return {@link TemporalAccessor}
      */
-    public LocalDateTime parse(String string) {
-        return LocalDateTime.from(getFormatter().parse(string));
+    public TemporalAccessor parse(String string) {
+        try {
+            return LocalDateTime.from(getDateTimeFormatter().parse(string));
+        } catch (DateTimeException e) {
+            return LocalTime.from(getTimeFormatter().parse(string));
+        }
     }
 
 }

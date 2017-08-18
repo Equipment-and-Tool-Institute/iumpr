@@ -49,6 +49,7 @@ public interface RP1210Library extends Library {
     public static final short CMD_DISALLOW_FURTHER_CONNECTIONS = 29;
     public static final short CMD_ECHO_TRANSMITTED_MESSAGES = 16;
     public static final short CMD_GENERIC_DRIVER_COMMAND = 14;
+    public static final short CMD_GET_PROTOCOL_CONNECTION_SPEED = 45;
     public static final short CMD_PROTECT_J1939_ADDRESS = 19;
     public static final short CMD_RELEASE_J1939_ADDRESS = 31;
     public static final short CMD_RESET_DEVICE = 0;

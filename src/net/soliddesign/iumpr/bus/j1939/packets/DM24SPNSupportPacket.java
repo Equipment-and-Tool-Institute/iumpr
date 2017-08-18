@@ -73,14 +73,15 @@ public class DM24SPNSupportPacket extends ParsedPacket {
 
     @Override
     public String toString() {
-        boolean moreThanOne = getSupportedSpns().size() > 1;
         StringBuilder sb = new StringBuilder();
         sb.append(getStringPrefix());
-        sb.append(moreThanOne ? "[" + NL : "");
+        sb.append("(Supporting Scaled Test Results) [" + NL);
         for (SupportedSPN spn : getSupportedSpns()) {
-            sb.append(moreThanOne ? "  " : "").append(spn).append((moreThanOne ? NL : ""));
+            if (spn.supportsScaledTestResults()) {
+                sb.append("  ").append(spn).append(NL);
+            }
         }
-        sb.append(moreThanOne ? "]" : "");
+        sb.append("]");
         return sb.toString();
     }
 

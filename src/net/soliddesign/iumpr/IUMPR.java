@@ -60,20 +60,29 @@ public class IUMPR {
     }
 
     /**
+     * Returns true if the application is being debugged
+     *
+     * @return true if it's being debugged
+     */
+    public static final boolean isDebug() {
+        return java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments().toString()
+                .indexOf("-agentlib:jdwp") > 0;
+    }
+
+    /**
      * Returns true if the application is under test
      *
      * @return true if it's being tested
      */
     public static final boolean isTesting() {
-        String property = System.getProperty(TESTING_PROPERTY_NAME, "false");
-        return property.equals("true");
+        return System.getProperty(TESTING_PROPERTY_NAME, "false").equals("true");
     }
 
     /**
      * Launch the application.
      *
      * @param args
-     *            The arguments used to start the application - Not used
+     *            The arguments used to start the application
      */
     public static void main(String[] args) {
         getLogger().info("IUMPR starting");

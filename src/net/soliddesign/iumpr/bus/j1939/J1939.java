@@ -17,6 +17,7 @@ import net.soliddesign.iumpr.IUMPR;
 import net.soliddesign.iumpr.bus.Bus;
 import net.soliddesign.iumpr.bus.BusException;
 import net.soliddesign.iumpr.bus.Packet;
+import net.soliddesign.iumpr.bus.j1939.packets.AddressClaimPacket;
 import net.soliddesign.iumpr.bus.j1939.packets.ComponentIdentificationPacket;
 import net.soliddesign.iumpr.bus.j1939.packets.DM11ClearActiveDTCsPacket;
 import net.soliddesign.iumpr.bus.j1939.packets.DM12MILOnEmissionDTCPacket;
@@ -66,7 +67,7 @@ public class J1939 {
     /**
      * The default time to wait for a response
      */
-    private static final int DEFAULT_TIMEOUT = 1250;
+    private static final int DEFAULT_TIMEOUT = 2500;
 
     /**
      * The default time unit for responses
@@ -94,12 +95,11 @@ public class J1939 {
     }
 
     private static Predicate<Packet> pgnFilter(int pgn) {
-        return response -> response.getId() == pgn;
+        return response -> (response.getId() == pgn) || ((response.getId() & 0xFF00) == pgn);
     }
 
     /**
-     * Returns a Subclass of {@link ParsedPacket} that corresponds to the given
-     * id
+     * Returns a Subclass of {@link ParsedPacket} that corresponds to the id
      *
      * @param id
      *            the id to match
@@ -167,6 +167,9 @@ public class J1939 {
         case VehicleIdentificationPacket.PGN:
             return new VehicleIdentificationPacket(packet);
 
+        case AddressClaimPacket.PGN:
+            return new AddressClaimPacket(packet);
+
         case REQUEST_PGN:
             // Request; just return a wrapped packet
             return new ParsedPacket(packet);
@@ -184,6 +187,7 @@ public class J1939 {
             case DM20MonitorPerformanceRatioPacket.PGN:
             case DM21DiagnosticReadinessPacket.PGN:
             case DM30ScaledTestResultsPacket.PGN:
+            case AddressClaimPacket.PGN:
                 return process(maskedId, packet);
 
             default:
@@ -222,7 +226,13 @@ public class J1939 {
     private boolean interrupt;
 
     /** mechanism to interrupt all open streams when interrupt is true. */
-    private final Predicate<Packet> interruptFn = Bus.interruptFilter(t -> interrupt);
+    private final Predicate<Packet> interruptFn = Bus.interruptFilter(t -> {
+        if (interrupt) {
+            interrupt = false;
+            return true;
+        }
+        return false;
+    });
 
     /**
      * Constructor
@@ -302,7 +312,8 @@ public class J1939 {
      * @return {@link Predicate}
      */
     private Predicate<Packet> dsPgnFilter(int pgn) {
-        return response -> ((response.getId() & 0xFF00) == pgn) && ((response.getId() & 0xFF) == getBusAddress());
+        return response -> ((response.getId() & 0xFF00) == pgn)
+                && (((response.getId() & 0xFF) == getBusAddress()) || ((response.getId() & 0xFF) == GLOBAL_ADDR));
     }
 
     /**
@@ -368,7 +379,7 @@ public class J1939 {
     }
 
     /**
-     * Watches the bus for up to 1.25 seconds for the first packet that matches
+     * Watches the bus for the timeout period for the first packet that matches
      * the PGN in the given class
      *
      * @param <T>
@@ -452,7 +463,7 @@ public class J1939 {
     /**
      * Sends a request for a Packet specified by the given class (T). T will
      * provide the PGN for the Packet that is requested. It will try the request
-     * up to three (3) times, one (1.25) second apart for each try.
+     * up to three (3) times, timeout period apart for each try.
      *
      * @param <T>
      *            the Type of Packet to request
@@ -534,7 +545,7 @@ public class J1939 {
     /**
      * Sends a request for a Packet specified by the given class (T). T will
      * provide the PGN for the Packet that is requested. This will request the
-     * packet globally. The request will wait for up to 1.2 seconds
+     * packet globally. The request will wait for up to the timeout period.
      *
      * @param <T>
      *            the Type of Packet to request
@@ -637,8 +648,32 @@ public class J1939 {
      * @return {@link Optional} {@link Packet} This may not contain a value if
      *         there was an exception
      */
-    public <T extends ParsedPacket> Optional<T> requestPacket(Packet packetToSend, Class<T> T, final int destination,
+    public <T extends ParsedPacket> Optional<T> requestPacket(Packet packetToSend, Class<T> T, int destination,
             int tries) {
+        return requestPacket(packetToSend, T, destination, tries, DEFAULT_TIMEOUT);
+    }
+
+    /**
+     * Sends a Request for the given packet. The request will repeat the given
+     * number of tries.
+     *
+     * @param <T>
+     *            the Type of Packet that will be returned
+     * @param packetToSend
+     *            the packet that will be sent
+     * @param T
+     *            the Class of packet that's expected to be returned
+     * @param destination
+     *            the address response should come from
+     * @param tries
+     *            the number of times to try the request
+     * @param timeout
+     *            the maximum time, in milliseconds, to wait for a response
+     * @return {@link Optional} {@link Packet} This may not contain a value if
+     *         there was an exception
+     */
+    public <T extends ParsedPacket> Optional<T> requestPacket(Packet packetToSend, Class<T> T, int destination,
+            int tries, long timeout) {
         Optional<T> result = Optional.empty();
         if (tries <= 0) {
             // Give up
@@ -648,7 +683,7 @@ public class J1939 {
         try {
             int expectedResponsePGN = getPgn(T);
 
-            Stream<Packet> stream = read(DEFAULT_TIMEOUT, DEFAULT_TIMEOUT_UNITS);
+            Stream<Packet> stream = read(timeout, DEFAULT_TIMEOUT_UNITS);
             getBus().send(packetToSend);
 
             Stream<Packet> packets = stream.filter(interruptFn)
@@ -658,7 +693,7 @@ public class J1939 {
             if (result.isPresent()) {
                 return result;
             } else {
-                return requestPacket(packetToSend, T, destination, tries - 1);
+                return requestPacket(packetToSend, T, destination, tries - 1, timeout);
             }
         } catch (Exception e) {
             getLogger().log(Level.SEVERE, "Error requesting packet", e);

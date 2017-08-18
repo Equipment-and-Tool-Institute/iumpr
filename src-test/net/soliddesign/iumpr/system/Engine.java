@@ -88,6 +88,8 @@ public class Engine implements AutoCloseable {
                 && packet.get24(0) == pgn;
     }
 
+    private boolean dtcsCleared = false;
+
     private final Sim sim;
 
     public Engine(Bus bus) throws BusException {
@@ -113,7 +115,10 @@ public class Engine implements AutoCloseable {
         sim.response(p -> isRequestFor(64896, p), () -> Packet.create(64896, ADDR, 0x00, 0x00, 0x00, 0x00, 0x00));
         // DM11
         sim.response(p -> isRequestFor(65235, p),
-                () -> Packet.create(0xE8FF, ADDR, 0x00, 0xFF, 0xFF, 0xFF, 0xF9, 0xD3, 0xFE, 0x00));
+                () -> {
+                    dtcsCleared = true;
+                    return Packet.create(0xE8FF, ADDR, 0x00, 0xFF, 0xFF, 0xFF, 0xF9, 0xD3, 0xFE, 0x00);
+                });
         // DM5
         sim.response(p -> isRequestFor(65230, p),
                 () -> Packet.create(65230, ADDR, 0x00, 0x00, 0x14, 0x37, 0xE0, 0x1E, 0xE0, 0x1E));
@@ -139,7 +144,8 @@ public class Engine implements AutoCloseable {
 
         // DM21
         sim.response(p -> isRequestFor(49408, p),
-                () -> Packet.create(49408, ADDR, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x77));
+                () -> Packet.create(49408, ADDR, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                        dtcsCleared ? 0x00 : 0x77));
 
         // DM24 supported SPNs
         sim.response(p -> isRequestFor(64950, p),

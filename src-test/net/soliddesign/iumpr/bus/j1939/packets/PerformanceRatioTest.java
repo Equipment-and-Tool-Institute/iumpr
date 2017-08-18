@@ -54,7 +54,7 @@ public class PerformanceRatioTest {
     @Test
     public void testGetName() {
         PerformanceRatio instance = new PerformanceRatio(123, 456, 789, 0);
-        assertEquals("SPN 123 Clutch Pressure", instance.getName());
+        assertEquals("SPN  123 Clutch Pressure", instance.getName());
         // Make sure it's cached
         assertSame(instance.getName(), instance.getName());
     }
@@ -71,6 +71,12 @@ public class PerformanceRatioTest {
         assertEquals("Engine #1 (0)", instance.getSource());
         // Make sure it's cached
         assertSame(instance.getSource(), instance.getSource());
+    }
+
+    @Test
+    public void testGetSourceAddress() {
+        PerformanceRatio instance = new PerformanceRatio(123, 456, 789, 0);
+        assertEquals(0, instance.getSourceAddress());
     }
 
     @Test
@@ -110,7 +116,7 @@ public class PerformanceRatioTest {
     @Test
     public void testToString() {
         PerformanceRatio instance = new PerformanceRatio(123, 456, 789, 0);
-        String expected = "SPN 123 Clutch Pressure: 456 / 789";
+        String expected = "SPN  123 Clutch Pressure: 456 / 789";
         assertEquals(expected, instance.toString());
     }
 

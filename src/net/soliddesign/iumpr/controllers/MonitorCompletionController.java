@@ -148,7 +148,7 @@ public class MonitorCompletionController extends Controller {
             getDiagnosticReadinessModule().reportMonitoredSystems(getListener(),
                     getReportFileModule().getInitialMonitors(), lastSystems, initialTime, lastDm5Time);
         } else {
-            getListener().onResult(getTime() + " Monitored Systems Results cannot be reported");
+            getListener().onResult(getDateTime() + " Monitored Systems Results cannot be reported");
             incrementProgress("Monitored Systems Results cannot be reported");
         }
 
@@ -166,7 +166,7 @@ public class MonitorCompletionController extends Controller {
                     getReportFileModule().getInitialIgnitionCycles(), lastIgnitionCycles,
                     getReportFileModule().getInitialOBDCounts(), lastObdCounts, initialTime, lastDm20Time);
         } else {
-            getListener().onResult(getTime() + " Performance Ratio Results cannot be reported");
+            getListener().onResult(getDateTime() + " Performance Ratio Results cannot be reported");
             incrementProgress("Performance Ratio Results cannot be reported");
         }
 

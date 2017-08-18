@@ -63,6 +63,14 @@ public class LookupTest {
     }
 
     @Test
+    public void testGetManufacturer() {
+        assertEquals("Reserved", Lookup.getManufacturer(0));
+        assertEquals("Cummins Inc", Lookup.getManufacturer(10));
+        assertEquals("Equipment & Tool Institute", Lookup.getManufacturer(2047));
+        assertEquals("Unknown", Lookup.getManufacturer(-1));
+    }
+
+    @Test
     public void testGetSpnName() {
         assertEquals("Engine Fuel Pressure", Lookup.getSpnName(18));
         assertEquals("Engine Fuel Supply Pump Actuator", Lookup.getSpnName(931));

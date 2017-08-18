@@ -365,7 +365,7 @@ public class StatusView extends JFrame {
             dm20ProgressBar = new JProgressBar();
             dm20ProgressBar.setMinimum(0);
             dm20ProgressBar.setMaximum(10000);
-            dm20ProgressBar.setValue(10000);
+            dm20ProgressBar.setValue(0);
             dm20ProgressBar.setToolTipText("The communication status for DM20 messages.");
             dm20ProgressBar.setString("DM20");
             dm20ProgressBar.setStringPainted(true);
@@ -379,7 +379,7 @@ public class StatusView extends JFrame {
             dm21ProgressBar = new JProgressBar();
             dm21ProgressBar.setMinimum(0);
             dm21ProgressBar.setMaximum(10000);
-            dm21ProgressBar.setValue(10000);
+            dm21ProgressBar.setValue(0);
             dm21ProgressBar.setToolTipText("The communication status for DM21 messages.");
             dm21ProgressBar.setString("DM21");
             dm21ProgressBar.setStringPainted(true);
@@ -393,7 +393,7 @@ public class StatusView extends JFrame {
             dm26ProgressBar = new JProgressBar();
             dm26ProgressBar.setMinimum(0);
             dm26ProgressBar.setMaximum(10000);
-            dm26ProgressBar.setValue(10000);
+            dm26ProgressBar.setValue(0);
             dm26ProgressBar.setToolTipText("The communication status for DM26 messages.");
             dm26ProgressBar.setString("DM26");
             dm26ProgressBar.setStringPainted(true);
@@ -407,7 +407,7 @@ public class StatusView extends JFrame {
             dm5ProgressBar = new JProgressBar();
             dm5ProgressBar.setMinimum(0);
             dm5ProgressBar.setMaximum(10000);
-            dm5ProgressBar.setValue(10000);
+            dm5ProgressBar.setValue(0);
             dm5ProgressBar.setToolTipText("The communication status for DM5 messages.");
             dm5ProgressBar.setString("DM5");
             dm5ProgressBar.setStringPainted(true);

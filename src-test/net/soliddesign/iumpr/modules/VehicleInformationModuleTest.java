@@ -5,6 +5,7 @@ package net.soliddesign.iumpr.modules;
 
 import static net.soliddesign.iumpr.IUMPR.NL;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
@@ -22,8 +23,11 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import net.soliddesign.iumpr.bus.Bus;
+import net.soliddesign.iumpr.bus.BusException;
 import net.soliddesign.iumpr.bus.Packet;
 import net.soliddesign.iumpr.bus.j1939.J1939;
+import net.soliddesign.iumpr.bus.j1939.packets.AddressClaimPacket;
 import net.soliddesign.iumpr.bus.j1939.packets.ComponentIdentificationPacket;
 import net.soliddesign.iumpr.bus.j1939.packets.DM19CalibrationInformationPacket;
 import net.soliddesign.iumpr.bus.j1939.packets.EngineHoursPacket;
@@ -65,6 +69,105 @@ public class VehicleInformationModuleTest {
     }
 
     @Test
+    public void testReportAddressClaim() {
+        final int pgn = AddressClaimPacket.PGN;
+
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
+
+        AddressClaimPacket packet1 = new AddressClaimPacket(Packet.parse("18EEFF55 10 F7 45 01 00 45 00 01"));
+        AddressClaimPacket packet2 = new AddressClaimPacket(Packet.parse("18EEFF3D 00 00 00 00 00 00 00 00"));
+        AddressClaimPacket packet3 = new AddressClaimPacket(Packet.parse("18EEFF00 00 00 40 05 00 00 65 14"));
+        when(j1939.requestMultiple(AddressClaimPacket.class, requestPacket))
+                .thenReturn(Stream.of(packet1, packet2, packet3));
+
+        String expected = "";
+        expected += "2007-12-03T10:15:30.000 Global Request for Address Claim" + NL;
+        expected += "10:15:30.000 18EAFFA5 00 EE 00 (TX)" + NL;
+        expected += "10:15:30.000 18EEFF55 10 F7 45 01 00 45 00 01" + NL;
+        expected += "Diesel Particulate Filter Controller (85) reported as: {" + NL;
+        expected += "  Industry Group: Global" + NL;
+        expected += "  Vehicle System: Non-specific System, System Instance: 1" + NL;
+        expected += "  Function: Engine Emission Aftertreatment System, Functional Instance: 0, ECU Instance: 0" + NL;
+        expected += "  Manufactured by: Cummins Inc, Identity Number: 390928" + NL;
+        expected += "  Is not arbitrary address capable." + NL;
+        expected += "}" + NL;
+        expected += "10:15:30.000 18EEFF3D 00 00 00 00 00 00 00 00" + NL;
+        expected += "Exhaust Emission Controller (61) reported as: {" + NL;
+        expected += "  Industry Group: Global" + NL;
+        expected += "  Vehicle System: Non-specific System, System Instance: 0" + NL;
+        expected += "  Function: Engine, Functional Instance: 0, ECU Instance: 0" + NL;
+        expected += "  Manufactured by: Reserved, Identity Number: 0" + NL;
+        expected += "  Is not arbitrary address capable." + NL;
+        expected += "}" + NL;
+        expected += "10:15:30.000 18EEFF00 00 00 40 05 00 00 65 14" + NL;
+        expected += "Engine #1 (0) reported as: {" + NL;
+        expected += "  Industry Group: On-Highway Equipment" + NL;
+        expected += "  Vehicle System: Unknown System (50), System Instance: 4" + NL;
+        expected += "  Function: Unknown Function (0), Functional Instance: 0, ECU Instance: 0" + NL;
+        expected += "  Manufactured by: International Truck and Engine Corporation - Engine Electronics, Identity Number: 0"
+                + NL;
+        expected += "  Is not arbitrary address capable." + NL;
+        expected += "}" + NL;
+        TestResultsListener listener = new TestResultsListener();
+        instance.reportAddressClaim(listener);
+        assertEquals(expected, listener.getResults());
+        verify(j1939).createRequestPacket(pgn, 0xFF);
+        verify(j1939).requestMultiple(AddressClaimPacket.class, requestPacket);
+    }
+
+    @Test
+    public void testReportAddressClaimNoFunction0() {
+        final int pgn = AddressClaimPacket.PGN;
+
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
+
+        AddressClaimPacket packet1 = new AddressClaimPacket(Packet.parse("18EEFF55 10 F7 45 01 00 45 00 01"));
+        when(j1939.requestMultiple(AddressClaimPacket.class, requestPacket))
+                .thenReturn(Stream.of(packet1));
+
+        String expected = "";
+        expected += "2007-12-03T10:15:30.000 Global Request for Address Claim" + NL;
+        expected += "10:15:30.000 18EAFFA5 00 EE 00 (TX)" + NL;
+        expected += "10:15:30.000 18EEFF55 10 F7 45 01 00 45 00 01" + NL;
+        expected += "Diesel Particulate Filter Controller (85) reported as: {" + NL;
+        expected += "  Industry Group: Global" + NL;
+        expected += "  Vehicle System: Non-specific System, System Instance: 1" + NL;
+        expected += "  Function: Engine Emission Aftertreatment System, Functional Instance: 0, ECU Instance: 0" + NL;
+        expected += "  Manufactured by: Cummins Inc, Identity Number: 390928" + NL;
+        expected += "  Is not arbitrary address capable." + NL;
+        expected += "}" + NL;
+        expected += "Error: No module reported Function 0" + NL;
+        TestResultsListener listener = new TestResultsListener();
+        instance.reportAddressClaim(listener);
+        assertEquals(expected, listener.getResults());
+        verify(j1939).createRequestPacket(pgn, 0xFF);
+        verify(j1939).requestMultiple(AddressClaimPacket.class, requestPacket);
+    }
+
+    @Test
+    public void testReportAddressClaimNoResponse() {
+        final int pgn = AddressClaimPacket.PGN;
+
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
+
+        when(j1939.requestMultiple(AddressClaimPacket.class, requestPacket))
+                .thenReturn(Stream.empty()).thenReturn(Stream.empty()).thenReturn(Stream.empty());
+
+        String expected = "";
+        expected += "2007-12-03T10:15:30.000 Global Request for Address Claim" + NL;
+        expected += "10:15:30.000 18EAFFA5 00 EE 00 (TX)" + NL;
+        expected += "Error: Timeout - No Response." + NL;
+        TestResultsListener listener = new TestResultsListener();
+        instance.reportAddressClaim(listener);
+        assertEquals(expected, listener.getResults());
+        verify(j1939).createRequestPacket(pgn, 0xFF);
+        verify(j1939).requestMultiple(AddressClaimPacket.class, requestPacket);
+    }
+
+    @Test
     public void testReportCalibrationInformation() {
         final int pgn = DM19CalibrationInformationPacket.PGN;
         final byte[] calBytes1 = "ABCD1234567890123456".getBytes(UTF8);
@@ -85,14 +188,14 @@ public class VehicleInformationModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global DM19 (Calibration Information) Request" + NL;
-        expected += "2007-12-03T10:15:30.000 18EAFFA5 00 D3 00 (TX)" + NL;
-        expected += "2007-12-03T10:15:30.000 18D30000 41 42 43 44 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35 36"
+        expected += "10:15:30.000 18EAFFA5 00 D3 00 (TX)" + NL;
+        expected += "10:15:30.000 18D30000 41 42 43 44 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35 36"
                 + NL;
         expected += "DM19 from Engine #1 (0): CAL ID of 1234567890123456 and CVN of 0x44434241" + NL;
-        expected += "2007-12-03T10:15:30.000 18D30017 45 46 47 48 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35 36"
+        expected += "10:15:30.000 18D30017 45 46 47 48 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35 36"
                 + NL;
         expected += "DM19 from Instrument Cluster #1 (23): CAL ID of 1234567890123456 and CVN of 0x48474645" + NL;
-        expected += "2007-12-03T10:15:30.000 18D30021 49 4A 4B 4C 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35 36"
+        expected += "10:15:30.000 18D30021 49 4A 4B 4C 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35 36"
                 + NL;
         expected += "DM19 from Body Controller (33): CAL ID of 1234567890123456 and CVN of 0x4C4B4A49" + NL;
         TestResultsListener listener = new TestResultsListener();
@@ -113,7 +216,7 @@ public class VehicleInformationModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global DM19 (Calibration Information) Request" + NL;
-        expected += "2007-12-03T10:15:30.000 18EAFFA5 00 D3 00 (TX)" + NL;
+        expected += "10:15:30.000 18EAFFA5 00 D3 00 (TX)" + NL;
         expected += "Error: Timeout - No Response." + NL;
         TestResultsListener listener = new TestResultsListener();
         instance.reportCalibrationInformation(listener);
@@ -141,17 +244,17 @@ public class VehicleInformationModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global Component Identification Request" + NL;
-        expected += "2007-12-03T10:15:30.000 18EAFFA5 EB FE 00 (TX)" + NL;
-        expected += "2007-12-03T10:15:30.000 18FEEB00 4D 61 6B 65 31 2A 4D 6F 64 65 6C 31 2A 53 65 72 69 61 6C 4E 75 6D 62 65 72 31 2A 2A"
+        expected += "10:15:30.000 18EAFFA5 EB FE 00 (TX)" + NL;
+        expected += "10:15:30.000 18FEEB00 4D 61 6B 65 31 2A 4D 6F 64 65 6C 31 2A 53 65 72 69 61 6C 4E 75 6D 62 65 72 31 2A 2A"
                 + NL;
-        expected += "Component Identification from Engine #1 (0): Make: Make1, Model: Model1, Serial Number: SerialNumber1, Unit Number: "
+        expected += "Found Engine #1 (0): Make: Make1, Model: Model1, Serial: SerialNumber1, Unit: "
                 + NL;
-        expected += "2007-12-03T10:15:30.000 18FEEB17 2A 2A 2A 2A" + NL;
-        expected += "Component Identification from Instrument Cluster #1 (23): Make: , Model: , Serial Number: , Unit Number: "
+        expected += "10:15:30.000 18FEEB17 2A 2A 2A 2A" + NL;
+        expected += "Found Instrument Cluster #1 (23): Make: , Model: , Serial: , Unit: "
                 + NL;
-        expected += "2007-12-03T10:15:30.000 18FEEB21 4D 61 6B 65 33 2A 4D 6F 64 65 6C 33 2A 2A 2A"
+        expected += "10:15:30.000 18FEEB21 4D 61 6B 65 33 2A 4D 6F 64 65 6C 33 2A 2A 2A"
                 + NL;
-        expected += "Component Identification from Body Controller (33): Make: Make3, Model: Model3, Serial Number: , Unit Number: "
+        expected += "Found Body Controller (33): Make: Make3, Model: Model3, Serial: , Unit: "
                 + NL;
 
         TestResultsListener listener = new TestResultsListener();
@@ -173,7 +276,7 @@ public class VehicleInformationModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global Component Identification Request" + NL;
-        expected += "2007-12-03T10:15:30.000 18EAFFA5 EB FE 00 (TX)" + NL;
+        expected += "10:15:30.000 18EAFFA5 EB FE 00 (TX)" + NL;
         expected += "Error: Timeout - No Response." + NL;
 
         TestResultsListener listener = new TestResultsListener();
@@ -182,6 +285,34 @@ public class VehicleInformationModuleTest {
 
         verify(j1939).createRequestPacket(pgn, 0xFF);
         verify(j1939).requestMultiple(ComponentIdentificationPacket.class, requestPacket);
+    }
+
+    @Test
+    public void testReportConnectionSpeed() throws Exception {
+        Bus bus = mock(Bus.class);
+        when(j1939.getBus()).thenReturn(bus);
+        when(bus.getConnectionSpeed()).thenReturn(250000);
+
+        TestResultsListener listener = new TestResultsListener();
+        instance.reportConnectionSpeed(listener);
+
+        String expected = "2007-12-03T10:15:30.000 Baud Rate: 250,000 bps" + NL;
+        assertEquals(expected, listener.getResults());
+        verify(j1939).getBus();
+    }
+
+    @Test
+    public void testReportConnectionSpeedWithException() throws Exception {
+        Bus bus = mock(Bus.class);
+        when(j1939.getBus()).thenReturn(bus);
+        when(bus.getConnectionSpeed()).thenThrow(new BusException("Surprise"));
+
+        TestResultsListener listener = new TestResultsListener();
+        instance.reportConnectionSpeed(listener);
+
+        String expected = "2007-12-03T10:15:30.000 Baud Rate: Could not be determined" + NL;
+        assertEquals(expected, listener.getResults());
+        verify(j1939).getBus();
     }
 
     @Test
@@ -196,8 +327,8 @@ public class VehicleInformationModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Engine Hours Request" + NL;
-        expected += "2007-12-03T10:15:30.000 18EA00A5 E5 FE 00 (TX)" + NL;
-        expected += "2007-12-03T10:15:30.000 18FEE500 01 02 03 04 05 06 07 08" + NL;
+        expected += "10:15:30.000 18EA00A5 E5 FE 00 (TX)" + NL;
+        expected += "10:15:30.000 18FEE500 01 02 03 04 05 06 07 08" + NL;
         expected += "Engine Hours from Engine #1 (0): 3,365,299.25 hours" + NL;
 
         TestResultsListener listener = new TestResultsListener();
@@ -219,7 +350,7 @@ public class VehicleInformationModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Engine Hours Request" + NL;
-        expected += "2007-12-03T10:15:30.000 18EA00A5 E5 FE 00 (TX)" + NL;
+        expected += "10:15:30.000 18EA00A5 E5 FE 00 (TX)" + NL;
         expected += "Error: Timeout - No Response." + NL;
 
         TestResultsListener listener = new TestResultsListener();
@@ -239,7 +370,7 @@ public class VehicleInformationModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Vehicle Distance" + NL;
-        expected += "2007-12-03T10:15:30.000 18FEC100 01 02 03 04 05 06 07 08" + NL;
+        expected += "10:15:30.000 18FEC100 01 02 03 04 05 06 07 08" + NL;
         expected += "High Resolution Vehicle Distance from Engine #1 (0): 336,529.925 km (209,110 mi)" + NL;
 
         TestResultsListener listener = new TestResultsListener();
@@ -259,7 +390,7 @@ public class VehicleInformationModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Vehicle Distance" + NL;
-        expected += "2007-12-03T10:15:30.000 18FEE000 01 02 03 04 05 06 07 08" + NL;
+        expected += "10:15:30.000 18FEE000 01 02 03 04 05 06 07 08" + NL;
         expected += "Total Vehicle Distance from Engine #1 (0): 16,834,752.625 km (10,460,630.272 mi)" + NL;
 
         TestResultsListener listener = new TestResultsListener();
@@ -303,14 +434,14 @@ public class VehicleInformationModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global VIN Request" + NL;
-        expected += "2007-12-03T10:15:30.000 18EAFFA5 EC FE 00 (TX)" + NL;
-        expected += "2007-12-03T10:15:30.000 18FEEC00 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39 30 2A"
+        expected += "10:15:30.000 18EAFFA5 EC FE 00 (TX)" + NL;
+        expected += "10:15:30.000 18FEEC00 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39 30 2A"
                 + NL;
         expected += "Vehicle Identification from Engine #1 (0): 12345678901234567890" + NL;
-        expected += "2007-12-03T10:15:30.000 18FEEC17 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39 30 2A"
+        expected += "10:15:30.000 18FEEC17 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39 30 2A"
                 + NL;
         expected += "Vehicle Identification from Instrument Cluster #1 (23): 12345678901234567890" + NL;
-        expected += "2007-12-03T10:15:30.000 18FEEC21 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39 30 2A"
+        expected += "10:15:30.000 18FEEC21 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39 30 2A"
                 + NL;
         expected += "Vehicle Identification from Body Controller (33): 12345678901234567890" + NL;
 
@@ -333,7 +464,7 @@ public class VehicleInformationModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global VIN Request" + NL;
-        expected += "2007-12-03T10:15:30.000 18EAFFA5 EC FE 00 (TX)" + NL;
+        expected += "10:15:30.000 18EAFFA5 EC FE 00 (TX)" + NL;
         expected += "Error: Timeout - No Response." + NL;
 
         TestResultsListener listener = new TestResultsListener();

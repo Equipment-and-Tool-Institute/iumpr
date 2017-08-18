@@ -40,6 +40,41 @@ public class DiagnosticReadinessModule extends FunctionalModule {
     public static final int TSCC_GAP_LIMIT = 60; // minutes
 
     /**
+     * Condenses the input string by using abbreviations and removing
+     * unnecessary words
+     *
+     * @param input
+     *            the input string
+     * @param maxLen
+     *            the maximum length of the string
+     * @return a shorter version of the input string
+     */
+    private static String condense(String input, int maxLen) {
+        input = input.replace("Aftertreatment", "AFT");
+        input = input.replace("Engine ", "");
+        input = input.replace("System", "Sys");
+        input = input.replace("Diesel Particulate Filter ", "DPF ");
+        input = input.replace("Selective Catalytic Reduction", "SCR");
+        input = input.replace("Exhaust Gas Recirculation", "EGR");
+        input = input.replace("Oxygen (or Exhaust Gas) Sensor Bank", "N/O2 Exh Gas Snsr");
+        input = input.replace("Cold Start Emission Reduction Strategy", "Cold Start Strategy");
+        input = input.replace("Catalyst Bank", "Catalyst");
+        input = input.replace("Secondary Air", "2ndary Air");
+        input = input.replace("Monitor", "Mon");
+        input = input.replace("Evaporative", "Evap");
+        input = input.replace("Positive Crankcase Ventilation", "+Crankcase Vent");
+        input = input.replace("Pressure", "Press");
+        input = input.replace("Exhaust", "Exh");
+        input = input.replace("Sensor", "Snsr");
+        input = input.replace("SPN ", "");
+
+        if (input.length() > maxLen) {
+            input = input.substring(0, maxLen - 1) + ".";
+        }
+        return input;
+    }
+
+    /**
      * Helper method to gather the given monitored systems into a vehicle
      * composite
      *
@@ -215,28 +250,6 @@ public class DiagnosticReadinessModule extends FunctionalModule {
     }
 
     /**
-     * Helper method to find the longest {@link PerformanceRatio} name
-     *
-     * @param ratios
-     *            all the {@link PerformanceRatio}s
-     * @return the length of the longest name
-     */
-    private int getLongestName(Collection<PerformanceRatio> ratios) {
-        return ratios.stream().mapToInt(t -> (t.getName()).length()).max().getAsInt();
-    }
-
-    /**
-     * Helper method to find the longest {@link PerformanceRatio} source
-     *
-     * @param ratios
-     *            all the {@link PerformanceRatio}s
-     * @return the length of the longest source
-     */
-    private int getLongestSource(Collection<PerformanceRatio> ratios) {
-        return ratios.stream().mapToInt(t -> (t.getSource()).length()).max().getAsInt();
-    }
-
-    /**
      * Sends the DM5 to determine which modules support HD-OBD. It returns a
      * {@link List} of source addresses of the modules that do support HD-OBD.
      *
@@ -284,11 +297,23 @@ public class DiagnosticReadinessModule extends FunctionalModule {
             boolean fullString) {
         Packet request = getJ1939().createRequestPacket(pgn, J1939.GLOBAL_ADDR);
         if (listener != null) {
-            listener.onResult(getTime() + " " + title);
+            listener.onResult(getDateTime() + " " + title);
             listener.onResult(getTime() + " " + request.toString() + TX);
         }
 
-        List<T> packets = getJ1939().requestMultiple(clazz, request).collect(Collectors.toList());
+        // Try three times to get packets and ensure there's one from the engine
+        List<T> packets = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            packets = getJ1939().requestMultiple(clazz, request).collect(Collectors.toList());
+            if (packets.stream().filter(p -> p.getSourceAddress() == J1939.ENGINE_ADDR).findFirst().isPresent()) {
+                // The engine responded, report the results
+                break;
+            } else {
+                // There was no message from the engine. Clear the results to
+                // produce a timeout message/try again
+                packets.clear();
+            }
+        }
 
         if (listener != null) {
             if (packets.isEmpty()) {
@@ -314,7 +339,7 @@ public class DiagnosticReadinessModule extends FunctionalModule {
      * @return String with extra space on the right
      */
     private String getPaddedStatus(MonitoredSystem system) {
-        return padRight(system.getStatus().toString(), 23);
+        return padRight(" " + system.getStatus().toString(), 14);
     }
 
     /**
@@ -371,11 +396,11 @@ public class DiagnosticReadinessModule extends FunctionalModule {
         if (tscc >= 0 && lastTscc >= 0) {
             int delta = tscc - lastTscc;
             if (delta < 0) {
-                listener.onResult(getTime() + " ERROR Time Since Code Cleared Reset / Rollover");
+                listener.onResult("ERROR Time Since Code Cleared Reset / Rollover");
             } else if (delta > TSCC_GAP_LIMIT) {
-                listener.onResult(getTime() + " ERROR Excess Time Since Code Cleared Gap of " + delta + " minutes");
+                listener.onResult("ERROR Excess Time Since Code Cleared Gap of " + delta + " minutes");
             } else {
-                listener.onResult(getTime() + " Time Since Code Cleared Gap of " + delta + " minutes");
+                listener.onResult("Time Since Code Cleared Gap of " + delta + " minutes");
             }
         }
     }
@@ -393,7 +418,7 @@ public class DiagnosticReadinessModule extends FunctionalModule {
         List<DM26TripDiagnosticReadinessPacket> packets = getDM26Packets(listener, true);
         if (!packets.isEmpty()) {
             listener.onResult("");
-            listener.onResult(getTime() + " Vehicle Composite of DM26:");
+            listener.onResult("Vehicle Composite of DM26:");
             List<CompositeMonitoredSystem> systems = getCompositeSystems(packets);
             listener.onResult(systems.stream().map(t -> t.toString()).collect(Collectors.toList()));
         }
@@ -413,7 +438,7 @@ public class DiagnosticReadinessModule extends FunctionalModule {
         List<DM5DiagnosticReadinessPacket> packets = getDM5Packets(listener, true);
         if (!packets.isEmpty()) {
             listener.onResult("");
-            listener.onResult(getTime() + " Vehicle Composite of DM5:");
+            listener.onResult("Vehicle Composite of DM5:");
             List<CompositeMonitoredSystem> systems = getCompositeSystems(packets);
             listener.onResult(systems.stream().map(t -> t.toString()).collect(Collectors.toList()));
         }
@@ -446,20 +471,27 @@ public class DiagnosticReadinessModule extends FunctionalModule {
         List<CompositeMonitoredSystem> startSystems = getCompositeSystems(initialValues);
         List<CompositeMonitoredSystem> endSystems = getCompositeSystems(finalValues);
 
-        listener.onResult(getTime() + " Vehicle Composite Results of DM5:");
-        String separator = "+--------------------------------------------------------+-------------------------+--------------------------+";
+        String[] initialDateTime = initialTime.split("T");
+        String[] finalDateTime = finalTime.split("T");
+
+        listener.onResult(getDateTime() + " Vehicle Composite Results of DM5:");
+
+        String separator = "+----------------------------+----------------+----------------+";
         listener.onResult(separator);
-        listener.onResult("| " + padLeft(padRight("Monitor", 30), 54)
-                + " |     Initial Status      |       Last Status        |");
-        listener.onResult("| " + padRight("", 54) + " | " + initialTime + " | " + finalTime + "  |");
+        listener.onResult("| " + padLeft(padRight("Monitor", 16), 26) + " | Initial Status |  Last Status   |");
+        listener.onResult("| " + padRight("", 26) + " | " + padRight("  " + initialDateTime[0], 14) + " | "
+                + padRight("  " + finalDateTime[0], 14) + " |");
+        listener.onResult("| " + padRight("", 26) + " | " + padRight(" " + initialDateTime[1], 14) + " | "
+                + padRight(" " + finalDateTime[1], 14) + " |");
         listener.onResult(separator);
 
         for (int i = 0; i < startSystems.size(); i++) {
             MonitoredSystem startSystem = startSystems.get(i);
             MonitoredSystem endSystem = endSystems.get(i);
             boolean diff = endSystem.getStatus() != startSystem.getStatus();
-            listener.onResult("| " + startSystem.getName() + " | " + getPaddedStatus(startSystem) + " | "
-                    + getPaddedStatus(endSystem) + (diff ? "*" : " ") + " |");
+            listener.onResult(
+                    "|" + (diff ? "*" : " ") + startSystem.getName() + " | " + getPaddedStatus(startSystem) + " | "
+                            + getPaddedStatus(endSystem) + (diff ? "*" : " ") + "|");
         }
         listener.onResult(separator);
     }
@@ -505,11 +537,10 @@ public class DiagnosticReadinessModule extends FunctionalModule {
         List<PerformanceRatio> endingRatios = new ArrayList<>(finalValues);
         endingRatios.sort(comparator);
 
-        int nameLen = getLongestName(initialValues);
-        int srcLen = getLongestSource(initialValues);
+        int nameLen = 32;
+        int srcLen = 3;
 
-        listener.onResult(getTime() + " Vehicle Composite Results of DM20:");
-
+        listener.onResult(getDateTime() + " Vehicle Composite Results of DM20:");
         // Make String of spaces for the Source Column
         String sourceSpace = padRight("", srcLen);
 
@@ -517,31 +548,36 @@ public class DiagnosticReadinessModule extends FunctionalModule {
         String nameSpace = padRight("", nameLen);
 
         String separator1 = ("+ " + sourceSpace + " + " + nameSpace
-                + " +---------------------------+----------------------------+").replaceAll(" ", "-");
+                + " +-----------------+-----------------+").replaceAll(" ", "-");
 
         String separator2 = ("+ " + sourceSpace + " + " + nameSpace
-                + " +-------------+-------------+-------------+--------------+").replaceAll(" ", "-");
+                + " +--------+--------+--------+--------+").replaceAll(" ", "-");
 
+        String[] initialDateTime = initialTime.split("T");
+        String[] finalDateTime = finalTime.split("T");
         listener.onResult(separator1);
-        listener.onResult(
-                "| " + sourceSpace + " | " + nameSpace + " |      Initial Status       |         Last Status        |");
-        listener.onResult("| " + sourceSpace + " | " + nameSpace + " |  " + initialTime + "  |  " + finalTime + "   |");
+        listener.onResult("| " + sourceSpace + " | " + nameSpace + " |  Initial Status |   Last Status   |");
+        listener.onResult("| " + sourceSpace + " | " + nameSpace + " |    " + initialDateTime[0] + "   |    "
+                + finalDateTime[0] + "   |");
+        listener.onResult("| " + sourceSpace + " | " + nameSpace + " |   " + initialDateTime[1] + "  |   "
+                + finalDateTime[1] + "  |");
         listener.onResult(separator1);
 
         boolean diff = initialIgnitionCycles != finalIgnitionCycles;
-        listener.onResult("| " + sourceSpace + " | " + padRight("Ignition Cycles", nameLen) + " |  "
-                + padLeft("" + initialIgnitionCycles, 24) + " |  " + padLeft("" + finalIgnitionCycles, 24)
-                + (diff ? "*" : " ") + " |");
+        listener.onResult("|" + (diff ? "*" : " ") + sourceSpace + " | " + padRight("Ignition Cycles", nameLen) + " |  "
+                + padLeft("" + initialIgnitionCycles, 14) + " |  " + padLeft("" + finalIgnitionCycles, 13)
+                + (diff ? " *" : "  ") + "|");
 
         diff = initialObdCounts != finalObdCounts;
-        listener.onResult("| " + sourceSpace + " | " + padRight("OBD Monitoring Conditions Encountered", nameLen)
-                + " |  " + padLeft("" + initialObdCounts, 24) + " |  " + padLeft("" + finalObdCounts, 24)
-                + (diff ? "*" : " ") + " |");
+
+        listener.onResult("|" + (diff ? "*" : " ") + sourceSpace + " | "
+                + padRight("OBD Monitoring Conditions Count", nameLen)
+                + " |  " + padLeft("" + initialObdCounts, 14) + " |  " + padLeft("" + finalObdCounts, 13)
+                + (diff ? " *" : "  ") + "|");
 
         listener.onResult(separator2);
-        listener.onResult("| " + padRight("Source", srcLen) + " | " + padRight("Monitor Name", nameLen)
-                + " | " + padLeft("Numerator", 11) + " | " + padLeft("Denominator", 11) + " | "
-                + padLeft("Numerator", 10) + "  | " + padLeft("Denominator", 11) + "  |");
+        listener.onResult("| " + padRight("Src", srcLen) + " | " + padRight("Monitor", nameLen)
+                + " |  Num'r |  Den'r |  Num'r |  Den'r |");
         listener.onResult(separator2);
 
         for (PerformanceRatio ratio1 : startingRatios) {
@@ -553,8 +589,8 @@ public class DiagnosticReadinessModule extends FunctionalModule {
                 }
             }
 
-            String name = ratio1.getName();
-            String source = ratio1.getSource();
+            String name = condense(ratio1.getName(), nameLen);
+            String source = String.valueOf(ratio1.getSourceAddress());
             int num1 = ratio1.getNumerator();
             int dem1 = ratio1.getDenominator();
             int num2 = ratio2 != null ? ratio2.getNumerator() : -1;
@@ -564,8 +600,8 @@ public class DiagnosticReadinessModule extends FunctionalModule {
         }
 
         for (PerformanceRatio ratio2 : endingRatios) {
-            String name = ratio2.getName();
-            String source = ratio2.getSource();
+            String name = condense(ratio2.getName(), nameLen);
+            String source = String.valueOf(ratio2.getSourceAddress());
             int num1 = -1;
             int dem1 = -1;
             int num2 = ratio2.getNumerator();
@@ -588,10 +624,9 @@ public class DiagnosticReadinessModule extends FunctionalModule {
         boolean nDiff = !iNum.equals(fNum);
         boolean dDiff = !iDem.equals(fDem);
 
-        return "| " + padRight(source, sourceLength) + " | " + padRight(name, nameLength) + " | "
-                + padLeft(iNum, 11) + " | " + padLeft(iDem, 11) + " | "
-                + padLeft(fNum, 10) + (nDiff ? "*" : " ") + " | " + padLeft(fDem, 11)
-                + (dDiff ? "*" : " ") + " |";
+        return "|" + (dDiff | nDiff ? "*" : " ") + padLeft(source, sourceLength) + " | " + padRight(name, nameLength)
+                + (name.endsWith(".") ? "." : " ") + "| " + padLeft(iNum, 6) + " | " + padLeft(iDem, 6) + " | "
+                + padLeft(fNum, 5) + (nDiff ? "*" : " ") + " | " + padLeft(fDem, 5) + (dDiff ? " *" : "  ") + "|";
     }
 
 }

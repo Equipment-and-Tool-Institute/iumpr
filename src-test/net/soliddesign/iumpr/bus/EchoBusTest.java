@@ -5,6 +5,7 @@ package net.soliddesign.iumpr.bus;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
@@ -68,6 +69,16 @@ public class EchoBusTest {
     @Test
     public void testGetAddress() {
         assertEquals(ADDR, instance.getAddress());
+    }
+
+    @Test
+    public void testGetConnectionSpeed() throws Exception {
+        try {
+            instance.getConnectionSpeed();
+            fail("An exception should have been thrown");
+        } catch (BusException e) {
+            assertEquals("Could not be determined", e.getMessage());
+        }
     }
 
     @Test

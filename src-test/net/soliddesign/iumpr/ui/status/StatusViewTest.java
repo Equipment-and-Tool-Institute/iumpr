@@ -105,22 +105,22 @@ public class StatusViewTest {
         // Check initial values
         assertEquals(0, instance.getDm20ProgressBar().getMinimum());
         assertEquals(10000, instance.getDm20ProgressBar().getMaximum());
-        assertEquals(10000, instance.getDm20ProgressBar().getValue());
+        assertEquals(0, instance.getDm20ProgressBar().getValue());
         assertEquals("DM20", instance.getDm20ProgressBar().getString());
 
         assertEquals(0, instance.getDm21ProgressBar().getMinimum());
         assertEquals(10000, instance.getDm21ProgressBar().getMaximum());
-        assertEquals(10000, instance.getDm21ProgressBar().getValue());
+        assertEquals(0, instance.getDm21ProgressBar().getValue());
         assertEquals("DM21", instance.getDm21ProgressBar().getString());
 
         assertEquals(0, instance.getDm26ProgressBar().getMinimum());
         assertEquals(10000, instance.getDm26ProgressBar().getMaximum());
-        assertEquals(10000, instance.getDm26ProgressBar().getValue());
+        assertEquals(0, instance.getDm26ProgressBar().getValue());
         assertEquals("DM26", instance.getDm26ProgressBar().getString());
 
         assertEquals(0, instance.getDm5ProgressBar().getMinimum());
         assertEquals(10000, instance.getDm5ProgressBar().getMaximum());
-        assertEquals(10000, instance.getDm5ProgressBar().getValue());
+        assertEquals(0, instance.getDm5ProgressBar().getValue());
         assertEquals("DM5", instance.getDm5ProgressBar().getString());
 
         // Allow for timeout

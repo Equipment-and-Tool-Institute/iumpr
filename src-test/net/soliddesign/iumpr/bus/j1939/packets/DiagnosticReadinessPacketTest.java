@@ -31,6 +31,60 @@ public class DiagnosticReadinessPacketTest {
     }
 
     @Test
+    public void test0x00() {
+        Packet packet = Packet.create(0, 0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
+        DiagnosticReadinessPacket instance = new DiagnosticReadinessPacket(packet);
+        {
+            List<MonitoredSystem> systems = instance.getContinuouslyMonitoredSystems();
+            for (MonitoredSystem system : systems) {
+                assertEquals(system.getName() + " is wrong", Status.NOT_SUPPORTED, system.getStatus());
+            }
+        }
+        {
+            List<MonitoredSystem> systems = instance.getNonContinuouslyMonitoredSystems();
+            for (MonitoredSystem system : systems) {
+                assertEquals(system.getName() + " is wrong", Status.NOT_SUPPORTED, system.getStatus());
+            }
+        }
+    }
+
+    @Test
+    public void test0xFF() {
+        Packet packet = Packet.create(0, 0, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF);
+        DiagnosticReadinessPacket instance = new DiagnosticReadinessPacket(packet);
+        {
+            List<MonitoredSystem> systems = instance.getContinuouslyMonitoredSystems();
+            for (MonitoredSystem system : systems) {
+                assertEquals(system.getName() + " is wrong", Status.NOT_SUPPORTED, system.getStatus());
+            }
+        }
+        {
+            List<MonitoredSystem> systems = instance.getNonContinuouslyMonitoredSystems();
+            for (MonitoredSystem system : systems) {
+                assertEquals(system.getName() + " is wrong", Status.NOT_SUPPORTED, system.getStatus());
+            }
+        }
+    }
+
+    @Test
+    public void test0xFFWithNoOBD() {
+        Packet packet = Packet.create(0, 0, 0xFF, 0xFF, 0x05, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF);
+        DiagnosticReadinessPacket instance = new DiagnosticReadinessPacket(packet);
+        {
+            List<MonitoredSystem> systems = instance.getContinuouslyMonitoredSystems();
+            for (MonitoredSystem system : systems) {
+                assertEquals(system.getName() + " is wrong", Status.NOT_SUPPORTED, system.getStatus());
+            }
+        }
+        {
+            List<MonitoredSystem> systems = instance.getNonContinuouslyMonitoredSystems();
+            for (MonitoredSystem system : systems) {
+                assertEquals(system.getName() + " is wrong", Status.NOT_SUPPORTED, system.getStatus());
+            }
+        }
+    }
+
+    @Test
     public void testEqualsAndHashCode() {
         Packet packet = Packet.create(0, 0, 11, 22, 33, 44, 55, 66, 77, 88);
         DiagnosticReadinessPacket instance1 = new DiagnosticReadinessPacket(packet);
@@ -71,7 +125,7 @@ public class DiagnosticReadinessPacketTest {
 
     @Test
     public void testGetContinouslyMonitoredSystemsComprehensiveComponentMonitoring() {
-        final String name = "Comprehensive component monitoring                    ";
+        final String name = "Comprehensive component   ";
         validateContinouslyMonitoredSystems(name, 0, 0x00, Status.NOT_SUPPORTED);
         validateContinouslyMonitoredSystems(name, 0, 0x04, Status.COMPLETE);
         validateContinouslyMonitoredSystems(name, 0, 0x40, Status.NOT_SUPPORTED);
@@ -80,7 +134,7 @@ public class DiagnosticReadinessPacketTest {
 
     @Test
     public void testGetContinouslyMonitoredSystemsFuelSystemMonitoring() {
-        final String name = "Fuel System monitoring                                ";
+        final String name = "Fuel System               ";
         validateContinouslyMonitoredSystems(name, 1, 0x00, Status.NOT_SUPPORTED);
         validateContinouslyMonitoredSystems(name, 1, 0x02, Status.COMPLETE);
         validateContinouslyMonitoredSystems(name, 1, 0x20, Status.NOT_SUPPORTED);
@@ -89,7 +143,7 @@ public class DiagnosticReadinessPacketTest {
 
     @Test
     public void testGetContinouslyMonitoredSystemsMisfireMonitoring() {
-        final String name = "Misfire monitoring                                    ";
+        final String name = "Misfire                   ";
         validateContinouslyMonitoredSystems(name, 2, 0x00, Status.NOT_SUPPORTED);
         validateContinouslyMonitoredSystems(name, 2, 0x01, Status.COMPLETE);
         validateContinouslyMonitoredSystems(name, 2, 0x10, Status.NOT_SUPPORTED);
@@ -110,19 +164,19 @@ public class DiagnosticReadinessPacketTest {
 
     @Test
     public void testGetNonContinouslyMonitoredSystems() {
-        validateNonContinouslyMonitoredSystem1("EGR/VVT system monitoring                             ", 0, 0x80);
-        validateNonContinouslyMonitoredSystem1("Exhaust Gas Sensor heater monitoring                  ", 1, 0x40);
-        validateNonContinouslyMonitoredSystem1("Exhaust Gas Sensor monitoring                         ", 2, 0x20);
-        validateNonContinouslyMonitoredSystem1("A/C system refrigerant monitoring                     ", 3, 0x10);
-        validateNonContinouslyMonitoredSystem1("Secondary air system monitoring                       ", 4, 0x08);
-        validateNonContinouslyMonitoredSystem1("Evaporative system monitoring                         ", 5, 0x04);
-        validateNonContinouslyMonitoredSystem1("Heated catalyst monitoring                            ", 6, 0x02);
-        validateNonContinouslyMonitoredSystem1("Catalyst monitoring                                   ", 7, 0x01);
-        validateNonContinouslyMonitoredSystem2("NMHC converting catalyst monitoring                   ", 8, 0x10);
-        validateNonContinouslyMonitoredSystem2("NOx converting catalyst and/or NOx adsorber monitoring", 9, 0x08);
-        validateNonContinouslyMonitoredSystem2("Diesel Particulate Filter (DPF) monitoring            ", 10, 0x04);
-        validateNonContinouslyMonitoredSystem2("Boost pressure control system monitoring              ", 11, 0x02);
-        validateNonContinouslyMonitoredSystem2("Cold start aid system monitoring                      ", 12, 0x01);
+        validateNonContinouslyMonitoredSystem1("EGR/VVT system            ", 0, 0x80);
+        validateNonContinouslyMonitoredSystem1("Exhaust Gas Sensor heater ", 1, 0x40);
+        validateNonContinouslyMonitoredSystem1("Exhaust Gas Sensor        ", 2, 0x20);
+        validateNonContinouslyMonitoredSystem1("A/C system refrigerant    ", 3, 0x10);
+        validateNonContinouslyMonitoredSystem1("Secondary air system      ", 4, 0x08);
+        validateNonContinouslyMonitoredSystem1("Evaporative system        ", 5, 0x04);
+        validateNonContinouslyMonitoredSystem1("Heated catalyst           ", 6, 0x02);
+        validateNonContinouslyMonitoredSystem1("Catalyst                  ", 7, 0x01);
+        validateNonContinouslyMonitoredSystem2("NMHC converting catalyst  ", 8, 0x10);
+        validateNonContinouslyMonitoredSystem2("NOx catalyst/adsorber     ", 9, 0x08);
+        validateNonContinouslyMonitoredSystem2("Diesel Particulate Filter ", 10, 0x04);
+        validateNonContinouslyMonitoredSystem2("Boost pressure control sys", 11, 0x02);
+        validateNonContinouslyMonitoredSystem2("Cold start aid system     ", 12, 0x01);
     }
 
     @Test

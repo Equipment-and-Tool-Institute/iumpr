@@ -84,10 +84,19 @@ public abstract class FunctionalModule {
      */
     protected <T extends ParsedPacket> List<T> generateReport(ResultsListener listener, String title, Class<T> clazz,
             Packet request) {
-        listener.onResult(getTime() + " " + title);
+        listener.onResult(getDateTime() + " " + title);
         listener.onResult(getTime() + " " + request.toString() + TX);
         Stream<T> packets = getJ1939().requestMultiple(clazz, request);
         return addToReport(listener, packets);
+    }
+
+    /**
+     * Returns the Date/Time formatted for the reports
+     *
+     * @return {@link String}
+     */
+    protected String getDateTime() {
+        return getDateTimeModule().getDateTime();
     }
 
     /**
@@ -113,12 +122,12 @@ public abstract class FunctionalModule {
     }
 
     /**
-     * Returns the Date/Time formatted for the reports
+     * Returns the Time formatted for the reports
      *
      * @return {@link String}
      */
     protected String getTime() {
-        return getDateTimeModule().getDateTime();
+        return getDateTimeModule().getTime();
     }
 
     /**

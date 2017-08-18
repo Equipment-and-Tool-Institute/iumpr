@@ -7,6 +7,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -28,8 +29,11 @@ public class DateTimeModuleTest {
 
     @Test
     public void testFormat() throws Exception {
-        LocalDateTime time = LocalDateTime.parse("2007-12-03T10:15:30.000");
-        assertEquals("2007-12-03T10:15:30.000", instance.format(time));
+        LocalDateTime dateTime = LocalDateTime.parse("2007-12-03T10:15:30.000");
+        assertEquals("2007-12-03T10:15:30.000", instance.format(dateTime));
+
+        LocalTime time = LocalTime.parse("10:15:30.000");
+        assertEquals("10:15:30.000", instance.format(time));
     }
 
     @Test
@@ -57,5 +61,9 @@ public class DateTimeModuleTest {
     public void testParse() throws Exception {
         LocalDateTime expected = LocalDateTime.parse("2007-12-03T10:15:30.000");
         assertEquals(expected, instance.parse("2007-12-03T10:15:30.000"));
+
+        LocalTime expectedTime = LocalTime.parse("10:15:30.000");
+        assertEquals(expectedTime, instance.parse("10:15:30.000"));
+
     }
 }

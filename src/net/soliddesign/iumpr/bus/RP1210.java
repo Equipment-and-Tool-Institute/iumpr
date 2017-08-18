@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
 
 import org.ini4j.Ini;
 import org.ini4j.Profile.Section;
@@ -69,7 +70,7 @@ public class RP1210 {
     public List<Adapter> getAdapters() throws BusException {
         if (adapters == null) {
             adapters = new ArrayList<>();
-            if (IUMPR.isTesting()) {
+            if (IUMPR.isTesting() || IUMPR.isDebug()) {
                 adapters.add(LOOP_BACK_ADAPTER);
             }
             adapters.addAll(parse());
@@ -93,22 +94,26 @@ public class RP1210 {
             try {
                 Ini ini = new Ini(new File(base, "RP121032.ini"));
                 for (String id : ini.get("RP1210Support").getOrDefault("APIImplementations", "").split("\\s*,\\s*")) {
-                    Ini driver = new Ini(new File(base, id + ".ini"));
-                    Section vendorSection = driver.get("VendorInformation");
-                    final String vendorName = vendorSection.getOrDefault("Name", "");
+                    try {
+                        Ini driver = new Ini(new File(base, id + ".ini"));
+                        Section vendorSection = driver.get("VendorInformation");
+                        final String vendorName = vendorSection.getOrDefault("Name", "");
 
-                    // loop through protocols to find J1939
-                    for (String protocolId : vendorSection.getOrDefault("Protocols", "").split("\\s*,\\s*")) {
-                        Section protocolSection = driver.get("ProtocolInformation" + protocolId);
-                        if (protocolSection.getOrDefault("ProtocolString", "").contains("J1939")) {
-                            // add listed devices
-                            for (String devId : protocolSection.getOrDefault("Devices", "").split("\\s*,\\s*")) {
-                                final short deviceId = Short.parseShort(devId);
-                                final String deviceName = driver.get("DeviceInformation" + devId)
-                                        .getOrDefault("DeviceDescription", "UNKNOWN");
-                                list.add(new Adapter(vendorName + " - " + deviceName, id, deviceId));
+                        // loop through protocols to find J1939
+                        for (String protocolId : vendorSection.getOrDefault("Protocols", "").split("\\s*,\\s*")) {
+                            Section protocolSection = driver.get("ProtocolInformation" + protocolId);
+                            if (protocolSection.getOrDefault("ProtocolString", "").contains("J1939")) {
+                                // add listed devices
+                                for (String devId : protocolSection.getOrDefault("Devices", "").split("\\s*,\\s*")) {
+                                    final short deviceId = Short.parseShort(devId);
+                                    final String deviceName = driver.get("DeviceInformation" + devId)
+                                            .getOrDefault("DeviceDescription", "UNKNOWN");
+                                    list.add(new Adapter(vendorName + " - " + deviceName, id, deviceId));
+                                }
                             }
                         }
+                    } catch (IOException e) {
+                        IUMPR.getLogger().log(Level.SEVERE, "Error Parsing ini file", e);
                     }
                 }
             } catch (IOException e) {
@@ -139,7 +144,7 @@ public class RP1210 {
 
         if (adapter.getDeviceId() == FAKE_DEV_ID) {
             EchoBus bus = new EchoBus(address);
-            if (adapter != LOOP_BACK_ADAPTER) {
+            if (IUMPR.isDebug()) {
                 engine = new Engine(bus);
             }
             return bus;

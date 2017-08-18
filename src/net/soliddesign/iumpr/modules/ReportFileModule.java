@@ -12,7 +12,9 @@ import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.TemporalAccessor;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -163,6 +165,8 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
      */
     private LocalDateTime initialRatiosTime;
 
+    private LocalDateTime lastInstant;
+
     /**
      * Flag indicating if the file is new or existing
      */
@@ -194,12 +198,12 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
     /**
      * The Time Since Code Clear from the file
      */
-    private final int[] tscc = new int[] { Integer.MIN_VALUE };
+    private int tscc = Integer.MIN_VALUE;
 
     /**
      * The Vehicle Identification Number found in an existing report file
      */
-    private final String[] vin = new String[1];
+    private String vin = null;
 
     /**
      * The Writer used to write results to the report file
@@ -253,26 +257,24 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
     /**
      * Checks the line for the date
      *
-     * @param lastInstant
-     *            the last date found
      * @param line
      *            the line to check
      * @throws ReportFileException
      *             if the date went backwards or is in the future
      */
-    private void checkDate(LocalDateTime[] lastInstant, String line) throws ReportFileException {
-        LocalDateTime lineInstant = parseDate(line);
+    private void checkDate(String line) throws ReportFileException {
+        LocalDateTime lineInstant = parseDateTime(line);
 
         if (lineInstant != null) {
-            if (lastInstant[0] != null) {
-                if (lineInstant.isBefore(lastInstant[0])) {
+            if (lastInstant != null) {
+                if (lineInstant.isBefore(lastInstant)) {
                     throw new ReportFileException(Problem.DATE_INCONSISTENT);
                 }
                 if (lineInstant.isAfter(LocalDateTime.now())) {
                     throw new ReportFileException(Problem.DATE_RESET);
                 }
             }
-            lastInstant[0] = lineInstant;
+            lastInstant = lineInstant;
         }
     }
 
@@ -287,6 +289,7 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
     private boolean checkDTCsCleared(String line) {
         if (line.contains(DTCModule.DTCS_CLEARED)) {
             ratiosAndMonitorsCanBeRead = true;
+            tscc = Integer.MIN_VALUE;
             return true;
         }
         return false;
@@ -328,7 +331,7 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
                 // the codes are cleared where the DM5s are valid
                 initialMonitors.addAll(packet.getMonitoredSystems());
                 if (packet.getSourceAddress() == J1939.ENGINE_ADDR) {
-                    initialMonitorsTime = parseDate(line);
+                    initialMonitorsTime = parseDateTime(line);
                 }
             }
             return true;
@@ -351,7 +354,7 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
                 // the codes are cleared where the DM20s are valid
                 initialRatios.addAll(packet.getRatios());
                 if (packet.getSourceAddress() == J1939.ENGINE_ADDR) {
-                    initialRatiosTime = parseDate(line);
+                    initialRatiosTime = parseDateTime(line);
                     initialIgnitionCycles = packet.getIgnitionCycles();
                     initialOBDCounts = packet.getOBDConditionsCount();
                 }
@@ -372,7 +375,7 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
         int lineTscc = parseTscc(line);
 
         if (lineTscc != Integer.MIN_VALUE) {
-            tscc[0] = lineTscc;
+            tscc = lineTscc;
             return true;
         }
         return false;
@@ -391,10 +394,10 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
         String lineVin = parseVin(line);
 
         if (lineVin != null) {
-            if (vin[0] != null && !vin[0].equals(lineVin)) {
+            if (vin != null && !vin.equals(lineVin)) {
                 throw new ReportFileException(Problem.VIN_INCONSISTENT);
             }
-            vin[0] = lineVin;
+            vin = lineVin;
             return true;
         }
         return false;
@@ -418,7 +421,7 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
      * @return String
      */
     public String getFileVin() {
-        return vin[0];
+        return vin;
     }
 
     /**
@@ -490,7 +493,7 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
      * @return int
      */
     public int getMinutesSinceCodeClear() {
-        return tscc[0];
+        return tscc;
     }
 
     /**
@@ -521,7 +524,7 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
     public void onProgramExit() {
         try {
             if (writer != null) {
-                write(getTime() + " End of " + BannerModule.TOOL_NAME + " Execution" + NL);
+                write(getDateTime() + " End of " + BannerModule.TOOL_NAME + " Execution" + NL);
                 writer.flush();
                 writer.close();
             }
@@ -569,8 +572,8 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
         return packet == null ? null : new DM19CalibrationInformationPacket(packet);
     }
 
-    private LocalDateTime parseDate(String line) {
-        LocalDateTime lineInstant = null;
+    private LocalDateTime parseDateTime(String line) {
+        TemporalAccessor lineInstant = null;
 
         int endIndex = line.indexOf(" ");
         if (endIndex > 0) {
@@ -581,7 +584,14 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
                 // Don't care - it happens
             }
         }
-        return lineInstant;
+
+        if (lineInstant instanceof LocalTime) {
+            return ((LocalTime) lineInstant).atDate(lastInstant.toLocalDate());
+        } else if (lineInstant instanceof LocalDateTime) {
+            return (LocalDateTime) lineInstant;
+        } else {
+            return null;
+        }
     }
 
     private DM5DiagnosticReadinessPacket parseMonitors(String line) {
@@ -655,8 +665,8 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
      *            results
      */
     public void reportAndResetCommunicationQuality(ResultsListener listener) {
-        listener.onResult(getTime() + " Total Queries: " + queries);
-        listener.onResult(getTime() + " Total Time Out Errors: " + timeouts);
+        listener.onResult(getDateTime() + " Total Queries: " + queries);
+        listener.onResult(getDateTime() + " Total Time Out Errors: " + timeouts);
         resetQueries();
         resetTimeouts();
     }
@@ -669,7 +679,8 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
      *            results
      */
     public void reportFileInformation(ResultsListener listener) {
-        listener.onResult(getTime() + (isNewFile() ? " New" : " Existing") + " File: " + reportFile.getAbsolutePath());
+        listener.onResult(
+                getDateTime() + (isNewFile() ? " New" : " Existing") + " File: " + reportFile.getAbsolutePath());
     }
 
     /**
@@ -682,13 +693,13 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
     public void reportQuality(ResultsListener listener) {
         // +1 is because this will be written during the Collection Log Report
         // and it needs to include itself
-        listener.onResult(getTime() + " Total Data Collection Log Reports: " + (collectionLogs + 1));
-        listener.onResult(getTime() + " Total Excessive Time Since Code Clear Gaps: " + excessiveTimeGaps);
+        listener.onResult(getDateTime() + " Total Data Collection Log Reports: " + (collectionLogs + 1));
+        listener.onResult(getDateTime() + " Total Excessive Time Since Code Clear Gaps: " + excessiveTimeGaps);
     }
 
     private void resetCounters() {
-        vin[0] = null;
-        tscc[0] = Integer.MIN_VALUE;
+        vin = null;
+        tscc = Integer.MIN_VALUE;
         calMap.clear();
         initialRatios.clear();
         initialMonitors.clear();
@@ -697,6 +708,7 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
         initialOBDCounts = Integer.MIN_VALUE;
         initialMonitorsTime = null;
         initialRatiosTime = null;
+        lastInstant = null;
     }
 
     /**
@@ -722,8 +734,6 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
      *             if there is a problem scanning the file
      */
     private void scanFile(ResultsListener listener) throws IOException {
-        LocalDateTime[] lastInstant = new LocalDateTime[1];
-
         Problem[] problem = new Problem[1];
         try {
             int lines = (int) Files.lines(reportFile.toPath()).parallel().count();
@@ -736,7 +746,7 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
                     excessiveTimeGaps++;
                 } else {
                     try {
-                        checkDate(lastInstant, line);
+                        checkDate(line);
 
                         // Flag used to skip re-parsing the line if it's already
                         // been parsed
@@ -777,11 +787,11 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
 
         if (problem[0] != null) {
             throw new ReportFileException(problem[0]);
-        } else if (vin[0] == null) {
+        } else if (vin == null) {
             throw new ReportFileException(Problem.VIN_NOT_PRESENT);
-        } else if (lastInstant[0] == null) {
+        } else if (lastInstant == null) {
             throw new ReportFileException(Problem.DATE_NOT_PRESENT);
-        } else if (tscc[0] == Integer.MIN_VALUE) {
+        } else if (tscc == Integer.MIN_VALUE) {
             throw new ReportFileException(Problem.TSCC_NOT_PRESENT);
         } else if (calMap.isEmpty()) {
             throw new ReportFileException(Problem.CAL_NOT_PRESENT);
@@ -864,6 +874,7 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
             // parsed
             boolean parsed = false;
             if (isNewFile()) {
+                checkDate(result);
                 if (!parsed) {
                     parsed = checkDTCsCleared(result);
                 }

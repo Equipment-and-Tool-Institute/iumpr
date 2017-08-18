@@ -64,7 +64,7 @@ public class DTCModule extends FunctionalModule {
      */
     public boolean reportDM11(ResultsListener listener, List<Integer> obdModules) {
         boolean[] result = new boolean[] { true };
-        listener.onResult(getTime() + " Clearing Diagnostic Trouble Codes");
+        listener.onResult(getDateTime() + " Clearing Diagnostic Trouble Codes");
 
         Packet requestPacket = getJ1939().createRequestPacket(DM11ClearActiveDTCsPacket.PGN, GLOBAL_ADDR);
         listener.onResult(getTime() + " Global DM11 Request");
@@ -81,9 +81,9 @@ public class DTCModule extends FunctionalModule {
         listener.onResult(responses);
 
         if (result[0]) {
-            listener.onResult(getTime() + " " + DTCS_CLEARED);
+            listener.onResult(DTCS_CLEARED);
         } else {
-            listener.onResult(getTime() + " ERROR: Clearing Diagnostic Trouble Codes failed.");
+            listener.onResult("ERROR: Clearing Diagnostic Trouble Codes failed.");
         }
 
         return result[0];

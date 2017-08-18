@@ -121,7 +121,7 @@ public class DM20MonitorPerformanceRatioPacket extends ParsedPacket {
         StringBuilder sb = new StringBuilder();
         sb.append(getStringPrefix()).append(" [" + NL);
         int max = getLongestName(getRatios()) + 1;
-        sb.append(padRight(" ", max)).append(" NUM'OR / DEM'OR").append(NL);
+        sb.append(padRight(" ", max)).append("  Num'r /  Den'r").append(NL);
         sb.append(padRight("Ignition Cycles", max)).append(padLeft(NumberFormatter.format(getIgnitionCycles()), 16))
                 .append(NL);
         sb.append(padRight("OBD Monitoring Conditions Encountered", max))

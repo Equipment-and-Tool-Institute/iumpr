@@ -103,6 +103,8 @@ public class Engine implements AutoCloseable {
 
     private int demCount;
 
+    private boolean dtcsCleared = false;
+
     private int numCount;
 
     private final Sim sim;
@@ -123,6 +125,9 @@ public class Engine implements AutoCloseable {
             startTimer();
             return Packet.create(65253, ADDR, combine(ENGINE_HOURS, NA4));
         });
+        // Address Claim
+        sim.response(p -> isRequestFor(0xEE00, p),
+                () -> Packet.create(0xEEFF, ADDR, 0x00, 0x00, 0x40, 0x05, 0x00, 0x00, 0x65, 0x14));
         sim.response(p -> isRequestFor(65260, p), () -> Packet.create(65260, ADDR, VIN));
         sim.response(p -> isRequestFor(54016, p),
                 () -> Packet.create(54016, ADDR,
@@ -140,7 +145,10 @@ public class Engine implements AutoCloseable {
         sim.response(p -> isRequestFor(64896, p), () -> Packet.create(64896, ADDR, 0x00, 0x00, 0x00, 0x00, 0x00));
         // DM11
         sim.response(p -> isRequestFor(65235, p),
-                () -> Packet.create(0xE8FF, ADDR, 0x00, 0xFF, 0xFF, 0xFF, 0xF9, 0xD3, 0xFE, 0x00));
+                () -> {
+                    dtcsCleared = true;
+                    return Packet.create(0xE8FF, ADDR, 0x00, 0xFF, 0xFF, 0xFF, 0xF9, 0xD3, 0xFE, 0x00);
+                });
         // DM5
         sim.response(p -> isRequestFor(65230, p),
                 () -> Packet.create(65230, ADDR, 0x00, 0x00, 0x14, 0x37, 0xE0, 0x1E, 0xE0, 0x1E));
@@ -175,7 +183,7 @@ public class Engine implements AutoCloseable {
                         0xF8, 0x0B, 0xF8, 0x11, 0x00, 0x19, 0x00));
         // DM21
         sim.response(p -> isRequestFor(49408, p),
-                () -> Packet.create(49408, ADDR, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x10, 0x00));
+                () -> Packet.create(49408, ADDR, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, dtcsCleared ? 0x00 : 0x10, 0x00));
 
         // DM24 supported SPNs
         sim.response(p -> isRequestFor(64950, p),

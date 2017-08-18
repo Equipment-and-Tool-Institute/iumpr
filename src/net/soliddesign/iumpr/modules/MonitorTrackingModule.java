@@ -246,6 +246,7 @@ public class MonitorTrackingModule extends FunctionalModule {
     }
 
     private void notifyEnding() {
+        getJ1939().interrupt();
         synchronized (lock) {
             if (lock[0] != null) {
                 lock[0].cancel(true);
@@ -302,7 +303,7 @@ public class MonitorTrackingModule extends FunctionalModule {
             onResult(listener, getTime() + " DM5 " + TIMEOUT_MESSAGE);
             end();
         } else {
-            lastDm5Time = getTime();
+            lastDm5Time = getDateTime();
             Set<MonitoredSystem> systems = DiagnosticReadinessModule.getSystems(dm5Packets);
             if (getLastSystems() != null && !Objects.equals(getLastSystems(), systems)) {
                 onResult(listener, getTime() + " Monitors Updated");
@@ -320,7 +321,7 @@ public class MonitorTrackingModule extends FunctionalModule {
             onResult(listener, getTime() + " DM20 " + TIMEOUT_MESSAGE);
             end();
         } else {
-            lastDm20Time = getTime();
+            lastDm20Time = getDateTime();
             Set<PerformanceRatio> ratios = DiagnosticReadinessModule.getRatios(dm20Packets);
             lastIgnitionCycles = DiagnosticReadinessModule.getIgnitionCycles(dm20Packets);
             lastObdCounts = DiagnosticReadinessModule.getOBDCounts(dm20Packets);
@@ -381,7 +382,7 @@ public class MonitorTrackingModule extends FunctionalModule {
         lastObdCounts = -1;
         cycle = 0;
 
-        onResult(listener, getTime() + " Begin Tracking Monitor Completion Status");
+        onResult(listener, getDateTime() + " Begin Tracking Monitor Completion Status");
 
         if (!end) {
             future = executor.scheduleAtFixedRate(getRunnable(reportFileModule, listener), 0L, 1L, TimeUnit.SECONDS);
@@ -398,7 +399,7 @@ public class MonitorTrackingModule extends FunctionalModule {
         }
 
         // Step 20-21
-        onResult(listener, getTime() + " End Tracking Monitor Completion Status. "
+        onResult(listener, getDateTime() + " End Tracking Monitor Completion Status. "
                 + NumberFormatter.format(cycle) + " Total Cycles.");
     }
 

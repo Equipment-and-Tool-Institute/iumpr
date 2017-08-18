@@ -4,10 +4,12 @@
 package net.soliddesign.iumpr.bus;
 
 import static net.soliddesign.iumpr.bus.RP1210Library.BLOCKING_NONE;
+import static net.soliddesign.iumpr.bus.RP1210Library.CLAIM_BLOCK_UNTIL_DONE;
 import static net.soliddesign.iumpr.bus.RP1210Library.CMD_ECHO_TRANSMITTED_MESSAGES;
+import static net.soliddesign.iumpr.bus.RP1210Library.CMD_GET_PROTOCOL_CONNECTION_SPEED;
 import static net.soliddesign.iumpr.bus.RP1210Library.CMD_PROTECT_J1939_ADDRESS;
 import static net.soliddesign.iumpr.bus.RP1210Library.CMD_SET_ALL_FILTERS_STATES_TO_PASS;
-import static net.soliddesign.iumpr.bus.RP1210Library.ECHO_OFF;
+import static net.soliddesign.iumpr.bus.RP1210Library.ECHO_ON;
 import static net.soliddesign.iumpr.bus.RP1210Library.NOTIFICATION_NONE;
 
 import java.nio.charset.StandardCharsets;
@@ -101,8 +103,10 @@ public class RP1210Bus implements Bus {
                 (short) 0);
         verify(clientId);
         try {
-            sendCommand(CMD_PROTECT_J1939_ADDRESS, new byte[] { (byte) address, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
-            sendCommand(CMD_ECHO_TRANSMITTED_MESSAGES, ECHO_OFF);
+            sendCommand(CMD_PROTECT_J1939_ADDRESS,
+                    new byte[] { (byte) address, 0, 0, (byte) 0xE0, (byte) 0xFF, 0, (byte) 0x81, 0, 0,
+                            CLAIM_BLOCK_UNTIL_DONE });
+            sendCommand(CMD_ECHO_TRANSMITTED_MESSAGES, ECHO_ON);
             sendCommand(CMD_SET_ALL_FILTERS_STATES_TO_PASS);
 
             this.exec.scheduleAtFixedRate(() -> poll(), 1, 1, TimeUnit.MILLISECONDS);
@@ -122,10 +126,17 @@ public class RP1210Bus implements Bus {
      * @return {@link Packet}
      */
     private Packet decode(byte[] data, int length) {
-        int pgn = ((data[6] & 0xFF) << 16) | ((data[5] & 0xFF) << 8) | (data[4] & 0xFF);
-        int priority = data[7] & 0x07;
-        int source = data[8] & 0xFF;
-        return Packet.createPriority(priority, pgn, source, Arrays.copyOfRange(data, 10, length));
+        // data[0 - 3] is timestamp
+        // data[4] is echo
+        int echoed = data[4];
+        int pgn = ((data[7] & 0xFF) << 16) | ((data[6] & 0xFF) << 8) | (data[5] & 0xFF);
+        int priority = data[8] & 0x07;
+        int source = data[9] & 0xFF;
+        if (pgn < 0xF000 && pgn >= 0xE000) {
+            int destination = data[10];
+            pgn = pgn | (destination & 0xFF);
+        }
+        return Packet.createPriority(priority, pgn, source, echoed != 0, Arrays.copyOfRange(data, 11, length));
     }
 
     /**
@@ -153,6 +164,14 @@ public class RP1210Bus implements Bus {
     @Override
     public int getAddress() {
         return address;
+    }
+
+    @Override
+    public int getConnectionSpeed() throws BusException {
+        byte[] bytes = new byte[17];
+        sendCommand(CMD_GET_PROTOCOL_CONNECTION_SPEED, bytes);
+        String result = new String(bytes, StandardCharsets.UTF_8).trim();
+        return Integer.parseInt(result);
     }
 
     /**

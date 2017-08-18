@@ -41,7 +41,7 @@ public class BannerModule extends FunctionalModule {
     /**
      * The name of the tool for inclusion in the report
      */
-    static final String TOOL_NAME = "I U M P R Data Collection Tool";
+    static final String TOOL_NAME = "IUMPR Data Collection Tool";
 
     private final BuildNumber buildNumber;
 
@@ -74,7 +74,7 @@ public class BannerModule extends FunctionalModule {
     }
 
     private String getFooter(String suffix) {
-        return getTime() + " " + TOOL_NAME + " " + getTypeName() + " " + suffix;
+        return getDateTime() + " " + TOOL_NAME + " " + getTypeName() + " " + suffix;
     }
 
     /**
@@ -116,8 +116,8 @@ public class BannerModule extends FunctionalModule {
         String reportName = getTypeName();
         String ending = reportName.toUpperCase(Locale.US);
 
-        listener.onResult(getTime() + " " + TOOL_NAME + " for 13 CCR 1971.1(l)(2) and (h)(1.7)");
-        listener.onResult(getTime() + " " + TOOL_NAME + " version " + buildNumber.getVersionNumber());
+        listener.onResult(getDateTime() + " " + TOOL_NAME + " for 13 CCR 1971.1(l)(2) and (h)(1.7)");
+        listener.onResult(getDateTime() + " " + TOOL_NAME + " version " + buildNumber.getVersionNumber());
         listener.onResult("");
         listener.onResult("IIIIIIIII  UUU     UUU  MMM       MMM  PPPPPPPP     RRRRRRRR     " + ending);
         listener.onResult("IIIIIIIII  UUU     UUU  MMMM     MMMM  PPPPPPPPP    RRRRRRRRR    " + ending);
@@ -133,7 +133,7 @@ public class BannerModule extends FunctionalModule {
         listener.onResult("IIIIIIIII  UUUUUUUUUUU  MMM       MMM  PPP          RRR    RRR   " + ending);
         listener.onResult("IIIIIIIII   UUUUUUUUU   MMM       MMM  PPP          RRR     RRR  " + ending);
         listener.onResult("");
-        listener.onResult(getTime() + " " + TOOL_NAME + " " + reportName);
+        listener.onResult(getDateTime() + " " + TOOL_NAME + " " + reportName);
     }
 
     /**

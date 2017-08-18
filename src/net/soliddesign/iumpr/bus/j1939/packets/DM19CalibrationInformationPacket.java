@@ -147,7 +147,7 @@ public class DM19CalibrationInformationPacket extends ParsedPacket {
      * @return The parsed {@link CalibrationInformation}
      */
     private CalibrationInformation parseInformation(int startingIndex) {
-        String cvn = Long.toHexString(getPacket().get32(startingIndex) & 0xFFFFFFFFL).toUpperCase();
+        String cvn = String.format("%08X", getPacket().get32(startingIndex) & 0xFFFFFFFFL);
         byte[] bytes = getPacket().getBytes();
         byte[] idBytes = Arrays.copyOfRange(bytes, startingIndex + 4, startingIndex + 20);
         String calId = format(idBytes).trim();

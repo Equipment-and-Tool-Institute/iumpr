@@ -66,14 +66,14 @@ public class StatusRendererTest {
     public void testNotSupportedNotSelected() {
         instance.getTableCellRendererComponent(table, Status.NOT_SUPPORTED, false, false, 32, 19);
         assertEquals(Color.LIGHT_GRAY, instance.getBackground());
-        assertEquals("disabled/not supported", instance.getText());
+        assertEquals("not enabled", instance.getText());
     }
 
     @Test
     public void testNotSupportedSelected() {
         instance.getTableCellRendererComponent(table, Status.NOT_SUPPORTED, true, false, 32, 19);
         assertEquals(Color.LIGHT_GRAY, instance.getBackground());
-        assertEquals("disabled/not supported", instance.getText());
+        assertEquals("not enabled", instance.getText());
     }
 
     @Test

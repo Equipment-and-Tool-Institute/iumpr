@@ -7,8 +7,10 @@ import static net.soliddesign.iumpr.IUMPR.NL;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -17,8 +19,8 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
+import org.ini4j.InvalidFileFormatException;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import net.soliddesign.iumpr.IUMPR;
@@ -32,6 +34,13 @@ import net.soliddesign.iumpr.bus.j1939.packets.VehicleIdentificationPacket;
  *
  */
 public class RP1210Test {
+
+    private static RP1210 createInstance(String iniFile) throws URISyntaxException {
+        URL url = RP1210Test.class.getResource(iniFile);
+        Path parent = Paths.get(url.toURI()).getParent();
+        assertNotNull(parent);
+        return new RP1210(parent.toString());
+    }
 
     /** simple CAN logger for bench testing */
     static public void main(String[] args) throws IOException, BusException {
@@ -61,17 +70,6 @@ public class RP1210Test {
                 .forEach(p -> System.err.format("%8d %s" + NL, (System.currentTimeMillis() - start), p.toString()));
     }
 
-    private RP1210 instance;
-
-    @Before
-    public void setUp() throws Exception {
-        URL url = RP1210Test.class.getResource("test/rp1210/RP121032.ini");
-        Path parent = Paths.get(url.toURI()).getParent();
-        assertNotNull(parent);
-        String rp1210Loc = parent.toString();
-        instance = new RP1210(rp1210Loc);
-    }
-
     @After
     public void tearDown() throws Exception {
         IUMPR.setTesting(false);
@@ -80,6 +78,8 @@ public class RP1210Test {
     @Test
     public void testGetAdapters() throws Exception {
         IUMPR.setTesting(false);
+
+        RP1210 instance = createInstance("test/rp1210/RP121032.ini");
         List<Adapter> actual = instance.getAdapters();
         assertEquals(5, actual.size());
         {
@@ -115,8 +115,47 @@ public class RP1210Test {
     }
 
     @Test
+    public void testGetAdaptersWithBadIniDriverFile() throws Exception {
+        IUMPR.setTesting(false);
+        RP1210 instance = createInstance("test/rp1210_badDriver/RP121032.ini");
+        List<Adapter> actual = instance.getAdapters();
+        assertEquals(3, actual.size());
+        {
+            final Adapter adapter = actual.get(0);
+            assertEquals("NEXIQ Technologies USB-Link 2 - Bluetooth USB-Link 2", adapter.getName());
+            assertEquals("NULN2R32", adapter.getDLLName());
+            assertEquals(2, adapter.getDeviceId());
+        }
+        {
+            final Adapter adapter = actual.get(1);
+            assertEquals("NEXIQ Technologies USB-Link 2 - USB-Link 2", adapter.getName());
+            assertEquals("NULN2R32", adapter.getDLLName());
+            assertEquals(1, adapter.getDeviceId());
+        }
+        {
+            final Adapter adapter = actual.get(2);
+            assertEquals("NEXIQ Technologies USB-Link 2 - WiFi USB-Link 2", adapter.getName());
+            assertEquals("NULN2R32", adapter.getDLLName());
+            assertEquals(3, adapter.getDeviceId());
+        }
+    }
+
+    @Test
+    public void testGetAdaptersWithBadIniFile() throws Exception {
+        IUMPR.setTesting(false);
+        RP1210 instance = createInstance("test/rp1210Bad/RP121032.ini");
+        try {
+            instance.getAdapters();
+            fail("An exception should have been thrown");
+        } catch (BusException e) {
+            assertTrue(e.getCause() instanceof InvalidFileFormatException);
+        }
+    }
+
+    @Test
     public void testGetAdaptersWithTestingTrue() throws Exception {
         IUMPR.setTesting(true);
+        RP1210 instance = createInstance("test/rp1210/RP121032.ini");
         List<Adapter> actual = instance.getAdapters();
         assertEquals(6, actual.size());
         {
@@ -160,6 +199,7 @@ public class RP1210Test {
     @Test
     public void testSetAdapterWithLookBackAdapter() throws Exception {
         IUMPR.setTesting(true);
+        RP1210 instance = createInstance("test/rp1210/RP121032.ini");
         List<Adapter> adapters = instance.getAdapters();
         Adapter adapter = adapters.get(0);
         Bus bus = instance.setAdapter(adapter, 0xA5);

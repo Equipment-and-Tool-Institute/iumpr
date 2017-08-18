@@ -34,11 +34,11 @@ public class DM30ScaledTestResultsPacketTest {
         assertEquals(1, testResults.size());
         {
             ScaledTestResult testResult = testResults.get(0);
-            String expected = "Test 247: Aftertreatment 1 Diesel Exhaust Fluid Dosing Unit 1 Input Lines (3362), Condition Exists (31), Result: Test Passed. Min: 800, Value: 951, Max: 1,000";
+            String expected = "SPN 3362 FMI 31 Result: Test Passed. Min: 800, Value: 951, Max: 1,000";
             assertEquals(expected, testResult.toString());
         }
 
-        String expected = "DM30 from Engine #1 (0): Test 247: Aftertreatment 1 Diesel Exhaust Fluid Dosing Unit 1 Input Lines (3362), Condition Exists (31), Result: Test Passed. Min: 800, Value: 951, Max: 1,000";
+        String expected = "DM30 from Engine #1 (0): SPN 3362 FMI 31 Result: Test Passed. Min: 800, Value: 951, Max: 1,000";
         assertEquals(expected, instance.toString());
     }
 
@@ -53,27 +53,25 @@ public class DM30ScaledTestResultsPacketTest {
         assertEquals(3, testResults.size());
         {
             ScaledTestResult testResult = testResults.get(0);
-            String expected = "Test 247: O2 Sensor (724), Data Drifted High (20), Result: Test Passed. Min: -3.92, Value: -3.92, Max: -3.92";
+            String expected = "SPN 724 FMI 20 Result: Test Passed. Min: -3.92, Value: -3.92, Max: -3.92";
             assertEquals(expected, testResult.toString());
         }
         {
             ScaledTestResult testResult = testResults.get(1);
-            String expected = "Test 247: O2 Sensor (724), Data Drifted Low (21), Result: Test Passed. Min: -3.92, Value: -3.92, Max: -3.92";
+            String expected = "SPN 724 FMI 21 Result: Test Passed. Min: -3.92, Value: -3.92, Max: -3.92";
             assertEquals(expected, testResult.toString());
         }
         {
             ScaledTestResult testResult = testResults.get(2);
-            String expected = "Test 247: O2 Sensor (724), Data Erratic, Intermittent Or Incorrect (2), Result: Test Passed. Min: 0 ms, Value: 0 ms, Max: 0 ms";
+            String expected = "SPN 724 FMI 2 Result: Test Passed. Min: 0, Value: 0, Max: 0 ms";
             assertEquals(expected, testResult.toString());
         }
 
         String expected = "DM30 from Engine #1 (0): [" + NL
-                + "  Test 247: O2 Sensor (724), Data Drifted High (20), Result: Test Passed. Min: -3.92, Value: -3.92, Max: -3.92"
-                + NL
-                + "  Test 247: O2 Sensor (724), Data Drifted Low (21), Result: Test Passed. Min: -3.92, Value: -3.92, Max: -3.92"
-                + NL
-                + "  Test 247: O2 Sensor (724), Data Erratic, Intermittent Or Incorrect (2), Result: Test Passed. Min: 0 ms, Value: 0 ms, Max: 0 ms"
-                + NL + "]";
+                + "  SPN 724 FMI 20 Result: Test Passed. Min: -3.92, Value: -3.92, Max: -3.92" + NL
+                + "  SPN 724 FMI 21 Result: Test Passed. Min: -3.92, Value: -3.92, Max: -3.92" + NL
+                + "  SPN 724 FMI 2 Result: Test Passed. Min: 0, Value: 0, Max: 0 ms" + NL
+                + "]";
         assertEquals(expected, instance.toString());
     }
 

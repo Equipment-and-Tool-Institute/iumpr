@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import net.soliddesign.iumpr.bus.Packet;
@@ -82,8 +83,7 @@ public class OBDTestsModule extends FunctionalModule {
                     .filter(t -> t.supportsScaledTestResults()).map(s -> s.getSpn()).sorted().distinct()
                     .collect(Collectors.toList());
             if (spns.isEmpty()) {
-                listener.onResult(getTime() + " ERROR " + moduleName
-                        + " does not have any tests that support scaled tests results");
+                listener.onResult("ERROR " + moduleName + " does not have any tests that support scaled tests results");
             } else {
                 List<ScaledTestResult> testResults = requestScaledTestResultsFromModule(listener, destination,
                         moduleName, spns);
@@ -114,13 +114,14 @@ public class OBDTestsModule extends FunctionalModule {
         Collections.sort(incompleteTests);
 
         if (!hasTests) {
-            listener.onResult(getTime() + " ERROR No tests results returned");
+            listener.onResult("ERROR No tests results returned");
         } else if (incompleteTests.isEmpty()) {
-            listener.onResult(getTime() + " All Tests Complete");
+            listener.onResult("All Tests Complete");
         } else {
-            listener.onResult(getTime() + incompleteTests.size() + " Incomplete Tests: [");
+            listener.onResult("Incomplete Tests: [");
             listener.onResult(incompleteTests);
             listener.onResult("]");
+            listener.onResult(incompleteTests.size() + " Incomplete Test" + (incompleteTests.size() == 1 ? "" : "s"));
         }
     }
 
@@ -168,7 +169,7 @@ public class OBDTestsModule extends FunctionalModule {
     private List<ScaledTestResult> requestScaledTestResultsFromModule(ResultsListener listener, int destination,
             String moduleName, List<Integer> spns) {
         List<ScaledTestResult> scaledTestResults = new ArrayList<>();
-        listener.onResult(getTime() + " Direct DM30 Requests to " + moduleName);
+        listener.onResult(getDateTime() + " Direct DM30 Requests to " + moduleName);
         for (int spn : spns) {
             List<ScaledTestResult> results = requestScaledTestResultsForSpn(listener, destination, spn);
             scaledTestResults.addAll(results);
@@ -189,10 +190,10 @@ public class OBDTestsModule extends FunctionalModule {
 
         for (Integer address : obdModules) {
             Packet request = getJ1939().createRequestPacket(DM24SPNSupportPacket.PGN, address);
-            listener.onResult(getTime() + " Direct DM24 Request to " + Lookup.getAddressName(address));
+            listener.onResult(getDateTime() + " Direct DM24 Request to " + Lookup.getAddressName(address));
             listener.onResult(getTime() + " " + request.toString() + TX);
             Optional<DM24SPNSupportPacket> results = getJ1939().requestPacket(request, DM24SPNSupportPacket.class,
-                    address, 3);
+                    address, 3, TimeUnit.SECONDS.toMillis(15));
             if (!results.isPresent()) {
                 listener.onResult(TIMEOUT_MESSAGE);
             } else {

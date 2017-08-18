@@ -4,6 +4,7 @@
 package net.soliddesign.iumpr.bus.j1939.packets;
 
 import net.soliddesign.iumpr.bus.Packet;
+import net.soliddesign.iumpr.bus.j1939.Lookup;
 
 /**
  * Parses the Component Identification Packet
@@ -109,11 +110,11 @@ public class ComponentIdentificationPacket extends ParsedPacket {
 
     @Override
     public String toString() {
-        String result = getStringPrefix();
+        String result = "Found " + Lookup.getAddressName(getSourceAddress()) + ": ";
         result += "Make: " + getMake() + ", ";
         result += "Model: " + getModel() + ", ";
-        result += "Serial Number: " + getSerialNumber() + ", ";
-        result += "Unit Number: " + getUnitNumber();
+        result += "Serial: " + getSerialNumber() + ", ";
+        result += "Unit: " + getUnitNumber();
         return result;
     }
 }

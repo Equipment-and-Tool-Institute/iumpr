@@ -127,10 +127,10 @@ public class MonitorTrackingModuleTest {
 
     @Before
     public void setUp() throws Exception {
-
         dateTimeModule = new TestDateTimeModule();
         listener = new TestResultsListener();
         instance = new MonitorTrackingModule(dateTimeModule, diagnosticReadinessModule, engineSpeedModule, executor);
+        instance.setJ1939(j1939);
     }
 
     @After
@@ -209,6 +209,7 @@ public class MonitorTrackingModuleTest {
         verify(diagnosticReadinessModule, times(2)).getDM20Packets(null, false);
         verify(diagnosticReadinessModule, times(2)).getDM26Packets(null, false);
         verify(diagnosticReadinessModule, times(2)).getDM21Packets(null, false);
+        verify(j1939).interrupt();
     }
 
     @Test
@@ -281,6 +282,7 @@ public class MonitorTrackingModuleTest {
         verify(diagnosticReadinessModule, times(2)).getDM20Packets(null, false);
         verify(diagnosticReadinessModule, times(2)).getDM26Packets(null, false);
         verify(diagnosticReadinessModule, times(2)).getDM21Packets(null, false);
+        verify(j1939).interrupt();
     }
 
     @Test
@@ -327,6 +329,7 @@ public class MonitorTrackingModuleTest {
         verify(diagnosticReadinessModule).getDM20Packets(null, false);
         verify(diagnosticReadinessModule).getDM26Packets(null, false);
         verify(diagnosticReadinessModule).getDM21Packets(null, false);
+        verify(j1939, times(2)).interrupt();
     }
 
     @Test
@@ -340,6 +343,7 @@ public class MonitorTrackingModuleTest {
         expected += "2007-12-03T10:15:30.000 End Tracking Monitor Completion Status. 0 Total Cycles." + NL;
         String actual = listener.getResults();
         assertEquals(expected, actual);
+        verify(j1939).interrupt();
     }
 
     @Test
@@ -387,23 +391,23 @@ public class MonitorTrackingModuleTest {
         expectedResults += "" + NL;
         expectedResults += "2007-12-03T10:15:30.000 Begin Tracking Monitor Completion Status" + NL;
         expectedResults += "" + NL;
-        expectedResults += "2007-12-03T10:15:30.000 DM5 Packet(s) Received" + NL;
-        expectedResults += "2007-12-03T10:15:30.000 18FECE00 01 02 03 04 05 06 07 08" + NL;
+        expectedResults += "10:15:30.000 DM5 Packet(s) Received" + NL;
+        expectedResults += "10:15:30.000 18FECE00 01 02 03 04 05 06 07 08" + NL;
         expectedResults += "" + NL;
-        expectedResults += "2007-12-03T10:15:30.000 DM20 Packet(s) Received" + NL;
-        expectedResults += "2007-12-03T10:15:30.000 18C20000 01 02 03 04 05 06 07 08 09 0A 0B" + NL;
+        expectedResults += "10:15:30.000 DM20 Packet(s) Received" + NL;
+        expectedResults += "10:15:30.000 18C20000 01 02 03 04 05 06 07 08 09 0A 0B" + NL;
         expectedResults += "" + NL;
-        expectedResults += "2007-12-03T10:15:30.000 DM26 Packet(s) Received" + NL;
-        expectedResults += "2007-12-03T10:15:30.000 18FDB800 01 02 03 04 05 06 07 08" + NL;
+        expectedResults += "10:15:30.000 DM26 Packet(s) Received" + NL;
+        expectedResults += "10:15:30.000 18FDB800 01 02 03 04 05 06 07 08" + NL;
         expectedResults += "" + NL;
-        expectedResults += "2007-12-03T10:15:30.000 DM5 Packet(s) Received" + NL;
-        expectedResults += "2007-12-03T10:15:30.000 18FECE00 01 02 03 04 05 06 07 08" + NL;
+        expectedResults += "10:15:30.000 DM5 Packet(s) Received" + NL;
+        expectedResults += "10:15:30.000 18FECE00 01 02 03 04 05 06 07 08" + NL;
         expectedResults += "" + NL;
-        expectedResults += "2007-12-03T10:15:30.000 DM20 Packet(s) Received" + NL;
-        expectedResults += "2007-12-03T10:15:30.000 18C20000 01 02 03 04 05 06 07 08 09 0A 0B" + NL;
+        expectedResults += "10:15:30.000 DM20 Packet(s) Received" + NL;
+        expectedResults += "10:15:30.000 18C20000 01 02 03 04 05 06 07 08 09 0A 0B" + NL;
         expectedResults += "" + NL;
-        expectedResults += "2007-12-03T10:15:30.000 DM26 Packet(s) Received" + NL;
-        expectedResults += "2007-12-03T10:15:30.000 18FDB800 01 02 03 04 05 06 07 08" + NL;
+        expectedResults += "10:15:30.000 DM26 Packet(s) Received" + NL;
+        expectedResults += "10:15:30.000 18FDB800 01 02 03 04 05 06 07 08" + NL;
         expectedResults += "" + NL;
         expectedResults += "2007-12-03T10:15:30.000 End Tracking Monitor Completion Status. 36 Total Cycles." + NL;
 
@@ -422,6 +426,7 @@ public class MonitorTrackingModuleTest {
         verify(diagnosticReadinessModule, times(36)).getDM20Packets(null, false);
         verify(diagnosticReadinessModule, times(36)).getDM26Packets(null, false);
         verify(diagnosticReadinessModule, times(36)).getDM21Packets(null, false);
+        verify(j1939).interrupt();
     }
 
     @Test
@@ -442,7 +447,7 @@ public class MonitorTrackingModuleTest {
         expectedResults += "" + NL;
         expectedResults += "2007-12-03T10:15:30.000 Begin Tracking Monitor Completion Status" + NL;
         expectedResults += "" + NL;
-        expectedResults += "2007-12-03T10:15:30.000 DM5 Error: Timeout - No Response." + NL;
+        expectedResults += "10:15:30.000 DM5 Error: Timeout - No Response." + NL;
         expectedResults += "" + NL;
         expectedResults += "2007-12-03T10:15:30.000 End Tracking Monitor Completion Status. 1 Total Cycles." + NL;
 
@@ -458,6 +463,7 @@ public class MonitorTrackingModuleTest {
         verify(engineSpeedModule).isEngineCommunicating();
         verify(reportFileModule).incrementQueries();
         verify(diagnosticReadinessModule).getDM5Packets(null, false);
+        verify(j1939).interrupt();
     }
 
     @Test
@@ -479,7 +485,7 @@ public class MonitorTrackingModuleTest {
         expectedResults += "" + NL;
         expectedResults += "2007-12-03T10:15:30.000 Begin Tracking Monitor Completion Status" + NL;
         expectedResults += "" + NL;
-        expectedResults += "2007-12-03T10:15:30.000 DM20 Error: Timeout - No Response." + NL;
+        expectedResults += "10:15:30.000 DM20 Error: Timeout - No Response." + NL;
         expectedResults += "" + NL;
         expectedResults += "2007-12-03T10:15:30.000 End Tracking Monitor Completion Status. 1 Total Cycles." + NL;
 
@@ -497,6 +503,7 @@ public class MonitorTrackingModuleTest {
         verify(reportFileModule, times(2)).incrementQueries();
         verify(diagnosticReadinessModule).getDM5Packets(null, false);
         verify(diagnosticReadinessModule).getDM20Packets(null, false);
+        verify(j1939).interrupt();
     }
 
     @Test
@@ -520,7 +527,7 @@ public class MonitorTrackingModuleTest {
         expectedResults += "" + NL;
         expectedResults += "2007-12-03T10:15:30.000 Begin Tracking Monitor Completion Status" + NL;
         expectedResults += "" + NL;
-        expectedResults += "2007-12-03T10:15:30.000 DM21 Error: Timeout - No Response." + NL;
+        expectedResults += "10:15:30.000 DM21 Error: Timeout - No Response." + NL;
         expectedResults += "" + NL;
         expectedResults += "2007-12-03T10:15:30.000 End Tracking Monitor Completion Status. 1 Total Cycles." + NL;
 
@@ -542,6 +549,7 @@ public class MonitorTrackingModuleTest {
         verify(diagnosticReadinessModule).getDM20Packets(null, false);
         verify(diagnosticReadinessModule).getDM26Packets(null, false);
         verify(diagnosticReadinessModule).getDM21Packets(null, false);
+        verify(j1939).interrupt();
     }
 
     @Test
@@ -564,7 +572,7 @@ public class MonitorTrackingModuleTest {
         expectedResults += "" + NL;
         expectedResults += "2007-12-03T10:15:30.000 Begin Tracking Monitor Completion Status" + NL;
         expectedResults += "" + NL;
-        expectedResults += "2007-12-03T10:15:30.000 DM26 Error: Timeout - No Response." + NL;
+        expectedResults += "10:15:30.000 DM26 Error: Timeout - No Response." + NL;
         expectedResults += "" + NL;
         expectedResults += "2007-12-03T10:15:30.000 End Tracking Monitor Completion Status. 1 Total Cycles." + NL;
 
@@ -584,6 +592,7 @@ public class MonitorTrackingModuleTest {
         verify(diagnosticReadinessModule).getDM5Packets(null, false);
         verify(diagnosticReadinessModule).getDM20Packets(null, false);
         verify(diagnosticReadinessModule).getDM26Packets(null, false);
+        verify(j1939).interrupt();
     }
 
     @Test
@@ -603,7 +612,7 @@ public class MonitorTrackingModuleTest {
         expectedResults += "" + NL;
         expectedResults += "2007-12-03T10:15:30.000 Begin Tracking Monitor Completion Status" + NL;
         expectedResults += "" + NL;
-        expectedResults += "2007-12-03T10:15:30.000 Engine Speed Error: Timeout - No Response." + NL;
+        expectedResults += "10:15:30.000 Engine Speed Error: Timeout - No Response." + NL;
         expectedResults += "" + NL;
         expectedResults += "2007-12-03T10:15:30.000 End Tracking Monitor Completion Status. 1 Total Cycles." + NL;
 
@@ -615,6 +624,7 @@ public class MonitorTrackingModuleTest {
 
         verify(executor).scheduleAtFixedRate(runnable, 0L, 1L, TimeUnit.SECONDS);
         verify(engineSpeedModule).isEngineCommunicating();
+        verify(j1939).interrupt();
     }
 
     @Test
@@ -653,16 +663,16 @@ public class MonitorTrackingModuleTest {
         expectedResults += "" + NL;
         expectedResults += "2007-12-03T10:15:30.000 Begin Tracking Monitor Completion Status" + NL;
         expectedResults += "" + NL;
-        expectedResults += "2007-12-03T10:15:30.000 Ratios Updated" + NL;
+        expectedResults += "10:15:30.000 Ratios Updated" + NL;
         expectedResults += "" + NL;
-        expectedResults += "2007-12-03T10:15:30.000 DM5 Packet(s) Received" + NL;
-        expectedResults += "2007-12-03T10:15:30.000 18FECE00 01 02 03 04 05 06 07 08" + NL;
+        expectedResults += "10:15:30.000 DM5 Packet(s) Received" + NL;
+        expectedResults += "10:15:30.000 18FECE00 01 02 03 04 05 06 07 08" + NL;
         expectedResults += "" + NL;
-        expectedResults += "2007-12-03T10:15:30.000 DM20 Packet(s) Received" + NL;
-        expectedResults += "2007-12-03T10:15:30.000 18C20000 0B 0A 09 08 07 06 05 04 03 02 01" + NL;
+        expectedResults += "10:15:30.000 DM20 Packet(s) Received" + NL;
+        expectedResults += "10:15:30.000 18C20000 0B 0A 09 08 07 06 05 04 03 02 01" + NL;
         expectedResults += "" + NL;
-        expectedResults += "2007-12-03T10:15:30.000 DM26 Packet(s) Received" + NL;
-        expectedResults += "2007-12-03T10:15:30.000 18FDB800 01 02 03 04 05 06 07 08" + NL;
+        expectedResults += "10:15:30.000 DM26 Packet(s) Received" + NL;
+        expectedResults += "10:15:30.000 18FDB800 01 02 03 04 05 06 07 08" + NL;
         expectedResults += "" + NL;
         expectedResults += "2007-12-03T10:15:30.000 End Tracking Monitor Completion Status. 2 Total Cycles." + NL;
 
@@ -699,6 +709,7 @@ public class MonitorTrackingModuleTest {
         verify(diagnosticReadinessModule, times(2)).getDM20Packets(null, false);
         verify(diagnosticReadinessModule, times(2)).getDM26Packets(null, false);
         verify(diagnosticReadinessModule, times(2)).getDM21Packets(null, false);
+        verify(j1939).interrupt();
     }
 
     @Test
@@ -736,16 +747,16 @@ public class MonitorTrackingModuleTest {
         expectedResults += "" + NL;
         expectedResults += "2007-12-03T10:15:30.000 Begin Tracking Monitor Completion Status" + NL;
         expectedResults += "" + NL;
-        expectedResults += "2007-12-03T10:15:30.000 Monitors Updated" + NL;
+        expectedResults += "10:15:30.000 Monitors Updated" + NL;
         expectedResults += "" + NL;
-        expectedResults += "2007-12-03T10:15:30.000 DM5 Packet(s) Received" + NL;
-        expectedResults += "2007-12-03T10:15:30.000 18FECE00 08 07 06 05 04 03 02 01" + NL;
+        expectedResults += "10:15:30.000 DM5 Packet(s) Received" + NL;
+        expectedResults += "10:15:30.000 18FECE00 08 07 06 05 04 03 02 01" + NL;
         expectedResults += "" + NL;
-        expectedResults += "2007-12-03T10:15:30.000 DM20 Packet(s) Received" + NL;
-        expectedResults += "2007-12-03T10:15:30.000 18C20000 01 02 03 04 05 06 07 08 09 0A 0B" + NL;
+        expectedResults += "10:15:30.000 DM20 Packet(s) Received" + NL;
+        expectedResults += "10:15:30.000 18C20000 01 02 03 04 05 06 07 08 09 0A 0B" + NL;
         expectedResults += "" + NL;
-        expectedResults += "2007-12-03T10:15:30.000 DM26 Packet(s) Received" + NL;
-        expectedResults += "2007-12-03T10:15:30.000 18FDB800 01 02 03 04 05 06 07 08" + NL;
+        expectedResults += "10:15:30.000 DM26 Packet(s) Received" + NL;
+        expectedResults += "10:15:30.000 18FDB800 01 02 03 04 05 06 07 08" + NL;
         expectedResults += "" + NL;
         expectedResults += "2007-12-03T10:15:30.000 End Tracking Monitor Completion Status. 2 Total Cycles." + NL;
 
@@ -782,5 +793,6 @@ public class MonitorTrackingModuleTest {
         verify(diagnosticReadinessModule, times(2)).getDM20Packets(null, false);
         verify(diagnosticReadinessModule, times(2)).getDM26Packets(null, false);
         verify(diagnosticReadinessModule, times(2)).getDM21Packets(null, false);
+        verify(j1939).interrupt();
     }
 }

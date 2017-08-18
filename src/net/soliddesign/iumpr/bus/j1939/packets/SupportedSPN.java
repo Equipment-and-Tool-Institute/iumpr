@@ -93,26 +93,6 @@ public class SupportedSPN {
 
     @Override
     public String toString() {
-        String result = "SPN " + getSpn() + " - " + Lookup.getSpnName(getSpn()) + ":";
-
-        if (support != 0x07) {
-            result += " Supports";
-        }
-        boolean supported = false;
-        if (supportsDataStream()) {
-            result += " Data Stream";
-            supported = true;
-        }
-        if (supportsExpandedFreezeFrame()) {
-            result += supported ? "," : "";
-            result += " Expanded Freeze Frame";
-            supported = true;
-        }
-        if (supportsScaledTestResults()) {
-            result += supported ? "," : "";
-            result += " Scaled Test Results";
-        }
-        result += " with data length " + ParsedPacket.getValueWithUnits(getLength(), "bytes");
-        return result;
+        return "SPN " + getSpn() + " - " + Lookup.getSpnName(getSpn());
     }
 }

@@ -32,7 +32,7 @@ public class ComponentIdentificationPacketTest {
         assertEquals("", instance.getModel());
         assertEquals("", instance.getSerialNumber());
         assertEquals("", instance.getUnitNumber());
-        String expected = "Component Identification from Engine #1 (0): Make: Solid Design, Model: , Serial Number: , Unit Number: ";
+        String expected = "Found Engine #1 (0): Make: Solid Design, Model: , Serial: , Unit: ";
         assertEquals(expected, instance.toString());
     }
 
@@ -45,7 +45,7 @@ public class ComponentIdentificationPacketTest {
         assertEquals(MODEL, instance.getModel());
         assertEquals("", instance.getSerialNumber());
         assertEquals("", instance.getUnitNumber());
-        String expected = "Component Identification from Engine #1 (0): Make: Solid Design, Model: IUMPR Tool, Serial Number: , Unit Number: ";
+        String expected = "Found Engine #1 (0): Make: Solid Design, Model: IUMPR Tool, Serial: , Unit: ";
         assertEquals(expected, instance.toString());
     }
 
@@ -58,7 +58,7 @@ public class ComponentIdentificationPacketTest {
         assertEquals(MODEL, instance.getModel());
         assertEquals(SN, instance.getSerialNumber());
         assertEquals(UN, instance.getUnitNumber());
-        String expected = "Component Identification from Engine #1 (0): Make: Solid Design, Model: IUMPR Tool, Serial Number: 000001, Unit Number: 1234567890";
+        String expected = "Found Engine #1 (0): Make: Solid Design, Model: IUMPR Tool, Serial: 000001, Unit: 1234567890";
         assertEquals(expected, instance.toString());
     }
 
@@ -71,7 +71,7 @@ public class ComponentIdentificationPacketTest {
         assertEquals(MODEL, instance.getModel());
         assertEquals("", instance.getSerialNumber());
         assertEquals(UN, instance.getUnitNumber());
-        String expected = "Component Identification from Engine #1 (0): Make: Solid Design, Model: IUMPR Tool, Serial Number: , Unit Number: 1234567890";
+        String expected = "Found Engine #1 (0): Make: Solid Design, Model: IUMPR Tool, Serial: , Unit: 1234567890";
         assertEquals(expected, instance.toString());
     }
 
@@ -84,7 +84,7 @@ public class ComponentIdentificationPacketTest {
         assertEquals("", instance.getModel());
         assertEquals(SN, instance.getSerialNumber());
         assertEquals("", instance.getUnitNumber());
-        String expected = "Component Identification from Engine #1 (0): Make: Solid Design, Model: , Serial Number: 000001, Unit Number: ";
+        String expected = "Found Engine #1 (0): Make: Solid Design, Model: , Serial: 000001, Unit: ";
         assertEquals(expected, instance.toString());
     }
 
@@ -97,7 +97,7 @@ public class ComponentIdentificationPacketTest {
         assertEquals("", instance.getModel());
         assertEquals(SN, instance.getSerialNumber());
         assertEquals(UN, instance.getUnitNumber());
-        String expected = "Component Identification from Engine #1 (0): Make: Solid Design, Model: , Serial Number: 000001, Unit Number: 1234567890";
+        String expected = "Found Engine #1 (0): Make: Solid Design, Model: , Serial: 000001, Unit: 1234567890";
         assertEquals(expected, instance.toString());
     }
 
@@ -110,7 +110,7 @@ public class ComponentIdentificationPacketTest {
         assertEquals("", instance.getModel());
         assertEquals("", instance.getSerialNumber());
         assertEquals(UN, instance.getUnitNumber());
-        String expected = "Component Identification from Engine #1 (0): Make: Solid Design, Model: , Serial Number: , Unit Number: 1234567890";
+        String expected = "Found Engine #1 (0): Make: Solid Design, Model: , Serial: , Unit: 1234567890";
         assertEquals(expected, instance.toString());
     }
 
@@ -123,7 +123,7 @@ public class ComponentIdentificationPacketTest {
         assertEquals(MODEL, instance.getModel());
         assertEquals("", instance.getSerialNumber());
         assertEquals("", instance.getUnitNumber());
-        String expected = "Component Identification from Engine #1 (0): Make: , Model: IUMPR Tool, Serial Number: , Unit Number: ";
+        String expected = "Found Engine #1 (0): Make: , Model: IUMPR Tool, Serial: , Unit: ";
         assertEquals(expected, instance.toString());
     }
 
@@ -136,7 +136,7 @@ public class ComponentIdentificationPacketTest {
         assertEquals(MODEL, instance.getModel());
         assertEquals(SN, instance.getSerialNumber());
         assertEquals("", instance.getUnitNumber());
-        String expected = "Component Identification from Engine #1 (0): Make: , Model: IUMPR Tool, Serial Number: 000001, Unit Number: ";
+        String expected = "Found Engine #1 (0): Make: , Model: IUMPR Tool, Serial: 000001, Unit: ";
         assertEquals(expected, instance.toString());
     }
 
@@ -149,7 +149,7 @@ public class ComponentIdentificationPacketTest {
         assertEquals(MODEL, instance.getModel());
         assertEquals(SN, instance.getSerialNumber());
         assertEquals(UN, instance.getUnitNumber());
-        String expected = "Component Identification from Engine #1 (0): Make: , Model: IUMPR Tool, Serial Number: 000001, Unit Number: 1234567890";
+        String expected = "Found Engine #1 (0): Make: , Model: IUMPR Tool, Serial: 000001, Unit: 1234567890";
         assertEquals(expected, instance.toString());
     }
 
@@ -162,7 +162,7 @@ public class ComponentIdentificationPacketTest {
         assertEquals(MODEL, instance.getModel());
         assertEquals("", instance.getSerialNumber());
         assertEquals(UN, instance.getUnitNumber());
-        String expected = "Component Identification from Engine #1 (0): Make: , Model: IUMPR Tool, Serial Number: , Unit Number: 1234567890";
+        String expected = "Found Engine #1 (0): Make: , Model: IUMPR Tool, Serial: , Unit: 1234567890";
         assertEquals(expected, instance.toString());
     }
 
@@ -175,7 +175,7 @@ public class ComponentIdentificationPacketTest {
         assertEquals("", instance.getModel());
         assertEquals("", instance.getSerialNumber());
         assertEquals("", instance.getUnitNumber());
-        String expected = "Component Identification from Engine #1 (0): Make: , Model: , Serial Number: , Unit Number: ";
+        String expected = "Found Engine #1 (0): Make: , Model: , Serial: , Unit: ";
         assertEquals(expected, instance.toString());
     }
 
@@ -193,7 +193,7 @@ public class ComponentIdentificationPacketTest {
         assertEquals("", instance.getModel());
         assertEquals(SN, instance.getSerialNumber());
         assertEquals("", instance.getUnitNumber());
-        String expected = "Component Identification from Engine #1 (0): Make: , Model: , Serial Number: 000001, Unit Number: ";
+        String expected = "Found Engine #1 (0): Make: , Model: , Serial: 000001, Unit: ";
         assertEquals(expected, instance.toString());
     }
 
@@ -206,7 +206,7 @@ public class ComponentIdentificationPacketTest {
         assertEquals("", instance.getModel());
         assertEquals(SN, instance.getSerialNumber());
         assertEquals(UN, instance.getUnitNumber());
-        String expected = "Component Identification from Engine #1 (0): Make: , Model: , Serial Number: 000001, Unit Number: 1234567890";
+        String expected = "Found Engine #1 (0): Make: , Model: , Serial: 000001, Unit: 1234567890";
         assertEquals(expected, instance.toString());
     }
 
@@ -220,7 +220,7 @@ public class ComponentIdentificationPacketTest {
         assertEquals(MODEL, instance.getModel());
         assertEquals(SN, instance.getSerialNumber());
         assertEquals(UN, instance.getUnitNumber());
-        String expected = "Component Identification from Engine #1 (0): Make: Solid Design, Model: IUMPR Tool, Serial Number: 000001, Unit Number: 1234567890";
+        String expected = "Found Engine #1 (0): Make: Solid Design, Model: IUMPR Tool, Serial: 000001, Unit: 1234567890";
         assertEquals(expected, instance.toString());
     }
 
@@ -233,7 +233,7 @@ public class ComponentIdentificationPacketTest {
         assertEquals("", instance.getModel());
         assertEquals("", instance.getSerialNumber());
         assertEquals(UN, instance.getUnitNumber());
-        String expected = "Component Identification from Engine #1 (0): Make: , Model: , Serial Number: , Unit Number: 1234567890";
+        String expected = "Found Engine #1 (0): Make: , Model: , Serial: , Unit: 1234567890";
         assertEquals(expected, instance.toString());
     }
 

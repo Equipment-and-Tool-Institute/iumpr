@@ -100,13 +100,13 @@ public class RatiosTableTest {
 
         assertEquals(2, instance.getRowCount());
         assertEquals("Engine #1 (0)", instance.getValueAt(0, 0));
-        assertEquals("SPN 123 Clutch Pressure", instance.getValueAt(0, 1));
+        assertEquals("SPN  123 Clutch Pressure", instance.getValueAt(0, 1));
         assertEquals(0, instance.getValueAt(0, 2));
         assertEquals(1, instance.getValueAt(0, 3));
         validateBackgroundColor(instance.getBackground(), 0);
 
         assertEquals("Engine #1 (0)", instance.getValueAt(1, 0));
-        assertEquals("SPN 456 Unknown", instance.getValueAt(1, 1));
+        assertEquals("SPN  456 Unknown", instance.getValueAt(1, 1));
         assertEquals(2, instance.getValueAt(1, 2));
         assertEquals(3, instance.getValueAt(1, 3));
         validateBackgroundColor(instance.getBackground(), 1);
@@ -140,7 +140,7 @@ public class RatiosTableTest {
 
         assertEquals(2, instance.getRowCount());
         assertEquals("Engine #1 (0)", instance.getValueAt(0, 0));
-        assertEquals("SPN 123 Clutch Pressure", instance.getValueAt(0, 1));
+        assertEquals("SPN  123 Clutch Pressure", instance.getValueAt(0, 1));
         assertEquals(1, instance.getValueAt(0, 2));
         assertEquals(1, instance.getValueAt(0, 3));
         validateBackgroundColor(instance.getBackground(), 0, 0);
@@ -149,7 +149,7 @@ public class RatiosTableTest {
         validateBackgroundColor(instance.getBackground(), 0, 3);
 
         assertEquals("Engine #1 (0)", instance.getValueAt(1, 0));
-        assertEquals("SPN 456 Unknown", instance.getValueAt(1, 1));
+        assertEquals("SPN  456 Unknown", instance.getValueAt(1, 1));
         assertEquals(2, instance.getValueAt(1, 2));
         assertEquals(3, instance.getValueAt(1, 3));
         validateBackgroundColor(instance.getBackground(), 1);
@@ -178,7 +178,7 @@ public class RatiosTableTest {
 
         assertEquals(2, instance.getRowCount());
         assertEquals("Engine #1 (0)", instance.getValueAt(0, 0));
-        assertEquals("SPN 123 Clutch Pressure", instance.getValueAt(0, 1));
+        assertEquals("SPN  123 Clutch Pressure", instance.getValueAt(0, 1));
         assertEquals(1, instance.getValueAt(0, 2));
         assertEquals(1, instance.getValueAt(0, 3));
         validateBackgroundColor(instance.getBackground(), 0, 0);
@@ -187,7 +187,7 @@ public class RatiosTableTest {
         validateBackgroundColor(instance.getBackground(), 0, 3);
 
         assertEquals("Engine #1 (0)", instance.getValueAt(1, 0));
-        assertEquals("SPN 456 Unknown", instance.getValueAt(1, 1));
+        assertEquals("SPN  456 Unknown", instance.getValueAt(1, 1));
         assertEquals(2, instance.getValueAt(1, 2));
         assertEquals(3, instance.getValueAt(1, 3));
         validateBackgroundColor(instance.getBackground(), 1);
@@ -210,13 +210,13 @@ public class RatiosTableTest {
 
         assertEquals(2, instance.getRowCount());
         assertEquals("Engine #1 (0)", instance.getValueAt(0, 0));
-        assertEquals("SPN 123 Clutch Pressure", instance.getValueAt(0, 1));
+        assertEquals("SPN  123 Clutch Pressure", instance.getValueAt(0, 1));
         assertEquals(0, instance.getValueAt(0, 2));
         assertEquals(1, instance.getValueAt(0, 3));
         validateBackgroundColor(instance.getBackground(), 0);
 
         assertEquals("Engine #1 (0)", instance.getValueAt(1, 0));
-        assertEquals("SPN 456 Unknown", instance.getValueAt(1, 1));
+        assertEquals("SPN  456 Unknown", instance.getValueAt(1, 1));
         assertEquals(2, instance.getValueAt(1, 2));
         assertEquals(3, instance.getValueAt(1, 3));
         validateBackgroundColor(instance.getBackground(), 1);
@@ -234,13 +234,13 @@ public class RatiosTableTest {
 
         assertEquals(2, instance.getRowCount());
         assertEquals("Engine #1 (0)", instance.getValueAt(0, 0));
-        assertEquals("SPN 123 Clutch Pressure", instance.getValueAt(0, 1));
+        assertEquals("SPN  123 Clutch Pressure", instance.getValueAt(0, 1));
         assertEquals(0, instance.getValueAt(0, 2));
         assertEquals(0, instance.getValueAt(0, 3));
         validateBackgroundColor(instance.getBackground(), 0);
 
         assertEquals("Engine #1 (0)", instance.getValueAt(1, 0));
-        assertEquals("SPN 456 Unknown", instance.getValueAt(1, 1));
+        assertEquals("SPN  456 Unknown", instance.getValueAt(1, 1));
         assertEquals(2, instance.getValueAt(1, 2));
         assertEquals(3, instance.getValueAt(1, 3));
         validateBackgroundColor(instance.getBackground(), 1);
@@ -263,13 +263,13 @@ public class RatiosTableTest {
 
         assertEquals(2, instance.getRowCount());
         assertEquals("Engine #1 (0)", instance.getValueAt(0, 0));
-        assertEquals("SPN 123 Clutch Pressure", instance.getValueAt(0, 1));
+        assertEquals("SPN  123 Clutch Pressure", instance.getValueAt(0, 1));
         assertEquals(0, instance.getValueAt(0, 2));
         assertEquals(1, instance.getValueAt(0, 3));
         validateBackgroundColor(instance.getBackground(), 0);
 
         assertEquals("Engine #1 (0)", instance.getValueAt(1, 0));
-        assertEquals("SPN 456 Unknown", instance.getValueAt(1, 1));
+        assertEquals("SPN  456 Unknown", instance.getValueAt(1, 1));
         assertEquals(2, instance.getValueAt(1, 2));
         assertEquals(3, instance.getValueAt(1, 3));
         validateBackgroundColor(instance.getBackground(), 1);
@@ -287,13 +287,13 @@ public class RatiosTableTest {
 
         assertEquals(2, instance.getRowCount());
         assertEquals("Engine #1 (0)", instance.getValueAt(0, 0));
-        assertEquals("SPN 123 Clutch Pressure", instance.getValueAt(0, 1));
+        assertEquals("SPN  123 Clutch Pressure", instance.getValueAt(0, 1));
         assertEquals(0, instance.getValueAt(0, 2));
         assertEquals(2, instance.getValueAt(0, 3));
         validateBackgroundColor(instance.getBackground(), 0);
 
         assertEquals("Engine #1 (0)", instance.getValueAt(1, 0));
-        assertEquals("SPN 456 Unknown", instance.getValueAt(1, 1));
+        assertEquals("SPN  456 Unknown", instance.getValueAt(1, 1));
         assertEquals(2, instance.getValueAt(1, 2));
         assertEquals(3, instance.getValueAt(1, 3));
         validateBackgroundColor(instance.getBackground(), 1);
@@ -316,13 +316,13 @@ public class RatiosTableTest {
 
         assertEquals(2, instance.getRowCount());
         assertEquals("Engine #1 (0)", instance.getValueAt(0, 0));
-        assertEquals("SPN 123 Clutch Pressure", instance.getValueAt(0, 1));
+        assertEquals("SPN  123 Clutch Pressure", instance.getValueAt(0, 1));
         assertEquals(0, instance.getValueAt(0, 2));
         assertEquals(1, instance.getValueAt(0, 3));
         validateBackgroundColor(instance.getBackground(), 0);
 
         assertEquals("Engine #1 (0)", instance.getValueAt(1, 0));
-        assertEquals("SPN 456 Unknown", instance.getValueAt(1, 1));
+        assertEquals("SPN  456 Unknown", instance.getValueAt(1, 1));
         assertEquals(2, instance.getValueAt(1, 2));
         assertEquals(3, instance.getValueAt(1, 3));
         validateBackgroundColor(instance.getBackground(), 1);
@@ -334,13 +334,13 @@ public class RatiosTableTest {
 
         assertEquals(2, instance.getRowCount());
         assertEquals("Engine #1 (0)", instance.getValueAt(0, 0));
-        assertEquals("SPN 123 Clutch Pressure", instance.getValueAt(0, 1));
+        assertEquals("SPN  123 Clutch Pressure", instance.getValueAt(0, 1));
         assertEquals(0, instance.getValueAt(0, 2));
         assertEquals(1, instance.getValueAt(0, 3));
         validateBackgroundColor(instance.getBackground(), 0);
 
         assertEquals("Engine #1 (0)", instance.getValueAt(1, 0));
-        assertEquals("SPN 456 Unknown", instance.getValueAt(1, 1));
+        assertEquals("SPN  456 Unknown", instance.getValueAt(1, 1));
         assertEquals(2, instance.getValueAt(1, 2));
         assertEquals(3, instance.getValueAt(1, 3));
         validateBackgroundColor(instance.getBackground(), 1);
@@ -363,13 +363,13 @@ public class RatiosTableTest {
 
         assertEquals(2, instance.getRowCount());
         assertEquals("Engine #1 (0)", instance.getValueAt(0, 0));
-        assertEquals("SPN 123 Clutch Pressure", instance.getValueAt(0, 1));
+        assertEquals("SPN  123 Clutch Pressure", instance.getValueAt(0, 1));
         assertEquals(0, instance.getValueAt(0, 2));
         assertEquals(1, instance.getValueAt(0, 3));
         validateBackgroundColor(instance.getBackground(), 0);
 
         assertEquals("Engine #1 (0)", instance.getValueAt(1, 0));
-        assertEquals("SPN 456 Unknown", instance.getValueAt(1, 1));
+        assertEquals("SPN  456 Unknown", instance.getValueAt(1, 1));
         assertEquals(2, instance.getValueAt(1, 2));
         assertEquals(3, instance.getValueAt(1, 3));
         validateBackgroundColor(instance.getBackground(), 1);
@@ -387,13 +387,13 @@ public class RatiosTableTest {
 
         assertEquals(2, instance.getRowCount());
         assertEquals("Engine #1 (0)", instance.getValueAt(0, 0));
-        assertEquals("SPN 123 Clutch Pressure", instance.getValueAt(0, 1));
+        assertEquals("SPN  123 Clutch Pressure", instance.getValueAt(0, 1));
         assertEquals(-1, instance.getValueAt(0, 2));
         assertEquals(1, instance.getValueAt(0, 3));
         validateBackgroundColor(Color.RED, 0);
 
         assertEquals("Engine #1 (0)", instance.getValueAt(1, 0));
-        assertEquals("SPN 456 Unknown", instance.getValueAt(1, 1));
+        assertEquals("SPN  456 Unknown", instance.getValueAt(1, 1));
         assertEquals(2, instance.getValueAt(1, 2));
         assertEquals(3, instance.getValueAt(1, 3));
         validateBackgroundColor(instance.getBackground(), 1);
@@ -416,13 +416,13 @@ public class RatiosTableTest {
 
         assertEquals(2, instance.getRowCount());
         assertEquals("Engine #1 (0)", instance.getValueAt(0, 0));
-        assertEquals("SPN 123 Clutch Pressure", instance.getValueAt(0, 1));
+        assertEquals("SPN  123 Clutch Pressure", instance.getValueAt(0, 1));
         assertEquals(0, instance.getValueAt(0, 2));
         assertEquals(1, instance.getValueAt(0, 3));
         validateBackgroundColor(instance.getBackground(), 0);
 
         assertEquals("Engine #1 (0)", instance.getValueAt(1, 0));
-        assertEquals("SPN 456 Unknown", instance.getValueAt(1, 1));
+        assertEquals("SPN  456 Unknown", instance.getValueAt(1, 1));
         assertEquals(2, instance.getValueAt(1, 2));
         assertEquals(3, instance.getValueAt(1, 3));
         validateBackgroundColor(instance.getBackground(), 1);
@@ -440,13 +440,13 @@ public class RatiosTableTest {
 
         assertEquals(2, instance.getRowCount());
         assertEquals("Engine #1 (0)", instance.getValueAt(0, 0));
-        assertEquals("SPN 123 Clutch Pressure", instance.getValueAt(0, 1));
+        assertEquals("SPN  123 Clutch Pressure", instance.getValueAt(0, 1));
         assertEquals(1, instance.getValueAt(0, 2));
         assertEquals(1, instance.getValueAt(0, 3));
         validateBackgroundColor(Color.GREEN, 0);
 
         assertEquals("Engine #1 (0)", instance.getValueAt(1, 0));
-        assertEquals("SPN 456 Unknown", instance.getValueAt(1, 1));
+        assertEquals("SPN  456 Unknown", instance.getValueAt(1, 1));
         assertEquals(2, instance.getValueAt(1, 2));
         assertEquals(3, instance.getValueAt(1, 3));
         validateBackgroundColor(instance.getBackground(), 1);
@@ -474,13 +474,13 @@ public class RatiosTableTest {
 
         assertEquals(2, instance.getRowCount());
         assertEquals("Engine #1 (0)", instance.getValueAt(0, 0));
-        assertEquals("SPN 123 Clutch Pressure", instance.getValueAt(0, 1));
+        assertEquals("SPN  123 Clutch Pressure", instance.getValueAt(0, 1));
         assertEquals(1, instance.getValueAt(0, 2));
         assertEquals(1, instance.getValueAt(0, 3));
         validateBackgroundColor(instance.getBackground(), 0);
 
         assertEquals("Engine #1 (0)", instance.getValueAt(1, 0));
-        assertEquals("SPN 456 Unknown", instance.getValueAt(1, 1));
+        assertEquals("SPN  456 Unknown", instance.getValueAt(1, 1));
         assertEquals(2, instance.getValueAt(1, 2));
         assertEquals(3, instance.getValueAt(1, 3));
         validateBackgroundColor(instance.getBackground(), 1, 0);

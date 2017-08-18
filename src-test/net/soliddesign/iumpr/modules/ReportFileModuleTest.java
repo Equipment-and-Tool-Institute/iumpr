@@ -99,8 +99,9 @@ public class ReportFileModuleTest {
         writer.write("2017-02-11T16:44:12.164 Vehicle Identification from Engine #1 (0): ASDFGHJKLASDFGHJKL" + NL);
         writer.write("2017-03-05T12:21:43.838 Diagnostic Trouble Codes were successfully cleared." + NL);
         writer.write("2017-03-05T12:21:45.090 18FECE00 00 00 14 37 E0 1E E0 1E" + NL);
+        writer.write("  Time Since DTCs Cleared:                      14 minutes" + NL);
         writer.write("2017-03-05T12:21:47.610 18C20000 0C 00 01 00 CA 14 F8 00 00 01 00" + NL);
-        writer.write("2017-03-05T12:21:56.495 I U M P R Data Collection Tool Data Plate Report END OF REPORT");
+        writer.write("2017-03-05T12:21:56.495 IUMPR Data Collection Tool Data Plate Report END OF REPORT");
         writer.close();
 
         instance.setReportFile(listener, file, false);
@@ -182,8 +183,9 @@ public class ReportFileModuleTest {
         writer.write("2017-02-11T16:44:12.164 Vehicle Identification from Engine #1 (0): ASDFGHJKLASDFGHJKL" + NL);
         writer.write("2017-03-05T12:21:43.838 Diagnostic Trouble Codes were successfully cleared." + NL);
         writer.write("2017-03-05T12:21:45.090 18FECE00 00 00 14 37 E0 1E E0 1E" + NL);
+        writer.write("  Time Since DTCs Cleared:                      14 minutes" + NL);
         writer.write("2017-03-05T12:21:47.610 18C20000 0C 00 01 00 CA 14 F8 00 00 01 00" + NL);
-        writer.write("2017-03-05T12:21:56.495 I U M P R Data Collection Tool Data Plate Report END OF REPORT");
+        writer.write("2017-03-05T12:21:56.495 IUMPR Data Collection Tool Data Plate Report END OF REPORT");
         writer.close();
 
         instance.setReportFile(listener, file, false);
@@ -233,8 +235,9 @@ public class ReportFileModuleTest {
         writer.write("2017-02-11T16:44:12.164 Vehicle Identification from Engine #1 (0): ASDFGHJKLASDFGHJKL" + NL);
         writer.write("2017-03-05T12:21:43.838 Diagnostic Trouble Codes were successfully cleared." + NL);
         writer.write("2017-03-05T12:21:45.090 18FECE00 00 00 14 37 E0 1E E0 1E" + NL);
+        writer.write("  Time Since DTCs Cleared:                      14 minutes" + NL);
         writer.write("2017-03-05T12:21:47.610 18C20000 0C 00 01 00 CA 14 F8 00 00 01 00" + NL);
-        writer.write("2017-03-05T12:21:56.495 I U M P R Data Collection Tool Data Plate Report END OF REPORT");
+        writer.write("2017-03-05T12:21:56.495 IUMPR Data Collection Tool Data Plate Report END OF REPORT");
         writer.close();
 
         instance.setReportFile(listener, file, false);
@@ -256,7 +259,8 @@ public class ReportFileModuleTest {
         writer.write("2017-02-11T16:44:12.164 Vehicle Identification from Engine #1 (0): ASDFGHJKLASDFGHJKL" + NL);
         writer.write("2017-03-05T12:21:43.838 Diagnostic Trouble Codes were successfully cleared." + NL);
         writer.write("2017-03-05T12:21:47.610 18C20000 0C 00 01 00 CA 14 F8 00 00 01 00" + NL);
-        writer.write("2017-03-05T12:21:56.495 I U M P R Data Collection Tool Data Plate Report END OF REPORT");
+        writer.write("  Time Since DTCs Cleared:                      14 minutes" + NL);
+        writer.write("2017-03-05T12:21:56.495 IUMPR Data Collection Tool Data Plate Report END OF REPORT");
         writer.close();
 
         try {
@@ -292,8 +296,8 @@ public class ReportFileModuleTest {
         assertEquals(Integer.MIN_VALUE, instance.getInitialIgnitionCycles());
         assertEquals(Integer.MIN_VALUE, instance.getInitialOBDCounts());
 
-        instance.onResult("2017-03-01T09:50:24.386 Global DM19 (Calibration Information) Request" + NL
-                + "2017-03-01T09:50:24.386 18EAFFF9 00 D3 00 (TX)" + NL +
+        instance.onResult("2017-03-01T09:50:23.386 Global DM19 (Calibration Information) Request" + NL
+                + "2017-03-01T09:50:23.386 18EAFFF9 00 D3 00 (TX)" + NL +
                 "2017-03-01T09:50:25.639 18D30000 96 BF DC 40 50 42 54 35 4D 50 52 33 20 20 20 20 20 20 20 20"
                 + NL +
                 "DM19 from Engine #1 (0): CAL ID of PBT5MPR3 and CVN of 0x40DCBF96");
@@ -301,13 +305,14 @@ public class ReportFileModuleTest {
         instance.onResult("  Time Since DTCs Cleared:                      14 minutes");
 
         instance.onResult(
-                "2017-03-01T09:50:24.317 18FEEC00 33 48 41 4D 4B 53 54 4E 30 46 4C 35 37 35 30 31 32 2A"
+                "2017-03-01T09:50:26.317 18FEEC00 33 48 41 4D 4B 53 54 4E 30 46 4C 35 37 35 30 31 32 2A"
                         + NL + "Vehicle Identification from Engine #1 (0): 3HAMKSTN0FL575012");
 
         instance.onResult("2017-03-05T12:21:43.838 Diagnostic Trouble Codes were successfully cleared.");
-        instance.onResult("2017-03-05T12:21:45.090 18FECE00 00 00 14 37 E0 1E E0 1E");
+        instance.onResult("12:21:45.090 18FECE00 00 00 14 37 E0 1E E0 1E");
+        instance.onResult("  Time Since DTCs Cleared:                      14 minutes");
         instance.onResult("2017-03-05T12:21:47.610 18C20000 0C 00 01 00 CA 14 F8 00 00 01 00");
-        instance.onResult("2017-03-05T12:21:56.495 I U M P R Data Collection Tool Data Plate Report END OF REPORT");
+        instance.onResult("2017-03-05T12:21:56.495 IUMPR Data Collection Tool Data Plate Report END OF REPORT");
 
         assertEquals("3HAMKSTN0FL575012", instance.getFileVin());
         assertEquals(14, instance.getMinutesSinceCodeClear());
@@ -342,7 +347,7 @@ public class ReportFileModuleTest {
         instance.setReportFile(listener, file, true);
         instance.onProgramExit();
         List<String> lines = Files.readAllLines(file.toPath());
-        String expected = "2007-12-03T10:15:30.000 End of I U M P R Data Collection Tool Execution";
+        String expected = "2007-12-03T10:15:30.000 End of IUMPR Data Collection Tool Execution";
         assertEquals(expected, lines.get(0));
     }
 
@@ -389,9 +394,10 @@ public class ReportFileModuleTest {
         writer.write("2017-02-11T16:44:12.164 Vehicle Identification from Engine #1 (0): ASDFGHJKLASDFGHJKL" + NL);
         writer.write("2017-03-05T12:21:43.838 Diagnostic Trouble Codes were successfully cleared." + NL);
         writer.write("2017-03-05T12:21:45.090 18FECE00 00 00 14 37 E0 1E E0 1E" + NL);
+        writer.write("  Time Since DTCs Cleared:                      14 minutes" + NL);
         writer.write("2017-03-05T12:21:47.610 18C20000 0C 00 01 00 CA 14 F8 00 00 01 00" + NL);
         writer.write("2017-03-05T12:21:48.610 18C20055 1C 00 11 00 CB 14 F8 00 00 01 00" + NL);
-        writer.write("2017-03-05T12:21:56.495 I U M P R Data Collection Tool Data Plate Report END OF REPORT");
+        writer.write("2017-03-05T12:21:56.495 IUMPR Data Collection Tool Data Plate Report END OF REPORT");
         writer.close();
 
         instance.setReportFile(listener, file, false);
@@ -422,8 +428,9 @@ public class ReportFileModuleTest {
         writer.write("2017-02-11T16:44:12.164 Vehicle Identification from Engine #1 (0): ASDFGHJKLASDFGHJKL" + NL);
         writer.write("2017-03-05T12:21:43.838 Diagnostic Trouble Codes were successfully cleared." + NL);
         writer.write("2017-03-05T12:21:45.090 18FECE00 00 00 14 37 E0 1E E0 1E" + NL);
+        writer.write("  Time Since DTCs Cleared:                      14 minutes" + NL);
         writer.write("2017-03-05T12:21:47.610 18C20000 0C 00 01 00 CA 14 F8 00 00 01 00" + NL);
-        writer.write("2017-03-05T12:21:56.495 I U M P R Data Collection Tool Data Plate Report END OF REPORT");
+        writer.write("2017-03-05T12:21:56.495 IUMPR Data Collection Tool Data Plate Report END OF REPORT");
         writer.close();
 
         instance.setReportFile(listener, file, false);
@@ -450,7 +457,8 @@ public class ReportFileModuleTest {
         writer.write("2017-02-11T16:44:12.164 Vehicle Identification from Engine #1 (0): ASDFGHJKLASDFGHJKL" + NL);
         writer.write("2017-03-05T12:21:43.838 Diagnostic Trouble Codes were successfully cleared." + NL);
         writer.write("2017-03-05T12:21:45.090 18FECE00 00 00 14 37 E0 1E E0 1E" + NL);
-        writer.write("2017-03-05T12:21:56.495 I U M P R Data Collection Tool Data Plate Report END OF REPORT");
+        writer.write("  Time Since DTCs Cleared:                      14 minutes" + NL);
+        writer.write("2017-03-05T12:21:56.495 IUMPR Data Collection Tool Data Plate Report END OF REPORT");
         writer.close();
 
         try {
@@ -482,8 +490,9 @@ public class ReportFileModuleTest {
         writer.write("2017-02-11T16:44:12.164 Vehicle Identification from Engine #1 (0): ASDFGHJKLASDFGHJKL" + NL);
         writer.write("2017-03-05T12:21:43.838 Diagnostic Trouble Codes were successfully cleared." + NL);
         writer.write("2017-03-05T12:21:45.090 18FECE00 00 00 14 37 E0 1E E0 1E" + NL);
+        writer.write("  Time Since DTCs Cleared:                      14 minutes" + NL);
         writer.write("2017-03-05T12:21:47.610 18C20000 0C 00 01 00 CA 14 F8 00 00 01 00" + NL);
-        writer.write("2017-03-05T12:21:56.495 I U M P R Data Collection Tool Data Plate Report END OF REPORT");
+        writer.write("2017-03-05T12:21:56.495 IUMPR Data Collection Tool Data Plate Report END OF REPORT");
         writer.close();
         instance.setReportFile(listener, file, false);
         assertEquals(false, instance.isNewFile());
@@ -519,8 +528,9 @@ public class ReportFileModuleTest {
         writer.write("2017-02-11T16:44:12.164 Vehicle Identification from Engine #1 (0): ASDFGHJKLASDFGHJKL" + NL);
         writer.write("2017-03-05T12:21:43.838 Diagnostic Trouble Codes were successfully cleared." + NL);
         writer.write("2017-03-05T12:21:45.090 18FECE00 00 00 14 37 E0 1E E0 1E" + NL);
+        writer.write("  Time Since DTCs Cleared:                      14 minutes" + NL);
         writer.write("2017-03-05T12:21:47.610 18C20000 0C 00 01 00 CA 14 F8 00 00 01 00" + NL);
-        writer.write("2017-03-05T12:21:56.495 I U M P R Data Collection Tool Data Plate Report END OF REPORT");
+        writer.write("2017-03-05T12:21:56.495 IUMPR Data Collection Tool Data Plate Report END OF REPORT");
         writer.close();
 
         instance.setReportFile(listener, file, false);
@@ -560,8 +570,9 @@ public class ReportFileModuleTest {
         writer.write("2017-02-11T16:44:12.164 Vehicle Identification from Engine #1 (0): ASDFGHJKLASDFGHJKL" + NL);
         writer.write("2017-03-05T12:21:43.838 Diagnostic Trouble Codes were successfully cleared." + NL);
         writer.write("2017-03-05T12:21:45.090 18FECE00 00 00 14 37 E0 1E E0 1E" + NL);
+        writer.write("  Time Since DTCs Cleared:                      14 minutes" + NL);
         writer.write("2017-03-05T12:21:47.610 18C20000 0C 00 01 00 CA 14 F8 00 00 01 00" + NL);
-        writer.write("2017-03-05T12:21:56.495 I U M P R Data Collection Tool Data Plate Report END OF REPORT");
+        writer.write("2017-03-05T12:21:56.495 IUMPR Data Collection Tool Data Plate Report END OF REPORT");
         writer.close();
 
         instance.setReportFile(listener, file, false);
@@ -607,8 +618,9 @@ public class ReportFileModuleTest {
         writer.write("SPN 237 - Vehicle Identification Number: Supports Data Stream with data length 0 bytes" + NL);
         writer.write("2017-03-05T12:21:43.838 Diagnostic Trouble Codes were successfully cleared." + NL);
         writer.write("2017-03-05T12:21:45.090 18FECE00 00 00 14 37 E0 1E E0 1E" + NL);
+        writer.write("  Time Since DTCs Cleared:                      14 minutes" + NL);
         writer.write("2017-03-05T12:21:47.610 18C20000 0C 00 01 00 CA 14 F8 00 00 01 00" + NL);
-        writer.write("2017-03-05T12:21:56.495 I U M P R Data Collection Tool Data Plate Report END OF REPORT");
+        writer.write("2017-03-05T12:21:56.495 IUMPR Data Collection Tool Data Plate Report END OF REPORT");
         writer.close();
 
         instance.setReportFile(listener, file, false);
@@ -771,8 +783,9 @@ public class ReportFileModuleTest {
         writer.write("2017-02-11T16:44:12.164 Vehicle Identification from Engine #1 (0): ASDFGHJKLASDFGHJKL" + NL);
         writer.write("2017-03-05T12:21:43.838 Diagnostic Trouble Codes were successfully cleared." + NL);
         writer.write("2017-03-05T12:21:45.090 18FECE00 00 00 14 37 E0 1E E0 1E" + NL);
+        writer.write("  Time Since DTCs Cleared:                      14 minutes" + NL);
         writer.write("2017-03-05T12:21:47.610 18C20000 0C 00 01 00 CA 14 F8 00 00 01 00" + NL);
-        writer.write("2017-03-05T12:21:56.495 I U M P R Data Collection Tool Data Plate Report END OF REPORT");
+        writer.write("2017-03-05T12:21:56.495 IUMPR Data Collection Tool Data Plate Report END OF REPORT");
         writer.close();
 
         instance.setReportFile(listener, file, false);
@@ -802,8 +815,9 @@ public class ReportFileModuleTest {
             writer.write("2017-02-11T16:44:12.164 Vehicle Identification from Engine #1 (0): ASDFGHJKLASDFGHJKL" + NL);
             writer.write("2017-03-05T12:21:43.838 Diagnostic Trouble Codes were successfully cleared." + NL);
             writer.write("2017-03-05T12:21:45.090 18FECE00 00 00 14 37 E0 1E E0 1E" + NL);
+            writer.write("  Time Since DTCs Cleared:                      14 minutes" + NL);
             writer.write("2017-03-05T12:21:47.610 18C20000 0C 00 01 00 CA 14 F8 00 00 01 00" + NL);
-            writer.write("2017-03-05T12:21:56.495 I U M P R Data Collection Tool Data Plate Report END OF REPORT");
+            writer.write("2017-03-05T12:21:56.495 IUMPR Data Collection Tool Data Plate Report END OF REPORT");
             writer.close();
 
             instance.setReportFile(listener, file, false);
@@ -856,8 +870,9 @@ public class ReportFileModuleTest {
             writer.write("2017-02-11T16:44:12.164 Vehicle Identification from Engine #1 (0): ASDFGHJKLASDFGHJKL" + NL);
             writer.write("2017-03-05T12:21:43.838 Diagnostic Trouble Codes were successfully cleared." + NL);
             writer.write("2017-03-05T12:21:45.090 18FECE00 00 00 14 37 E0 1E E0 1E" + NL);
+            writer.write("  Time Since DTCs Cleared:                      14 minutes" + NL);
             writer.write("2017-03-05T12:21:47.610 18C20000 0C 00 01 00 CA 14 F8 00 00 01 00" + NL);
-            writer.write("2017-03-05T12:21:56.495 I U M P R Data Collection Tool Data Plate Report END OF REPORT");
+            writer.write("2017-03-05T12:21:56.495 IUMPR Data Collection Tool Data Plate Report END OF REPORT");
             writer.close();
 
             instance.setReportFile(listener, file, false);
@@ -892,8 +907,9 @@ public class ReportFileModuleTest {
             writer.write("2017-02-11T16:44:12.164 Vehicle Identification from Engine #1 (0): ASDFGHJKLASDFGHJK" + NL);
             writer.write("2017-03-05T12:21:43.838 Diagnostic Trouble Codes were successfully cleared." + NL);
             writer.write("2017-03-05T12:21:46.090 18FECE00 00 00 14 37 E0 1E E0 1E" + NL);
+            writer.write("  Time Since DTCs Cleared:                      16 minutes" + NL);
             writer.write("2017-03-05T12:21:48.610 18C20000 1C 00 11 00 CA 14 F8 00 00 01 00" + NL);
-            writer.write("2017-03-05T12:21:56.495 I U M P R Data Collection Tool Data Plate Report END OF REPORT");
+            writer.write("2017-03-05T12:21:56.495 IUMPR Data Collection Tool Data Plate Report END OF REPORT");
             writer.close();
 
             instance.setReportFile(listener, file2, false);

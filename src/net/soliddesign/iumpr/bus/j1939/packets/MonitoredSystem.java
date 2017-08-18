@@ -18,7 +18,7 @@ public class MonitoredSystem implements Comparable<MonitoredSystem> {
      */
     public enum Status {
         // The order of these MUST remain Complete, Not Complete, Not Supported
-        COMPLETE("    complete"), NOT_COMPLETE("not complete"), NOT_SUPPORTED("disabled/not supported");
+        COMPLETE("    complete"), NOT_COMPLETE("not complete"), NOT_SUPPORTED("not enabled");
         public static Status findStatus(boolean notCompleted, boolean supported) {
             if (!supported) {
                 return NOT_SUPPORTED;

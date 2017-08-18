@@ -27,6 +27,15 @@ public interface Bus {
     int getAddress();
 
     /**
+     * Returns the speed of the bus
+     *
+     * @return the speed of the bus
+     * @throws BusException
+     *             if the speed cannot be determined
+     */
+    int getConnectionSpeed() throws BusException;
+
+    /**
      * Reads {@link Packet}s from the bus
      *
      * @param timeout

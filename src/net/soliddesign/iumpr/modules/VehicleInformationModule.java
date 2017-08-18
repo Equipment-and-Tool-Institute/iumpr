@@ -6,9 +6,14 @@ package net.soliddesign.iumpr.modules;
 import static net.soliddesign.iumpr.bus.j1939.J1939.ENGINE_ADDR;
 import static net.soliddesign.iumpr.bus.j1939.J1939.GLOBAL_ADDR;
 
+import java.text.NumberFormat;
+import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
+import net.soliddesign.iumpr.bus.BusException;
 import net.soliddesign.iumpr.bus.Packet;
+import net.soliddesign.iumpr.bus.j1939.packets.AddressClaimPacket;
 import net.soliddesign.iumpr.bus.j1939.packets.ComponentIdentificationPacket;
 import net.soliddesign.iumpr.bus.j1939.packets.DM19CalibrationInformationPacket;
 import net.soliddesign.iumpr.bus.j1939.packets.EngineHoursPacket;
@@ -45,6 +50,21 @@ public class VehicleInformationModule extends FunctionalModule {
     }
 
     /**
+     * Sends the Request for Address Claim and reports the results
+     *
+     * @param listener
+     *            the {@link ResultsListener} that will be given the report
+     */
+    public void reportAddressClaim(ResultsListener listener) {
+        Packet request = getJ1939().createRequestPacket(AddressClaimPacket.PGN, GLOBAL_ADDR);
+        List<AddressClaimPacket> responses = generateReport(listener, "Global Request for Address Claim",
+                AddressClaimPacket.class, request);
+        if (!responses.isEmpty() && !responses.stream().filter(p -> p.getFunctionId() == 0).findAny().isPresent()) {
+            listener.onResult("Error: No module reported Function 0");
+        }
+    }
+
+    /**
      * Requests the Calibration Information from all vehicle modules and
      * generates a {@link String} that's suitable for inclusion in the report
      *
@@ -72,6 +92,23 @@ public class VehicleInformationModule extends FunctionalModule {
     }
 
     /**
+     * Queries the bus and reports the speed of the vehicle bus
+     *
+     * @param listener
+     *            the {@link ResultsListener} that will be given the report
+     */
+    public void reportConnectionSpeed(ResultsListener listener) {
+        String result = getDateTime() + " Baud Rate: ";
+        try {
+            int speed = getJ1939().getBus().getConnectionSpeed();
+            result += NumberFormat.getInstance(Locale.US).format(speed) + " bps";
+        } catch (BusException e) {
+            result += "Could not be determined";
+        }
+        listener.onResult(result);
+    }
+
+    /**
      * Requests the Engine Hours from the engine and generates a {@link String}
      * that's suitable for inclusion in the report
      *
@@ -91,7 +128,7 @@ public class VehicleInformationModule extends FunctionalModule {
      *            the {@link ResultsListener} that will be given the report
      */
     public void reportVehicleDistance(ResultsListener listener) {
-        listener.onResult(getTime() + " Vehicle Distance");
+        listener.onResult(getDateTime() + " Vehicle Distance");
         Optional<HighResVehicleDistancePacket> hiResPacket = getJ1939().read(HighResVehicleDistancePacket.class,
                 ENGINE_ADDR);
         Optional<? extends ParsedPacket> packet = !hiResPacket.isPresent()
