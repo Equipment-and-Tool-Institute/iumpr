@@ -146,7 +146,6 @@ public class MonitorTrackingModule extends FunctionalModule {
      */
     public void endTracking() {
         end = true;
-        notifyEnding();
     }
 
     /**

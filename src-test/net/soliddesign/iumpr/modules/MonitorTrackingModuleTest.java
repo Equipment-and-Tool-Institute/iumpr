@@ -164,6 +164,8 @@ public class MonitorTrackingModuleTest {
 
         instance.endTracking();
 
+        runnable.run(); // To recognize the end
+
         synchronized (lock) {
             if (!lock[0]) {
                 lock.wait(WAIT_TIME);
@@ -236,6 +238,8 @@ public class MonitorTrackingModuleTest {
         runnable.run(); // Second Read Vehicle
 
         instance.endTracking();
+
+        runnable.run(); // To recognize the end
 
         synchronized (lock) {
             if (!lock[0]) {
@@ -329,7 +333,7 @@ public class MonitorTrackingModuleTest {
         verify(diagnosticReadinessModule).getDM20Packets(null, false);
         verify(diagnosticReadinessModule).getDM26Packets(null, false);
         verify(diagnosticReadinessModule).getDM21Packets(null, false);
-        verify(j1939, times(2)).interrupt();
+        verify(j1939).interrupt();
     }
 
     @Test
@@ -343,7 +347,6 @@ public class MonitorTrackingModuleTest {
         expected += "2007-12-03T10:15:30.000 End Tracking Monitor Completion Status. 0 Total Cycles." + NL;
         String actual = listener.getResults();
         assertEquals(expected, actual);
-        verify(j1939).interrupt();
     }
 
     @Test
@@ -373,6 +376,8 @@ public class MonitorTrackingModuleTest {
         }
 
         instance.endTracking();
+
+        runnable.run(); // To recognize the end
 
         synchronized (lock) {
             if (!lock[0]) {
@@ -653,6 +658,8 @@ public class MonitorTrackingModuleTest {
 
         instance.endTracking();
 
+        runnable.run(); // To recognize the end
+
         synchronized (lock) {
             if (!lock[0]) {
                 lock.wait(WAIT_TIME);
@@ -736,6 +743,8 @@ public class MonitorTrackingModuleTest {
         runnable.run(); // Second Read Vehicle
 
         instance.endTracking();
+
+        runnable.run(); // To recognize the end
 
         synchronized (lock) {
             if (!lock[0]) {
