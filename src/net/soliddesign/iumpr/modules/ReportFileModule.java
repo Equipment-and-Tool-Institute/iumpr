@@ -309,7 +309,7 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
                 ratiosAndMonitorsCanBeRead = false;
                 // Consolidate the Monitored Systems from various modules into a
                 // single set
-                initialMonitors = new HashSet<>(DiagnosticReadinessModule.getCompositeSystems(initialMonitors));
+                initialMonitors = new HashSet<>(DiagnosticReadinessModule.getCompositeSystems(initialMonitors, true));
             }
             return true;
         }

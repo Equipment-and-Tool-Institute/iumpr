@@ -18,15 +18,15 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 /**
- * Unit tests for the {@link StatusRenderer}
+ * Unit tests for the {@link CheckBoxRenderer}
  *
  * @author Matt Gumbel (matt@soliddesign.net)
  *
  */
 @RunWith(MockitoJUnitRunner.class)
-public class StatusRendererTest {
+public class CheckBoxRendererTest {
 
-    private StatusRenderer instance;
+    private CheckBoxRenderer instance;
 
     private JTable table;
 
@@ -43,40 +43,40 @@ public class StatusRendererTest {
                 return 27;
             }
         };
-        instance = new StatusRenderer(1);
+        instance = new CheckBoxRenderer(1);
     }
 
     @Test
     public void testNullColorNotSelected() {
         when(tableModel.getValueAt(27, 1)).thenReturn(null);
-        instance.getTableCellRendererComponent(table, "text", false, false, 32, 19);
+        instance.getTableCellRendererComponent(table, true, false, false, 32, 19);
         assertEquals(table.getBackground(), instance.getBackground());
-        assertEquals("text", instance.getText());
+        assertEquals(true, instance.isSelected());
     }
 
     @Test
     public void testNullColorSelected() {
         when(tableModel.getValueAt(27, 1)).thenReturn(null);
-        instance.getTableCellRendererComponent(table, "text", true, false, 32, 19);
+        instance.getTableCellRendererComponent(table, true, true, false, 32, 19);
         assertEquals(table.getSelectionBackground(), instance.getBackground());
-        assertEquals("text", instance.getText());
+        assertEquals(true, instance.isSelected());
     }
 
     @Test
     public void testWithColorNotSelected() {
         when(tableModel.getValueAt(27, 1)).thenReturn(Color.BLACK);
 
-        instance.getTableCellRendererComponent(table, "text", false, false, 32, 19);
+        instance.getTableCellRendererComponent(table, false, false, false, 32, 19);
         assertEquals(Color.BLACK, instance.getBackground());
-        assertEquals("text", instance.getText());
+        assertEquals(false, instance.isSelected());
     }
 
     @Test
     public void testWithColorSelected() {
         when(tableModel.getValueAt(27, 1)).thenReturn(Color.BLACK);
 
-        instance.getTableCellRendererComponent(table, "text", true, false, 32, 19);
+        instance.getTableCellRendererComponent(table, false, true, false, 32, 19);
         assertEquals(table.getSelectionBackground(), instance.getBackground());
-        assertEquals("text", instance.getText());
+        assertEquals(false, instance.isSelected());
     }
 }

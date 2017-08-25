@@ -59,7 +59,7 @@ public class DM5DiagnosticReadinessPacketTest {
     public void testEqualsWithObject() {
         Packet packet = Packet.create(65230, 0, 11, 22, 33, 44, 55, 66, 77, 88);
         DM5DiagnosticReadinessPacket instance = new DM5DiagnosticReadinessPacket(packet);
-        assertFalse(instance.equals("Object"));
+        assertFalse(instance.equals(new Object()));
     }
 
     @Test

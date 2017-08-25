@@ -3,6 +3,7 @@
  */
 package net.soliddesign.iumpr.ui.status;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import net.soliddesign.iumpr.bus.j1939.packets.DM26TripDiagnosticReadinessPacket
 import net.soliddesign.iumpr.bus.j1939.packets.DM5DiagnosticReadinessPacket;
 import net.soliddesign.iumpr.bus.j1939.packets.DiagnosticReadinessPacket;
 import net.soliddesign.iumpr.bus.j1939.packets.MonitoredSystem;
-import net.soliddesign.iumpr.bus.j1939.packets.MonitoredSystem.Status;
+import net.soliddesign.iumpr.bus.j1939.packets.MonitoredSystemStatus;
 import net.soliddesign.iumpr.bus.j1939.packets.ParsedPacket;
 
 /**
@@ -30,6 +31,7 @@ public class MonitorsTable extends StatusTable {
      * Data Structure for a row of data in the table
      */
     private static class Row {
+        private Color color;
         private final int id;
         private final String name;
         private final CompositeMonitoredSystem overallSystem;
@@ -49,11 +51,11 @@ public class MonitorsTable extends StatusTable {
             name = system.getName().trim();
             id = system.getId();
             if (overall) {
-                overallSystem = new CompositeMonitoredSystem(system);
-                tripSystem = new CompositeMonitoredSystem(name, system.getSourceAddress(), id);
+                overallSystem = new CompositeMonitoredSystem(system, overall);
+                tripSystem = new CompositeMonitoredSystem(name, system.getSourceAddress(), id, overall);
             } else {
-                tripSystem = new CompositeMonitoredSystem(system);
-                overallSystem = new CompositeMonitoredSystem(name, system.getSourceAddress(), id);
+                tripSystem = new CompositeMonitoredSystem(system, overall);
+                overallSystem = new CompositeMonitoredSystem(name, system.getSourceAddress(), id, overall);
             }
         }
 
@@ -70,11 +72,20 @@ public class MonitorsTable extends StatusTable {
          * @return true if the Status changed
          */
         public boolean addSystem(MonitoredSystem system, boolean overall) {
+            boolean changed;
             if (overall) {
-                return overallSystem.addMonitoredSystems(system);
+                changed = overallSystem.addMonitoredSystems(system);
             } else {
-                return tripSystem.addMonitoredSystems(system);
+                changed = tripSystem.addMonitoredSystems(system);
             }
+
+            color = selectColor();
+
+            return changed;
+        }
+
+        public Color getColor() {
+            return color;
         }
 
         public int getId() {
@@ -85,33 +96,54 @@ public class MonitorsTable extends StatusTable {
             return name;
         }
 
-        public Status getOverallStatus() {
+        public MonitoredSystemStatus getOverallStatus() {
             return overallSystem == null ? null : overallSystem.getStatus();
         }
 
-        public Status getTripStatus() {
+        public MonitoredSystemStatus getTripStatus() {
             return tripSystem == null ? null : tripSystem.getStatus();
         }
+
+        /**
+         * Selects the color for the row based upon the values of the Statuses
+         *
+         * @return Color
+         */
+        private Color selectColor() {
+            if (!getOverallStatus().isEnabled()) {
+                return Color.LIGHT_GRAY;
+            } else if (getOverallStatus().isComplete()) {
+                return Color.GREEN;
+            } else if (!getTripStatus().isEnabled()) {
+                return Color.RED;
+            }
+            return null;
+        }
     }
+
+    private static final int COLOR_COLUMN = 5;
 
     /**
      * The Classes this table will display by column
      */
-    private static final Class<?>[] COLUMN_CLASSES = new Class[] { String.class, Status.class, Status.class };
+    private static final Class<?>[] COLUMN_CLASSES = new Class[] { String.class, Boolean.class,
+            Boolean.class, Boolean.class, Boolean.class, Color.class };
 
     /**
      * The name for display of the header columns
      */
-    private static final String[] COLUMN_HEADERS = new String[] { "Vehicle Monitors", "Trip Status (DM26)",
-            "Overall Status (DM5)" };
+    private static final String[] COLUMN_HEADERS = new String[] { "Vehicle Monitors", "DM26 Enabled", "DM26 Complete",
+            "DM5 Supported", "DM5 Complete", "Color" };
 
     private static final int NAME_COLUMN = 0;
 
-    private static final int OVERALL_COLUMN = 2;
+    private static final int OVERALL_COMPLETE_COLUMN = 4;
+    private static final int OVERALL_ENABLED_COLUMN = 3;
 
     private static final long serialVersionUID = -375381654128886556L;
 
-    private static final int TRIP_COLUMN = 1;
+    private static final int TRIP_COMPLETE_COLUMN = 2;
+    private static final int TRIP_ENABLED_COLUMN = 1;
 
     private DefaultTableModel model;
 
@@ -119,7 +151,11 @@ public class MonitorsTable extends StatusTable {
 
     public MonitorsTable() {
         super();
-        setDefaultRenderer(Status.class, new StatusRenderer());
+
+        setDefaultRenderer(Boolean.class, new CheckBoxRenderer(COLOR_COLUMN));
+        setDefaultRenderer(String.class, new StatusRenderer(COLOR_COLUMN));
+
+        getColumnModel().removeColumn(getColumnModel().getColumn(COLOR_COLUMN));
     }
 
     /**
@@ -171,12 +207,18 @@ public class MonitorsTable extends StatusTable {
                 public Object getValueAt(int row, int column) {
                     final Row rowValue = getRows().get(row);
                     switch (column) {
-                    case TRIP_COLUMN:
-                        return rowValue.getTripStatus();
-                    case OVERALL_COLUMN:
-                        return rowValue.getOverallStatus();
+                    case TRIP_COMPLETE_COLUMN:
+                        return rowValue.getTripStatus() == null ? null : rowValue.getTripStatus().isComplete();
+                    case TRIP_ENABLED_COLUMN:
+                        return rowValue.getTripStatus() == null ? null : rowValue.getTripStatus().isEnabled();
+                    case OVERALL_COMPLETE_COLUMN:
+                        return rowValue.getOverallStatus() == null ? null : rowValue.getOverallStatus().isComplete();
+                    case OVERALL_ENABLED_COLUMN:
+                        return rowValue.getOverallStatus() == null ? null : rowValue.getOverallStatus().isEnabled();
                     case NAME_COLUMN:
                         return rowValue.getName();
+                    case COLOR_COLUMN:
+                        return rowValue.getColor();
                     }
                     throw new IllegalArgumentException();
                 }

@@ -3,14 +3,21 @@
  */
 package net.soliddesign.iumpr.bus.j1939.packets;
 
+import static net.soliddesign.iumpr.bus.j1939.packets.DM26MonitoredSystemStatus.ENABLED_COMPLETE;
+import static net.soliddesign.iumpr.bus.j1939.packets.DM26MonitoredSystemStatus.ENABLED_NOT_COMPLETE;
+import static net.soliddesign.iumpr.bus.j1939.packets.DM26MonitoredSystemStatus.NOT_ENABLED_COMPLETE;
+import static net.soliddesign.iumpr.bus.j1939.packets.DM26MonitoredSystemStatus.NOT_ENABLED_NOT_COMPLETE;
+import static net.soliddesign.iumpr.bus.j1939.packets.DM5MonitoredSystemStatus.NOT_SUPPORTED_COMPLETE;
+import static net.soliddesign.iumpr.bus.j1939.packets.DM5MonitoredSystemStatus.NOT_SUPPORTED_NOT_COMPLETE;
+import static net.soliddesign.iumpr.bus.j1939.packets.DM5MonitoredSystemStatus.SUPPORTED_COMPLETE;
+import static net.soliddesign.iumpr.bus.j1939.packets.DM5MonitoredSystemStatus.SUPPORTED_NOT_COMPLETE;
+import static net.soliddesign.iumpr.bus.j1939.packets.MonitoredSystemStatus.findStatus;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import net.soliddesign.iumpr.bus.j1939.packets.MonitoredSystem.Status;
-
 /**
- * Unit tests the {@link MonitoredSystem} {@link Status} enum
+ * Unit tests the {@link MonitoredSystem} interface
  *
  * @author Matt Gumbel (matt@soliddesign.net)
  *
@@ -18,21 +25,15 @@ import net.soliddesign.iumpr.bus.j1939.packets.MonitoredSystem.Status;
 public class MonitoredSystemStatusTest {
 
     @Test
-    public void testToString() {
-        assertEquals("    complete", Status.COMPLETE.toString());
-        assertEquals("not complete", Status.NOT_COMPLETE.toString());
-        assertEquals("not enabled", Status.NOT_SUPPORTED.toString());
-    }
+    public void testFindStatus() {
+        assertEquals(NOT_ENABLED_NOT_COMPLETE, findStatus(false, false, false));
+        assertEquals(NOT_ENABLED_COMPLETE, findStatus(false, false, true));
+        assertEquals(ENABLED_NOT_COMPLETE, findStatus(false, true, false));
+        assertEquals(ENABLED_COMPLETE, findStatus(false, true, true));
 
-    @Test
-    public void testValueOf() {
-        assertEquals(Status.COMPLETE, Status.valueOf("COMPLETE"));
-        assertEquals(Status.NOT_COMPLETE, Status.valueOf("NOT_COMPLETE"));
-        assertEquals(Status.NOT_SUPPORTED, Status.valueOf("NOT_SUPPORTED"));
-    }
-
-    @Test
-    public void testValues() {
-        assertEquals(3, Status.values().length);
+        assertEquals(NOT_SUPPORTED_NOT_COMPLETE, findStatus(true, false, false));
+        assertEquals(NOT_SUPPORTED_COMPLETE, findStatus(true, false, true));
+        assertEquals(SUPPORTED_NOT_COMPLETE, findStatus(true, true, false));
+        assertEquals(SUPPORTED_COMPLETE, findStatus(true, true, true));
     }
 }

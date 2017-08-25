@@ -6,17 +6,21 @@ package net.soliddesign.iumpr.ui.status;
 import java.awt.Color;
 import java.awt.Component;
 
+import javax.swing.JCheckBox;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.SwingConstants;
+import javax.swing.table.TableCellRenderer;
 
 /**
- * Renders the background color of a cell based upon the color from another
- * column
+ * Renders a Boolean value as a checkbox. Also colors the background based upon
+ * the value in another column
  *
  * @author Matt Gumbel (matt@soliddesign.net)
+ *
  */
-public class StatusRenderer extends DefaultTableCellRenderer {
-    private static final long serialVersionUID = 5323779374353482225L;
+public class CheckBoxRenderer extends JCheckBox implements TableCellRenderer {
+
+    private static final long serialVersionUID = -6118007176058637306L;
 
     private final int colorColumn;
 
@@ -24,22 +28,21 @@ public class StatusRenderer extends DefaultTableCellRenderer {
      * Constructor
      *
      * @param colorColumn
-     *            the column that contains the color for the background
+     *            the column that will contain the color for the background
      */
-    public StatusRenderer(int colorColumn) {
-        super();
+    public CheckBoxRenderer(int colorColumn) {
+        setHorizontalAlignment(SwingConstants.CENTER);
         this.colorColumn = colorColumn;
     }
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value,
             boolean isSelected, boolean hasFocus, int row, int column) {
-        super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
         int modelRow = table.convertRowIndexToModel(row);
         Color color = (Color) table.getModel().getValueAt(modelRow, colorColumn);
         setBackground(isSelected ? table.getSelectionBackground() : (color == null ? table.getBackground() : color));
-
+        setSelected((value != null && ((Boolean) value).booleanValue()));
         return this;
     }
 }

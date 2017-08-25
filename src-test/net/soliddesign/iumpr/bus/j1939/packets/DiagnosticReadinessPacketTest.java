@@ -3,6 +3,7 @@
  */
 package net.soliddesign.iumpr.bus.j1939.packets;
 
+import static net.soliddesign.iumpr.bus.j1939.packets.MonitoredSystemStatus.findStatus;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -14,7 +15,6 @@ import java.util.Set;
 import org.junit.Test;
 
 import net.soliddesign.iumpr.bus.Packet;
-import net.soliddesign.iumpr.bus.j1939.packets.MonitoredSystem.Status;
 
 /**
  * Unit tests for the {@link DiagnosticReadinessPacket} class
@@ -37,13 +37,13 @@ public class DiagnosticReadinessPacketTest {
         {
             List<MonitoredSystem> systems = instance.getContinuouslyMonitoredSystems();
             for (MonitoredSystem system : systems) {
-                assertEquals(system.getName() + " is wrong", Status.NOT_SUPPORTED, system.getStatus());
+                assertEquals(system.getName() + " is wrong", findStatus(false, false, true), system.getStatus());
             }
         }
         {
             List<MonitoredSystem> systems = instance.getNonContinuouslyMonitoredSystems();
             for (MonitoredSystem system : systems) {
-                assertEquals(system.getName() + " is wrong", Status.NOT_SUPPORTED, system.getStatus());
+                assertEquals(system.getName() + " is wrong", findStatus(false, false, true), system.getStatus());
             }
         }
     }
@@ -55,13 +55,13 @@ public class DiagnosticReadinessPacketTest {
         {
             List<MonitoredSystem> systems = instance.getContinuouslyMonitoredSystems();
             for (MonitoredSystem system : systems) {
-                assertEquals(system.getName() + " is wrong", Status.NOT_SUPPORTED, system.getStatus());
+                assertEquals(system.getName() + " is wrong", findStatus(false, false, false), system.getStatus());
             }
         }
         {
             List<MonitoredSystem> systems = instance.getNonContinuouslyMonitoredSystems();
             for (MonitoredSystem system : systems) {
-                assertEquals(system.getName() + " is wrong", Status.NOT_SUPPORTED, system.getStatus());
+                assertEquals(system.getName() + " is wrong", findStatus(false, false, false), system.getStatus());
             }
         }
     }
@@ -73,13 +73,13 @@ public class DiagnosticReadinessPacketTest {
         {
             List<MonitoredSystem> systems = instance.getContinuouslyMonitoredSystems();
             for (MonitoredSystem system : systems) {
-                assertEquals(system.getName() + " is wrong", Status.NOT_SUPPORTED, system.getStatus());
+                assertEquals(system.getName() + " is wrong", findStatus(false, false, false), system.getStatus());
             }
         }
         {
             List<MonitoredSystem> systems = instance.getNonContinuouslyMonitoredSystems();
             for (MonitoredSystem system : systems) {
-                assertEquals(system.getName() + " is wrong", Status.NOT_SUPPORTED, system.getStatus());
+                assertEquals(system.getName() + " is wrong", findStatus(false, false, false), system.getStatus());
             }
         }
     }
@@ -120,34 +120,34 @@ public class DiagnosticReadinessPacketTest {
     public void testEqualsWithObject() {
         Packet packet = Packet.create(0, 0, 11, 22, 33, 44, 55, 66, 77, 88);
         DiagnosticReadinessPacket instance = new DiagnosticReadinessPacket(packet);
-        assertFalse(instance.equals("DiagnosticReadinessPacket"));
+        assertFalse(instance.equals(new Object()));
     }
 
     @Test
     public void testGetContinouslyMonitoredSystemsComprehensiveComponentMonitoring() {
         final String name = "Comprehensive component   ";
-        validateContinouslyMonitoredSystems(name, 0, 0x00, Status.NOT_SUPPORTED);
-        validateContinouslyMonitoredSystems(name, 0, 0x04, Status.COMPLETE);
-        validateContinouslyMonitoredSystems(name, 0, 0x40, Status.NOT_SUPPORTED);
-        validateContinouslyMonitoredSystems(name, 0, 0x44, Status.NOT_COMPLETE);
+        validateContinouslyMonitoredSystems(name, 0, 0x00, findStatus(false, false, true));
+        validateContinouslyMonitoredSystems(name, 0, 0x04, findStatus(false, true, true));
+        validateContinouslyMonitoredSystems(name, 0, 0x40, findStatus(false, false, false));
+        validateContinouslyMonitoredSystems(name, 0, 0x44, findStatus(false, true, false));
     }
 
     @Test
     public void testGetContinouslyMonitoredSystemsFuelSystemMonitoring() {
         final String name = "Fuel System               ";
-        validateContinouslyMonitoredSystems(name, 1, 0x00, Status.NOT_SUPPORTED);
-        validateContinouslyMonitoredSystems(name, 1, 0x02, Status.COMPLETE);
-        validateContinouslyMonitoredSystems(name, 1, 0x20, Status.NOT_SUPPORTED);
-        validateContinouslyMonitoredSystems(name, 1, 0x22, Status.NOT_COMPLETE);
+        validateContinouslyMonitoredSystems(name, 1, 0x00, findStatus(false, false, true));
+        validateContinouslyMonitoredSystems(name, 1, 0x02, findStatus(false, true, true));
+        validateContinouslyMonitoredSystems(name, 1, 0x20, findStatus(false, false, false));
+        validateContinouslyMonitoredSystems(name, 1, 0x22, findStatus(false, true, false));
     }
 
     @Test
     public void testGetContinouslyMonitoredSystemsMisfireMonitoring() {
         final String name = "Misfire                   ";
-        validateContinouslyMonitoredSystems(name, 2, 0x00, Status.NOT_SUPPORTED);
-        validateContinouslyMonitoredSystems(name, 2, 0x01, Status.COMPLETE);
-        validateContinouslyMonitoredSystems(name, 2, 0x10, Status.NOT_SUPPORTED);
-        validateContinouslyMonitoredSystems(name, 2, 0x11, Status.NOT_COMPLETE);
+        validateContinouslyMonitoredSystems(name, 2, 0x00, findStatus(false, false, true));
+        validateContinouslyMonitoredSystems(name, 2, 0x01, findStatus(false, true, true));
+        validateContinouslyMonitoredSystems(name, 2, 0x10, findStatus(false, false, false));
+        validateContinouslyMonitoredSystems(name, 2, 0x11, findStatus(false, true, false));
     }
 
     @Test
@@ -212,7 +212,7 @@ public class DiagnosticReadinessPacketTest {
         assertFalse(instance2.equals(instance1));
     }
 
-    private void validateContinouslyMonitoredSystems(String name, int index, int value, Status status) {
+    private void validateContinouslyMonitoredSystems(String name, int index, int value, MonitoredSystemStatus status) {
         int[] data = new int[] { 0, 0, 0, value, 0, 0, 0, 0 };
 
         DiagnosticReadinessPacket instance = createInstance(data);
@@ -227,21 +227,21 @@ public class DiagnosticReadinessPacketTest {
     }
 
     private void validateNonContinouslyMonitoredSystem1(final String name, final int index, final int mask) {
-        validateNonContinouslyMonitoredSystems1(name, index, 0x00, 0x00, Status.NOT_SUPPORTED);
-        validateNonContinouslyMonitoredSystems1(name, index, 0x00, mask, Status.NOT_SUPPORTED);
-        validateNonContinouslyMonitoredSystems1(name, index, mask, 0x00, Status.COMPLETE);
-        validateNonContinouslyMonitoredSystems1(name, index, mask, mask, Status.NOT_COMPLETE);
+        validateNonContinouslyMonitoredSystems1(name, index, 0x00, 0x00, findStatus(false, false, true));
+        validateNonContinouslyMonitoredSystems1(name, index, 0x00, mask, findStatus(false, false, false));
+        validateNonContinouslyMonitoredSystems1(name, index, mask, 0x00, findStatus(false, true, true));
+        validateNonContinouslyMonitoredSystems1(name, index, mask, mask, findStatus(false, true, false));
     }
 
     private void validateNonContinouslyMonitoredSystem2(final String name, final int index, final int mask) {
-        validateNonContinouslyMonitoredSystems2(name, index, 0x00, 0x00, Status.NOT_SUPPORTED);
-        validateNonContinouslyMonitoredSystems2(name, index, 0x00, mask, Status.NOT_SUPPORTED);
-        validateNonContinouslyMonitoredSystems2(name, index, mask, 0x00, Status.COMPLETE);
-        validateNonContinouslyMonitoredSystems2(name, index, mask, mask, Status.NOT_COMPLETE);
+        validateNonContinouslyMonitoredSystems2(name, index, 0x00, 0x00, findStatus(false, false, true));
+        validateNonContinouslyMonitoredSystems2(name, index, 0x00, mask, findStatus(false, false, false));
+        validateNonContinouslyMonitoredSystems2(name, index, mask, 0x00, findStatus(false, true, true));
+        validateNonContinouslyMonitoredSystems2(name, index, mask, mask, findStatus(false, true, false));
     }
 
     private void validateNonContinouslyMonitoredSystems1(String name, int index, int lowerByte, int upperByte,
-            Status status) {
+            MonitoredSystemStatus status) {
         int[] data = new int[] { 0, 0, 0, 0, lowerByte, 0, upperByte, 0 };
 
         DiagnosticReadinessPacket instance = createInstance(data);
@@ -255,7 +255,7 @@ public class DiagnosticReadinessPacketTest {
     }
 
     private void validateNonContinouslyMonitoredSystems2(String name, int index, int lowerByte, int upperByte,
-            Status status) {
+            MonitoredSystemStatus status) {
         int[] data = new int[] { 0, 0, 0, 0, 0, lowerByte, 0, upperByte };
 
         DiagnosticReadinessPacket instance = createInstance(data);

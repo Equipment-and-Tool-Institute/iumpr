@@ -57,7 +57,7 @@ public class DM26TripDiagnosticReadinessPacketTest {
     public void testEqualsWithObject() {
         Packet packet = Packet.create(0, 0, 11, 22, 33, 44, 55, 66, 77, 88);
         DM26TripDiagnosticReadinessPacket instance = new DM26TripDiagnosticReadinessPacket(packet);
-        assertFalse(instance.equals("DM26TripDiagnosticReadinessPacket"));
+        assertFalse(instance.equals(new Object()));
     }
 
     @Test

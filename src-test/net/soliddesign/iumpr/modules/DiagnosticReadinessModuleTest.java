@@ -4,6 +4,7 @@
 package net.soliddesign.iumpr.modules;
 
 import static net.soliddesign.iumpr.IUMPR.NL;
+import static net.soliddesign.iumpr.bus.j1939.packets.MonitoredSystemStatus.findStatus;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -35,7 +36,6 @@ import net.soliddesign.iumpr.bus.j1939.packets.DM21DiagnosticReadinessPacket;
 import net.soliddesign.iumpr.bus.j1939.packets.DM26TripDiagnosticReadinessPacket;
 import net.soliddesign.iumpr.bus.j1939.packets.DM5DiagnosticReadinessPacket;
 import net.soliddesign.iumpr.bus.j1939.packets.MonitoredSystem;
-import net.soliddesign.iumpr.bus.j1939.packets.MonitoredSystem.Status;
 import net.soliddesign.iumpr.bus.j1939.packets.PerformanceRatio;
 import net.soliddesign.iumpr.controllers.TestResultsListener;
 
@@ -73,23 +73,22 @@ public class DiagnosticReadinessModuleTest {
     @Test
     public void testGetCompositeSystems() {
         Set<MonitoredSystem> monitoredSystems = new ConcurrentSkipListSet<>();
-        monitoredSystems.add(new MonitoredSystem("System123", Status.COMPLETE, 1, 123));
-        monitoredSystems.add(new MonitoredSystem("System123", Status.COMPLETE, 2, 123));
-        monitoredSystems.add(new MonitoredSystem("System123", Status.NOT_SUPPORTED, 3, 123));
-        monitoredSystems.add(new MonitoredSystem("System456", Status.COMPLETE, 1, 456));
-        monitoredSystems.add(new MonitoredSystem("System456", Status.NOT_COMPLETE, 2, 456));
-        monitoredSystems.add(new MonitoredSystem("System456", Status.NOT_SUPPORTED, 3, 456));
-        monitoredSystems.add(new MonitoredSystem("System789", Status.NOT_SUPPORTED, 1, 789));
-        monitoredSystems.add(new MonitoredSystem("System789", Status.NOT_SUPPORTED, 2, 789));
-        monitoredSystems.add(new MonitoredSystem("System789", Status.NOT_SUPPORTED, 3, 789));
+        monitoredSystems.add(new MonitoredSystem("System123", findStatus(false, true, true), 1, 123));
+        monitoredSystems.add(new MonitoredSystem("System123", findStatus(false, true, true), 2, 123));
+        monitoredSystems.add(new MonitoredSystem("System123", findStatus(false, false, false), 3, 123));
+        monitoredSystems.add(new MonitoredSystem("System456", findStatus(false, true, true), 1, 456));
+        monitoredSystems.add(new MonitoredSystem("System456", findStatus(false, true, false), 2, 456));
+        monitoredSystems.add(new MonitoredSystem("System456", findStatus(false, false, false), 3, 456));
+        monitoredSystems.add(new MonitoredSystem("System789", findStatus(false, false, false), 1, 789));
+        monitoredSystems.add(new MonitoredSystem("System789", findStatus(false, false, false), 2, 789));
+        monitoredSystems.add(new MonitoredSystem("System789", findStatus(false, false, false), 3, 789));
 
         List<MonitoredSystem> expected = new ArrayList<>();
-        expected.add(new MonitoredSystem("System123", Status.COMPLETE, 1, 123));
-        expected.add(new MonitoredSystem("System456", Status.NOT_COMPLETE, 1, 456));
-        expected.add(new MonitoredSystem("System789", Status.NOT_SUPPORTED, 1, 789));
+        expected.add(new MonitoredSystem("System123", findStatus(false, true, true), 1, 123));
+        expected.add(new MonitoredSystem("System456", findStatus(false, true, false), 1, 456));
+        expected.add(new MonitoredSystem("System789", findStatus(false, false, false), 1, 789));
 
-        List<CompositeMonitoredSystem> actual = DiagnosticReadinessModule.getCompositeSystems(monitoredSystems);
-
+        List<CompositeMonitoredSystem> actual = DiagnosticReadinessModule.getCompositeSystems(monitoredSystems, false);
         assertEquals(expected, actual);
     }
 
@@ -793,17 +792,17 @@ public class DiagnosticReadinessModuleTest {
 
     @Test
     public void testGetSystems() {
-        MonitoredSystem system01 = new MonitoredSystem("system1", Status.COMPLETE, 0, 1);
-        MonitoredSystem system02 = new MonitoredSystem("system2", Status.NOT_COMPLETE, 0, 2);
-        MonitoredSystem system03 = new MonitoredSystem("system3", Status.NOT_SUPPORTED, 0, 3);
+        MonitoredSystem system01 = new MonitoredSystem("system1", findStatus(false, true, true), 0, 1);
+        MonitoredSystem system02 = new MonitoredSystem("system2", findStatus(false, false, false), 0, 2);
+        MonitoredSystem system03 = new MonitoredSystem("system3", findStatus(false, false, false), 0, 3);
         Set<MonitoredSystem> systems0 = new HashSet<>();
         systems0.add(system01);
         systems0.add(system02);
         systems0.add(system03);
 
-        MonitoredSystem system11 = new MonitoredSystem("system1", Status.NOT_SUPPORTED, 1, 1);
-        MonitoredSystem system12 = new MonitoredSystem("system2", Status.COMPLETE, 1, 2);
-        MonitoredSystem system13 = new MonitoredSystem("system3", Status.NOT_COMPLETE, 1, 3);
+        MonitoredSystem system11 = new MonitoredSystem("system1", findStatus(false, false, false), 1, 1);
+        MonitoredSystem system12 = new MonitoredSystem("system2", findStatus(false, true, true), 1, 2);
+        MonitoredSystem system13 = new MonitoredSystem("system3", findStatus(false, true, false), 1, 3);
         Set<MonitoredSystem> systems1 = new HashSet<>();
         systems1.add(system11);
         systems1.add(system12);
@@ -1081,22 +1080,22 @@ public class DiagnosticReadinessModuleTest {
                 + NL;
         expected += NL;
         expected += "Vehicle Composite of DM26:" + NL;
-        expected += "A/C system refrigerant     not complete" + NL;
-        expected += "Boost pressure control sys     complete" + NL;
-        expected += "Catalyst                   not complete" + NL;
-        expected += "Cold start aid system      not enabled" + NL;
-        expected += "Comprehensive component    not complete" + NL;
-        expected += "Diesel Particulate Filter      complete" + NL;
-        expected += "EGR/VVT system             not enabled" + NL;
-        expected += "Evaporative system         not complete" + NL;
-        expected += "Exhaust Gas Sensor         not enabled" + NL;
-        expected += "Exhaust Gas Sensor heater  not complete" + NL;
-        expected += "Fuel System                not enabled" + NL;
-        expected += "Heated catalyst            not enabled" + NL;
-        expected += "Misfire                    not enabled" + NL;
-        expected += "NMHC converting catalyst   not enabled" + NL;
-        expected += "NOx catalyst/adsorber      not enabled" + NL;
-        expected += "Secondary air system       not enabled" + NL;
+        expected += "A/C system refrigerant         supported, not complete" + NL;
+        expected += "Boost pressure control sys     supported,     complete" + NL;
+        expected += "Catalyst                       supported, not complete" + NL;
+        expected += "Cold start aid system      not supported,     complete" + NL;
+        expected += "Comprehensive component        supported, not complete" + NL;
+        expected += "Diesel Particulate Filter      supported,     complete" + NL;
+        expected += "EGR/VVT system             not supported,     complete" + NL;
+        expected += "Evaporative system             supported, not complete" + NL;
+        expected += "Exhaust Gas Sensor         not supported,     complete" + NL;
+        expected += "Exhaust Gas Sensor heater      supported, not complete" + NL;
+        expected += "Fuel System                not supported,     complete" + NL;
+        expected += "Heated catalyst            not supported,     complete" + NL;
+        expected += "Misfire                    not supported,     complete" + NL;
+        expected += "NMHC converting catalyst   not supported,     complete" + NL;
+        expected += "NOx catalyst/adsorber      not supported,     complete" + NL;
+        expected += "Secondary air system       not supported,     complete" + NL;
 
         assertEquals(true, instance.reportDM26(listener));
         assertEquals(expected, listener.getResults());
@@ -1155,22 +1154,22 @@ public class DiagnosticReadinessModuleTest {
                 + NL;
         expected += NL;
         expected += "Vehicle Composite of DM5:" + NL;
-        expected += "A/C system refrigerant     not complete" + NL;
-        expected += "Boost pressure control sys     complete" + NL;
-        expected += "Catalyst                   not complete" + NL;
-        expected += "Cold start aid system      not enabled" + NL;
-        expected += "Comprehensive component    not complete" + NL;
-        expected += "Diesel Particulate Filter      complete" + NL;
-        expected += "EGR/VVT system             not enabled" + NL;
-        expected += "Evaporative system         not complete" + NL;
-        expected += "Exhaust Gas Sensor         not enabled" + NL;
-        expected += "Exhaust Gas Sensor heater  not complete" + NL;
-        expected += "Fuel System                not enabled" + NL;
-        expected += "Heated catalyst            not enabled" + NL;
-        expected += "Misfire                    not enabled" + NL;
-        expected += "NMHC converting catalyst   not enabled" + NL;
-        expected += "NOx catalyst/adsorber      not enabled" + NL;
-        expected += "Secondary air system       not enabled" + NL;
+        expected += "A/C system refrigerant         supported, not complete" + NL;
+        expected += "Boost pressure control sys     supported,     complete" + NL;
+        expected += "Catalyst                       supported, not complete" + NL;
+        expected += "Cold start aid system      not supported,     complete" + NL;
+        expected += "Comprehensive component        supported, not complete" + NL;
+        expected += "Diesel Particulate Filter      supported,     complete" + NL;
+        expected += "EGR/VVT system             not supported,     complete" + NL;
+        expected += "Evaporative system             supported, not complete" + NL;
+        expected += "Exhaust Gas Sensor         not supported,     complete" + NL;
+        expected += "Exhaust Gas Sensor heater      supported, not complete" + NL;
+        expected += "Fuel System                not supported,     complete" + NL;
+        expected += "Heated catalyst            not supported,     complete" + NL;
+        expected += "Misfire                    not supported,     complete" + NL;
+        expected += "NMHC converting catalyst   not supported,     complete" + NL;
+        expected += "NOx catalyst/adsorber      not supported,     complete" + NL;
+        expected += "Secondary air system       not supported,     complete" + NL;
 
         assertEquals(true, instance.reportDM5(listener));
         assertEquals(expected, listener.getResults());
@@ -1215,22 +1214,22 @@ public class DiagnosticReadinessModuleTest {
         expected += "|                            |   2017-02-25   |   2017-02-25   |" + NL;
         expected += "|                            |  14:56:50.053  |  14:56:52.513  |" + NL;
         expected += "+----------------------------+----------------+----------------+" + NL;
-        expected += "|*A/C system refrigerant     |  not complete  |  not enabled  *|" + NL;
-        expected += "| Boost pressure control sys |      complete  |      complete  |" + NL;
-        expected += "| Catalyst                   |  not complete  |  not complete  |" + NL;
-        expected += "| Cold start aid system      |  not enabled   |  not enabled   |" + NL;
-        expected += "|*Comprehensive component    |  not complete  |      complete *|" + NL;
-        expected += "| Diesel Particulate Filter  |      complete  |      complete  |" + NL;
-        expected += "| EGR/VVT system             |  not enabled   |  not enabled   |" + NL;
-        expected += "| Evaporative system         |  not complete  |  not complete  |" + NL;
-        expected += "| Exhaust Gas Sensor         |  not enabled   |  not enabled   |" + NL;
-        expected += "|*Exhaust Gas Sensor heater  |  not complete  |  not enabled  *|" + NL;
-        expected += "| Fuel System                |  not enabled   |  not enabled   |" + NL;
-        expected += "| Heated catalyst            |  not enabled   |  not enabled   |" + NL;
-        expected += "| Misfire                    |  not enabled   |  not enabled   |" + NL;
-        expected += "| NMHC converting catalyst   |  not enabled   |  not enabled   |" + NL;
-        expected += "| NOx catalyst/adsorber      |  not enabled   |  not enabled   |" + NL;
-        expected += "| Secondary air system       |  not enabled   |  not enabled   |" + NL;
+        expected += "|*A/C system refrigerant     |  Not Complete  |  Unsupported  *|" + NL;
+        expected += "| Boost pressure control sys |      Complete  |      Complete  |" + NL;
+        expected += "| Catalyst                   |  Not Complete  |  Not Complete  |" + NL;
+        expected += "| Cold start aid system      |  Unsupported   |  Unsupported   |" + NL;
+        expected += "|*Comprehensive component    |  Not Complete  |      Complete *|" + NL;
+        expected += "| Diesel Particulate Filter  |      Complete  |      Complete  |" + NL;
+        expected += "| EGR/VVT system             |  Unsupported   |  Unsupported   |" + NL;
+        expected += "| Evaporative system         |  Not Complete  |  Not Complete  |" + NL;
+        expected += "|*Exhaust Gas Sensor         |  Unsupported   |  Unsupported  *|" + NL;
+        expected += "|*Exhaust Gas Sensor heater  |  Not Complete  |  Unsupported  *|" + NL;
+        expected += "| Fuel System                |  Unsupported   |  Unsupported   |" + NL;
+        expected += "| Heated catalyst            |  Unsupported   |  Unsupported   |" + NL;
+        expected += "| Misfire                    |  Unsupported   |  Unsupported   |" + NL;
+        expected += "| NMHC converting catalyst   |  Unsupported   |  Unsupported   |" + NL;
+        expected += "| NOx catalyst/adsorber      |  Unsupported   |  Unsupported   |" + NL;
+        expected += "| Secondary air system       |  Unsupported   |  Unsupported   |" + NL;
         expected += "+----------------------------+----------------+----------------+" + NL;
         assertEquals(expected, listener.getResults());
     }
