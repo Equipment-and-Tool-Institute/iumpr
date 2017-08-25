@@ -13,36 +13,10 @@ import java.util.Objects;
  */
 public class MonitoredSystem implements Comparable<MonitoredSystem> {
 
-    /**
-     * The Status of a Monitored System
-     */
-    public enum Status {
-        // The order of these MUST remain Complete, Not Complete, Not Supported
-        COMPLETE("    complete"), NOT_COMPLETE("not complete"), NOT_SUPPORTED("not enabled");
-        public static Status findStatus(boolean notCompleted, boolean supported) {
-            if (!supported) {
-                return NOT_SUPPORTED;
-            } else {
-                return notCompleted ? NOT_COMPLETE : COMPLETE;
-            }
-        }
-
-        private final String string;
-
-        private Status(String string) {
-            this.string = string;
-        }
-
-        @Override
-        public String toString() {
-            return string;
-        }
-    }
-
     private final int id;
     private final String name;
     private final int sourceAddress;
-    private final Status status;
+    private final MonitoredSystemStatus status;
 
     /**
      * Creates a Monitored System
@@ -50,7 +24,7 @@ public class MonitoredSystem implements Comparable<MonitoredSystem> {
      * @param name
      *            the Name of the Monitored System
      * @param status
-     *            the {@link Status} of the Monitored System
+     *            the {@link MonitoredSystemStatus} of the Monitored System
      * @param sourceAddress
      *            the source address that reported this
      * @param id
@@ -58,7 +32,7 @@ public class MonitoredSystem implements Comparable<MonitoredSystem> {
      *            {@link MonitoredSystem} from various source addresses to be
      *            matched up
      */
-    public MonitoredSystem(String name, Status status, int sourceAddress, int id) {
+    public MonitoredSystem(String name, MonitoredSystemStatus status, int sourceAddress, int id) {
         this.name = name;
         this.status = status;
         this.sourceAddress = sourceAddress;
@@ -72,7 +46,7 @@ public class MonitoredSystem implements Comparable<MonitoredSystem> {
             result = getSourceAddress() - o.getSourceAddress();
         }
         if (result == 0) {
-            result = getStatus().compareTo(o.getStatus());
+            result = getStatus().toString().compareTo(o.getStatus().toString());
         }
         if (result == 0) {
             result = getId() - o.getId();
@@ -127,11 +101,11 @@ public class MonitoredSystem implements Comparable<MonitoredSystem> {
     }
 
     /**
-     * Returns the {@link Status} of the Monitored System
+     * Returns the {@link MonitoredSystemStatus} of the Monitored System
      *
-     * @return {@link Status}
+     * @return {@link MonitoredSystemStatus}
      */
-    public Status getStatus() {
+    public MonitoredSystemStatus getStatus() {
         return status;
     }
 

@@ -27,14 +27,14 @@ public class DiagnosticReadinessPacket extends ParsedPacket {
         int supportedMask = completedMask >> 4;
         boolean notCompleted = (getByte(3) & completedMask) == completedMask;
         boolean supported = isOBDModule() && (getByte(3) & supportedMask) == supportedMask;
-        MonitoredSystem.Status status = MonitoredSystem.Status.findStatus(notCompleted, supported);
+        MonitoredSystemStatus status = MonitoredSystemStatus.findStatus(isDM5(), supported, !notCompleted);
         return new MonitoredSystem(name, status, getSourceAddress(), completedMask);
     }
 
     private MonitoredSystem createNonContinouslyMonitoredSystem(String name, int lowerByte, int mask) {
         boolean notCompleted = (getByte(lowerByte + 2) & mask) == mask;
         boolean supported = isOBDModule() && (getByte(lowerByte) & mask) == mask;
-        MonitoredSystem.Status status = MonitoredSystem.Status.findStatus(notCompleted, supported);
+        MonitoredSystemStatus status = MonitoredSystemStatus.findStatus(isDM5(), supported, !notCompleted);
         return new MonitoredSystem(name, status, getSourceAddress(), lowerByte << 8 | mask);
     }
 
@@ -120,6 +120,15 @@ public class DiagnosticReadinessPacket extends ParsedPacket {
     @Override
     public int hashCode() {
         return Objects.hash(getContinuouslyMonitoredSystems(), getNonContinuouslyMonitoredSystems());
+    }
+
+    /**
+     * Helper method to indicate if this is a DM5 packet
+     *
+     * @return true if this is a DM5 packet
+     */
+    private boolean isDM5() {
+        return this instanceof DM5DiagnosticReadinessPacket;
     }
 
     /**

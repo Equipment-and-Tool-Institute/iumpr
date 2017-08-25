@@ -16,14 +16,19 @@ import java.util.concurrent.ConcurrentHashMap;
 public class CompositeMonitoredSystem extends MonitoredSystem {
 
     /**
-     * The composite {@link Status}
+     * Flag to indicate if this is a Monitored System from a DM5 packet
      */
-    private Status status;
+    private final boolean isDm5;
+
+    /**
+     * The composite {@link MonitoredSystemStatus}
+     */
+    private MonitoredSystemStatus status;
 
     /**
      * The Map of source address to {@link MonitoredSystem}
      */
-    private final Map<Integer, Status> systems = new ConcurrentHashMap<>();
+    private final Map<Integer, MonitoredSystemStatus> systems = new ConcurrentHashMap<>();
 
     /**
      * Creates a {@link CompositeMonitoredSystem} starting with the given
@@ -31,9 +36,12 @@ public class CompositeMonitoredSystem extends MonitoredSystem {
      *
      * @param system
      *            the {@link MonitoredSystem} to start with
+     * @param isDm5
+     *            true to indicate this system is from a DM5 message
      */
-    public CompositeMonitoredSystem(MonitoredSystem system) {
+    public CompositeMonitoredSystem(MonitoredSystem system, boolean isDm5) {
         super(system.getName(), system.getStatus(), system.getSourceAddress(), system.getId());
+        this.isDm5 = isDm5;
         addMonitoredSystems(system);
     }
 
@@ -46,9 +54,12 @@ public class CompositeMonitoredSystem extends MonitoredSystem {
      *            the source address of the module this is from
      * @param id
      *            the id
+     * @param isDm5
+     *            true to indicate this system is for a DM5 message
      */
-    public CompositeMonitoredSystem(String name, int sourceAddress, int id) {
+    public CompositeMonitoredSystem(String name, int sourceAddress, int id, boolean isDm5) {
         super(name, null, sourceAddress, id);
+        this.isDm5 = isDm5;
     }
 
     /**
@@ -56,59 +67,60 @@ public class CompositeMonitoredSystem extends MonitoredSystem {
      *
      * @param system
      *            the {@link MonitoredSystem} to add
-     * @return true if the {@link Status} changed; false if it didn't change
+     * @return true if the {@link MonitoredSystem} changed; false if it didn't
+     *         change
      */
     public boolean addMonitoredSystems(MonitoredSystem system) {
         systems.put(system.getSourceAddress(), system.getStatus());
 
-        boolean result = false;
-        Status newStatus = getCompositeStatus();
-        result = newStatus != status;
+        MonitoredSystemStatus newStatus = getCompositeStatus();
+        boolean result = !newStatus.equals(status);
         status = newStatus;
         return result;
     }
 
     @Override
     public boolean equals(Object obj) {
+        if (!(obj instanceof CompositeMonitoredSystem)) {
+            return false;
+        }
         return super.equals(obj);
     }
 
     /**
-     * Helper method to determine the {@link Status} based upon all the
-     * {@link MonitoredSystem} s
+     * Helper method to determine the {@link MonitoredSystemStatus} based upon
+     * all the {@link MonitoredSystem} s
      *
      * @return {@link Status}
      */
-    private Status getCompositeStatus() {
+    private MonitoredSystemStatus getCompositeStatus() {
         if (systems.isEmpty()) {
-            return Status.NOT_SUPPORTED;
+            return MonitoredSystemStatus.findStatus(isDm5, false, false);
         }
 
-        boolean hasComplete = false;
+        boolean isEnabled = systems.values().stream().filter(s -> s.isEnabled()).findFirst().isPresent();
 
-        for (Status systemStatus : systems.values()) {
-            if (systemStatus == Status.NOT_COMPLETE) {
-                return Status.NOT_COMPLETE;
+        boolean isComplete = false;
+        for (MonitoredSystemStatus systemStatus : systems.values()) {
+            if (!systemStatus.isComplete() && systemStatus.isEnabled()) {
+                isComplete = false;
+                break;
             }
-            if (systemStatus == Status.COMPLETE) {
-                hasComplete = true;
+            if (systemStatus.isComplete()) {
+                isComplete = true;
             }
         }
-        return hasComplete ? Status.COMPLETE : Status.NOT_SUPPORTED;
+
+        return MonitoredSystemStatus.findStatus(isDm5, isEnabled, isComplete);
     }
 
     /**
-     * Returns the composite {@link Status}
+     * Returns the composite {@link MonitoredSystemStatus}
      *
-     * @return {@link Status}
+     * @return {@link MonitoredSystemStatus}
      */
     @Override
-    public Status getStatus() {
+    public MonitoredSystemStatus getStatus() {
         return status;
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
     }
 }

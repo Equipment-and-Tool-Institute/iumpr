@@ -24,7 +24,6 @@ import net.soliddesign.iumpr.bus.j1939.packets.DM26TripDiagnosticReadinessPacket
 import net.soliddesign.iumpr.bus.j1939.packets.DM5DiagnosticReadinessPacket;
 import net.soliddesign.iumpr.bus.j1939.packets.DiagnosticReadinessPacket;
 import net.soliddesign.iumpr.bus.j1939.packets.MonitoredSystem;
-import net.soliddesign.iumpr.bus.j1939.packets.MonitoredSystem.Status;
 import net.soliddesign.iumpr.bus.j1939.packets.ParsedPacket;
 import net.soliddesign.iumpr.bus.j1939.packets.PerformanceRatio;
 import net.soliddesign.iumpr.controllers.ResultsListener;
@@ -80,15 +79,18 @@ public class DiagnosticReadinessModule extends FunctionalModule {
      *
      * @param monitoredSystems
      *            the {@link MonitoredSystem}s to gather
+     * @param isDM5
+     *            indicates if these systems are from a DM5 message
      * @return a List of {@link MonitoredSystem}
      */
-    public static List<CompositeMonitoredSystem> getCompositeSystems(Collection<MonitoredSystem> monitoredSystems) {
+    public static List<CompositeMonitoredSystem> getCompositeSystems(Collection<MonitoredSystem> monitoredSystems,
+            boolean isDM5) {
         Map<Integer, CompositeMonitoredSystem> map = new HashMap<>();
         for (MonitoredSystem system : monitoredSystems) {
             int id = system.getId();
             CompositeMonitoredSystem existingSystem = map.get(id);
             if (existingSystem == null) {
-                map.put(id, new CompositeMonitoredSystem(system));
+                map.put(id, new CompositeMonitoredSystem(system, isDM5));
             } else {
                 existingSystem.addMonitoredSystems(system);
             }
@@ -178,11 +180,14 @@ public class DiagnosticReadinessModule extends FunctionalModule {
      *
      * @param packets
      *            the Packets to parse
+     * @param isDM5
+     *            true to indicate the packts are DM5s
      * @return a {@link List} of {@link MonitoredSystem}s
      */
-    private List<CompositeMonitoredSystem> getCompositeSystems(List<? extends DiagnosticReadinessPacket> packets) {
+    private List<CompositeMonitoredSystem> getCompositeSystems(List<? extends DiagnosticReadinessPacket> packets,
+            boolean isDM5) {
         return getCompositeSystems(packets.stream().flatMap(p -> p.getMonitoredSystems().stream())
-                .collect(Collectors.toSet()));
+                .collect(Collectors.toSet()), true);
     }
 
     /**
@@ -339,7 +344,13 @@ public class DiagnosticReadinessModule extends FunctionalModule {
      * @return String with extra space on the right
      */
     private String getPaddedStatus(MonitoredSystem system) {
-        return padRight(" " + system.getStatus().toString(), 14);
+        String status;
+        if (!system.getStatus().isEnabled()) {
+            status = "Unsupported";
+        } else {
+            status = (system.getStatus().isComplete() ? "   " : "Not") + " Complete";
+        }
+        return padRight(" " + status, 14);
     }
 
     /**
@@ -419,7 +430,7 @@ public class DiagnosticReadinessModule extends FunctionalModule {
         if (!packets.isEmpty()) {
             listener.onResult("");
             listener.onResult("Vehicle Composite of DM26:");
-            List<CompositeMonitoredSystem> systems = getCompositeSystems(packets);
+            List<CompositeMonitoredSystem> systems = getCompositeSystems(packets, false);
             listener.onResult(systems.stream().map(t -> t.toString()).collect(Collectors.toList()));
         }
         return !packets.isEmpty();
@@ -439,7 +450,7 @@ public class DiagnosticReadinessModule extends FunctionalModule {
         if (!packets.isEmpty()) {
             listener.onResult("");
             listener.onResult("Vehicle Composite of DM5:");
-            List<CompositeMonitoredSystem> systems = getCompositeSystems(packets);
+            List<CompositeMonitoredSystem> systems = getCompositeSystems(packets, true);
             listener.onResult(systems.stream().map(t -> t.toString()).collect(Collectors.toList()));
         }
         return !packets.isEmpty();
@@ -468,8 +479,8 @@ public class DiagnosticReadinessModule extends FunctionalModule {
         // cash in your chips because you can't trust anything
 
         // These are sorted by Name
-        List<CompositeMonitoredSystem> startSystems = getCompositeSystems(initialValues);
-        List<CompositeMonitoredSystem> endSystems = getCompositeSystems(finalValues);
+        List<CompositeMonitoredSystem> startSystems = getCompositeSystems(initialValues, true);
+        List<CompositeMonitoredSystem> endSystems = getCompositeSystems(finalValues, true);
 
         String[] initialDateTime = initialTime.split("T");
         String[] finalDateTime = finalTime.split("T");
@@ -477,6 +488,7 @@ public class DiagnosticReadinessModule extends FunctionalModule {
         listener.onResult(getDateTime() + " Vehicle Composite Results of DM5:");
 
         String separator = "+----------------------------+----------------+----------------+";
+
         listener.onResult(separator);
         listener.onResult("| " + padLeft(padRight("Monitor", 16), 26) + " | Initial Status |  Last Status   |");
         listener.onResult("| " + padRight("", 26) + " | " + padRight("  " + initialDateTime[0], 14) + " | "
