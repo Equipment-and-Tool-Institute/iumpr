@@ -101,8 +101,11 @@ public class ComponentIdentificationPacket extends ParsedPacket {
         String information = format(getPacket().getBytes());
         int beginIndex = 0;
         int endIndex = 0;
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < parts.length && endIndex < information.length(); i++) {
             endIndex = information.indexOf("*", beginIndex);
+            if (endIndex == -1) {
+                endIndex = information.length();
+            }
             parts[i] = information.substring(beginIndex, endIndex).trim();
             beginIndex = endIndex + 1;
         }
