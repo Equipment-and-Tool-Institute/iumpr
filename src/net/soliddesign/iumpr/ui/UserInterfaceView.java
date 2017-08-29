@@ -252,8 +252,9 @@ public class UserInterfaceView implements IUserInterfaceView {
             calsScrollPane = new JScrollPane(getCalsTextField());
             calsScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
             calsScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-            calsScrollPane.setPreferredSize(new Dimension(200, 100));
-            calsScrollPane.setMinimumSize(new Dimension(50, 15));
+            Dimension dimension = new Dimension(200, 100);
+            calsScrollPane.setPreferredSize(dimension);
+            calsScrollPane.setMinimumSize(dimension);
         }
         return calsScrollPane;
     }
@@ -632,6 +633,7 @@ public class UserInterfaceView implements IUserInterfaceView {
             vehicleInfoPanelGbc.gridwidth = 2;
             vehicleInfoPanelGbc.gridx = 0;
             vehicleInfoPanelGbc.gridy = 1;
+            vehicleInfoPanelGbc.weighty = 1;
             topPanel.add(getVehicleInfoPanel(), vehicleInfoPanelGbc);
 
             GridBagConstraints reportControlPanelGbc = new GridBagConstraints();
@@ -642,6 +644,7 @@ public class UserInterfaceView implements IUserInterfaceView {
             reportControlPanelGbc.gridwidth = 2;
             reportControlPanelGbc.gridx = 0;
             reportControlPanelGbc.gridy = 2;
+            reportControlPanelGbc.weighty = 1;
             topPanel.add(getReportControlPanel(), reportControlPanelGbc);
 
             GridBagConstraints progressBarGbc = new GridBagConstraints();
