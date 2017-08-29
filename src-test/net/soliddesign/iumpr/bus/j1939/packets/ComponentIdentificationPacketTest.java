@@ -167,6 +167,19 @@ public class ComponentIdentificationPacketTest {
     }
 
     @Test
+    public void testNoStars() {
+        byte[] data = (MAKE + MODEL + SN + UN).getBytes(StandardCharsets.UTF_8);
+        Packet packet = Packet.create(0, 0, data);
+        ComponentIdentificationPacket instance = new ComponentIdentificationPacket(packet);
+        assertEquals(MAKE + MODEL + SN + UN, instance.getMake());
+        assertEquals(null, instance.getModel());
+        assertEquals(null, instance.getSerialNumber());
+        assertEquals(null, instance.getUnitNumber());
+        String expected = "Found Engine #1 (0): Make: Solid DesignIUMPR Tool0000011234567890, Model: null, Serial: null, Unit: null";
+        assertEquals(expected, instance.toString());
+    }
+
+    @Test
     public void testNothing() {
         byte[] data = ("****").getBytes(StandardCharsets.UTF_8);
         Packet packet = Packet.create(0, 0, data);
@@ -176,6 +189,19 @@ public class ComponentIdentificationPacketTest {
         assertEquals("", instance.getSerialNumber());
         assertEquals("", instance.getUnitNumber());
         String expected = "Found Engine #1 (0): Make: , Model: , Serial: , Unit: ";
+        assertEquals(expected, instance.toString());
+    }
+
+    @Test
+    public void testOneStar() {
+        byte[] data = (MAKE + "*" + MODEL + SN + UN).getBytes(StandardCharsets.UTF_8);
+        Packet packet = Packet.create(0, 0, data);
+        ComponentIdentificationPacket instance = new ComponentIdentificationPacket(packet);
+        assertEquals(MAKE, instance.getMake());
+        assertEquals(MODEL + SN + UN, instance.getModel());
+        assertEquals(null, instance.getSerialNumber());
+        assertEquals(null, instance.getUnitNumber());
+        String expected = "Found Engine #1 (0): Make: Solid Design, Model: IUMPR Tool0000011234567890, Serial: null, Unit: null";
         assertEquals(expected, instance.toString());
     }
 
@@ -221,6 +247,32 @@ public class ComponentIdentificationPacketTest {
         assertEquals(SN, instance.getSerialNumber());
         assertEquals(UN, instance.getUnitNumber());
         String expected = "Found Engine #1 (0): Make: Solid Design, Model: IUMPR Tool, Serial: 000001, Unit: 1234567890";
+        assertEquals(expected, instance.toString());
+    }
+
+    @Test
+    public void testThreeStars() {
+        byte[] data = (MAKE + "*" + MODEL + "*" + SN + "*" + UN).getBytes(StandardCharsets.UTF_8);
+        Packet packet = Packet.create(0, 0, data);
+        ComponentIdentificationPacket instance = new ComponentIdentificationPacket(packet);
+        assertEquals(MAKE, instance.getMake());
+        assertEquals(MODEL, instance.getModel());
+        assertEquals(SN, instance.getSerialNumber());
+        assertEquals(UN, instance.getUnitNumber());
+        String expected = "Found Engine #1 (0): Make: Solid Design, Model: IUMPR Tool, Serial: 000001, Unit: 1234567890";
+        assertEquals(expected, instance.toString());
+    }
+
+    @Test
+    public void testTwoStars() {
+        byte[] data = (MAKE + "*" + MODEL + "*" + SN + UN).getBytes(StandardCharsets.UTF_8);
+        Packet packet = Packet.create(0, 0, data);
+        ComponentIdentificationPacket instance = new ComponentIdentificationPacket(packet);
+        assertEquals(MAKE, instance.getMake());
+        assertEquals(MODEL, instance.getModel());
+        assertEquals(SN + UN, instance.getSerialNumber());
+        assertEquals(null, instance.getUnitNumber());
+        String expected = "Found Engine #1 (0): Make: Solid Design, Model: IUMPR Tool, Serial: 0000011234567890, Unit: null";
         assertEquals(expected, instance.toString());
     }
 
