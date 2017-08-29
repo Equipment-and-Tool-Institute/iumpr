@@ -144,7 +144,7 @@ public class PacketTest {
     @Test
     public void testNotEqualsObject() {
         Packet instance = Packet.create(1234, 56, 11, 22, 33);
-        assertFalse(instance.equals("Packet"));
+        assertFalse(instance.equals(new Object()));
     }
 
     @Test

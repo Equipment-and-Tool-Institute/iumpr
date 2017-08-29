@@ -26,7 +26,6 @@ import java.util.stream.Collectors;
 
 import net.soliddesign.iumpr.IUMPR;
 import net.soliddesign.iumpr.bus.Packet;
-import net.soliddesign.iumpr.bus.j1939.J1939;
 import net.soliddesign.iumpr.bus.j1939.packets.DM19CalibrationInformationPacket;
 import net.soliddesign.iumpr.bus.j1939.packets.DM19CalibrationInformationPacket.CalibrationInformation;
 import net.soliddesign.iumpr.bus.j1939.packets.DM20MonitorPerformanceRatioPacket;
@@ -138,7 +137,7 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
     /**
      * The initial value for the number of ignition cycles
      */
-    private int initialIgnitionCycles;
+    private int initialIgnitionCycles = Integer.MIN_VALUE;
 
     /**
      * The {@link MonitoredSystem}s that were first captured in the report file
@@ -153,7 +152,7 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
     /**
      * The initial value for the Number of OBD Monitoring Conditions Encountered
      */
-    private int initialOBDCounts;
+    private int initialOBDCounts = Integer.MIN_VALUE;
 
     /**
      * The {@link PerformanceRatio} that were first captured in the report file
@@ -330,7 +329,7 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
                 // There's a sweet spot in the data plate report section after
                 // the codes are cleared where the DM5s are valid
                 initialMonitors.addAll(packet.getMonitoredSystems());
-                if (packet.getSourceAddress() == J1939.ENGINE_ADDR) {
+                if (initialMonitorsTime == null) {
                     initialMonitorsTime = parseDateTime(line);
                 }
             }
@@ -353,10 +352,18 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
                 // There's a sweet spot in the data plate report section after
                 // the codes are cleared where the DM20s are valid
                 initialRatios.addAll(packet.getRatios());
-                if (packet.getSourceAddress() == J1939.ENGINE_ADDR) {
+                if (initialRatiosTime == null) {
                     initialRatiosTime = parseDateTime(line);
-                    initialIgnitionCycles = packet.getIgnitionCycles();
-                    initialOBDCounts = packet.getOBDConditionsCount();
+                }
+
+                int ignitionCycles = packet.getIgnitionCycles();
+                if (initialIgnitionCycles < ignitionCycles) {
+                    initialIgnitionCycles = ignitionCycles;
+                }
+
+                int obdCounts = packet.getOBDConditionsCount();
+                if (initialOBDCounts < obdCounts) {
+                    initialOBDCounts = obdCounts;
                 }
             }
             return true;

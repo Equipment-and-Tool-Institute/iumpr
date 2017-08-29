@@ -215,6 +215,51 @@ public class DiagnosticReadinessModuleTest {
     }
 
     @Test
+    public void testGetDM20PacketsWithEngine1Response() {
+        final int pgn = DM20MonitorPerformanceRatioPacket.PGN;
+
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
+
+        DM20MonitorPerformanceRatioPacket packet1 = new DM20MonitorPerformanceRatioPacket(
+                Packet.create(pgn, 0x01, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88));
+        DM20MonitorPerformanceRatioPacket packet2 = new DM20MonitorPerformanceRatioPacket(
+                Packet.create(pgn, 0x17, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08));
+        DM20MonitorPerformanceRatioPacket packet3 = new DM20MonitorPerformanceRatioPacket(
+                Packet.create(pgn, 0x21, 0x10, 0x20, 0x30, 0x40, 0x50, 0x60, 0x70, 0x80));
+        when(j1939.requestMultiple(DM20MonitorPerformanceRatioPacket.class, requestPacket))
+                .thenReturn(Stream.of(packet1, packet2, packet3));
+
+        String expected = "";
+        expected += "2007-12-03T10:15:30.000 Global DM20 Request" + NL;
+        expected += "10:15:30.000 18EAFFA5 00 C2 00 (TX)" + NL;
+        expected += "10:15:30.000 18C20001 11 22 33 44 55 66 77 88" + NL;
+        expected += "DM20 from Engine #2 (1):  [" + NL;
+        expected += "                                                     Num'r /  Den'r" + NL;
+        expected += "Ignition Cycles                                               8,721" + NL;
+        expected += "OBD Monitoring Conditions Encountered                        17,459" + NL;
+        expected += "]" + NL;
+        expected += "10:15:30.000 18C20017 01 02 03 04 05 06 07 08" + NL;
+        expected += "DM20 from Instrument Cluster #1 (23):  [" + NL;
+        expected += "                                                     Num'r /  Den'r" + NL;
+        expected += "Ignition Cycles                                                 513" + NL;
+        expected += "OBD Monitoring Conditions Encountered                         1,027" + NL;
+        expected += "]" + NL;
+        expected += "10:15:30.000 18C20021 10 20 30 40 50 60 70 80" + NL;
+        expected += "DM20 from Body Controller (33):  [" + NL;
+        expected += "                                                     Num'r /  Den'r" + NL;
+        expected += "Ignition Cycles                                               8,208" + NL;
+        expected += "OBD Monitoring Conditions Encountered                        16,432" + NL;
+        expected += "]" + NL;
+
+        instance.getDM20Packets(listener, true);
+        assertEquals(expected, listener.getResults());
+
+        verify(j1939).createRequestPacket(pgn, 0xFF);
+        verify(j1939).requestMultiple(DM20MonitorPerformanceRatioPacket.class, requestPacket);
+    }
+
+    @Test
     public void testGetDM20PacketWithNoListener() {
         final int pgn = DM20MonitorPerformanceRatioPacket.PGN;
 
@@ -336,6 +381,54 @@ public class DiagnosticReadinessModuleTest {
         expected += "10:15:30.000 18EAFFA5 00 C1 00 (TX)" + NL;
         expected += "10:15:30.000 18C10000 11 22 33 44 55 66 77 88" + NL;
         expected += "DM21 from Engine #1 (0): [" + NL;
+        expected += "  Distance Traveled While MIL is Activated:     8,721 km (5,418.978 mi)" + NL;
+        expected += "  Time Run by Engine While MIL is Activated:    26,197 minutes" + NL;
+        expected += "  Distance Since DTCs Cleared:                  17,459 km (10,848.52 mi)" + NL;
+        expected += "  Time Since DTCs Cleared:                      34,935 minutes" + NL;
+        expected += "]" + NL;
+        expected += "10:15:30.000 18C10017 01 02 03 04 05 06 07 08" + NL;
+        expected += "DM21 from Instrument Cluster #1 (23): [" + NL;
+        expected += "  Distance Traveled While MIL is Activated:     513 km (318.763 mi)" + NL;
+        expected += "  Time Run by Engine While MIL is Activated:    1,541 minutes" + NL;
+        expected += "  Distance Since DTCs Cleared:                  1,027 km (638.148 mi)" + NL;
+        expected += "  Time Since DTCs Cleared:                      2,055 minutes" + NL;
+        expected += "]" + NL;
+        expected += "10:15:30.000 18C10021 10 20 30 40 50 60 70 80" + NL;
+        expected += "DM21 from Body Controller (33): [" + NL;
+        expected += "  Distance Traveled While MIL is Activated:     8,208 km (5,100.215 mi)" + NL;
+        expected += "  Time Run by Engine While MIL is Activated:    24,656 minutes" + NL;
+        expected += "  Distance Since DTCs Cleared:                  16,432 km (10,210.371 mi)" + NL;
+        expected += "  Time Since DTCs Cleared:                      32,880 minutes" + NL;
+        expected += "]" + NL;
+
+        instance.getDM21Packets(listener, true);
+        assertEquals(expected, listener.getResults());
+
+        verify(j1939).createRequestPacket(pgn, 0xFF);
+        verify(j1939).requestMultiple(DM21DiagnosticReadinessPacket.class, requestPacket);
+    }
+
+    @Test
+    public void testGetDM21PacketsWithEngine1Response() {
+        final int pgn = DM21DiagnosticReadinessPacket.PGN;
+
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
+
+        DM21DiagnosticReadinessPacket packet1 = new DM21DiagnosticReadinessPacket(
+                Packet.create(pgn, 0x01, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88));
+        DM21DiagnosticReadinessPacket packet2 = new DM21DiagnosticReadinessPacket(
+                Packet.create(pgn, 0x17, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08));
+        DM21DiagnosticReadinessPacket packet3 = new DM21DiagnosticReadinessPacket(
+                Packet.create(pgn, 0x21, 0x10, 0x20, 0x30, 0x40, 0x50, 0x60, 0x70, 0x80));
+        when(j1939.requestMultiple(DM21DiagnosticReadinessPacket.class, requestPacket))
+                .thenReturn(Stream.of(packet1, packet2, packet3));
+
+        String expected = "";
+        expected += "2007-12-03T10:15:30.000 Global DM21 Request" + NL;
+        expected += "10:15:30.000 18EAFFA5 00 C1 00 (TX)" + NL;
+        expected += "10:15:30.000 18C10001 11 22 33 44 55 66 77 88" + NL;
+        expected += "DM21 from Engine #2 (1): [" + NL;
         expected += "  Distance Traveled While MIL is Activated:     8,721 km (5,418.978 mi)" + NL;
         expected += "  Time Run by Engine While MIL is Activated:    26,197 minutes" + NL;
         expected += "  Distance Since DTCs Cleared:                  17,459 km (10,848.52 mi)" + NL;
@@ -499,6 +592,42 @@ public class DiagnosticReadinessModuleTest {
     }
 
     @Test
+    public void testGetDM26PacketsWithEngine1Response() {
+        final int pgn = DM26TripDiagnosticReadinessPacket.PGN;
+
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
+
+        DM26TripDiagnosticReadinessPacket packet1 = new DM26TripDiagnosticReadinessPacket(
+                Packet.create(pgn, 0x01, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88));
+        DM26TripDiagnosticReadinessPacket packet2 = new DM26TripDiagnosticReadinessPacket(
+                Packet.create(pgn, 0x17, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08));
+        DM26TripDiagnosticReadinessPacket packet3 = new DM26TripDiagnosticReadinessPacket(
+                Packet.create(pgn, 0x21, 0x10, 0x20, 0x30, 0x40, 0x50, 0x60, 0x70, 0x80));
+        when(j1939.requestMultiple(DM26TripDiagnosticReadinessPacket.class, requestPacket))
+                .thenReturn(Stream.of(packet1, packet2, packet3));
+
+        String expected = "";
+        expected += "2007-12-03T10:15:30.000 Global DM26 Request" + NL;
+        expected += "10:15:30.000 18EAFFA5 B8 FD 00 (TX)" + NL;
+        expected += "10:15:30.000 18FDB801 11 22 33 44 55 66 77 88" + NL;
+        expected += "DM26 from Engine #2 (1): Warm-ups: 51, Time Since Engine Start: 8,721 seconds"
+                + NL;
+        expected += "10:15:30.000 18FDB817 01 02 03 04 05 06 07 08" + NL;
+        expected += "DM26 from Instrument Cluster #1 (23): Warm-ups: 3, Time Since Engine Start: 513 seconds"
+                + NL;
+        expected += "10:15:30.000 18FDB821 10 20 30 40 50 60 70 80" + NL;
+        expected += "DM26 from Body Controller (33): Warm-ups: 48, Time Since Engine Start: 8,208 seconds"
+                + NL;
+
+        instance.getDM26Packets(listener, true);
+        assertEquals(expected, listener.getResults());
+
+        verify(j1939).createRequestPacket(pgn, 0xFF);
+        verify(j1939).requestMultiple(DM26TripDiagnosticReadinessPacket.class, requestPacket);
+    }
+
+    @Test
     public void testGetDM26PacketsWithNoListener() {
         final int pgn = DM26TripDiagnosticReadinessPacket.PGN;
 
@@ -519,6 +648,42 @@ public class DiagnosticReadinessModuleTest {
 
         verify(j1939).createRequestPacket(pgn, 0xFF);
         verify(j1939).requestMultiple(DM26TripDiagnosticReadinessPacket.class, requestPacket);
+    }
+
+    @Test
+    public void testGetDM5PacketsEngine1Response() {
+        final int pgn = DM5DiagnosticReadinessPacket.PGN;
+
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
+
+        DM5DiagnosticReadinessPacket packet1 = new DM5DiagnosticReadinessPacket(
+                Packet.create(pgn, 0x01, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88));
+        DM5DiagnosticReadinessPacket packet2 = new DM5DiagnosticReadinessPacket(
+                Packet.create(pgn, 0x17, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08));
+        DM5DiagnosticReadinessPacket packet3 = new DM5DiagnosticReadinessPacket(
+                Packet.create(pgn, 0x21, 0x10, 0x20, 0x30, 0x40, 0x50, 0x60, 0x70, 0x80));
+        when(j1939.requestMultiple(DM5DiagnosticReadinessPacket.class, requestPacket))
+                .thenReturn(Stream.of(packet1, packet2, packet3));
+
+        String expected = "";
+        expected += "2007-12-03T10:15:30.000 Global DM5 Request" + NL;
+        expected += "10:15:30.000 18EAFFA5 CE FE 00 (TX)" + NL;
+        expected += "10:15:30.000 18FECE01 11 22 33 44 55 66 77 88" + NL;
+        expected += "DM5 from Engine #2 (1): OBD Compliance: Reserved for SAE/Unknown (51), Active Codes: 17, Previously Active Codes: 34"
+                + NL;
+        expected += "10:15:30.000 18FECE17 01 02 03 04 05 06 07 08" + NL;
+        expected += "DM5 from Instrument Cluster #1 (23): OBD Compliance: OBD and OBD II (3), Active Codes: 1, Previously Active Codes: 2"
+                + NL;
+        expected += "10:15:30.000 18FECE21 10 20 30 40 50 60 70 80" + NL;
+        expected += "DM5 from Body Controller (33): OBD Compliance: Reserved for SAE/Unknown (48), Active Codes: 16, Previously Active Codes: 32"
+                + NL;
+
+        instance.getDM5Packets(listener, true);
+        assertEquals(expected, listener.getResults());
+
+        verify(j1939).createRequestPacket(pgn, 0xFF);
+        verify(j1939).requestMultiple(DM5DiagnosticReadinessPacket.class, requestPacket);
     }
 
     @Test
@@ -670,7 +835,7 @@ public class DiagnosticReadinessModuleTest {
         packets.add(new DM20MonitorPerformanceRatioPacket(
                 Packet.create(pgn, 0x21, 0x10, 0x20, 0x30, 0x40, 0x50, 0x60, 0x70, 0x80)));
 
-        assertEquals(0, DiagnosticReadinessModule.getIgnitionCycles(packets));
+        assertEquals(8208, DiagnosticReadinessModule.getIgnitionCycles(packets));
     }
 
     @Test
@@ -683,6 +848,12 @@ public class DiagnosticReadinessModuleTest {
         packets.add(new DM20MonitorPerformanceRatioPacket(
                 Packet.create(pgn, 0x21, 0x10, 0x20, 0x30, 0x40, 0x50, 0x60, 0x70, 0x80)));
 
+        assertEquals(8208, DiagnosticReadinessModule.getIgnitionCycles(packets));
+    }
+
+    @Test
+    public void testGetIgnitionCyclesWithoutPackets() {
+        List<DM20MonitorPerformanceRatioPacket> packets = new ArrayList<>();
         assertEquals(-1, DiagnosticReadinessModule.getIgnitionCycles(packets));
     }
 
@@ -698,7 +869,7 @@ public class DiagnosticReadinessModuleTest {
         packets.add(new DM20MonitorPerformanceRatioPacket(
                 Packet.create(pgn, 0x21, 0x10, 0x20, 0x30, 0x40, 0x50, 0x60, 0x70, 0x80)));
 
-        assertEquals(0, DiagnosticReadinessModule.getOBDCounts(packets));
+        assertEquals(16432, DiagnosticReadinessModule.getOBDCounts(packets));
     }
 
     @Test
@@ -711,6 +882,12 @@ public class DiagnosticReadinessModuleTest {
         packets.add(new DM20MonitorPerformanceRatioPacket(
                 Packet.create(pgn, 0x21, 0x10, 0x20, 0x30, 0x40, 0x50, 0x60, 0x70, 0x80)));
 
+        assertEquals(16432, DiagnosticReadinessModule.getOBDCounts(packets));
+    }
+
+    @Test
+    public void testGetOBDCountsWithoutPackets() {
+        List<DM20MonitorPerformanceRatioPacket> packets = new ArrayList<>();
         assertEquals(-1, DiagnosticReadinessModule.getOBDCounts(packets));
     }
 
