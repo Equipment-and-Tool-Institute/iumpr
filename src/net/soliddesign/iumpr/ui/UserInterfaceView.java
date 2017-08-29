@@ -234,7 +234,7 @@ public class UserInterfaceView implements IUserInterfaceView {
      */
     private JLabel getCalsLabel() {
         if (calsLabel == null) {
-            calsLabel = new JLabel("Cals:", SwingConstants.CENTER);
+            calsLabel = new JLabel("<html>Cal<br>IDs:</html>", SwingConstants.CENTER);
             calsLabel.setHorizontalTextPosition(SwingConstants.CENTER);
             calsLabel.setToolTipText("Engine Calibrations");
         }
