@@ -4,7 +4,6 @@
 package net.soliddesign.iumpr.bus.simulated;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -13,7 +12,6 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.logging.Level;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import net.soliddesign.iumpr.IUMPR;
@@ -49,11 +47,7 @@ public class Sim implements AutoCloseable {
         Stream<Packet> stream = bus.read(365, TimeUnit.DAYS);
         exec.submit(() -> {
             stream.forEach(packet -> {
-                List<Boolean> list = responses.stream()
-                        .map(c -> c.apply(packet))
-                        .filter(p -> p)
-                        .collect(Collectors.toList());
-                responses.removeAll(list);
+                responses.stream().forEach(c -> c.apply(packet));
             });
         });
     }
@@ -61,27 +55,6 @@ public class Sim implements AutoCloseable {
     @Override
     public void close() {
         exec.shutdown();
-    }
-
-    /**
-     * Sends a response once with a {@link Packet}
-     *
-     * @param predicate
-     *            the {@link Predicate} used to determine if the {@link Packet}
-     *            should be sent
-     * @param supplier
-     *            the {@link Supplier} of the {@link Packet}
-     * @return this
-     */
-    public Sim respondOnce(Predicate<Packet> predicate, Supplier<Packet> supplier) {
-        responses.add(packet -> {
-            if (predicate.test(packet)) {
-                send(supplier);
-                return true;
-            }
-            return false;
-        });
-        return this;
     }
 
     /**

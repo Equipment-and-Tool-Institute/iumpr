@@ -118,16 +118,16 @@ public class InfoTableTest {
 
         DM20MonitorPerformanceRatioPacket packet2 = mock(DM20MonitorPerformanceRatioPacket.class);
         when(packet2.getSourceAddress()).thenReturn(55);
-        when(packet2.getIgnitionCycles()).thenReturn(50);
-        when(packet2.getOBDConditionsCount()).thenReturn(5);
+        when(packet2.getIgnitionCycles()).thenReturn(101);
+        when(packet2.getOBDConditionsCount()).thenReturn(16);
 
         instance.process(packet2);
 
-        assertEquals(100.0, instance.getValueAt(2, 1));
-        validateRowBackground(instance.getBackground(), 2);
-        assertEquals(15.0, instance.getValueAt(3, 1));
-        validateRowBackground(instance.getBackground(), 3);
-        assertFalse(tableUpdated);
+        assertEquals(101.0, instance.getValueAt(2, 1));
+        validateRowBackground(Color.GREEN, 2);
+        assertEquals(16.0, instance.getValueAt(3, 1));
+        validateRowBackground(Color.GREEN, 3);
+        assertTrue(tableUpdated);
     }
 
     @Test

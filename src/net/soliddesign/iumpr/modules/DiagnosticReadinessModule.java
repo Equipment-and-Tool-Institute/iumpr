@@ -101,9 +101,8 @@ public class DiagnosticReadinessModule extends FunctionalModule {
     }
 
     /**
-     * Helper method to get the Number of Ignition Cycles from the packets. Only
-     * the value from the engine controller is returned. -1 is returned if there
-     * is no engine packet in the Collection.
+     * Helper method to get the Number of Ignition Cycles from the packets. The
+     * maximum value is returned.
      *
      * @param packets
      *            the {@link Collection} of
@@ -111,15 +110,12 @@ public class DiagnosticReadinessModule extends FunctionalModule {
      * @return int
      */
     public static int getIgnitionCycles(Collection<DM20MonitorPerformanceRatioPacket> packets) {
-        return packets.stream().filter(p -> p.getSourceAddress() == J1939.ENGINE_ADDR)
-                .mapToInt(p -> p.getIgnitionCycles()).findFirst().orElse(-1);
+        return packets.stream().mapToInt(p -> p.getIgnitionCycles()).max().orElse(-1);
     }
 
     /**
      * Helper method to get the maximum number of OBD Monitoring Conditions
-     * Encountered from the packets. Only the value from the engine controller
-     * is returned. -1 is returned if there is no engine packet in the
-     * Collection.
+     * Encountered from the packets. The maximum value is returned.
      *
      * @param packets
      *            the {@link Collection} of
@@ -127,8 +123,7 @@ public class DiagnosticReadinessModule extends FunctionalModule {
      * @return int
      */
     public static int getOBDCounts(Collection<DM20MonitorPerformanceRatioPacket> packets) {
-        return packets.stream().filter(p -> p.getSourceAddress() == J1939.ENGINE_ADDR)
-                .mapToInt(p -> p.getOBDConditionsCount()).findFirst().orElse(-1);
+        return packets.stream().mapToInt(p -> p.getOBDConditionsCount()).max().orElse(-1);
     }
 
     /**
@@ -158,6 +153,11 @@ public class DiagnosticReadinessModule extends FunctionalModule {
     }
 
     /**
+     * The source addresses of HD OBD Modules
+     */
+    private final Collection<Integer> obdModuleAddresses = new ArrayList<>();
+
+    /**
      * Constructor
      */
     public DiagnosticReadinessModule() {
@@ -172,6 +172,8 @@ public class DiagnosticReadinessModule extends FunctionalModule {
      */
     public DiagnosticReadinessModule(DateTimeModule dateTimeModule) {
         super(dateTimeModule);
+        obdModuleAddresses.add(J1939.ENGINE_ADDR);
+        obdModuleAddresses.add(J1939.ENGINE_ADDR_1);
     }
 
     /**
@@ -203,7 +205,7 @@ public class DiagnosticReadinessModule extends FunctionalModule {
      */
     public List<DM20MonitorPerformanceRatioPacket> getDM20Packets(ResultsListener listener, boolean fullString) {
         return getPackets("Global DM20 Request", DM20MonitorPerformanceRatioPacket.PGN,
-                DM20MonitorPerformanceRatioPacket.class, listener, fullString);
+                DM20MonitorPerformanceRatioPacket.class, listener, fullString, obdModuleAddresses);
     }
 
     /**
@@ -219,7 +221,7 @@ public class DiagnosticReadinessModule extends FunctionalModule {
      */
     public List<DM21DiagnosticReadinessPacket> getDM21Packets(ResultsListener listener, boolean fullString) {
         return getPackets("Global DM21 Request", DM21DiagnosticReadinessPacket.PGN, DM21DiagnosticReadinessPacket.class,
-                listener, fullString);
+                listener, fullString, obdModuleAddresses);
     }
 
     /**
@@ -235,7 +237,7 @@ public class DiagnosticReadinessModule extends FunctionalModule {
      */
     public List<DM26TripDiagnosticReadinessPacket> getDM26Packets(ResultsListener listener, boolean fullString) {
         return getPackets("Global DM26 Request", DM26TripDiagnosticReadinessPacket.PGN,
-                DM26TripDiagnosticReadinessPacket.class, listener, fullString);
+                DM26TripDiagnosticReadinessPacket.class, listener, fullString, obdModuleAddresses);
     }
 
     /**
@@ -251,7 +253,7 @@ public class DiagnosticReadinessModule extends FunctionalModule {
      */
     public List<DM5DiagnosticReadinessPacket> getDM5Packets(ResultsListener listener, boolean fullString) {
         return getPackets("Global DM5 Request", DM5DiagnosticReadinessPacket.PGN, DM5DiagnosticReadinessPacket.class,
-                listener, fullString);
+                listener, fullString, obdModuleAddresses);
     }
 
     /**
@@ -296,10 +298,12 @@ public class DiagnosticReadinessModule extends FunctionalModule {
      * @param fullString
      *            true to include the full string of the results in the report;
      *            false to only include the returned raw packet in the report
+     * @param dmModuleAddresses
+     *            the addresses that must respond to the request
      * @return the List of packets returned
      */
     private <T extends ParsedPacket> List<T> getPackets(String title, int pgn, Class<T> clazz, ResultsListener listener,
-            boolean fullString) {
+            boolean fullString, Collection<Integer> dmModuleAddresses) {
         Packet request = getJ1939().createRequestPacket(pgn, J1939.GLOBAL_ADDR);
         if (listener != null) {
             listener.onResult(getDateTime() + " " + title);
@@ -310,7 +314,8 @@ public class DiagnosticReadinessModule extends FunctionalModule {
         List<T> packets = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             packets = getJ1939().requestMultiple(clazz, request).collect(Collectors.toList());
-            if (packets.stream().filter(p -> p.getSourceAddress() == J1939.ENGINE_ADDR).findFirst().isPresent()) {
+            if (packets.stream().filter(p -> dmModuleAddresses.contains(p.getSourceAddress())).findFirst()
+                    .isPresent()) {
                 // The engine responded, report the results
                 break;
             } else {

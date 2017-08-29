@@ -80,6 +80,11 @@ public class J1939 {
     public static final int ENGINE_ADDR = 0x00;
 
     /**
+     * The 'other' address for an engine
+     */
+    public static final int ENGINE_ADDR_1 = 0x01;
+
+    /**
      * The global source address for broadcast
      */
     public static final int GLOBAL_ADDR = 0xFF;

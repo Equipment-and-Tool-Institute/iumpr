@@ -385,7 +385,7 @@ public class ReportFileModuleTest {
     }
 
     @Test
-    public void testRatioCountersOnlyComeFromEngine() throws Exception {
+    public void testRatioCountersUseMax() throws Exception {
         Writer writer = Files.newBufferedWriter(file.toPath(), StandardOpenOption.WRITE);
         writer.write(
                 "2017-02-11T16:42:21.889 18D30000 96 BF DC 40 50 42 54 35 4D 50 52 33 20 20 20 20 20 20 20 20 20 20 20 20"
@@ -394,6 +394,8 @@ public class ReportFileModuleTest {
         writer.write("2017-02-11T16:44:12.164 Vehicle Identification from Engine #1 (0): ASDFGHJKLASDFGHJKL" + NL);
         writer.write("2017-03-05T12:21:43.838 Diagnostic Trouble Codes were successfully cleared." + NL);
         writer.write("2017-03-05T12:21:45.090 18FECE00 00 00 14 37 E0 1E E0 1E" + NL);
+        writer.write("2017-03-05T12:21:46.090 18FECE01 00 00 14 37 E0 1E E0 1E" + NL);
+        writer.write("2017-03-05T12:21:46.190 18FECE17 00 00 14 37 E0 1E E0 1E" + NL);
         writer.write("  Time Since DTCs Cleared:                      14 minutes" + NL);
         writer.write("2017-03-05T12:21:47.610 18C20000 0C 00 01 00 CA 14 F8 00 00 01 00" + NL);
         writer.write("2017-03-05T12:21:48.610 18C20055 1C 00 11 00 CB 14 F8 00 00 01 00" + NL);
@@ -414,8 +416,8 @@ public class ReportFileModuleTest {
         assertEquals(16, instance.getInitialMonitors().size());
         assertEquals(LocalDateTime.parse("2017-03-05T12:21:47.610"), instance.getInitialRatiosTime());
         assertEquals(2, instance.getInitialRatios().size());
-        assertEquals(12, instance.getInitialIgnitionCycles());
-        assertEquals(1, instance.getInitialOBDCounts());
+        assertEquals(28, instance.getInitialIgnitionCycles());
+        assertEquals(17, instance.getInitialOBDCounts());
     }
 
     @Test

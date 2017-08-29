@@ -166,7 +166,7 @@ public class DM19CalibrationInformationPacketTest {
     public void testNotEqualsObject() {
         Packet packet = Packet.create(0xBADF, 0xFE, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88);
         DM19CalibrationInformationPacket instance = new DM19CalibrationInformationPacket(packet);
-        assertFalse(instance.equals("ParsedPacket"));
+        assertFalse(instance.equals(new Object()));
     }
 
     @Test

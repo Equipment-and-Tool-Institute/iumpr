@@ -63,7 +63,7 @@ public class CalibrationInformationTest {
     @Test
     public void testNotEqualsObject() {
         CalibrationInformation instance = new CalibrationInformation("id", "cvn");
-        assertFalse(instance.equals("CalibrationInformation"));
+        assertFalse(instance.equals(new Object()));
     }
 
     @Test

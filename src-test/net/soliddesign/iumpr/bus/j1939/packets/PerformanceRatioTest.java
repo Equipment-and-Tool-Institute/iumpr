@@ -30,7 +30,7 @@ public class PerformanceRatioTest {
     @Test
     public void testEqualsObject() {
         PerformanceRatio instance = new PerformanceRatio(0, 0, 0, 0);
-        assertFalse(instance.equals("PerformanceRatio"));
+        assertFalse(instance.equals(new Object()));
     }
 
     @Test

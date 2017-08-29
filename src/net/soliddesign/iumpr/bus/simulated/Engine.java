@@ -157,7 +157,7 @@ public class Engine implements AutoCloseable {
                 () -> Packet.create(0xFDB8, ADDR, 0x00, 0x00, 0x00, 0x37, 0xC0, 0x1E, 0xC0, 0x1E));
         // DM20
         sim.response(p -> isRequestFor(0xC200, p),
-                () -> Packet.create(0xC200, ADDR,
+                () -> Packet.create(0xC200, 0x01,
                         0x0C, 0x00, // Ignition Cycles
                         demCount & 0xFF, (demCount >> 8) & 0xFF, // OBD Counts
                         // Monitors 3 Bytes SPN, 2 bytes: Num, Dem
