@@ -289,4 +289,19 @@ public class ComponentIdentificationPacketTest {
         assertEquals(expected, instance.toString());
     }
 
+    @Test
+    public void testWithNulls() {
+        byte[] data = new byte[] { 0x44, 0x54, 0x44, 0x53, 0x43, 0x2A, 0x34, 0x37, 0x31, 0x4E, 0x31, 0x36, 0x2A, 0x00,
+                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x2A, 0x20, 0x20, 0x20,
+                0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x2A };
+        Packet packet = Packet.create(0xFEEB, 0x00, data);
+        ComponentIdentificationPacket instance = new ComponentIdentificationPacket(packet);
+        assertEquals("DTDSC", instance.getMake());
+        assertEquals("471N16", instance.getModel());
+        assertEquals("", instance.getSerialNumber());
+        assertEquals("", instance.getUnitNumber());
+        String expected = "Found Engine #1 (0): Make: DTDSC, Model: 471N16, Serial: , Unit: ";
+        assertEquals(expected, instance.toString());
+    }
+
 }
