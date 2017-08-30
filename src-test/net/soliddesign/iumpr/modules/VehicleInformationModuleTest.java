@@ -369,7 +369,10 @@ public class VehicleInformationModuleTest {
                 Packet.create(pgn, 0x01, 1, 1, 1, 1, 1, 1, 1, 1));
         HighResVehicleDistancePacket packet2 = new HighResVehicleDistancePacket(
                 Packet.create(pgn, 0x02, 2, 2, 2, 2, 2, 2, 2, 2));
-        when(j1939.read(HighResVehicleDistancePacket.class)).thenReturn(Stream.of(packet0, packet1, packet2));
+        HighResVehicleDistancePacket packetFF = new HighResVehicleDistancePacket(
+                Packet.create(pgn, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF));
+
+        when(j1939.read(HighResVehicleDistancePacket.class)).thenReturn(Stream.of(packet0, packet1, packet2, packetFF));
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Vehicle Distance" + NL;
@@ -393,8 +396,10 @@ public class VehicleInformationModuleTest {
                 Packet.create(pgn, 0x01, 1, 1, 1, 1, 1, 1, 1, 1));
         TotalVehicleDistancePacket packet2 = new TotalVehicleDistancePacket(
                 Packet.create(pgn, 0x02, 2, 2, 2, 2, 2, 2, 2, 2));
+        TotalVehicleDistancePacket packetFF = new TotalVehicleDistancePacket(
+                Packet.create(pgn, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF));
 
-        when(j1939.read(TotalVehicleDistancePacket.class)).thenReturn(Stream.of(packet2, packet1, packet0));
+        when(j1939.read(TotalVehicleDistancePacket.class)).thenReturn(Stream.of(packet2, packet1, packet0, packetFF));
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Vehicle Distance" + NL;

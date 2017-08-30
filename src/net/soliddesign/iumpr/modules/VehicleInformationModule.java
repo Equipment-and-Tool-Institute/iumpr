@@ -130,6 +130,8 @@ public class VehicleInformationModule extends FunctionalModule {
     public void reportVehicleDistance(ResultsListener listener) {
         listener.onResult(getDateTime() + " Vehicle Distance");
         Optional<HighResVehicleDistancePacket> hiResPacket = getJ1939().read(HighResVehicleDistancePacket.class)
+                .filter(p -> p.getTotalVehicleDistance() != ParsedPacket.NOT_AVAILABLE
+                        && p.getTotalVehicleDistance() != ParsedPacket.ERROR)
                 .max((p1, p2) -> Double.compare(p1.getTotalVehicleDistance(), p2.getTotalVehicleDistance()));
 
         Optional<? extends ParsedPacket> packet;
@@ -137,6 +139,8 @@ public class VehicleInformationModule extends FunctionalModule {
             packet = hiResPacket;
         } else {
             packet = getJ1939().read(TotalVehicleDistancePacket.class)
+                    .filter(p -> p.getTotalVehicleDistance() != ParsedPacket.NOT_AVAILABLE
+                            && p.getTotalVehicleDistance() != ParsedPacket.ERROR)
                     .max((p1, p2) -> Double.compare(p1.getTotalVehicleDistance(), p2.getTotalVehicleDistance()));
         }
 

@@ -110,7 +110,7 @@ public class DiagnosticReadinessModule extends FunctionalModule {
      * @return int
      */
     public static int getIgnitionCycles(Collection<DM20MonitorPerformanceRatioPacket> packets) {
-        return packets.stream().mapToInt(p -> p.getIgnitionCycles()).max().orElse(-1);
+        return packets.stream().mapToInt(p -> p.getIgnitionCycles()).filter(v -> v <= 0xFAFF).max().orElse(-1);
     }
 
     /**
@@ -123,7 +123,7 @@ public class DiagnosticReadinessModule extends FunctionalModule {
      * @return int
      */
     public static int getOBDCounts(Collection<DM20MonitorPerformanceRatioPacket> packets) {
-        return packets.stream().mapToInt(p -> p.getOBDConditionsCount()).max().orElse(-1);
+        return packets.stream().mapToInt(p -> p.getOBDConditionsCount()).filter(v -> v <= 0xFAFF).max().orElse(-1);
     }
 
     /**
