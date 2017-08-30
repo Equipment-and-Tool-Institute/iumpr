@@ -12,7 +12,6 @@ import static org.mockito.Mockito.when;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 import org.junit.After;
@@ -364,47 +363,61 @@ public class VehicleInformationModuleTest {
     @Test
     public void testReportVehicleDistanceWithHiRes() {
         final int pgn = HighResVehicleDistancePacket.PGN;
+        HighResVehicleDistancePacket packet0 = new HighResVehicleDistancePacket(
+                Packet.create(pgn, 0x00, 0, 0, 0, 0, 0, 0, 0, 0));
         HighResVehicleDistancePacket packet1 = new HighResVehicleDistancePacket(
-                Packet.create(pgn, 0x00, 1, 2, 3, 4, 5, 6, 7, 8));
-        when(j1939.read(HighResVehicleDistancePacket.class, 0x00)).thenReturn(Optional.of(packet1));
+                Packet.create(pgn, 0x01, 1, 1, 1, 1, 1, 1, 1, 1));
+        HighResVehicleDistancePacket packet2 = new HighResVehicleDistancePacket(
+                Packet.create(pgn, 0x02, 2, 2, 2, 2, 2, 2, 2, 2));
+        HighResVehicleDistancePacket packetFF = new HighResVehicleDistancePacket(
+                Packet.create(pgn, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF));
+
+        when(j1939.read(HighResVehicleDistancePacket.class)).thenReturn(Stream.of(packet0, packet1, packet2, packetFF));
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Vehicle Distance" + NL;
-        expected += "10:15:30.000 18FEC100 01 02 03 04 05 06 07 08" + NL;
-        expected += "High Resolution Vehicle Distance from Engine #1 (0): 336,529.925 km (209,110 mi)" + NL;
+        expected += "10:15:30.000 18FEC102 02 02 02 02 02 02 02 02" + NL;
+        expected += "High Resolution Vehicle Distance from Turbocharger (2): 168,430.09 km (104,657.605 mi)" + NL;
 
         TestResultsListener listener = new TestResultsListener();
         instance.reportVehicleDistance(listener);
         assertEquals(expected, listener.getResults());
 
-        verify(j1939).read(HighResVehicleDistancePacket.class, 0x00);
+        verify(j1939).read(HighResVehicleDistancePacket.class);
     }
 
     @Test
     public void testReportVehicleDistanceWithLoRes() {
-        when(j1939.read(HighResVehicleDistancePacket.class, 0x00)).thenReturn(Optional.empty());
+        when(j1939.read(HighResVehicleDistancePacket.class)).thenReturn(Stream.empty());
         final int pgn = TotalVehicleDistancePacket.PGN;
+        TotalVehicleDistancePacket packet0 = new TotalVehicleDistancePacket(
+                Packet.create(pgn, 0x00, 0, 0, 0, 0, 0, 0, 0, 0));
         TotalVehicleDistancePacket packet1 = new TotalVehicleDistancePacket(
-                Packet.create(pgn, 0x00, 1, 2, 3, 4, 5, 6, 7, 8));
-        when(j1939.read(TotalVehicleDistancePacket.class, 0x00)).thenReturn(Optional.of(packet1));
+                Packet.create(pgn, 0x01, 1, 1, 1, 1, 1, 1, 1, 1));
+        TotalVehicleDistancePacket packet2 = new TotalVehicleDistancePacket(
+                Packet.create(pgn, 0x02, 2, 2, 2, 2, 2, 2, 2, 2));
+        TotalVehicleDistancePacket packetFF = new TotalVehicleDistancePacket(
+                Packet.create(pgn, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF));
+
+        when(j1939.read(TotalVehicleDistancePacket.class)).thenReturn(Stream.of(packet2, packet1, packet0, packetFF));
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Vehicle Distance" + NL;
-        expected += "10:15:30.000 18FEE000 01 02 03 04 05 06 07 08" + NL;
-        expected += "Total Vehicle Distance from Engine #1 (0): 16,834,752.625 km (10,460,630.272 mi)" + NL;
+        expected += "10:15:30.000 18FEE002 02 02 02 02 02 02 02 02" + NL;
+        expected += "Total Vehicle Distance from Turbocharger (2): 4,210,752.25 km (2,616,440.136 mi)" + NL;
 
         TestResultsListener listener = new TestResultsListener();
         instance.reportVehicleDistance(listener);
         assertEquals(expected, listener.getResults());
 
-        verify(j1939).read(HighResVehicleDistancePacket.class, 0x00);
-        verify(j1939).read(TotalVehicleDistancePacket.class, 0x00);
+        verify(j1939).read(HighResVehicleDistancePacket.class);
+        verify(j1939).read(TotalVehicleDistancePacket.class);
     }
 
     @Test
     public void testReportVehicleDistanceWithNoResponse() {
-        when(j1939.read(HighResVehicleDistancePacket.class, 0x00)).thenReturn(Optional.empty());
-        when(j1939.read(TotalVehicleDistancePacket.class, 0x00)).thenReturn(Optional.empty());
+        when(j1939.read(HighResVehicleDistancePacket.class)).thenReturn(Stream.empty());
+        when(j1939.read(TotalVehicleDistancePacket.class)).thenReturn(Stream.empty());
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Vehicle Distance" + NL;
@@ -414,8 +427,8 @@ public class VehicleInformationModuleTest {
         instance.reportVehicleDistance(listener);
         assertEquals(expected, listener.getResults());
 
-        verify(j1939).read(HighResVehicleDistancePacket.class, 0x00);
-        verify(j1939).read(TotalVehicleDistancePacket.class, 0x00);
+        verify(j1939).read(HighResVehicleDistancePacket.class);
+        verify(j1939).read(TotalVehicleDistancePacket.class);
     }
 
     @Test

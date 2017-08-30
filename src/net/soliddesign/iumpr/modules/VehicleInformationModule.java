@@ -121,18 +121,29 @@ public class VehicleInformationModule extends FunctionalModule {
     }
 
     /**
-     * Requests the Total Vehicle Distance from the Engine and generates a
-     * {@link String} that's suitable for inclusion in the report
+     * Requests the maximum Total Vehicle Distance from the vehicle and
+     * generates a {@link String} that's suitable for inclusion in the report
      *
      * @param listener
      *            the {@link ResultsListener} that will be given the report
      */
     public void reportVehicleDistance(ResultsListener listener) {
         listener.onResult(getDateTime() + " Vehicle Distance");
-        Optional<HighResVehicleDistancePacket> hiResPacket = getJ1939().read(HighResVehicleDistancePacket.class,
-                ENGINE_ADDR);
-        Optional<? extends ParsedPacket> packet = !hiResPacket.isPresent()
-                ? getJ1939().read(TotalVehicleDistancePacket.class, ENGINE_ADDR) : hiResPacket;
+        Optional<HighResVehicleDistancePacket> hiResPacket = getJ1939().read(HighResVehicleDistancePacket.class)
+                .filter(p -> p.getTotalVehicleDistance() != ParsedPacket.NOT_AVAILABLE
+                        && p.getTotalVehicleDistance() != ParsedPacket.ERROR)
+                .max((p1, p2) -> Double.compare(p1.getTotalVehicleDistance(), p2.getTotalVehicleDistance()));
+
+        Optional<? extends ParsedPacket> packet;
+        if (hiResPacket.isPresent()) {
+            packet = hiResPacket;
+        } else {
+            packet = getJ1939().read(TotalVehicleDistancePacket.class)
+                    .filter(p -> p.getTotalVehicleDistance() != ParsedPacket.NOT_AVAILABLE
+                            && p.getTotalVehicleDistance() != ParsedPacket.ERROR)
+                    .max((p1, p2) -> Double.compare(p1.getTotalVehicleDistance(), p2.getTotalVehicleDistance()));
+        }
+
         listener.onResult(packet.map(getPacketMapperFunction()).orElse(TIMEOUT_MESSAGE));
     }
 

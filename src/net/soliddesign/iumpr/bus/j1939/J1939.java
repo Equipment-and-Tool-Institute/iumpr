@@ -384,6 +384,20 @@ public class J1939 {
     }
 
     /**
+     * Watches the bus for a time for all the packets that match the PGN in the
+     * given class
+     *
+     * @param <T>
+     *            the Type of Packet to expect back
+     * @param T
+     *            the class of interest
+     * @return the resulting packets in a Stream
+     */
+    public <T extends ParsedPacket> Stream<T> read(Class<T> T) {
+        return read(T, DEFAULT_TIMEOUT, DEFAULT_TIMEOUT_UNITS);
+    }
+
+    /**
      * Watches the bus for the timeout period for the first packet that matches
      * the PGN in the given class
      *
@@ -430,9 +444,34 @@ public class J1939 {
                     .findFirst()
                     .map(t -> process(t));
         } catch (Exception e) {
-            getLogger().log(Level.SEVERE, "Error requesting packet", e);
+            getLogger().log(Level.SEVERE, "Error reading packets", e);
         }
         return Optional.empty();
+    }
+
+    /**
+     * Watches the bus for up to the timeout for all the packets that match the
+     * PGN in the given class
+     *
+     * @param <T>
+     *            the Type of Packet to expect back
+     * @param T
+     *            the class of interest
+     * @param timeout
+     *            the maximum time to wait for a message
+     * @param unit
+     *            the {@link TimeUnit} for the timeout
+     * @return the resulting packets in a Stream
+     */
+    private <T extends ParsedPacket> Stream<T> read(Class<T> T, long timeout, TimeUnit unit) {
+        try {
+            int pgn = getPgn(T);
+            Stream<Packet> stream = read(timeout, unit);
+            return stream.filter(interruptFn).filter(pgnFilter(pgn)).map(t -> process(t));
+        } catch (Exception e) {
+            getLogger().log(Level.SEVERE, "Error reading packets", e);
+        }
+        return Stream.empty();
     }
 
     private Stream<Packet> read(long timeout, TimeUnit unit) throws BusException {
