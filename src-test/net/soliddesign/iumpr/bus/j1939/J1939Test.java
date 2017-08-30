@@ -130,6 +130,18 @@ public class J1939Test {
     }
 
     @Test
+    public void testReadByClass() throws Exception {
+        Packet packet1 = Packet.create(EngineSpeedPacket.PGN, 0x00, 1, 2, 3, 4, 5, 6, 7, 8);
+        Packet packet2 = Packet.create(VehicleIdentificationPacket.PGN, 0x00, 1, 2, 3, 4, 5, 6, 7, 8);
+        when(bus.read(2500, TimeUnit.MILLISECONDS))
+                .thenReturn(Stream.of(packet1, packet2, packet1, packet2, packet1, packet2));
+
+        Stream<EngineSpeedPacket> response = instance.read(EngineSpeedPacket.class);
+        List<EngineSpeedPacket> packets = response.collect(Collectors.toList());
+        assertEquals(3, packets.size());
+    }
+
+    @Test
     public void testReadEngineSpeed() throws Exception {
         Packet packet1 = Packet.create(EngineSpeedPacket.PGN, 0x00, 1, 2, 3, 4, 5, 6, 7, 8);
         when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1));
