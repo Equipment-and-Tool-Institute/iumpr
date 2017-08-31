@@ -31,7 +31,14 @@ Ant targets that should be run when doing development are:
 
 Additionally, it's recommended that the "docs" target also be executed in order to verify that there are no errors with the JavaDocs.
 
-To build a new release, execute the "dist" target.  It will generate the jar, followed by an exe and finally the installer.
+To build a new release, verify that the environment variable JRE_HOME points to a 32 bit JRE that can be included in the build like this:
+
+```
+C:\Users\joe>echo %JRE_HOME%
+c:\Program Files (x86)\Java\jre1.8.0_121
+```
+
+Then execute the "dist" target.  It will generate the jar, followed by an exe and finally the installer.
 
 ## Author
 This software was developed for the [Equipment & Tool Institute](http://etools.org) by [Solid Design, Inc.](http://soliddesign.net)
