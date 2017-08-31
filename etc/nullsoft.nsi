@@ -57,9 +57,11 @@ functionEnd
  
 section "install"
 	# Files for the install directory - to build the installer, these should be in the same directory as the install script (this file)
-	setOutPath $INSTDIR
+	setOutPath $INSTDIR\jre
 	# Files added here should be removed by the uninstaller (see section "uninstall")
-	file /r "..\jdk\jre"
+    createDirectory "$INSTDIR\jre"
+	file /r "..\jre\"
+    setOutPath $INSTDIR
 	file "..\dist\IUMPR.exe"
 	file "logo.ico"
 	# Add any other files for the install directory (license files, app data, etc) here

@@ -1,4 +1,4 @@
-<!-- Copyright 2017 Equipment & Tool Institute -->  
+<!-- Copyright 2017 Equipment & Tool Institute -->
 <project name="IUMPR" default="compile" basedir="." xmlns:jacoco="antlib:org.jacoco.ant">
 	<description>The Ant build file for the IUMPR Project.</description>
 
@@ -86,6 +86,10 @@
 	</target>
 
 	<target name="dist.exe" if="isWindows">
+		<property environment="env"/>
+		<copy todir="jre">
+			<fileset dir="${env.JRE_HOME}" />
+		</copy>
 		<!--Generates the EXE File -->
 		<property file="${build.info.filename}" />
 		<launch4j configFile="${basedir}/etc/launch4j.xml" />
@@ -125,7 +129,7 @@
 	</target>
 
 	<target name="run.tests" depends="clean, compile.tests" description="Runs the unit tests">
-		<mkdir dir="${build}/tests"/>
+		<mkdir dir="${build}/tests" />
 		<jacoco:coverage destfile="${build}/jacoco/jacoco.exec">
 			<junit printsummary="yes" haltonfailure="no" fork="yes">
 				<jvmarg value="-Dfile.encoding=UTF-8" />
