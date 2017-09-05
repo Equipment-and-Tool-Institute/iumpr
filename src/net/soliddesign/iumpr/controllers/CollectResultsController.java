@@ -6,9 +6,14 @@ package net.soliddesign.iumpr.controllers;
 import static net.soliddesign.iumpr.controllers.Controller.Ending.ABORTED;
 
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
+import net.soliddesign.iumpr.bus.j1939.packets.DM20MonitorPerformanceRatioPacket;
+import net.soliddesign.iumpr.bus.j1939.packets.DM5DiagnosticReadinessPacket;
+import net.soliddesign.iumpr.bus.j1939.packets.MonitoredSystem;
+import net.soliddesign.iumpr.bus.j1939.packets.PerformanceRatio;
 import net.soliddesign.iumpr.modules.BannerModule;
 import net.soliddesign.iumpr.modules.BannerModule.Type;
 import net.soliddesign.iumpr.modules.ComparisonModule;
@@ -115,7 +120,13 @@ public class CollectResultsController extends Controller {
         // Step 30
         addBlankLineToReport();
         incrementProgress("Requesting DM5");
-        getDiagnosticReadinessModule().reportDM5(getListener());
+        List<DM5DiagnosticReadinessPacket> dm5Packets = getDiagnosticReadinessModule().getDM5Packets(getListener(),
+                false);
+        addBlankLineToReport();
+        Set<MonitoredSystem> systems = DiagnosticReadinessModule.getSystems(dm5Packets);
+        String initialMonitorsTime = getDateTimeModule().format(getReportFileModule().getInitialMonitorsTime());
+        getDiagnosticReadinessModule().reportMonitoredSystems(getListener(), getReportFileModule().getInitialMonitors(),
+                systems, initialMonitorsTime, getDateTime());
 
         // Step 31
         addBlankLineToReport();
@@ -125,7 +136,16 @@ public class CollectResultsController extends Controller {
         // Step 32
         addBlankLineToReport();
         incrementProgress("Requesting DM20");
-        getDiagnosticReadinessModule().reportDM20(getListener());
+        List<DM20MonitorPerformanceRatioPacket> dm20Packets = getDiagnosticReadinessModule()
+                .getDM20Packets(getListener(), false);
+        addBlankLineToReport();
+        Set<PerformanceRatio> ratios = DiagnosticReadinessModule.getRatios(dm20Packets);
+        int ignitionCycles = DiagnosticReadinessModule.getIgnitionCycles(dm20Packets);
+        int obdCounts = DiagnosticReadinessModule.getOBDCounts(dm20Packets);
+        String initialRatiosTime = getDateTimeModule().format(getReportFileModule().getInitialRatiosTime());
+        getDiagnosticReadinessModule().reportPerformanceRatios(getListener(), getReportFileModule().getInitialRatios(),
+                ratios, getReportFileModule().getInitialIgnitionCycles(), ignitionCycles,
+                getReportFileModule().getInitialOBDCounts(), obdCounts, initialRatiosTime, getDateTime());
 
         // Step 33 Store DM5 and DM20
         // Don't need to do this; they are stored in the report file

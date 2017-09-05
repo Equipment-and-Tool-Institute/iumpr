@@ -11,8 +11,12 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ScheduledExecutorService;
 
 import javax.swing.JOptionPane;
@@ -27,7 +31,12 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import net.soliddesign.iumpr.bus.Packet;
 import net.soliddesign.iumpr.bus.j1939.J1939;
+import net.soliddesign.iumpr.bus.j1939.packets.DM20MonitorPerformanceRatioPacket;
+import net.soliddesign.iumpr.bus.j1939.packets.DM5DiagnosticReadinessPacket;
+import net.soliddesign.iumpr.bus.j1939.packets.MonitoredSystem;
+import net.soliddesign.iumpr.bus.j1939.packets.PerformanceRatio;
 import net.soliddesign.iumpr.modules.BannerModule;
 import net.soliddesign.iumpr.modules.ComparisonModule;
 import net.soliddesign.iumpr.modules.DateTimeModule;
@@ -93,7 +102,7 @@ public class CollectResultsControllerTest {
     @After
     public void tearDown() throws Exception {
         verifyNoMoreInteractions(engineSpeedModule, bannerModule, vehicleInformationModule, diagnosticReadinessModule,
-                dateTimeModule, comparisonModule, j1939, reportFileModule, listener, obdTestsModule, executor);
+                comparisonModule, j1939, reportFileModule, listener, obdTestsModule, executor);
     }
 
     @Test
@@ -101,12 +110,9 @@ public class CollectResultsControllerTest {
         when(engineSpeedModule.isEngineCommunicating()).thenReturn(true);
         when(comparisonModule.compareFileToVehicle(any(ResultsListener.class), eq(reportFileModule), eq(2), eq(21)))
                 .thenReturn(true);
-        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn(1234).thenReturn(1234);
-        List<Integer> obdModules = Collections.singletonList(0x00);
+        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn(1234);
+        List<Integer> obdModules = Collections.emptyList();
         when(diagnosticReadinessModule.getOBDModules(any(ResultsListener.class))).thenReturn(obdModules);
-        when(diagnosticReadinessModule.reportDM5(any(ResultsListener.class))).thenReturn(true);
-        when(diagnosticReadinessModule.reportDM26(any(ResultsListener.class))).thenReturn(true);
-        when(diagnosticReadinessModule.reportDM20(any(ResultsListener.class))).thenReturn(true);
 
         instance.execute(listener, j1939, reportFileModule);
         ArgumentCaptor<Runnable> runnableCaptor = ArgumentCaptor.forClass(Runnable.class);
@@ -166,78 +172,16 @@ public class CollectResultsControllerTest {
 
         inOrder.verify(listener).onResult("");
         inOrder.verify(reportFileModule).onResult("");
-        inOrder.verify(listener).onProgress(12, 21, "Requesting OBD Test Results");
-        inOrder.verify(reportFileModule).onProgress(12, 21, "Requesting OBD Test Results");
-        inOrder.verify(obdTestsModule).reportOBDTests(any(ResultsListener.class), eq(obdModules));
-
-        inOrder.verify(listener).onResult("");
-        inOrder.verify(reportFileModule).onResult("");
-        inOrder.verify(listener).onProgress(13, 21, "Requesting DM5");
-        inOrder.verify(reportFileModule).onProgress(13, 21, "Requesting DM5");
-        inOrder.verify(diagnosticReadinessModule).reportDM5(any(ResultsListener.class));
-
-        inOrder.verify(listener).onResult("");
-        inOrder.verify(reportFileModule).onResult("");
-        inOrder.verify(listener).onProgress(14, 21, "Requesting DM26");
-        inOrder.verify(reportFileModule).onProgress(14, 21, "Requesting DM26");
-        inOrder.verify(diagnosticReadinessModule).reportDM26(any(ResultsListener.class));
-
-        inOrder.verify(listener).onResult("");
-        inOrder.verify(reportFileModule).onResult("");
-        inOrder.verify(listener).onProgress(15, 21, "Requesting DM20");
-        inOrder.verify(reportFileModule).onProgress(15, 21, "Requesting DM20");
-        inOrder.verify(diagnosticReadinessModule).reportDM20(any(ResultsListener.class));
-
-        inOrder.verify(listener).onResult("");
-        inOrder.verify(reportFileModule).onResult("");
-        inOrder.verify(listener).onProgress(16, 21, "Requesting DM21");
-        inOrder.verify(reportFileModule).onProgress(16, 21, "Requesting DM21");
-        inOrder.verify(reportFileModule).getMinutesSinceCodeClear();
-        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq(1234));
-
-        inOrder.verify(listener).onResult("");
-        inOrder.verify(reportFileModule).onResult("");
-        inOrder.verify(listener).onProgress(17, 21, "Reading Vehicle Distance");
-        inOrder.verify(reportFileModule).onProgress(17, 21, "Reading Vehicle Distance");
-        inOrder.verify(vehicleInformationModule).reportVehicleDistance(any(ResultsListener.class));
-
-        inOrder.verify(listener).onResult("");
-        inOrder.verify(reportFileModule).onResult("");
-        inOrder.verify(listener).onProgress(18, 21, "Requesting Engine Hours");
-        inOrder.verify(reportFileModule).onProgress(18, 21, "Requesting Engine Hours");
-        inOrder.verify(vehicleInformationModule).reportEngineHours(any(ResultsListener.class));
-
-        inOrder.verify(listener).onResult("");
-        inOrder.verify(reportFileModule).onResult("");
-        inOrder.verify(listener).onProgress(19, 21, "Requesting VIN");
-        inOrder.verify(reportFileModule).onProgress(19, 21, "Requesting VIN");
-        inOrder.verify(vehicleInformationModule).reportVin(any(ResultsListener.class));
-
-        inOrder.verify(listener).onResult("");
-        inOrder.verify(reportFileModule).onResult("");
-        inOrder.verify(listener).onProgress(20, 21, "Requesting Calibration Information");
-        inOrder.verify(reportFileModule).onProgress(20, 21, "Requesting Calibration Information");
-        inOrder.verify(vehicleInformationModule).reportCalibrationInformation(any(ResultsListener.class));
-
-        inOrder.verify(listener).onResult("");
-        inOrder.verify(reportFileModule).onResult("");
-        inOrder.verify(listener).onProgress(21, 21, "Generating Quality Information");
-        inOrder.verify(reportFileModule).onProgress(21, 21, "Generating Quality Information");
-        inOrder.verify(reportFileModule).reportAndResetCommunicationQuality(any(ResultsListener.class));
-        inOrder.verify(reportFileModule).reportQuality(any(ResultsListener.class));
-
-        inOrder.verify(listener).onResult("");
-        inOrder.verify(reportFileModule).onResult("");
-        inOrder.verify(bannerModule).reportFooter(any(ResultsListener.class));
+        inOrder.verify(bannerModule).reportAborted(any(ResultsListener.class));
 
         inOrder.verify(listener).onResult("");
         inOrder.verify(reportFileModule).onResult("");
 
         inOrder.verify(bannerModule).getTypeName();
-        inOrder.verify(listener).onProgress(21, 21, "Data Collection Completed");
-        inOrder.verify(reportFileModule).onProgress(21, 21, "Data Collection Completed");
-        inOrder.verify(listener).onComplete(true);
-        inOrder.verify(reportFileModule).onComplete(true);
+        inOrder.verify(listener).onProgress(21, 21, "Data Collection Aborted");
+        inOrder.verify(reportFileModule).onProgress(21, 21, "Data Collection Aborted");
+        inOrder.verify(listener).onComplete(false);
+        inOrder.verify(reportFileModule).onComplete(false);
     }
 
     @Test
@@ -366,14 +310,45 @@ public class CollectResultsControllerTest {
         inOrder.verify(reportFileModule).onComplete(false);
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void testHappyPath() throws Exception {
         when(engineSpeedModule.isEngineCommunicating()).thenReturn(true);
         when(comparisonModule.compareFileToVehicle(any(ResultsListener.class), eq(reportFileModule), eq(2), eq(21)))
                 .thenReturn(true);
-        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn(1234);
-        List<Integer> obdModules = Collections.emptyList();
+        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn(1234).thenReturn(1234);
+
+        when(dateTimeModule.getDateTime()).thenReturn("CurrentTime");
+
+        LocalDateTime monitorTime = LocalDateTime.now();
+        when(reportFileModule.getInitialMonitorsTime()).thenReturn(monitorTime);
+        when(dateTimeModule.format(monitorTime)).thenReturn("MonitorTime");
+
+        Set<MonitoredSystem> initialSystems = new HashSet<>();
+        when(reportFileModule.getInitialMonitors()).thenReturn(initialSystems);
+
+        LocalDateTime ratioTime = LocalDateTime.now();
+        when(reportFileModule.getInitialRatiosTime()).thenReturn(ratioTime);
+        when(dateTimeModule.format(ratioTime)).thenReturn("RatioTime");
+
+        Set<PerformanceRatio> initialRatios = new HashSet<>();
+        when(reportFileModule.getInitialRatios()).thenReturn(initialRatios);
+        when(reportFileModule.getInitialIgnitionCycles()).thenReturn(987);
+        when(reportFileModule.getInitialOBDCounts()).thenReturn(654);
+
+        List<Integer> obdModules = Collections.singletonList(0x00);
         when(diagnosticReadinessModule.getOBDModules(any(ResultsListener.class))).thenReturn(obdModules);
+
+        List<DM5DiagnosticReadinessPacket> dm5Packets = Collections.singletonList(new DM5DiagnosticReadinessPacket(
+                Packet.create(DM5DiagnosticReadinessPacket.PGN, 0x00, 1, 2, 3, 4, 5, 6, 7, 8)));
+        when(diagnosticReadinessModule.getDM5Packets(any(ResultsListener.class), eq(false))).thenReturn(dm5Packets);
+
+        when(diagnosticReadinessModule.reportDM26(any(ResultsListener.class))).thenReturn(true);
+
+        List<DM20MonitorPerformanceRatioPacket> dm20Packets = Collections
+                .singletonList(new DM20MonitorPerformanceRatioPacket(
+                        Packet.create(DM20MonitorPerformanceRatioPacket.PGN, 0x00, 1, 2, 3, 4, 5, 6, 7, 8)));
+        when(diagnosticReadinessModule.getDM20Packets(any(ResultsListener.class), eq(false))).thenReturn(dm20Packets);
 
         instance.execute(listener, j1939, reportFileModule);
         ArgumentCaptor<Runnable> runnableCaptor = ArgumentCaptor.forClass(Runnable.class);
@@ -433,16 +408,93 @@ public class CollectResultsControllerTest {
 
         inOrder.verify(listener).onResult("");
         inOrder.verify(reportFileModule).onResult("");
-        inOrder.verify(bannerModule).reportAborted(any(ResultsListener.class));
+        inOrder.verify(listener).onProgress(12, 21, "Requesting OBD Test Results");
+        inOrder.verify(reportFileModule).onProgress(12, 21, "Requesting OBD Test Results");
+        inOrder.verify(obdTestsModule).reportOBDTests(any(ResultsListener.class), eq(obdModules));
+
+        inOrder.verify(listener).onResult("");
+        inOrder.verify(reportFileModule).onResult("");
+        inOrder.verify(listener).onProgress(13, 21, "Requesting DM5");
+        inOrder.verify(reportFileModule).onProgress(13, 21, "Requesting DM5");
+        inOrder.verify(diagnosticReadinessModule).getDM5Packets(any(ResultsListener.class), eq(false));
+        inOrder.verify(listener).onResult("");
+        inOrder.verify(reportFileModule).onResult("");
+        inOrder.verify(reportFileModule).getInitialMonitorsTime();
+        inOrder.verify(reportFileModule).getInitialMonitors();
+        inOrder.verify(diagnosticReadinessModule).reportMonitoredSystems(any(ResultsListener.class),
+                eq(initialSystems), any(Collection.class), eq("MonitorTime"), eq("CurrentTime"));
+
+        inOrder.verify(listener).onResult("");
+        inOrder.verify(reportFileModule).onResult("");
+        inOrder.verify(listener).onProgress(14, 21, "Requesting DM26");
+        inOrder.verify(reportFileModule).onProgress(14, 21, "Requesting DM26");
+        inOrder.verify(diagnosticReadinessModule).reportDM26(any(ResultsListener.class));
+
+        inOrder.verify(listener).onResult("");
+        inOrder.verify(reportFileModule).onResult("");
+        inOrder.verify(listener).onProgress(15, 21, "Requesting DM20");
+        inOrder.verify(reportFileModule).onProgress(15, 21, "Requesting DM20");
+        inOrder.verify(diagnosticReadinessModule).getDM20Packets(any(ResultsListener.class), eq(false));
+        inOrder.verify(listener).onResult("");
+        inOrder.verify(reportFileModule).onResult("");
+        inOrder.verify(reportFileModule).getInitialRatiosTime();
+        inOrder.verify(reportFileModule).getInitialRatios();
+        inOrder.verify(reportFileModule).getInitialIgnitionCycles();
+        inOrder.verify(reportFileModule).getInitialOBDCounts();
+        inOrder.verify(diagnosticReadinessModule).reportPerformanceRatios(any(ResultsListener.class),
+                eq(initialRatios), any(Collection.class), eq(987), any(int.class), eq(654),
+                any(int.class), eq("RatioTime"), eq("CurrentTime"));
+
+        inOrder.verify(listener).onResult("");
+        inOrder.verify(reportFileModule).onResult("");
+        inOrder.verify(listener).onProgress(16, 21, "Requesting DM21");
+        inOrder.verify(reportFileModule).onProgress(16, 21, "Requesting DM21");
+        inOrder.verify(reportFileModule).getMinutesSinceCodeClear();
+        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq(1234));
+
+        inOrder.verify(listener).onResult("");
+        inOrder.verify(reportFileModule).onResult("");
+        inOrder.verify(listener).onProgress(17, 21, "Reading Vehicle Distance");
+        inOrder.verify(reportFileModule).onProgress(17, 21, "Reading Vehicle Distance");
+        inOrder.verify(vehicleInformationModule).reportVehicleDistance(any(ResultsListener.class));
+
+        inOrder.verify(listener).onResult("");
+        inOrder.verify(reportFileModule).onResult("");
+        inOrder.verify(listener).onProgress(18, 21, "Requesting Engine Hours");
+        inOrder.verify(reportFileModule).onProgress(18, 21, "Requesting Engine Hours");
+        inOrder.verify(vehicleInformationModule).reportEngineHours(any(ResultsListener.class));
+
+        inOrder.verify(listener).onResult("");
+        inOrder.verify(reportFileModule).onResult("");
+        inOrder.verify(listener).onProgress(19, 21, "Requesting VIN");
+        inOrder.verify(reportFileModule).onProgress(19, 21, "Requesting VIN");
+        inOrder.verify(vehicleInformationModule).reportVin(any(ResultsListener.class));
+
+        inOrder.verify(listener).onResult("");
+        inOrder.verify(reportFileModule).onResult("");
+        inOrder.verify(listener).onProgress(20, 21, "Requesting Calibration Information");
+        inOrder.verify(reportFileModule).onProgress(20, 21, "Requesting Calibration Information");
+        inOrder.verify(vehicleInformationModule).reportCalibrationInformation(any(ResultsListener.class));
+
+        inOrder.verify(listener).onResult("");
+        inOrder.verify(reportFileModule).onResult("");
+        inOrder.verify(listener).onProgress(21, 21, "Generating Quality Information");
+        inOrder.verify(reportFileModule).onProgress(21, 21, "Generating Quality Information");
+        inOrder.verify(reportFileModule).reportAndResetCommunicationQuality(any(ResultsListener.class));
+        inOrder.verify(reportFileModule).reportQuality(any(ResultsListener.class));
+
+        inOrder.verify(listener).onResult("");
+        inOrder.verify(reportFileModule).onResult("");
+        inOrder.verify(bannerModule).reportFooter(any(ResultsListener.class));
 
         inOrder.verify(listener).onResult("");
         inOrder.verify(reportFileModule).onResult("");
 
         inOrder.verify(bannerModule).getTypeName();
-        inOrder.verify(listener).onProgress(21, 21, "Data Collection Aborted");
-        inOrder.verify(reportFileModule).onProgress(21, 21, "Data Collection Aborted");
-        inOrder.verify(listener).onComplete(false);
-        inOrder.verify(reportFileModule).onComplete(false);
+        inOrder.verify(listener).onProgress(21, 21, "Data Collection Completed");
+        inOrder.verify(reportFileModule).onProgress(21, 21, "Data Collection Completed");
+        inOrder.verify(listener).onComplete(true);
+        inOrder.verify(reportFileModule).onComplete(true);
     }
 
 }
