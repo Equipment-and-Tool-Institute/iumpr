@@ -173,7 +173,7 @@ public class MonitorCompletionController extends Controller {
         // Step 24
         addBlankLineToReport();
         incrementProgress("Requesting DM21");
-        getDiagnosticReadinessModule().reportDM21(getListener(), getReportFileModule().getMinutesSinceCodeClear());
+        getDiagnosticReadinessModule().reportDM21(getListener(), -1);
 
         // Step 25
         addBlankLineToReport();

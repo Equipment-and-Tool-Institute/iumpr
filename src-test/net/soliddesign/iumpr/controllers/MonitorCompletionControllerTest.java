@@ -236,7 +236,7 @@ public class MonitorCompletionControllerTest {
         when(engineSpeedModule.isEngineCommunicating()).thenReturn(true);
         when(comparisonModule.compareFileToVehicle(any(ResultsListener.class), eq(reportFileModule), eq(2), eq(17)))
                 .thenReturn(true);
-        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn(1234).thenReturn(1234);
+        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn(1234);
 
         LocalDateTime monitorTime = LocalDateTime.now();
         when(reportFileModule.getInitialMonitorsTime()).thenReturn(monitorTime);
@@ -350,8 +350,7 @@ public class MonitorCompletionControllerTest {
         inOrder.verify(reportFileModule).onResult("");
         inOrder.verify(listener).onProgress(14, 17, "Requesting DM21");
         inOrder.verify(reportFileModule).onProgress(14, 17, "Requesting DM21");
-        inOrder.verify(reportFileModule).getMinutesSinceCodeClear();
-        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq(1234));
+        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq(-1));
 
         inOrder.verify(listener).onResult("");
         inOrder.verify(reportFileModule).onResult("");
@@ -390,7 +389,7 @@ public class MonitorCompletionControllerTest {
         when(engineSpeedModule.isEngineCommunicating()).thenReturn(true);
         when(comparisonModule.compareFileToVehicle(any(ResultsListener.class), eq(reportFileModule), eq(2), eq(17)))
                 .thenReturn(true);
-        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn(1234).thenReturn(1234);
+        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn(1234);
         when(dateTimeModule.getDateTime()).thenReturn("Time").thenReturn("Time");
         when(monitorTrackingModule.getLastDm5Time()).thenReturn(null);
 
@@ -472,8 +471,7 @@ public class MonitorCompletionControllerTest {
         inOrder.verify(reportFileModule).onResult("");
         inOrder.verify(listener).onProgress(14, 17, "Requesting DM21");
         inOrder.verify(reportFileModule).onProgress(14, 17, "Requesting DM21");
-        inOrder.verify(reportFileModule).getMinutesSinceCodeClear();
-        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq(1234));
+        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq(-1));
 
         inOrder.verify(listener).onResult("");
         inOrder.verify(reportFileModule).onResult("");
