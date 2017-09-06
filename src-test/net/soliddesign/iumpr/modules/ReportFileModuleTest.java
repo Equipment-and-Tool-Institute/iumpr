@@ -72,7 +72,7 @@ public class ReportFileModuleTest {
         }
         assertEquals(false, instance.isNewFile());
         assertEquals(null, instance.getFileVin());
-        assertEquals(Integer.MIN_VALUE, instance.getMinutesSinceCodeClear());
+        assertEquals(Integer.MIN_VALUE, instance.getMinutesSinceCodeClear(), 0.0001);
         assertEquals(0, instance.getCalibrations().size());
         assertEquals(null, instance.getInitialMonitorsTime());
         assertEquals(0, instance.getInitialMonitors().size());
@@ -107,7 +107,7 @@ public class ReportFileModuleTest {
         instance.setReportFile(listener, file, false);
         assertEquals(false, instance.isNewFile());
         assertEquals("ASDFGHJKLASDFGHJKL", instance.getFileVin());
-        assertEquals(14, instance.getMinutesSinceCodeClear());
+        assertEquals(14, instance.getMinutesSinceCodeClear(), 0.0001);
         assertEquals(1, instance.getCalibrations().size());
 
         CalibrationInformation calInfo = instance.getCalibrations().iterator().next();
@@ -134,7 +134,7 @@ public class ReportFileModuleTest {
         }
         assertEquals(false, instance.isNewFile());
         assertEquals(null, instance.getFileVin());
-        assertEquals(Integer.MIN_VALUE, instance.getMinutesSinceCodeClear());
+        assertEquals(Integer.MIN_VALUE, instance.getMinutesSinceCodeClear(), 0.0001);
         assertEquals(0, instance.getCalibrations().size());
         assertEquals(null, instance.getInitialMonitorsTime());
         assertEquals(0, instance.getInitialMonitors().size());
@@ -159,7 +159,7 @@ public class ReportFileModuleTest {
         }
         assertEquals(false, instance.isNewFile());
         assertEquals(null, instance.getFileVin());
-        assertEquals(Integer.MIN_VALUE, instance.getMinutesSinceCodeClear());
+        assertEquals(Integer.MIN_VALUE, instance.getMinutesSinceCodeClear(), 0.0001);
         assertEquals(0, instance.getCalibrations().size());
         assertEquals(null, instance.getInitialMonitorsTime());
         assertEquals(0, instance.getInitialMonitors().size());
@@ -191,7 +191,7 @@ public class ReportFileModuleTest {
         instance.setReportFile(listener, file, false);
         assertEquals(false, instance.isNewFile());
         assertEquals("ASDFGHJKLASDFGHJKL", instance.getFileVin());
-        assertEquals(14, instance.getMinutesSinceCodeClear());
+        assertEquals(14, instance.getMinutesSinceCodeClear(), 0.0001);
         assertEquals(2, instance.getCalibrations().size());
 
         int count = 0;
@@ -271,7 +271,7 @@ public class ReportFileModuleTest {
 
         assertEquals(false, instance.isNewFile());
         assertEquals(null, instance.getFileVin());
-        assertEquals(Integer.MIN_VALUE, instance.getMinutesSinceCodeClear());
+        assertEquals(Integer.MIN_VALUE, instance.getMinutesSinceCodeClear(), 0.0001);
         assertEquals(0, instance.getCalibrations().size());
 
         assertEquals(null, instance.getInitialMonitorsTime());
@@ -287,7 +287,7 @@ public class ReportFileModuleTest {
         instance.setReportFile(listener, file, true);
         assertEquals(true, instance.isNewFile());
         assertEquals(null, instance.getFileVin());
-        assertEquals(Integer.MIN_VALUE, instance.getMinutesSinceCodeClear());
+        assertEquals(Integer.MIN_VALUE, instance.getMinutesSinceCodeClear(), 0.0001);
         assertEquals(0, instance.getCalibrations().size());
         assertEquals(null, instance.getInitialMonitorsTime());
         assertEquals(0, instance.getInitialMonitors().size());
@@ -315,7 +315,7 @@ public class ReportFileModuleTest {
         instance.onResult("2017-03-05T12:21:56.495 IUMPR Data Collection Tool Data Plate Report END OF REPORT");
 
         assertEquals("3HAMKSTN0FL575012", instance.getFileVin());
-        assertEquals(14, instance.getMinutesSinceCodeClear());
+        assertEquals(14, instance.getMinutesSinceCodeClear(), 0.0001);
         assertEquals(1, instance.getCalibrations().size());
 
         CalibrationInformation calInfo = instance.getCalibrations().iterator().next();
@@ -405,7 +405,7 @@ public class ReportFileModuleTest {
         instance.setReportFile(listener, file, false);
         assertEquals(false, instance.isNewFile());
         assertEquals("ASDFGHJKLASDFGHJKL", instance.getFileVin());
-        assertEquals(14, instance.getMinutesSinceCodeClear());
+        assertEquals(14, instance.getMinutesSinceCodeClear(), 0.0001);
         assertEquals(1, instance.getCalibrations().size());
 
         CalibrationInformation calInfo = instance.getCalibrations().iterator().next();
@@ -471,7 +471,7 @@ public class ReportFileModuleTest {
 
         assertEquals(false, instance.isNewFile());
         assertEquals(null, instance.getFileVin());
-        assertEquals(Integer.MIN_VALUE, instance.getMinutesSinceCodeClear());
+        assertEquals(Integer.MIN_VALUE, instance.getMinutesSinceCodeClear(), 0.0001);
         assertEquals(0, instance.getCalibrations().size());
 
         assertEquals(null, instance.getInitialMonitorsTime());
@@ -628,7 +628,7 @@ public class ReportFileModuleTest {
         instance.setReportFile(listener, file, false);
         assertEquals(false, instance.isNewFile());
         assertEquals("ASDFGHJKLASDFGHJKL", instance.getFileVin());
-        assertEquals(14, instance.getMinutesSinceCodeClear());
+        assertEquals(14, instance.getMinutesSinceCodeClear(), 0.0001);
         assertEquals(1, instance.getCalibrations().size());
 
         CalibrationInformation calInfo = instance.getCalibrations().iterator().next();
@@ -674,7 +674,7 @@ public class ReportFileModuleTest {
         instance.setReportFile(listener, file, true);
         assertEquals(true, instance.isNewFile());
         assertEquals(null, instance.getFileVin());
-        assertEquals(Integer.MIN_VALUE, instance.getMinutesSinceCodeClear());
+        assertEquals(Integer.MIN_VALUE, instance.getMinutesSinceCodeClear(), 0.0001);
         assertEquals(0, instance.getCalibrations().size());
         assertEquals(0, instance.getInitialMonitors().size());
         assertEquals(0, instance.getInitialRatios().size());
@@ -710,7 +710,7 @@ public class ReportFileModuleTest {
         }
         assertEquals(false, instance.isNewFile());
         assertEquals(null, instance.getFileVin());
-        assertEquals(Integer.MIN_VALUE, instance.getMinutesSinceCodeClear());
+        assertEquals(Integer.MIN_VALUE, instance.getMinutesSinceCodeClear(), 0.0001);
         assertEquals(0, instance.getCalibrations().size());
         assertEquals(null, instance.getInitialMonitorsTime());
         assertEquals(0, instance.getInitialMonitors().size());
@@ -738,7 +738,7 @@ public class ReportFileModuleTest {
         }
         assertEquals(false, instance.isNewFile());
         assertEquals(null, instance.getFileVin());
-        assertEquals(Integer.MIN_VALUE, instance.getMinutesSinceCodeClear());
+        assertEquals(Integer.MIN_VALUE, instance.getMinutesSinceCodeClear(), 0.0001);
         assertEquals(0, instance.getCalibrations().size());
         assertEquals(null, instance.getInitialMonitorsTime());
         assertEquals(0, instance.getInitialMonitors().size());
@@ -765,7 +765,7 @@ public class ReportFileModuleTest {
         }
         assertEquals(false, instance.isNewFile());
         assertEquals(null, instance.getFileVin());
-        assertEquals(Integer.MIN_VALUE, instance.getMinutesSinceCodeClear());
+        assertEquals(Integer.MIN_VALUE, instance.getMinutesSinceCodeClear(), 0.0001);
         assertEquals(0, instance.getCalibrations().size());
         assertEquals(null, instance.getInitialMonitorsTime());
         assertEquals(0, instance.getInitialMonitors().size());
@@ -793,17 +793,17 @@ public class ReportFileModuleTest {
         instance.setReportFile(listener, file, false);
         assertEquals(false, instance.isNewFile());
         assertEquals("ASDFGHJKLASDFGHJKL", instance.getFileVin());
-        assertEquals(14, instance.getMinutesSinceCodeClear());
+        assertEquals(14, instance.getMinutesSinceCodeClear(), 0.0001);
         assertEquals(1, instance.getCalibrations().size());
         CalibrationInformation calInfo = instance.getCalibrations().iterator().next();
         assertEquals("PBT5MPR3", calInfo.getCalibrationIdentification());
         assertEquals("0x40DCBF96", calInfo.getCalibrationVerificationNumber());
 
         instance.onResult("2017-02-11T16:43:18.770 18C10000 00 00 00 00 00 00 1E 00");
-        assertEquals(30, instance.getMinutesSinceCodeClear());
+        assertEquals(30, instance.getMinutesSinceCodeClear(), 0.0001);
 
         instance.onResult("  Time Since DTCs Cleared:                      100 minutes");
-        assertEquals(100, instance.getMinutesSinceCodeClear());
+        assertEquals(100, instance.getMinutesSinceCodeClear(), 0.0001);
     }
 
     @Test
@@ -825,7 +825,7 @@ public class ReportFileModuleTest {
             instance.setReportFile(listener, file, false);
             assertEquals(false, instance.isNewFile());
             assertEquals("ASDFGHJKLASDFGHJKL", instance.getFileVin());
-            assertEquals(14, instance.getMinutesSinceCodeClear());
+            assertEquals(14, instance.getMinutesSinceCodeClear(), 0.0001);
             assertEquals(1, instance.getCalibrations().size());
 
             CalibrationInformation calInfo = instance.getCalibrations().iterator().next();
@@ -848,7 +848,7 @@ public class ReportFileModuleTest {
             instance.setReportFile(listener, file2, true);
             assertEquals(true, instance.isNewFile());
             assertEquals(null, instance.getFileVin());
-            assertEquals(Integer.MIN_VALUE, instance.getMinutesSinceCodeClear());
+            assertEquals(Integer.MIN_VALUE, instance.getMinutesSinceCodeClear(), 0.0001);
             assertEquals(0, instance.getCalibrations().size());
 
             assertEquals(null, instance.getInitialMonitorsTime());
@@ -880,7 +880,7 @@ public class ReportFileModuleTest {
             instance.setReportFile(listener, file, false);
             assertEquals(false, instance.isNewFile());
             assertEquals("ASDFGHJKLASDFGHJKL", instance.getFileVin());
-            assertEquals(14, instance.getMinutesSinceCodeClear());
+            assertEquals(14, instance.getMinutesSinceCodeClear(), 0.0001);
             assertEquals(1, instance.getCalibrations().size());
 
             CalibrationInformation calInfo = instance.getCalibrations().iterator().next();
@@ -917,7 +917,7 @@ public class ReportFileModuleTest {
             instance.setReportFile(listener, file2, false);
             assertEquals(false, instance.isNewFile());
             assertEquals("ASDFGHJKLASDFGHJK", instance.getFileVin());
-            assertEquals(16, instance.getMinutesSinceCodeClear());
+            assertEquals(16, instance.getMinutesSinceCodeClear(), 0.0001);
             assertEquals(1, instance.getCalibrations().size());
 
             CalibrationInformation calInfo = instance.getCalibrations().iterator().next();
@@ -1053,7 +1053,7 @@ public class ReportFileModuleTest {
 
         assertEquals(false, instance.isNewFile());
         assertEquals(null, instance.getFileVin());
-        assertEquals(Integer.MIN_VALUE, instance.getMinutesSinceCodeClear());
+        assertEquals(Integer.MIN_VALUE, instance.getMinutesSinceCodeClear(), 0.0001);
         assertEquals(0, instance.getCalibrations().size());
         assertEquals(null, instance.getInitialMonitorsTime());
         assertEquals(0, instance.getInitialMonitors().size());
@@ -1080,7 +1080,7 @@ public class ReportFileModuleTest {
         }
         assertEquals(false, instance.isNewFile());
         assertEquals(null, instance.getFileVin());
-        assertEquals(Integer.MIN_VALUE, instance.getMinutesSinceCodeClear());
+        assertEquals(Integer.MIN_VALUE, instance.getMinutesSinceCodeClear(), 0.0001);
         assertEquals(0, instance.getCalibrations().size());
         assertEquals(null, instance.getInitialMonitorsTime());
         assertEquals(0, instance.getInitialMonitors().size());

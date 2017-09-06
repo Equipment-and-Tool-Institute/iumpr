@@ -31,11 +31,13 @@ Ant targets that should be run when doing development are:
 
 Additionally, it's recommended that the "docs" target also be executed in order to verify that there are no errors with the JavaDocs.
 
+The code base includes a simulated engine for testing without a connected module.  In order to use the simulated engine, the application must be run in debug mode and the Loop Back Adapter must be used.
+
 To build a new release, verify that the environment variable JRE_HOME points to a 32 bit JRE that can be included in the build like this:
 
 ```
 C:\Users\joe>echo %JRE_HOME%
-c:\Program Files (x86)\Java\jre1.8.0_121
+C:\Program Files (x86)\Java\jre1.8.0_121
 ```
 
 Then execute the "dist" target.  It will generate the jar, followed by an exe and finally the installer.

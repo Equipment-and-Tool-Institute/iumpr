@@ -87,9 +87,9 @@ public class ComparisonModuleTest {
 
         DM21DiagnosticReadinessPacket packet = mock(DM21DiagnosticReadinessPacket.class);
         when(packet.getMinutesSinceDTCsCleared()).thenReturn((double) 314);
-        when(j1939.request(DM21DiagnosticReadinessPacket.class, 0x00)).thenReturn(Optional.of(packet));
+        when(j1939.requestMultiple(DM21DiagnosticReadinessPacket.class)).thenReturn(Stream.of(packet));
 
-        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn(314);
+        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn((double) 314);
 
         VehicleIdentificationPacket vinPacket = mock(VehicleIdentificationPacket.class);
         when(vinPacket.getVin()).thenReturn("12345678901234567890");
@@ -102,7 +102,7 @@ public class ComparisonModuleTest {
         assertEquals(true, instance.compareFileToVehicle(listener, reportFileModule, 0, 4));
 
         verify(j1939).requestMultiple(DM19CalibrationInformationPacket.class);
-        verify(j1939).request(DM21DiagnosticReadinessPacket.class, 0x00);
+        verify(j1939).requestMultiple(DM21DiagnosticReadinessPacket.class);
         verify(j1939).request(VehicleIdentificationPacket.class, 0x00);
 
         verify(reportFileModule).isNewFile();
@@ -136,9 +136,10 @@ public class ComparisonModuleTest {
 
         DM21DiagnosticReadinessPacket packet = mock(DM21DiagnosticReadinessPacket.class);
         when(packet.getMinutesSinceDTCsCleared()).thenReturn((double) 314);
-        when(j1939.request(DM21DiagnosticReadinessPacket.class, 0x00)).thenReturn(Optional.of(packet));
+        when(j1939.requestMultiple(DM21DiagnosticReadinessPacket.class)).thenReturn(Stream.of(packet))
+                .thenReturn(Stream.of(packet));
 
-        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn(314);
+        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn((double) 314);
 
         VehicleIdentificationPacket vinPacket = mock(VehicleIdentificationPacket.class);
         when(vinPacket.getVin()).thenReturn("12345678901234567890");
@@ -152,7 +153,7 @@ public class ComparisonModuleTest {
         assertEquals(true, instance.compareFileToVehicle(listener, reportFileModule, 0, 4));
 
         verify(j1939, times(2)).requestMultiple(DM19CalibrationInformationPacket.class);
-        verify(j1939, times(2)).request(DM21DiagnosticReadinessPacket.class, 0x00);
+        verify(j1939, times(2)).requestMultiple(DM21DiagnosticReadinessPacket.class);
         verify(j1939, times(2)).request(VehicleIdentificationPacket.class, 0x00);
 
         verify(reportFileModule, times(2)).isNewFile();
@@ -279,11 +280,13 @@ public class ComparisonModuleTest {
         fileCals.add(new CalibrationInformation("id2", "cvn2"));
         when(reportFileModule.getCalibrations()).thenReturn(fileCals);
 
-        DM21DiagnosticReadinessPacket packet = mock(DM21DiagnosticReadinessPacket.class);
-        when(packet.getMinutesSinceDTCsCleared()).thenReturn((double) 314);
-        when(j1939.request(DM21DiagnosticReadinessPacket.class, 0x00)).thenReturn(Optional.of(packet));
+        DM21DiagnosticReadinessPacket packet21 = mock(DM21DiagnosticReadinessPacket.class);
+        when(packet21.getMinutesSinceDTCsCleared()).thenReturn((double) 314);
+        DM21DiagnosticReadinessPacket packet22 = mock(DM21DiagnosticReadinessPacket.class);
+        when(packet22.getMinutesSinceDTCsCleared()).thenReturn((double) 99);
+        when(j1939.requestMultiple(DM21DiagnosticReadinessPacket.class)).thenReturn(Stream.of(packet21, packet22));
 
-        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn(200);
+        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn((double) 200);
 
         VehicleIdentificationPacket vinPacket = mock(VehicleIdentificationPacket.class);
         when(vinPacket.getVin()).thenReturn("12345678901234567890");
@@ -295,7 +298,7 @@ public class ComparisonModuleTest {
         assertEquals(true, instance.compareFileToVehicle(listener, reportFileModule, 0, 4));
 
         verify(j1939).requestMultiple(DM19CalibrationInformationPacket.class);
-        verify(j1939).request(DM21DiagnosticReadinessPacket.class, 0x00);
+        verify(j1939).requestMultiple(DM21DiagnosticReadinessPacket.class);
         verify(j1939).request(VehicleIdentificationPacket.class, 0x00);
 
         verify(reportFileModule).isNewFile();
@@ -331,9 +334,9 @@ public class ComparisonModuleTest {
 
         DM21DiagnosticReadinessPacket packet = mock(DM21DiagnosticReadinessPacket.class);
         when(packet.getMinutesSinceDTCsCleared()).thenReturn((double) 0);
-        when(j1939.request(DM21DiagnosticReadinessPacket.class, 0x00)).thenReturn(Optional.of(packet));
+        when(j1939.requestMultiple(DM21DiagnosticReadinessPacket.class)).thenReturn(Stream.of(packet));
 
-        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn(200);
+        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn((double) 200);
 
         VehicleIdentificationPacket vinPacket = mock(VehicleIdentificationPacket.class);
         when(vinPacket.getVin()).thenReturn("12345678901234567890");
@@ -345,7 +348,7 @@ public class ComparisonModuleTest {
         assertEquals(true, instance.compareFileToVehicle(listener, reportFileModule, 0, 4));
 
         verify(j1939).requestMultiple(DM19CalibrationInformationPacket.class);
-        verify(j1939).request(DM21DiagnosticReadinessPacket.class, 0x00);
+        verify(j1939).requestMultiple(DM21DiagnosticReadinessPacket.class);
         verify(j1939).request(VehicleIdentificationPacket.class, 0x00);
 
         verify(reportFileModule).isNewFile();
@@ -379,7 +382,7 @@ public class ComparisonModuleTest {
         fileCals.add(new CalibrationInformation("id2", "cvn2"));
         when(reportFileModule.getCalibrations()).thenReturn(fileCals);
 
-        when(j1939.request(DM21DiagnosticReadinessPacket.class, 0x00)).thenReturn(Optional.empty());
+        when(j1939.requestMultiple(DM21DiagnosticReadinessPacket.class)).thenReturn(Stream.empty());
 
         VehicleIdentificationPacket vinPacket = mock(VehicleIdentificationPacket.class);
         when(vinPacket.getVin()).thenReturn("12345678901234567890");
@@ -395,7 +398,7 @@ public class ComparisonModuleTest {
         }
 
         verify(j1939).requestMultiple(DM19CalibrationInformationPacket.class);
-        verify(j1939).request(DM21DiagnosticReadinessPacket.class, 0x00);
+        verify(j1939).requestMultiple(DM21DiagnosticReadinessPacket.class);
         verify(j1939).request(VehicleIdentificationPacket.class, 0x00);
 
         verify(reportFileModule).isNewFile();
@@ -490,22 +493,22 @@ public class ComparisonModuleTest {
     public void testGetMinutesSinceCodeClear() throws Exception {
         DM21DiagnosticReadinessPacket packet = mock(DM21DiagnosticReadinessPacket.class);
         when(packet.getMinutesSinceDTCsCleared()).thenReturn((double) 314);
-        when(j1939.request(DM21DiagnosticReadinessPacket.class, 0x00)).thenReturn(Optional.of(packet));
-        assertEquals(314, instance.getMinutesSinceCodeClear());
-        verify(j1939).request(DM21DiagnosticReadinessPacket.class, 0x00);
+        when(j1939.requestMultiple(DM21DiagnosticReadinessPacket.class)).thenReturn(Stream.of(packet));
+        assertEquals(314, instance.getMinutesSinceCodeClear(), 0.0001);
+        verify(j1939).requestMultiple(DM21DiagnosticReadinessPacket.class);
         // Make sure it's cached
-        assertEquals(314, instance.getMinutesSinceCodeClear());
+        assertEquals(314, instance.getMinutesSinceCodeClear(), 0.0001);
     }
 
     @Test
     public void testGetMinutesSinceCodeClearWithNoResponse() throws Exception {
-        when(j1939.request(DM21DiagnosticReadinessPacket.class, 0x00)).thenReturn(Optional.empty());
+        when(j1939.requestMultiple(DM21DiagnosticReadinessPacket.class)).thenReturn(Stream.empty());
         try {
             instance.getMinutesSinceCodeClear();
         } catch (IOException e) {
             assertEquals("Timeout Error Reading Time Since Code Cleared", e.getMessage());
         }
-        verify(j1939).request(DM21DiagnosticReadinessPacket.class, 0x00);
+        verify(j1939).requestMultiple(DM21DiagnosticReadinessPacket.class);
     }
 
     @Test

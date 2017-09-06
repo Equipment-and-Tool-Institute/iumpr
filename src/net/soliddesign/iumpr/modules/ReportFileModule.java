@@ -197,7 +197,7 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
     /**
      * The Time Since Code Clear from the file
      */
-    private int tscc = Integer.MIN_VALUE;
+    private double tscc = Integer.MIN_VALUE;
 
     /**
      * The Vehicle Identification Number found in an existing report file
@@ -497,9 +497,9 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
     /**
      * Returns the Time Since Code Clear from the file, in minutes
      *
-     * @return int
+     * @return double
      */
-    public int getMinutesSinceCodeClear() {
+    public double getMinutesSinceCodeClear() {
         return tscc;
     }
 

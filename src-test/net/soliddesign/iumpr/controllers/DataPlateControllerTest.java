@@ -105,9 +105,8 @@ public class DataPlateControllerTest {
         when(engineSpeedModule.isEngineNotRunning()).thenReturn(false).thenReturn(false)
                 .thenReturn(true);
         when(comparisonModule.compareFileToVehicle(any(ResultsListener.class), eq(reportFileModule), eq(2),
-                eq(TOTAL_STEPS)))
-                        .thenReturn(true);
-        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn(1234).thenReturn(0);
+                eq(TOTAL_STEPS))).thenReturn(true);
+        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn((double) 1234).thenReturn((double) 0);
         when(reportFileModule.isNewFile()).thenReturn(true);
         List<Integer> obdModules = Collections.singletonList(0x00);
         when(dtcModule.reportDM11(any(ResultsListener.class), eq(obdModules))).thenReturn(false);
@@ -189,7 +188,7 @@ public class DataPlateControllerTest {
         inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).getMinutesSinceCodeClear();
-        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq(1234));
+        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq((double) 1234));
 
         step++;
         inOrder.verify(listener).onResult("");
@@ -245,7 +244,7 @@ public class DataPlateControllerTest {
         when(engineSpeedModule.isEngineCommunicating()).thenReturn(true);
         when(comparisonModule.compareFileToVehicle(any(ResultsListener.class), eq(reportFileModule), eq(2),
                 eq(TOTAL_STEPS))).thenReturn(true);
-        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn(1234).thenReturn(0);
+        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn((double) 1234).thenReturn((double) 0);
         when(reportFileModule.isNewFile()).thenReturn(false);
         List<Integer> obdModules = Collections.singletonList(0x00);
         when(diagnosticReadinessModule.getOBDModules(any(ResultsListener.class))).thenReturn(obdModules);
@@ -329,7 +328,7 @@ public class DataPlateControllerTest {
         inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).getMinutesSinceCodeClear();
-        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq(1234));
+        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq((double) 1234));
 
         step++;
         inOrder.verify(listener).onResult("");
@@ -397,9 +396,8 @@ public class DataPlateControllerTest {
     public void testAbortIfDM26Fails() throws Exception {
         when(engineSpeedModule.isEngineCommunicating()).thenReturn(true);
         when(comparisonModule.compareFileToVehicle(any(ResultsListener.class), eq(reportFileModule), eq(2),
-                eq(TOTAL_STEPS)))
-                        .thenReturn(true);
-        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn(1234).thenReturn(0);
+                eq(TOTAL_STEPS))).thenReturn(true);
+        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn((double) 1234).thenReturn((double) 0);
         when(reportFileModule.isNewFile()).thenReturn(false);
         List<Integer> obdModules = Collections.singletonList(0x00);
         when(diagnosticReadinessModule.getOBDModules(any(ResultsListener.class))).thenReturn(obdModules);
@@ -482,7 +480,7 @@ public class DataPlateControllerTest {
         inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).getMinutesSinceCodeClear();
-        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq(1234));
+        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq((double) 1234));
 
         step++;
         inOrder.verify(listener).onResult("");
@@ -543,9 +541,8 @@ public class DataPlateControllerTest {
     public void testAbortIfDM5Fails() throws Exception {
         when(engineSpeedModule.isEngineCommunicating()).thenReturn(true);
         when(comparisonModule.compareFileToVehicle(any(ResultsListener.class), eq(reportFileModule), eq(2),
-                eq(TOTAL_STEPS)))
-                        .thenReturn(true);
-        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn(1234).thenReturn(0);
+                eq(TOTAL_STEPS))).thenReturn(true);
+        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn((double) 1234).thenReturn((double) 0);
         when(reportFileModule.isNewFile()).thenReturn(false);
         List<Integer> obdModules = Collections.singletonList(0x00);
         when(diagnosticReadinessModule.getOBDModules(any(ResultsListener.class))).thenReturn(obdModules);
@@ -627,7 +624,7 @@ public class DataPlateControllerTest {
         inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).getMinutesSinceCodeClear();
-        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq(1234));
+        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq((double) 1234));
 
         step++;
         inOrder.verify(listener).onResult("");
@@ -681,9 +678,8 @@ public class DataPlateControllerTest {
     public void testAbortIfNoOBDModules() throws Exception {
         when(engineSpeedModule.isEngineCommunicating()).thenReturn(true);
         when(comparisonModule.compareFileToVehicle(any(ResultsListener.class), eq(reportFileModule), eq(2),
-                eq(TOTAL_STEPS)))
-                        .thenReturn(true);
-        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn(1234).thenReturn(0);
+                eq(TOTAL_STEPS))).thenReturn(true);
+        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn((double) 1234).thenReturn((double) 0);
         List<Integer> obdModules = Collections.emptyList();
         when(diagnosticReadinessModule.getOBDModules(any(ResultsListener.class))).thenReturn(obdModules);
 
@@ -763,7 +759,7 @@ public class DataPlateControllerTest {
         inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).getMinutesSinceCodeClear();
-        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq(1234));
+        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq((double) 1234));
 
         step++;
         inOrder.verify(listener).onResult("");
@@ -925,9 +921,8 @@ public class DataPlateControllerTest {
     public void testDisplayWarningForDM12s() throws Exception {
         when(engineSpeedModule.isEngineCommunicating()).thenReturn(true);
         when(comparisonModule.compareFileToVehicle(any(ResultsListener.class), eq(reportFileModule), eq(2),
-                eq(TOTAL_STEPS)))
-                        .thenReturn(true);
-        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn(1234).thenReturn(0);
+                eq(TOTAL_STEPS))).thenReturn(true);
+        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn((double) 1234).thenReturn((double) 0);
         when(reportFileModule.isNewFile()).thenReturn(false);
         List<Integer> obdModules = Collections.singletonList(0x00);
         when(diagnosticReadinessModule.getOBDModules(any(ResultsListener.class))).thenReturn(obdModules);
@@ -1015,7 +1010,7 @@ public class DataPlateControllerTest {
         inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).getMinutesSinceCodeClear();
-        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq(1234));
+        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq((double) 1234));
 
         step++;
         inOrder.verify(listener).onResult("");
@@ -1100,7 +1095,7 @@ public class DataPlateControllerTest {
         inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).getMinutesSinceCodeClear();
-        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq(0));
+        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq((double) 0));
 
         step++;
         inOrder.verify(listener).onResult("");
@@ -1142,7 +1137,7 @@ public class DataPlateControllerTest {
         when(engineSpeedModule.isEngineCommunicating()).thenReturn(true);
         when(comparisonModule.compareFileToVehicle(any(ResultsListener.class), eq(reportFileModule), eq(2),
                 eq(TOTAL_STEPS))).thenReturn(true);
-        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn(1234).thenReturn(0);
+        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn((double) 1234).thenReturn((double) 0);
         when(reportFileModule.isNewFile()).thenReturn(false);
         List<Integer> obdModules = Collections.singletonList(0x00);
         when(diagnosticReadinessModule.getOBDModules(any(ResultsListener.class))).thenReturn(obdModules);
@@ -1230,7 +1225,7 @@ public class DataPlateControllerTest {
         inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).getMinutesSinceCodeClear();
-        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq(1234));
+        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq((double) 1234));
 
         step++;
         inOrder.verify(listener).onResult("");
@@ -1315,7 +1310,7 @@ public class DataPlateControllerTest {
         inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).getMinutesSinceCodeClear();
-        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq(0));
+        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq((double) 0));
 
         step++;
         inOrder.verify(listener).onResult("");
@@ -1356,9 +1351,8 @@ public class DataPlateControllerTest {
     public void testDisplayWarningForDM28s() throws Exception {
         when(engineSpeedModule.isEngineCommunicating()).thenReturn(true);
         when(comparisonModule.compareFileToVehicle(any(ResultsListener.class), eq(reportFileModule), eq(2),
-                eq(TOTAL_STEPS)))
-                        .thenReturn(true);
-        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn(1234).thenReturn(0);
+                eq(TOTAL_STEPS))).thenReturn(true);
+        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn((double) 1234).thenReturn((double) 0);
         when(reportFileModule.isNewFile()).thenReturn(false);
         List<Integer> obdModules = Collections.singletonList(0x00);
         when(diagnosticReadinessModule.getOBDModules(any(ResultsListener.class))).thenReturn(obdModules);
@@ -1446,7 +1440,7 @@ public class DataPlateControllerTest {
         inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).getMinutesSinceCodeClear();
-        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq(1234));
+        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq((double) 1234));
 
         step++;
         inOrder.verify(listener).onResult("");
@@ -1530,7 +1524,7 @@ public class DataPlateControllerTest {
         inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).getMinutesSinceCodeClear();
-        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq(0));
+        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq((double) 0));
 
         step++;
         inOrder.verify(listener).onResult("");
@@ -1571,9 +1565,8 @@ public class DataPlateControllerTest {
     public void testDisplayWarningForDM6s() throws Exception {
         when(engineSpeedModule.isEngineCommunicating()).thenReturn(true);
         when(comparisonModule.compareFileToVehicle(any(ResultsListener.class), eq(reportFileModule), eq(2),
-                eq(TOTAL_STEPS)))
-                        .thenReturn(true);
-        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn(1234).thenReturn(0);
+                eq(TOTAL_STEPS))).thenReturn(true);
+        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn((double) 1234).thenReturn((double) 0);
         when(reportFileModule.isNewFile()).thenReturn(false);
         List<Integer> obdModules = Collections.singletonList(0x00);
         when(diagnosticReadinessModule.getOBDModules(any(ResultsListener.class))).thenReturn(obdModules);
@@ -1661,7 +1654,7 @@ public class DataPlateControllerTest {
         inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).getMinutesSinceCodeClear();
-        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq(1234));
+        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq((double) 1234));
 
         step++;
         inOrder.verify(listener).onResult("");
@@ -1746,7 +1739,7 @@ public class DataPlateControllerTest {
         inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).getMinutesSinceCodeClear();
-        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq(0));
+        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq((double) 0));
 
         step++;
         inOrder.verify(listener).onResult("");
@@ -1788,7 +1781,7 @@ public class DataPlateControllerTest {
         when(engineSpeedModule.isEngineCommunicating()).thenReturn(true);
         when(comparisonModule.compareFileToVehicle(any(ResultsListener.class), eq(reportFileModule), eq(2),
                 eq(TOTAL_STEPS))).thenReturn(true);
-        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn(1234).thenReturn(0);
+        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn((double) 1234).thenReturn((double) 0);
         when(reportFileModule.isNewFile()).thenReturn(false);
         List<Integer> obdModules = Collections.singletonList(0x00);
         when(diagnosticReadinessModule.getOBDModules(any(ResultsListener.class))).thenReturn(obdModules);
@@ -1876,7 +1869,7 @@ public class DataPlateControllerTest {
         inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).getMinutesSinceCodeClear();
-        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq(1234));
+        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq((double) 1234));
 
         step++;
         inOrder.verify(listener).onResult("");
@@ -1956,7 +1949,7 @@ public class DataPlateControllerTest {
         inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).getMinutesSinceCodeClear();
-        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq(0));
+        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq((double) 0));
 
         step++;
         inOrder.verify(listener).onResult("");
@@ -1998,9 +1991,8 @@ public class DataPlateControllerTest {
         when(engineSpeedModule.isEngineCommunicating()).thenReturn(true);
         when(engineSpeedModule.isEngineNotRunning()).thenReturn(true);
         when(comparisonModule.compareFileToVehicle(any(ResultsListener.class), eq(reportFileModule), eq(2),
-                eq(TOTAL_STEPS)))
-                        .thenReturn(true);
-        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn(1234).thenReturn(0);
+                eq(TOTAL_STEPS))).thenReturn(true);
+        when(reportFileModule.getMinutesSinceCodeClear()).thenReturn((double) 1234).thenReturn((double) 0);
         when(reportFileModule.isNewFile()).thenReturn(true);
         List<Integer> obdModules = Collections.singletonList(0x00);
         when(dtcModule.reportDM11(any(ResultsListener.class), eq(obdModules))).thenReturn(true);
@@ -2089,7 +2081,7 @@ public class DataPlateControllerTest {
         inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).getMinutesSinceCodeClear();
-        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq(1234));
+        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq((double) 1234));
 
         step++;
         inOrder.verify(listener).onResult("");
@@ -2169,7 +2161,7 @@ public class DataPlateControllerTest {
         inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).getMinutesSinceCodeClear();
-        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq(0));
+        inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq((double) 0));
 
         step++;
         inOrder.verify(listener).onResult("");

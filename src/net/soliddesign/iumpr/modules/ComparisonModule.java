@@ -49,7 +49,7 @@ public class ComparisonModule extends FunctionalModule {
     /**
      * The Time Since Code Cleared read from the vehicle
      */
-    private Integer minutesSinceCodeClear;
+    private Double minutesSinceCodeClear;
 
     /**
      * The Vehicle Identification Number read from the vehicle
@@ -106,7 +106,7 @@ public class ComparisonModule extends FunctionalModule {
         }
 
         listener.onProgress(++currentStep, maxSteps, "Reading Time Since Code Cleared from Vehicle");
-        int delta = getMinutesSinceCodeClear() - reportFileModule.getMinutesSinceCodeClear();
+        double delta = getMinutesSinceCodeClear() - reportFileModule.getMinutesSinceCodeClear();
         if (delta < 0) {
             reportTSCCReset(listener, delta);
         } else if (delta > DiagnosticReadinessModule.TSCC_GAP_LIMIT) {
@@ -157,11 +157,11 @@ public class ComparisonModule extends FunctionalModule {
      * @throws IOException
      *             if no value is returned from the vehicle
      */
-    public int getMinutesSinceCodeClear() throws IOException {
+    public double getMinutesSinceCodeClear() throws IOException {
         if (minutesSinceCodeClear == null) {
             try {
-                minutesSinceCodeClear = getJ1939().request(DM21DiagnosticReadinessPacket.class,
-                        J1939.ENGINE_ADDR).map(t -> t.getMinutesSinceDTCsCleared()).get().intValue();
+                minutesSinceCodeClear = getJ1939().requestMultiple(DM21DiagnosticReadinessPacket.class)
+                        .mapToDouble(t -> t.getMinutesSinceDTCsCleared()).max().getAsDouble();
             } catch (NoSuchElementException e) {
                 throw new IOException("Timeout Error Reading Time Since Code Cleared");
             }
@@ -214,8 +214,8 @@ public class ComparisonModule extends FunctionalModule {
      * @param delta
      *            the difference between the current TSCC and the file TSCC
      */
-    private void reportTSCCGap(ResultsListener listener, int delta) {
-        String message = "The Time Since Code Cleared has an excessive gap of " + delta + " minutes.";
+    private void reportTSCCGap(ResultsListener listener, double delta) {
+        String message = "The Time Since Code Cleared has an excessive gap of " + (int) delta + " minutes.";
         listener.onUrgentMessage(message, "Time SCC Excess Gap Error", JOptionPane.WARNING_MESSAGE);
     }
 
@@ -227,8 +227,9 @@ public class ComparisonModule extends FunctionalModule {
      * @param delta
      *            the difference between the current TSCC and the file TSCC
      */
-    private void reportTSCCReset(ResultsListener listener, int delta) {
-        String message = "The Time Since Code Cleared was reset. The difference is " + Math.abs(delta) + " minutes.";
+    private void reportTSCCReset(ResultsListener listener, double delta) {
+        String message = "The Time Since Code Cleared was reset. The difference is " + Math.abs((int) delta)
+                + " minutes.";
         listener.onUrgentMessage(message, "Time SCC Reset Error", JOptionPane.WARNING_MESSAGE);
     }
 

@@ -406,11 +406,11 @@ public class DiagnosticReadinessModule extends FunctionalModule {
      * @param lastTscc
      *            the last reported Time Since Code Cleared
      */
-    public void reportDM21(ResultsListener listener, int lastTscc) {
+    public void reportDM21(ResultsListener listener, double lastTscc) {
         List<DM21DiagnosticReadinessPacket> packets = getDM21Packets(listener, true);
-        int tscc = packets.stream().mapToInt(p -> ((int) p.getMinutesSinceDTCsCleared())).max().orElse(-1);
+        double tscc = packets.stream().mapToDouble(p -> (p.getMinutesSinceDTCsCleared())).max().orElse(-1);
         if (tscc >= 0 && lastTscc >= 0) {
-            int delta = tscc - lastTscc;
+            int delta = (int) (tscc - lastTscc);
             if (delta < 0) {
                 listener.onResult("ERROR Time Since Code Cleared Reset / Rollover");
             } else if (delta > TSCC_GAP_LIMIT) {
