@@ -102,6 +102,8 @@ public class DataPlateControllerTest {
     @Test
     public void testAbortIfDM11Fails() throws Exception {
         when(engineSpeedModule.isEngineCommunicating()).thenReturn(true);
+        when(engineSpeedModule.isEngineNotRunning()).thenReturn(false).thenReturn(false)
+                .thenReturn(true);
         when(comparisonModule.compareFileToVehicle(any(ResultsListener.class), eq(reportFileModule), eq(2),
                 eq(TOTAL_STEPS)))
                         .thenReturn(true);
@@ -207,6 +209,15 @@ public class DataPlateControllerTest {
         inOrder.verify(listener).onResult("");
         inOrder.verify(reportFileModule).onResult("");
         inOrder.verify(reportFileModule).isNewFile();
+        inOrder.verify(engineSpeedModule).isEngineNotRunning();
+        inOrder.verify(listener).onUrgentMessage("Please turn the Engine OFF with Key ON.", "Adjust Key Switch",
+                JOptionPane.WARNING_MESSAGE);
+        inOrder.verify(reportFileModule).onUrgentMessage("Please turn the Engine OFF with Key ON.", "Adjust Key Switch",
+                JOptionPane.WARNING_MESSAGE);
+        inOrder.verify(engineSpeedModule).isEngineNotRunning();
+        inOrder.verify(listener).onProgress(step - 1, TOTAL_STEPS, "Waiting for Key ON, Engine OFF...");
+        inOrder.verify(reportFileModule).onProgress(step - 1, TOTAL_STEPS, "Waiting for Key ON, Engine OFF...");
+        inOrder.verify(engineSpeedModule).isEngineNotRunning();
         inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Clearing Active Codes");
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Clearing Active Codes");
         inOrder.verify(dtcModule).reportDM11(any(ResultsListener.class), eq(obdModules));
@@ -1985,6 +1996,7 @@ public class DataPlateControllerTest {
     @Test
     public void testHappyPathWithNewFile() throws Exception {
         when(engineSpeedModule.isEngineCommunicating()).thenReturn(true);
+        when(engineSpeedModule.isEngineNotRunning()).thenReturn(true);
         when(comparisonModule.compareFileToVehicle(any(ResultsListener.class), eq(reportFileModule), eq(2),
                 eq(TOTAL_STEPS)))
                         .thenReturn(true);
@@ -2097,6 +2109,7 @@ public class DataPlateControllerTest {
         inOrder.verify(listener).onResult("");
         inOrder.verify(reportFileModule).onResult("");
         inOrder.verify(reportFileModule).isNewFile();
+        inOrder.verify(engineSpeedModule).isEngineNotRunning();
         inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Clearing Active Codes");
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Clearing Active Codes");
         inOrder.verify(dtcModule).reportDM11(any(ResultsListener.class), eq(obdModules));

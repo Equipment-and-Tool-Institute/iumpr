@@ -141,6 +141,16 @@ public class DataPlateController extends Controller {
         // Steps 29-33
         addBlankLineToReport();
         if (getReportFileModule().isNewFile()) {
+            if (!getEngineSpeedModule().isEngineNotRunning()) {
+                getListener().onUrgentMessage("Please turn the Engine OFF with Key ON.", "Adjust Key Switch",
+                        JOptionPane.WARNING_MESSAGE);
+
+                while (!getEngineSpeedModule().isEngineNotRunning()) {
+                    updateProgress("Waiting for Key ON, Engine OFF...");
+                    Thread.sleep(500);
+                }
+            }
+
             incrementProgress("Clearing Active Codes");
             boolean dm11Response = dtcModule.reportDM11(getListener(), obdModules);
             if (!dm11Response) {
