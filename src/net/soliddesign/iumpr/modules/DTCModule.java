@@ -74,7 +74,7 @@ public class DTCModule extends FunctionalModule {
                 .requestRaw(DM11ClearActiveDTCsPacket.class, requestPacket, 5500, TimeUnit.MILLISECONDS);
 
         List<String> responses = results.peek(t -> {
-            if (obdModules.contains(t.getSourceAddress()) && t.getResponse() == Response.NACK) {
+            if (obdModules.contains(t.getSourceAddress()) && t.getResponse() != Response.ACK) {
                 result[0] = false;
             }
         }).map(getPacketMapperFunction()).collect(Collectors.toList());

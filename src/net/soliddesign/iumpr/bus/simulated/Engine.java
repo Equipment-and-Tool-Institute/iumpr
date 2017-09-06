@@ -44,7 +44,7 @@ public class Engine implements AutoCloseable {
     private static final byte[] ENGINE_CVN7 = as4Bytes(0x1B72F353);
 
     private static final byte[] ENGINE_HOURS = as4Bytes(3564 * 20); // hrs
-    private static final byte[] ENGINE_SPEED = as2Bytes(500 * 8); // rpm
+    private static final byte[] ENGINE_SPEED = as2Bytes(100 * 8); // rpm
     private static final byte NA = (byte) 0xFF;
     private static final byte[] NA3 = new byte[] { NA, NA, NA };
     private static final byte[] NA4 = new byte[] { NA, NA, NA, NA };

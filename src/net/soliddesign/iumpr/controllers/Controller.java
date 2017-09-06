@@ -233,9 +233,9 @@ public abstract class Controller {
             getListener().onUrgentMessage(
                     "The engine is not communicating.  Please check the adapter connection with the vehicle and/or turn the key on/start the vehicle.",
                     "Engine Not Communicating", JOptionPane.WARNING_MESSAGE);
-            updateProgress(
-                    "Engine Not Communicating.  Please start vehicle or push Stop");
+            updateProgress("Engine Not Communicating.  Please start vehicle or push Stop");
             while (!getEngineSpeedModule().isEngineCommunicating()) {
+                Thread.sleep(100);
                 checkEnding();
             }
         }
@@ -329,6 +329,15 @@ public abstract class Controller {
      */
     protected ComparisonModule getComparisonModule() {
         return comparisonModule;
+    }
+
+    /**
+     * Returns the current date/time stamp for the report
+     *
+     * @return {@link String}
+     */
+    protected String getDateTime() {
+        return getDateTimeModule().getDateTime();
     }
 
     /**
@@ -438,15 +447,6 @@ public abstract class Controller {
                 finished();
             }
         };
-    }
-
-    /**
-     * Returns the current date/time stamp for the report
-     *
-     * @return {@link String}
-     */
-    protected String getDateTime() {
-        return getDateTimeModule().getDateTime();
     }
 
     /**
