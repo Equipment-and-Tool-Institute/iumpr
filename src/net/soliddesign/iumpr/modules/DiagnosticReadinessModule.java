@@ -183,13 +183,13 @@ public class DiagnosticReadinessModule extends FunctionalModule {
      * @param packets
      *            the Packets to parse
      * @param isDM5
-     *            true to indicate the packts are DM5s
+     *            true to indicate the packets are DM5s
      * @return a {@link List} of {@link MonitoredSystem}s
      */
     private List<CompositeMonitoredSystem> getCompositeSystems(List<? extends DiagnosticReadinessPacket> packets,
             boolean isDM5) {
         return getCompositeSystems(packets.stream().flatMap(p -> p.getMonitoredSystems().stream())
-                .collect(Collectors.toSet()), true);
+                .collect(Collectors.toSet()), isDM5);
     }
 
     /**
