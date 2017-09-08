@@ -3,6 +3,7 @@
  */
 package net.soliddesign.iumpr.bus.j1939;
 
+import static net.soliddesign.iumpr.bus.j1939.J1939.ENGINE_ADDR;
 import static net.soliddesign.iumpr.bus.j1939.J1939.GLOBAL_ADDR;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -519,6 +520,22 @@ public class J1939Test {
         Stream<DM5DiagnosticReadinessPacket> response = instance.requestMultiple(DM5DiagnosticReadinessPacket.class,
                 request);
         assertEquals(0, response.count());
+    }
+
+    @Test
+    public void testRequestMultipleHandlesDSRequests() throws Exception {
+        Packet packet = Packet.create(EngineHoursPacket.PGN, 0x00, 1, 2, 3, 4, 5, 6, 7, 8);
+        when(bus.read(ArgumentMatchers.anyLong(), ArgumentMatchers.any(TimeUnit.class)))
+                .thenReturn(Stream.of(packet));
+
+        Packet requestPacket = instance.createRequestPacket(EngineHoursPacket.PGN, ENGINE_ADDR);
+
+        Stream<EngineHoursPacket> response = instance.requestMultiple(EngineHoursPacket.class, requestPacket);
+        List<EngineHoursPacket> packets = response.collect(Collectors.toList());
+        assertEquals(1, packets.size());
+        assertEquals(3365299.25, packets.get(0).getEngineHours(), 0.0001);
+
+        verify(bus).send(requestPacket);
     }
 
     @Test
