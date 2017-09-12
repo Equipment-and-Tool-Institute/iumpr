@@ -3,7 +3,6 @@
  */
 package net.soliddesign.iumpr.modules;
 
-import static net.soliddesign.iumpr.bus.j1939.J1939.ENGINE_ADDR;
 import static net.soliddesign.iumpr.bus.j1939.J1939.GLOBAL_ADDR;
 
 import java.text.NumberFormat;
@@ -116,7 +115,7 @@ public class VehicleInformationModule extends FunctionalModule {
      *            the {@link ResultsListener} that will be given the report
      */
     public void reportEngineHours(ResultsListener listener) {
-        Packet request = getJ1939().createRequestPacket(EngineHoursPacket.PGN, ENGINE_ADDR);
+        Packet request = getJ1939().createRequestPacket(EngineHoursPacket.PGN, GLOBAL_ADDR);
         generateReport(listener, "Engine Hours Request", EngineHoursPacket.class, request);
     }
 

@@ -318,23 +318,26 @@ public class VehicleInformationModuleTest {
     public void testReportEngineHours() {
         final int pgn = EngineHoursPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0x00, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
-        when(j1939.createRequestPacket(pgn, 0x00)).thenReturn(requestPacket);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         EngineHoursPacket packet1 = new EngineHoursPacket(Packet.create(pgn, 0x00, 1, 2, 3, 4, 5, 6, 7, 8));
-        when(j1939.requestMultiple(EngineHoursPacket.class, requestPacket)).thenReturn(Stream.of(packet1));
+        EngineHoursPacket packet2 = new EngineHoursPacket(Packet.create(pgn, 0x01, 8, 7, 6, 5, 4, 3, 2, 1));
+        when(j1939.requestMultiple(EngineHoursPacket.class, requestPacket)).thenReturn(Stream.of(packet1, packet2));
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Engine Hours Request" + NL;
-        expected += "10:15:30.000 18EA00A5 E5 FE 00 (TX)" + NL;
+        expected += "10:15:30.000 18EAFFA5 E5 FE 00 (TX)" + NL;
         expected += "10:15:30.000 18FEE500 01 02 03 04 05 06 07 08" + NL;
         expected += "Engine Hours from Engine #1 (0): 3,365,299.25 hours" + NL;
+        expected += "10:15:30.000 18FEE501 08 07 06 05 04 03 02 01" + NL;
+        expected += "Engine Hours from Engine #2 (1): 4,214,054.8 hours" + NL;
 
         TestResultsListener listener = new TestResultsListener();
         instance.reportEngineHours(listener);
         assertEquals(expected, listener.getResults());
 
-        verify(j1939).createRequestPacket(pgn, 0x00);
+        verify(j1939).createRequestPacket(pgn, 0xFF);
         verify(j1939).requestMultiple(EngineHoursPacket.class, requestPacket);
     }
 
@@ -342,21 +345,21 @@ public class VehicleInformationModuleTest {
     public void testReportEngineHoursWithNoResponse() {
         final int pgn = EngineHoursPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0x00, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
-        when(j1939.createRequestPacket(pgn, 0x00)).thenReturn(requestPacket);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         when(j1939.requestMultiple(EngineHoursPacket.class, requestPacket)).thenReturn(Stream.empty());
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Engine Hours Request" + NL;
-        expected += "10:15:30.000 18EA00A5 E5 FE 00 (TX)" + NL;
+        expected += "10:15:30.000 18EAFFA5 E5 FE 00 (TX)" + NL;
         expected += "Error: Timeout - No Response." + NL;
 
         TestResultsListener listener = new TestResultsListener();
         instance.reportEngineHours(listener);
         assertEquals(expected, listener.getResults());
 
-        verify(j1939).createRequestPacket(pgn, 0x00);
+        verify(j1939).createRequestPacket(pgn, 0xFF);
         verify(j1939).requestMultiple(EngineHoursPacket.class, requestPacket);
     }
 
