@@ -83,7 +83,7 @@ public class OBDTestsModule extends FunctionalModule {
                     .filter(t -> t.supportsScaledTestResults()).map(s -> s.getSpn()).sorted().distinct()
                     .collect(Collectors.toList());
             if (spns.isEmpty()) {
-                listener.onResult("ERROR " + moduleName + " does not have any tests that support scaled tests results");
+                listener.onResult(moduleName + " does not have any tests that support scaled tests results");
             } else {
                 List<ScaledTestResult> testResults = requestScaledTestResultsFromModule(listener, destination,
                         moduleName, spns);

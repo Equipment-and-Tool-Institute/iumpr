@@ -305,7 +305,7 @@ public class OBDTestsModuleTest {
         expected += "DM24 from Engine #1 (0): (Supporting Scaled Test Results) [" + NL;
         expected += "]" + NL;
         expected += NL;
-        expected += "ERROR Engine #1 (0) does not have any tests that support scaled tests results"
+        expected += "Engine #1 (0) does not have any tests that support scaled tests results"
                 + NL;
         expected += "" + NL;
         expected += "ERROR No tests results returned" + NL;
