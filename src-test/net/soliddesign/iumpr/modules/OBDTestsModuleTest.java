@@ -72,7 +72,9 @@ public class OBDTestsModuleTest {
                 Packet.create(64950, 0x00,
                         0x66, 0x00, 0x1B, 0x01,
                         0x5C, 0x00, 0x1F, 0x01,
-                        0x00, 0x02, 0x1B, 0x01));
+                        0x00, 0x02, 0x1B, 0x01,
+                        0x9C, 0xF0, 0xFB, 0x00));
+
         when(j1939.requestPacket(dm24RequestPacket1, DM24SPNSupportPacket.class, 0x00, 3, 15000))
                 .thenReturn(Optional.of(engineDm24Packet));
 
@@ -85,6 +87,11 @@ public class OBDTestsModuleTest {
                 Packet.create(0xA400, 0x00, 0xF7, 0x00, 0x02, 0x12, 0xD0, 0x00, 0x00, 0xFB, 0xFF, 0xFF, 0xFF, 0xFF));
         when(j1939.requestPacket(Packet.create(0xE300, BUS_ADDR, 0xF7, 0x00, 0x02, 0x1F, 0xFF, 0xFF, 0xFF, 0xFF),
                 DM30ScaledTestResultsPacket.class, 0x00, 3)).thenReturn(Optional.of(engineDm30PacketSpn512));
+
+        DM30ScaledTestResultsPacket engineDm30PacketSpn520348 = new DM30ScaledTestResultsPacket(
+                Packet.create(0xA400, 0x00, 0xF7, 0x9C, 0xF0, 0xFF, 0xD0, 0x00, 0x00, 0xFB, 0xFF, 0xFF, 0xFF, 0xFF));
+        when(j1939.requestPacket(Packet.create(0xE300, BUS_ADDR, 0xF7, 0x9C, 0xF0, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF),
+                DM30ScaledTestResultsPacket.class, 0x00, 3)).thenReturn(Optional.of(engineDm30PacketSpn520348));
 
         Packet dm24RequestPacket2 = Packet.create(0xEA55, BUS_ADDR, 0xB6, 0xFD, 0x00);
         when(j1939.createRequestPacket(64950, 0x55)).thenReturn(dm24RequestPacket2);
@@ -112,10 +119,11 @@ public class OBDTestsModuleTest {
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Direct DM24 Request to Engine #1 (0)" + NL;
         expected += "10:15:30.000 18EA00A5 B6 FD 00 (TX)" + NL;
-        expected += "10:15:30.000 18FDB600 66 00 1B 01 5C 00 1F 01 00 02 1B 01" + NL;
+        expected += "10:15:30.000 18FDB600 66 00 1B 01 5C 00 1F 01 00 02 1B 01 9C F0 FB 00" + NL;
         expected += "DM24 from Engine #1 (0): (Supporting Scaled Test Results) [" + NL;
         expected += "  SPN 102 - Engine Intake Manifold #1 Pressure" + NL;
         expected += "  SPN 512 - Driver's Demand Engine - Percent Torque" + NL;
+        expected += "  SPN 520348 - Manufacturer Assignable SPN 520348" + NL;
         expected += "]" + NL;
         expected += "" + NL;
         expected += "2007-12-03T10:15:30.000 Direct DM24 Request to Diesel Particulate Filter Controller (85)" + NL;
@@ -131,10 +139,13 @@ public class OBDTestsModuleTest {
         expected += "10:15:30.000 18A40000 F7 66 00 12 D0 00 00 FB FF FF FF FF" + NL;
         expected += "10:15:30.000 18E300A5 F7 00 02 1F FF FF FF FF (TX)" + NL;
         expected += "10:15:30.000 18A40000 F7 00 02 12 D0 00 00 FB FF FF FF FF" + NL;
+        expected += "10:15:30.000 18E300A5 F7 9C F0 FF FF FF FF FF (TX)" + NL;
+        expected += "10:15:30.000 18A40000 F7 9C F0 FF D0 00 00 FB FF FF FF FF" + NL;
         expected += "" + NL;
         expected += "Scaled Tests Results from Engine #1 (0): [" + NL;
         expected += "  SPN 102 FMI 18 Result: Test Not Complete." + NL;
         expected += "  SPN 512 FMI 18 Result: Test Not Complete." + NL;
+        expected += "  SPN 520348 FMI 31 Result: Test Not Complete." + NL;
         expected += "]" + NL;
         expected += "" + NL;
         expected += "2007-12-03T10:15:30.000 Direct DM30 Requests to Diesel Particulate Filter Controller (85)" + NL;
@@ -152,17 +163,18 @@ public class OBDTestsModuleTest {
         expected += "  Diesel Particulate Filter Controller (85): SPN 3226 FMI 10 Result: Test Not Complete." + NL;
         expected += "  Engine #1 (0): SPN 102 FMI 18 Result: Test Not Complete." + NL;
         expected += "  Engine #1 (0): SPN 512 FMI 18 Result: Test Not Complete." + NL;
+        expected += "  Engine #1 (0): SPN 520348 FMI 31 Result: Test Not Complete." + NL;
         expected += "]" + NL;
-        expected += "3 Incomplete Tests" + NL;
+        expected += "4 Incomplete Tests" + NL;
 
         assertEquals(expected, listener.getResults());
 
-        verify(j1939, times(4)).getBusAddress();
+        verify(j1939, times(5)).getBusAddress();
         verify(j1939).createRequestPacket(64950, 0x00);
         verify(j1939).createRequestPacket(64950, 0x55);
         verify(j1939).requestPacket(dm24RequestPacket1, DM24SPNSupportPacket.class, 0x00, 3, 15000);
         verify(j1939).requestPacket(dm24RequestPacket2, DM24SPNSupportPacket.class, 0x55, 3, 15000);
-        verify(j1939, times(4)).requestPacket(any(Packet.class), eq(DM30ScaledTestResultsPacket.class), any(int.class),
+        verify(j1939, times(5)).requestPacket(any(Packet.class), eq(DM30ScaledTestResultsPacket.class), any(int.class),
                 eq(3));
     }
 

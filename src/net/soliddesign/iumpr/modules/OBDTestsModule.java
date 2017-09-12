@@ -60,7 +60,7 @@ public class OBDTestsModule extends FunctionalModule {
      */
     private Packet createDM7Packet(int destination, int spn) {
         return Packet.create(DM7CommandTestsPacket.PGN | destination, getJ1939().getBusAddress(), 247, spn & 0xFF,
-                (spn >> 8) & 0xFF, (spn >> 16) & 0xFF | 31, 0xFF, 0xFF, 0xFF, 0xFF);
+                (spn >> 8) & 0xFF, (((spn >> 16) & 0xFF) << 5) | 31, 0xFF, 0xFF, 0xFF, 0xFF);
     }
 
     /**
