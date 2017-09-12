@@ -128,6 +128,14 @@ public class InfoTableTest {
         assertEquals(16.0, instance.getValueAt(3, 1));
         validateRowBackground(Color.GREEN, 3);
         assertTrue(tableUpdated);
+
+        // Re-process the initial engine packet; values don't change
+        instance.process(packet1);
+        assertEquals(101.0, instance.getValueAt(2, 1));
+        validateRowBackground(Color.GREEN, 2);
+        assertEquals(16.0, instance.getValueAt(3, 1));
+        validateRowBackground(Color.GREEN, 3);
+        assertTrue(tableUpdated);
     }
 
     @Test

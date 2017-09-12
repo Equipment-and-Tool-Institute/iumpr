@@ -4,8 +4,10 @@
 package net.soliddesign.iumpr.ui.status;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -73,6 +75,11 @@ public class InfoTable extends StatusTable {
     private DefaultTableModel model;
 
     private int obdCounts = 0;
+
+    /**
+     * The Packets, by source address, that are being sent for DM20 request
+     */
+    private final Map<Integer, DM20MonitorPerformanceRatioPacket> packetMap = new HashMap<>();
 
     private List<Row> rows;
 
@@ -147,14 +154,17 @@ public class InfoTable extends StatusTable {
             update |= getRows().get(DSCC_ROW).setValue(packet.getMilesSinceDTCsCleared());
         } else if (p instanceof DM20MonitorPerformanceRatioPacket) {
             DM20MonitorPerformanceRatioPacket packet = (DM20MonitorPerformanceRatioPacket) p;
+            packetMap.put(p.getSourceAddress(), packet);
 
-            int cycles = DiagnosticReadinessModule.getIgnitionCycles(Collections.singletonList(packet));
+            Collection<DM20MonitorPerformanceRatioPacket> packets = packetMap.values();
+
+            int cycles = DiagnosticReadinessModule.getIgnitionCycles(packets);
             if (cycles > -1) {
                 ignitionCycles = cycles;
                 update |= getRows().get(IGN_ROW).setValue(ignitionCycles);
             }
 
-            int counts = DiagnosticReadinessModule.getOBDCounts(Collections.singletonList(packet));
+            int counts = DiagnosticReadinessModule.getOBDCounts(packets);
             if (counts > -1) {
                 obdCounts = counts;
                 update |= getRows().get(OBD_ROW).setValue(obdCounts);
