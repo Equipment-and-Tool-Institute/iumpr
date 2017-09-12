@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 
 import javax.swing.JOptionPane;
 
-import net.soliddesign.iumpr.bus.j1939.J1939;
 import net.soliddesign.iumpr.bus.j1939.packets.DM19CalibrationInformationPacket;
 import net.soliddesign.iumpr.bus.j1939.packets.DM19CalibrationInformationPacket.CalibrationInformation;
 import net.soliddesign.iumpr.bus.j1939.packets.DM21DiagnosticReadinessPacket;
@@ -174,16 +173,20 @@ public class ComparisonModule extends FunctionalModule {
      *
      * @return the Vehicle Identification Number as a {@link String}
      * @throws IOException
-     *             if no value is returned from the vehicle
+     *             if no value is returned from the vehicle or different VINs
+     *             are returned
      */
     public String getVin() throws IOException {
         if (vin == null) {
-            try {
-                vin = getJ1939().request(VehicleIdentificationPacket.class, J1939.ENGINE_ADDR).map(t -> t.getVin())
-                        .get();
-            } catch (NoSuchElementException e) {
+            Set<String> vins = getJ1939().requestMultiple(VehicleIdentificationPacket.class).map(t -> t.getVin())
+                    .collect(Collectors.toSet());
+            if (vins.size() == 0) {
                 throw new IOException("Timeout Error Reading VIN");
             }
+            if (vins.size() > 1) {
+                throw new IOException("Different VINs Received");
+            }
+            vin = vins.stream().findFirst().get();
         }
         return vin;
     }

@@ -448,7 +448,7 @@ public class UserInterfaceController implements IUserInterfaceController {
 
             ResultsListener resultsListener = getResultsListener();
             try {
-                resultsListener.onProgress(1, 6, "Reading VIN from Engine");
+                resultsListener.onProgress(1, 6, "Reading Vehicle Identification Number");
                 vin = getComparisonModule().getVin();
                 getView().setVin(vin);
 

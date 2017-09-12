@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -93,7 +92,7 @@ public class ComparisonModuleTest {
 
         VehicleIdentificationPacket vinPacket = mock(VehicleIdentificationPacket.class);
         when(vinPacket.getVin()).thenReturn("12345678901234567890");
-        when(j1939.request(VehicleIdentificationPacket.class, 0x00)).thenReturn(Optional.of(vinPacket));
+        when(j1939.requestMultiple(VehicleIdentificationPacket.class)).thenReturn(Stream.of(vinPacket));
 
         when(reportFileModule.getFileVin()).thenReturn("12345678901234567890");
 
@@ -103,7 +102,7 @@ public class ComparisonModuleTest {
 
         verify(j1939).requestMultiple(DM19CalibrationInformationPacket.class);
         verify(j1939).requestMultiple(DM21DiagnosticReadinessPacket.class);
-        verify(j1939).request(VehicleIdentificationPacket.class, 0x00);
+        verify(j1939).requestMultiple(VehicleIdentificationPacket.class);
 
         verify(reportFileModule).isNewFile();
         verify(reportFileModule).getCalibrations();
@@ -143,7 +142,8 @@ public class ComparisonModuleTest {
 
         VehicleIdentificationPacket vinPacket = mock(VehicleIdentificationPacket.class);
         when(vinPacket.getVin()).thenReturn("12345678901234567890");
-        when(j1939.request(VehicleIdentificationPacket.class, 0x00)).thenReturn(Optional.of(vinPacket));
+        when(j1939.requestMultiple(VehicleIdentificationPacket.class)).thenReturn(Stream.of(vinPacket))
+                .thenReturn(Stream.of(vinPacket));
 
         when(reportFileModule.getFileVin()).thenReturn("12345678901234567890");
         when(reportFileModule.isNewFile()).thenReturn(false);
@@ -154,7 +154,7 @@ public class ComparisonModuleTest {
 
         verify(j1939, times(2)).requestMultiple(DM19CalibrationInformationPacket.class);
         verify(j1939, times(2)).requestMultiple(DM21DiagnosticReadinessPacket.class);
-        verify(j1939, times(2)).request(VehicleIdentificationPacket.class, 0x00);
+        verify(j1939, times(2)).requestMultiple(VehicleIdentificationPacket.class);
 
         verify(reportFileModule, times(2)).isNewFile();
         verify(reportFileModule, times(2)).getCalibrations();
@@ -190,7 +190,7 @@ public class ComparisonModuleTest {
 
         VehicleIdentificationPacket vinPacket = mock(VehicleIdentificationPacket.class);
         when(vinPacket.getVin()).thenReturn("12345678901234567890");
-        when(j1939.request(VehicleIdentificationPacket.class, 0x00)).thenReturn(Optional.of(vinPacket));
+        when(j1939.requestMultiple(VehicleIdentificationPacket.class)).thenReturn(Stream.of(vinPacket));
 
         when(reportFileModule.getFileVin()).thenReturn("12345678901234567890");
 
@@ -198,7 +198,7 @@ public class ComparisonModuleTest {
         assertEquals(false, instance.compareFileToVehicle(listener, reportFileModule, 0, 4));
 
         verify(j1939).requestMultiple(DM19CalibrationInformationPacket.class);
-        verify(j1939).request(VehicleIdentificationPacket.class, 0x00);
+        verify(j1939).requestMultiple(VehicleIdentificationPacket.class);
 
         verify(reportFileModule).isNewFile();
         verify(reportFileModule, times(2)).getCalibrations();
@@ -232,7 +232,7 @@ public class ComparisonModuleTest {
 
         VehicleIdentificationPacket vinPacket = mock(VehicleIdentificationPacket.class);
         when(vinPacket.getVin()).thenReturn("12345678901234567890");
-        when(j1939.request(VehicleIdentificationPacket.class, 0x00)).thenReturn(Optional.of(vinPacket));
+        when(j1939.requestMultiple(VehicleIdentificationPacket.class)).thenReturn(Stream.of(vinPacket));
 
         when(reportFileModule.getFileVin()).thenReturn("12345678901234567890");
 
@@ -245,7 +245,7 @@ public class ComparisonModuleTest {
         }
 
         verify(j1939).requestMultiple(DM19CalibrationInformationPacket.class);
-        verify(j1939).request(VehicleIdentificationPacket.class, 0x00);
+        verify(j1939).requestMultiple(VehicleIdentificationPacket.class);
 
         verify(reportFileModule).isNewFile();
         verify(reportFileModule).getCalibrations();
@@ -290,7 +290,7 @@ public class ComparisonModuleTest {
 
         VehicleIdentificationPacket vinPacket = mock(VehicleIdentificationPacket.class);
         when(vinPacket.getVin()).thenReturn("12345678901234567890");
-        when(j1939.request(VehicleIdentificationPacket.class, 0x00)).thenReturn(Optional.of(vinPacket));
+        when(j1939.requestMultiple(VehicleIdentificationPacket.class)).thenReturn(Stream.of(vinPacket));
 
         when(reportFileModule.getFileVin()).thenReturn("12345678901234567890");
         when(reportFileModule.isNewFile()).thenReturn(false);
@@ -299,7 +299,7 @@ public class ComparisonModuleTest {
 
         verify(j1939).requestMultiple(DM19CalibrationInformationPacket.class);
         verify(j1939).requestMultiple(DM21DiagnosticReadinessPacket.class);
-        verify(j1939).request(VehicleIdentificationPacket.class, 0x00);
+        verify(j1939).requestMultiple(VehicleIdentificationPacket.class);
 
         verify(reportFileModule).isNewFile();
         verify(reportFileModule).getCalibrations();
@@ -340,7 +340,7 @@ public class ComparisonModuleTest {
 
         VehicleIdentificationPacket vinPacket = mock(VehicleIdentificationPacket.class);
         when(vinPacket.getVin()).thenReturn("12345678901234567890");
-        when(j1939.request(VehicleIdentificationPacket.class, 0x00)).thenReturn(Optional.of(vinPacket));
+        when(j1939.requestMultiple(VehicleIdentificationPacket.class)).thenReturn(Stream.of(vinPacket));
 
         when(reportFileModule.getFileVin()).thenReturn("12345678901234567890");
         when(reportFileModule.isNewFile()).thenReturn(false);
@@ -349,7 +349,7 @@ public class ComparisonModuleTest {
 
         verify(j1939).requestMultiple(DM19CalibrationInformationPacket.class);
         verify(j1939).requestMultiple(DM21DiagnosticReadinessPacket.class);
-        verify(j1939).request(VehicleIdentificationPacket.class, 0x00);
+        verify(j1939).requestMultiple(VehicleIdentificationPacket.class);
 
         verify(reportFileModule).isNewFile();
         verify(reportFileModule).getCalibrations();
@@ -386,7 +386,7 @@ public class ComparisonModuleTest {
 
         VehicleIdentificationPacket vinPacket = mock(VehicleIdentificationPacket.class);
         when(vinPacket.getVin()).thenReturn("12345678901234567890");
-        when(j1939.request(VehicleIdentificationPacket.class, 0x00)).thenReturn(Optional.of(vinPacket));
+        when(j1939.requestMultiple(VehicleIdentificationPacket.class)).thenReturn(Stream.of(vinPacket));
 
         when(reportFileModule.getFileVin()).thenReturn("12345678901234567890");
         when(reportFileModule.isNewFile()).thenReturn(false);
@@ -399,7 +399,7 @@ public class ComparisonModuleTest {
 
         verify(j1939).requestMultiple(DM19CalibrationInformationPacket.class);
         verify(j1939).requestMultiple(DM21DiagnosticReadinessPacket.class);
-        verify(j1939).request(VehicleIdentificationPacket.class, 0x00);
+        verify(j1939).requestMultiple(VehicleIdentificationPacket.class);
 
         verify(reportFileModule).isNewFile();
         verify(reportFileModule).getCalibrations();
@@ -415,14 +415,14 @@ public class ComparisonModuleTest {
     public void testCompareFileToVehicleWithVinMismatch() throws Exception {
         VehicleIdentificationPacket vinPacket = mock(VehicleIdentificationPacket.class);
         when(vinPacket.getVin()).thenReturn("12345678901234567890");
-        when(j1939.request(VehicleIdentificationPacket.class, 0x00)).thenReturn(Optional.of(vinPacket));
+        when(j1939.requestMultiple(VehicleIdentificationPacket.class)).thenReturn(Stream.of(vinPacket));
 
         when(reportFileModule.getFileVin()).thenReturn("09876543210987654321");
         when(reportFileModule.isNewFile()).thenReturn(false);
 
         assertEquals(false, instance.compareFileToVehicle(listener, reportFileModule, 0, 4));
 
-        verify(j1939).request(VehicleIdentificationPacket.class, 0x00);
+        verify(j1939).requestMultiple(VehicleIdentificationPacket.class);
 
         verify(reportFileModule).isNewFile();
         verify(reportFileModule, times(2)).getFileVin();
@@ -437,7 +437,7 @@ public class ComparisonModuleTest {
 
     @Test
     public void testCompareFileToVehicleWithVinTimeout() throws Exception {
-        when(j1939.request(VehicleIdentificationPacket.class, 0x00)).thenReturn(Optional.empty());
+        when(j1939.requestMultiple(VehicleIdentificationPacket.class)).thenReturn(Stream.empty());
 
         when(reportFileModule.getFileVin()).thenReturn("09876543210987654321");
         when(reportFileModule.isNewFile()).thenReturn(false);
@@ -448,7 +448,7 @@ public class ComparisonModuleTest {
             assertEquals("Timeout Error Reading VIN", e.getMessage());
         }
 
-        verify(j1939).request(VehicleIdentificationPacket.class, 0x00);
+        verify(j1939).requestMultiple(VehicleIdentificationPacket.class);
 
         verify(reportFileModule).isNewFile();
         verify(reportFileModule).getFileVin();
@@ -513,23 +513,40 @@ public class ComparisonModuleTest {
 
     @Test
     public void testGetVin() throws Exception {
-        VehicleIdentificationPacket vinPacket = mock(VehicleIdentificationPacket.class);
-        when(vinPacket.getVin()).thenReturn("12345678901234567890");
-        when(j1939.request(VehicleIdentificationPacket.class, 0x00)).thenReturn(Optional.of(vinPacket));
+        VehicleIdentificationPacket vinPacket1 = mock(VehicleIdentificationPacket.class);
+        when(vinPacket1.getVin()).thenReturn("12345678901234567890");
+        VehicleIdentificationPacket vinPacket2 = mock(VehicleIdentificationPacket.class);
+        when(vinPacket2.getVin()).thenReturn("12345678901234567890");
+        when(j1939.requestMultiple(VehicleIdentificationPacket.class)).thenReturn(Stream.of(vinPacket1, vinPacket2));
         assertEquals("12345678901234567890", instance.getVin());
-        verify(j1939).request(VehicleIdentificationPacket.class, 0x00);
+        verify(j1939).requestMultiple(VehicleIdentificationPacket.class);
         // Make sure it's cached
         assertEquals("12345678901234567890", instance.getVin());
     }
 
     @Test
+    public void testGetVinWithDifferentResponses() throws Exception {
+        VehicleIdentificationPacket vinPacket1 = mock(VehicleIdentificationPacket.class);
+        when(vinPacket1.getVin()).thenReturn("12345678901234567890");
+        VehicleIdentificationPacket vinPacket2 = mock(VehicleIdentificationPacket.class);
+        when(vinPacket2.getVin()).thenReturn("01234567890123456789");
+        when(j1939.requestMultiple(VehicleIdentificationPacket.class)).thenReturn(Stream.of(vinPacket1, vinPacket2));
+        try {
+            instance.getVin();
+        } catch (IOException e) {
+            assertEquals("Different VINs Received", e.getMessage());
+        }
+        verify(j1939).requestMultiple(VehicleIdentificationPacket.class);
+    }
+
+    @Test
     public void testGetVinWithNoResponse() throws Exception {
-        when(j1939.request(VehicleIdentificationPacket.class, 0x00)).thenReturn(Optional.empty());
+        when(j1939.requestMultiple(VehicleIdentificationPacket.class)).thenReturn(Stream.empty());
         try {
             instance.getVin();
         } catch (IOException e) {
             assertEquals("Timeout Error Reading VIN", e.getMessage());
         }
-        verify(j1939).request(VehicleIdentificationPacket.class, 0x00);
+        verify(j1939).requestMultiple(VehicleIdentificationPacket.class);
     }
 }

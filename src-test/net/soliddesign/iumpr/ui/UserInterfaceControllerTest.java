@@ -742,7 +742,7 @@ public class UserInterfaceControllerTest {
         inOrder.verify(view).setAdapterComboBoxEnabled(false);
         inOrder.verify(view).setSelectFileButtonEnabled(false);
         inOrder.verify(view).setProgressBarValue(0, 6, 1);
-        inOrder.verify(view).setProgressBarText("Reading VIN from Engine");
+        inOrder.verify(view).setProgressBarText("Reading Vehicle Identification Number");
         inOrder.verify(view).setVin("12345678901234567890");
         inOrder.verify(view).setProgressBarValue(0, 6, 2);
         inOrder.verify(view).setProgressBarText("Reading Vehicle Calibrations");
@@ -773,7 +773,7 @@ public class UserInterfaceControllerTest {
         verify(view).setSelectFileButtonEnabled(false);
 
         verify(view).setProgressBarValue(0, 6, 1);
-        verify(view).setProgressBarText("Reading VIN from Engine");
+        verify(view).setProgressBarText("Reading Vehicle Identification Number");
         verify(view).setProgressBarText("VIN not read");
         verify(view).displayDialog("VIN not read", "Communications Error", JOptionPane.ERROR_MESSAGE);
 
@@ -816,7 +816,7 @@ public class UserInterfaceControllerTest {
         inOrder.verify(view).setAdapterComboBoxEnabled(false);
         inOrder.verify(view).setSelectFileButtonEnabled(false);
         inOrder.verify(view).setProgressBarValue(0, 6, 1);
-        inOrder.verify(view).setProgressBarText("Reading VIN from Engine");
+        inOrder.verify(view).setProgressBarText("Reading Vehicle Identification Number");
         inOrder.verify(view).setVin("12345678901234567890");
         inOrder.verify(view).setProgressBarValue(0, 6, 2);
         inOrder.verify(view).setProgressBarText("Reading Vehicle Calibrations");
@@ -854,7 +854,7 @@ public class UserInterfaceControllerTest {
         inOrder.verify(view).setAdapterComboBoxEnabled(false);
         inOrder.verify(view).setSelectFileButtonEnabled(false);
         inOrder.verify(view).setProgressBarValue(0, 6, 1);
-        inOrder.verify(view).setProgressBarText("Reading VIN from Engine");
+        inOrder.verify(view).setProgressBarText("Reading Vehicle Identification Number");
         inOrder.verify(view).setVin("12345678901234567890");
         inOrder.verify(view).setProgressBarValue(0, 6, 2);
         inOrder.verify(view).setProgressBarText("Reading Vehicle Calibrations");
