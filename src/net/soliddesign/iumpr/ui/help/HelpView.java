@@ -70,7 +70,13 @@ public class HelpView extends JFrame {
             editorPane.addHyperlinkListener(ev -> {
                 if (ev.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
                     try {
-                        Desktop.getDesktop().browse(ev.getURL().toURI());
+                        String desc = ev.getDescription();
+                        if (desc != null && desc.startsWith("#")) {
+                            desc = desc.substring(1);
+                            editorPane.scrollToReference(desc);
+                        } else {
+                            Desktop.getDesktop().browse(ev.getURL().toURI());
+                        }
                     } catch (Exception e) {
                         getLogger().log(Level.SEVERE, "Unable to display help", e);
                         JOptionPane.showMessageDialog(HelpView.this, "Unable to open link.", "Error Opening Link",
