@@ -205,7 +205,7 @@
 		<!-- Increments the minor on the build number, resets the revision. -->
 		<propertyfile file="${build.info.filename}">
 			<entry key="build.minor.number" type="int" operation="+" value="1" />
-			<entry key="build.revision.number" type="int" value="0" />
+			<entry key="build.revision.number" type="int" value="-2" />
 		</propertyfile>
 		<antcall target="tstamp.build.number" />
 		<antcall target="echo.current.build.number" />
@@ -215,8 +215,8 @@
 		<!--Increments the major on the build number, resets the minor and revision. -->
 		<propertyfile file="${build.info.filename}">
 			<entry key="build.major.number" type="int" operation="+" value="1" />
-			<entry key="build.minor.number" type="int" value="0" />
-			<entry key="build.revision.number" type="int" value="0" />
+			<entry key="build.minor.number" type="int" value="-2" />
+			<entry key="build.revision.number" type="int" value="-2" />
 		</propertyfile>
 		<antcall target="tstamp.build.number" />
 		<antcall target="echo.current.build.number" />
