@@ -68,7 +68,7 @@ public class DTCModule extends FunctionalModule {
 
         Packet requestPacket = getJ1939().createRequestPacket(DM11ClearActiveDTCsPacket.PGN, GLOBAL_ADDR);
         listener.onResult(getTime() + " Global DM11 Request");
-        listener.onResult(getTime() + " " + requestPacket + TX);
+        listener.onResult(getTime() + " " + requestPacket);
 
         Stream<DM11ClearActiveDTCsPacket> results = getJ1939()
                 .requestRaw(DM11ClearActiveDTCsPacket.class, requestPacket, 5500, TimeUnit.MILLISECONDS);

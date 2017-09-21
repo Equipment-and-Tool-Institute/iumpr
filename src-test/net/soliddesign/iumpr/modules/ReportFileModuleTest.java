@@ -15,6 +15,7 @@ import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +47,12 @@ public class ReportFileModuleTest {
         file.deleteOnExit();
         listener = new TestResultsListener();
 
-        instance = new ReportFileModule(new TestDateTimeModule());
+        instance = new ReportFileModule(new TestDateTimeModule() {
+            @Override
+            public DateTimeFormatter getTimeFormatter() {
+                return getSuperTimeFormatter();
+            }
+        });
     }
 
     @After

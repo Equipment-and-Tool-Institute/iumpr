@@ -48,21 +48,7 @@ import net.soliddesign.iumpr.bus.j1939.packets.VehicleIdentificationPacket;
  */
 public class J1939 {
 
-    private static class NACKException extends RuntimeException {
-        private static final long serialVersionUID = -5856045774382355424L;
-    }
-
-    private static class RetryException extends RuntimeException {
-        private static final long serialVersionUID = -7698472008184944442L;
-    }
-
     private static final int ACKNOWLEDGEMENT_PGN = 0xE800;
-
-    /**
-     * Used in an ack to indicate the module is too busy to respond; try again
-     * later
-     */
-    private static final int BUSY = 0x03;
 
     /**
      * The default time to wait for a response
@@ -224,9 +210,6 @@ public class J1939 {
      */
     private final Bus bus;
 
-    /** based on phone call with Eric */
-    private long busyTimeout = 5000;
-
     /** when true, all open streams will be closed. */
     private boolean interrupt;
 
@@ -306,7 +289,7 @@ public class J1939 {
      * @return a {@link Packet}
      */
     public Packet createRequestPacket(int pgn, int addr) {
-        return Packet.create(0xEA00 | addr, getBusAddress(), pgn, pgn >> 8, pgn >> 16);
+        return Packet.create(0xEA00 | addr, getBusAddress(), true, pgn, pgn >> 8, pgn >> 16);
     }
 
     /**
@@ -340,6 +323,17 @@ public class J1939 {
         return getBus().getAddress();
     }
 
+    /**
+     * Returns the destination based upon the request
+     *
+     * @param requestPacket
+     *            the request
+     * @return the destination specific address or GLOBAL_ADDR
+     */
+    private int getDestination(Packet requestPacket) {
+        return requestPacket.getId() < 0xF000 ? requestPacket.getId() & 0xFF : GLOBAL_ADDR;
+    }
+
     private Logger getLogger() {
         return IUMPR.getLogger();
     }
@@ -351,27 +345,6 @@ public class J1939 {
         interrupt = true;
     }
 
-    private Predicate<Packet> j1939_21NACKRetryFilter(final int expectedResponsePGN) {
-        return pgnFilter(0xE8FF).and(response -> {
-            if (response.get(4) == getBusAddress() && response.get24(5) == expectedResponsePGN) {
-                switch (response.get(0)) {
-                case BUSY:
-                    try {
-                        Thread.sleep(busyTimeout);
-                    } catch (InterruptedException e) {
-                        throw new Error("Not expected.", e);
-                    }
-                    throw new RetryException();
-                case SUCCESS:
-                    return true;
-                default:
-                    throw new NACKException();
-                }
-            }
-            return false;
-        });
-    }
-
     /**
      * Reads the bus indefinitely
      *
@@ -381,38 +354,6 @@ public class J1939 {
      */
     public Stream<ParsedPacket> read() throws BusException {
         return getBus().read(365, TimeUnit.DAYS).map(t -> process(t));
-    }
-
-    /**
-     * Watches the bus for a time for all the packets that match the PGN in the
-     * given class
-     *
-     * @param <T>
-     *            the Type of Packet to expect back
-     * @param T
-     *            the class of interest
-     * @return the resulting packets in a Stream
-     */
-    public <T extends ParsedPacket> Stream<T> read(Class<T> T) {
-        return read(T, DEFAULT_TIMEOUT, DEFAULT_TIMEOUT_UNITS);
-    }
-
-    /**
-     * Watches the bus for the timeout period for the first packet that matches
-     * the PGN in the given class
-     *
-     * @param <T>
-     *            the Type of Packet to expect back
-     *
-     * @param T
-     *            the class of interest
-     * @param addr
-     *            the source address the packet should come from. NOTE do not
-     *            use the Global Address (0xFF) here
-     * @return the resulting packet
-     */
-    public <T extends ParsedPacket> Optional<T> read(Class<T> T, int addr) {
-        return read(T, addr, DEFAULT_TIMEOUT, DEFAULT_TIMEOUT_UNITS);
     }
 
     /**
@@ -463,11 +404,14 @@ public class J1939 {
      *            the {@link TimeUnit} for the timeout
      * @return the resulting packets in a Stream
      */
-    private <T extends ParsedPacket> Stream<T> read(Class<T> T, long timeout, TimeUnit unit) {
+    public <T extends ParsedPacket> Stream<T> read(Class<T> T, long timeout, TimeUnit unit) {
         try {
             int pgn = getPgn(T);
             Stream<Packet> stream = read(timeout, unit);
-            return stream.filter(interruptFn).filter(pgnFilter(pgn)).map(t -> process(t));
+            return stream
+                    .filter(interruptFn)
+                    .filter(pgnFilter(pgn))
+                    .map(t -> process(t));
         } catch (Exception e) {
             getLogger().log(Level.SEVERE, "Error reading packets", e);
         }
@@ -476,114 +420,7 @@ public class J1939 {
 
     private Stream<Packet> read(long timeout, TimeUnit unit) throws BusException {
         return getBus().read(timeout, unit)
-                .peek(packet -> IUMPR.getLogger().log(Level.FINE, "P->" + packet.toString()));
-    }
-
-    /**
-     * Sends a request for a Packet specified by the given class (T). T will
-     * provide the PGN for the Packet that is requested. It will try the request
-     * up to three (3) times, one (1) second apart for each try.
-     *
-     * @param <T>
-     *            the Type of Packet to request
-     * @param T
-     *            the class that extends {@link ParsedPacket} that provides the
-     *            PGN for the packet to be requested
-     * @param addr
-     *            the address to send the request to. This should NOT be the
-     *            Global address (0xFF)
-     * @return an {@link Optional} containing a {@link ParsedPacket}
-     */
-    public <T extends ParsedPacket> Optional<T> request(Class<T> T, int addr) {
-        try {
-            int pgn = getPgn(T);
-            return request(pgn, T, addr);
-        } catch (Exception e) {
-            getLogger().log(Level.SEVERE, "Error requesting packet", e);
-        }
-        return Optional.empty();
-    }
-
-    /**
-     * Sends a request for a Packet specified by the given class (T). T will
-     * provide the PGN for the Packet that is requested. It will try the request
-     * up to three (3) times, timeout period apart for each try.
-     *
-     * @param <T>
-     *            the Type of Packet to request
-     * @param pgn
-     *            the PGN to request
-     * @param T
-     *            the class that extends {@link ParsedPacket} that provides the
-     *            PGN for the packet to be requested
-     * @param addr
-     *            the address to send the request to. This should NOT be the
-     *            Global address (0xFF)
-     * @return an {@link Optional} containing a {@link ParsedPacket}
-     */
-    public <T extends ParsedPacket> Optional<T> request(int pgn, Class<T> T, int addr) {
-        try {
-            int responsePGN = getPgn(T);
-            return request(pgn, responsePGN, addr, 3).map(p -> process(p));
-        } catch (Exception e) {
-            getLogger().log(Level.SEVERE, "Error requesting packet", e);
-        }
-        return Optional.empty();
-    }
-
-    /**
-     * Sends a Request for the given PGN. The request will repeat the given
-     * number of tries.
-     *
-     * @param pgn
-     *            the PGN to request
-     * @param expectedResponsePGN
-     *            the PGN that's expected to be returned
-     * @param addr
-     *            the address to send the request to. This should not be Global
-     *            (0xFF)
-     * @param tries
-     *            the number of times to retry try the request
-     * @return {@link Optional} {@link Packet}
-     * @throws BusException
-     *             if there is a problem sending the request
-     */
-    private Optional<Packet> request(final int pgn, final int expectedResponsePGN, final int addr, final int tries)
-            throws BusException {
-        if (tries <= 0) {
-            // Give up
-            return Optional.empty();
-        }
-
-        Optional<Packet> result = Optional.empty();
-        retry: do {
-            Stream<Packet> stream = read(DEFAULT_TIMEOUT, DEFAULT_TIMEOUT_UNITS);
-            getBus().send(createRequestPacket(pgn, addr));
-            try {
-                result = stream
-                        .filter(interruptFn)
-                        .filter(sourceFilter(addr).and(pgnFilter(expectedResponsePGN))
-                                .or(j1939_21NACKRetryFilter(expectedResponsePGN)))
-                        .findFirst();
-            } catch (NACKException e) {
-                // Non recoverable NACK
-                return result;
-            } catch (RetryException e) {
-                continue retry;
-            }
-            break retry;
-        } while (true);
-
-        if (result.isPresent()) {
-            return result;
-        } else {
-            try {
-                return request(pgn, expectedResponsePGN, addr, tries - 1);
-            } catch (BusException e) {
-                getLogger().log(Level.SEVERE, "Error requesting packet", e);
-                return Optional.empty();
-            }
-        }
+                .peek(packet -> getLogger().log(Level.FINE, "P->" + packet.toString()));
     }
 
     /**
@@ -644,7 +481,7 @@ public class J1939 {
      *            the {@link TimeUnit} of the timeout
      * @return a {@link Stream} containing {@link ParsedPacket}
      */
-    public <T extends ParsedPacket> Stream<T> requestMultiple(Class<T> T, Packet requestPacket, long timeout,
+    private <T extends ParsedPacket> Stream<T> requestMultiple(Class<T> T, Packet requestPacket, long timeout,
             TimeUnit unit) {
         List<T> results = Collections.emptyList();
         for (int i = 0; i < 3; i++) {
@@ -663,7 +500,7 @@ public class J1939 {
             int pgn = getPgn(T);
             Stream<Packet> stream = read(timeout, unit);
             getBus().send(requestPacket);
-            int destination = requestPacket.getId() < 0xF000 ? requestPacket.getId() & 0xFF : GLOBAL_ADDR;
+            int destination = getDestination(requestPacket);
             result = stream
                     .filter(interruptFn)
                     .filter(sourceFilter(destination).or(p -> destination == GLOBAL_ADDR))
@@ -730,7 +567,9 @@ public class J1939 {
             Stream<Packet> stream = read(timeout, DEFAULT_TIMEOUT_UNITS);
             getBus().send(packetToSend);
 
-            Stream<Packet> packets = stream.filter(interruptFn)
+            Stream<Packet> packets = stream
+
+                    .filter(interruptFn)
                     .filter(sourceFilter(destination))
                     .filter(pgnFilter(expectedResponsePGN).or(dsPgnFilter(expectedResponsePGN)));
             result = packets.findFirst().map(p -> process(p));
@@ -770,7 +609,7 @@ public class J1939 {
             int pgn = getPgn(T);
             Stream<Packet> stream = read(timeout, unit);
             getBus().send(requestPacket);
-            int destination = requestPacket.getId() < 0xF000 ? requestPacket.getId() & 0xFF : GLOBAL_ADDR;
+            int destination = getDestination(requestPacket);
             result = stream
                     .filter(interruptFn)
                     .filter(sourceFilter(destination).or(p -> destination == GLOBAL_ADDR))
@@ -782,7 +621,4 @@ public class J1939 {
         return result;
     }
 
-    public void setBusyRetryTime(int time, TimeUnit unit) {
-        busyTimeout = unit.toMillis(time);
-    }
 }

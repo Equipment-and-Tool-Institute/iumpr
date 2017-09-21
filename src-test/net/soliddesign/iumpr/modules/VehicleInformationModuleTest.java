@@ -12,6 +12,7 @@ import static org.mockito.Mockito.when;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 import org.junit.After;
@@ -71,7 +72,7 @@ public class VehicleInformationModuleTest {
     public void testReportAddressClaim() {
         final int pgn = AddressClaimPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         AddressClaimPacket packet1 = new AddressClaimPacket(Packet.parse("18EEFF55 10 F7 45 01 00 45 00 01"));
@@ -119,7 +120,7 @@ public class VehicleInformationModuleTest {
     public void testReportAddressClaimNoFunction0() {
         final int pgn = AddressClaimPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         AddressClaimPacket packet1 = new AddressClaimPacket(Packet.parse("18EEFF55 10 F7 45 01 00 45 00 01"));
@@ -149,7 +150,7 @@ public class VehicleInformationModuleTest {
     public void testReportAddressClaimNoResponse() {
         final int pgn = AddressClaimPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         when(j1939.requestMultiple(AddressClaimPacket.class, requestPacket))
@@ -173,7 +174,7 @@ public class VehicleInformationModuleTest {
         final byte[] calBytes2 = "EFGH1234567890123456".getBytes(UTF8);
         final byte[] calBytes3 = "IJKL1234567890123456".getBytes(UTF8);
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM19CalibrationInformationPacket packet1 = new DM19CalibrationInformationPacket(
@@ -208,7 +209,7 @@ public class VehicleInformationModuleTest {
     public void testReportCalibrationInformationWithNoResponses() {
         final int pgn = DM19CalibrationInformationPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         when(j1939.requestMultiple(DM19CalibrationInformationPacket.class, requestPacket)).thenReturn(Stream.empty());
@@ -232,7 +233,7 @@ public class VehicleInformationModuleTest {
         final byte[] bytes2 = "****".getBytes(UTF8);
         final byte[] bytes3 = "Make3*Model3***".getBytes(UTF8);
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         ComponentIdentificationPacket packet1 = new ComponentIdentificationPacket(Packet.create(pgn, 0x00, bytes1));
@@ -268,7 +269,7 @@ public class VehicleInformationModuleTest {
     public void testReportComponentIdentificationWithNoResponse() {
         final int pgn = ComponentIdentificationPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         when(j1939.requestMultiple(ComponentIdentificationPacket.class, requestPacket)).thenReturn(Stream.empty());
@@ -318,7 +319,7 @@ public class VehicleInformationModuleTest {
     public void testReportEngineHours() {
         final int pgn = EngineHoursPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         EngineHoursPacket packet1 = new EngineHoursPacket(Packet.create(pgn, 0x00, 1, 2, 3, 4, 5, 6, 7, 8));
@@ -345,7 +346,7 @@ public class VehicleInformationModuleTest {
     public void testReportEngineHoursWithNoResponse() {
         final int pgn = EngineHoursPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         when(j1939.requestMultiple(EngineHoursPacket.class, requestPacket)).thenReturn(Stream.empty());
@@ -375,7 +376,8 @@ public class VehicleInformationModuleTest {
         HighResVehicleDistancePacket packetFF = new HighResVehicleDistancePacket(
                 Packet.create(pgn, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF));
 
-        when(j1939.read(HighResVehicleDistancePacket.class)).thenReturn(Stream.of(packet0, packet1, packet2, packetFF));
+        when(j1939.read(HighResVehicleDistancePacket.class, 3, TimeUnit.SECONDS))
+                .thenReturn(Stream.of(packet0, packet1, packet2, packetFF));
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Vehicle Distance" + NL;
@@ -386,12 +388,12 @@ public class VehicleInformationModuleTest {
         instance.reportVehicleDistance(listener);
         assertEquals(expected, listener.getResults());
 
-        verify(j1939).read(HighResVehicleDistancePacket.class);
+        verify(j1939).read(HighResVehicleDistancePacket.class, 3, TimeUnit.SECONDS);
     }
 
     @Test
     public void testReportVehicleDistanceWithLoRes() {
-        when(j1939.read(HighResVehicleDistancePacket.class)).thenReturn(Stream.empty());
+        when(j1939.read(HighResVehicleDistancePacket.class, 3, TimeUnit.SECONDS)).thenReturn(Stream.empty());
         final int pgn = TotalVehicleDistancePacket.PGN;
         TotalVehicleDistancePacket packet0 = new TotalVehicleDistancePacket(
                 Packet.create(pgn, 0x00, 0, 0, 0, 0, 0, 0, 0, 0));
@@ -402,7 +404,8 @@ public class VehicleInformationModuleTest {
         TotalVehicleDistancePacket packetFF = new TotalVehicleDistancePacket(
                 Packet.create(pgn, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF));
 
-        when(j1939.read(TotalVehicleDistancePacket.class)).thenReturn(Stream.of(packet2, packet1, packet0, packetFF));
+        when(j1939.read(TotalVehicleDistancePacket.class, 300, TimeUnit.MILLISECONDS))
+                .thenReturn(Stream.of(packet2, packet1, packet0, packetFF));
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Vehicle Distance" + NL;
@@ -413,14 +416,14 @@ public class VehicleInformationModuleTest {
         instance.reportVehicleDistance(listener);
         assertEquals(expected, listener.getResults());
 
-        verify(j1939).read(HighResVehicleDistancePacket.class);
-        verify(j1939).read(TotalVehicleDistancePacket.class);
+        verify(j1939).read(HighResVehicleDistancePacket.class, 3, TimeUnit.SECONDS);
+        verify(j1939).read(TotalVehicleDistancePacket.class, 300, TimeUnit.MILLISECONDS);
     }
 
     @Test
     public void testReportVehicleDistanceWithNoResponse() {
-        when(j1939.read(HighResVehicleDistancePacket.class)).thenReturn(Stream.empty());
-        when(j1939.read(TotalVehicleDistancePacket.class)).thenReturn(Stream.empty());
+        when(j1939.read(HighResVehicleDistancePacket.class, 3, TimeUnit.SECONDS)).thenReturn(Stream.empty());
+        when(j1939.read(TotalVehicleDistancePacket.class, 300, TimeUnit.MILLISECONDS)).thenReturn(Stream.empty());
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Vehicle Distance" + NL;
@@ -430,8 +433,8 @@ public class VehicleInformationModuleTest {
         instance.reportVehicleDistance(listener);
         assertEquals(expected, listener.getResults());
 
-        verify(j1939).read(HighResVehicleDistancePacket.class);
-        verify(j1939).read(TotalVehicleDistancePacket.class);
+        verify(j1939).read(HighResVehicleDistancePacket.class, 3, TimeUnit.SECONDS);
+        verify(j1939).read(TotalVehicleDistancePacket.class, 300, TimeUnit.MILLISECONDS);
     }
 
     @Test
@@ -439,7 +442,7 @@ public class VehicleInformationModuleTest {
         final int pgn = VehicleIdentificationPacket.PGN;
         final byte[] vinBytes = "12345678901234567890*".getBytes(UTF8);
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         VehicleIdentificationPacket packet1 = new VehicleIdentificationPacket(Packet.create(pgn, 0x00, vinBytes));
@@ -473,7 +476,7 @@ public class VehicleInformationModuleTest {
     public void testReportVinWithNoResponses() {
         final int pgn = VehicleIdentificationPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         when(j1939.requestMultiple(VehicleIdentificationPacket.class, requestPacket)).thenReturn(Stream.empty());

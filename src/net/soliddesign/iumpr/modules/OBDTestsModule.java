@@ -59,7 +59,7 @@ public class OBDTestsModule extends FunctionalModule {
      * @return Packet
      */
     private Packet createDM7Packet(int destination, int spn) {
-        return Packet.create(DM7CommandTestsPacket.PGN | destination, getJ1939().getBusAddress(), 247, spn & 0xFF,
+        return Packet.create(DM7CommandTestsPacket.PGN | destination, getJ1939().getBusAddress(), true, 247, spn & 0xFF,
                 (spn >> 8) & 0xFF, (((spn >> 16) & 0xFF) << 5) | 31, 0xFF, 0xFF, 0xFF, 0xFF);
     }
 
@@ -139,7 +139,7 @@ public class OBDTestsModule extends FunctionalModule {
      */
     private List<ScaledTestResult> requestScaledTestResultsForSpn(ResultsListener listener, int destination, int spn) {
         Packet request = createDM7Packet(destination, spn);
-        listener.onResult(getTime() + " " + request.toString() + TX);
+        listener.onResult(getTime() + " " + request.toString());
         DM30ScaledTestResultsPacket packet = getJ1939()
                 .requestPacket(request, DM30ScaledTestResultsPacket.class, destination, 3)
                 .orElse(null);
@@ -147,7 +147,7 @@ public class OBDTestsModule extends FunctionalModule {
             listener.onResult(TIMEOUT_MESSAGE);
             return Collections.emptyList();
         } else {
-            listener.onResult(getTime() + " " + packet.getPacket().toString());
+            listener.onResult(packet.getPacket().toString(getDateTimeModule().getTimeFormatter()));
             return packet.getTestResults();
         }
     }
@@ -188,17 +188,17 @@ public class OBDTestsModule extends FunctionalModule {
     private List<DM24SPNSupportPacket> requestSupportedSpnPackets(ResultsListener listener, List<Integer> obdModules) {
         List<DM24SPNSupportPacket> packets = new ArrayList<>();
 
-        for (Integer address : obdModules) {
+        for (int address : obdModules) {
             Packet request = getJ1939().createRequestPacket(DM24SPNSupportPacket.PGN, address);
             listener.onResult(getDateTime() + " Direct DM24 Request to " + Lookup.getAddressName(address));
-            listener.onResult(getTime() + " " + request.toString() + TX);
+            listener.onResult(getTime() + " " + request.toString());
             Optional<DM24SPNSupportPacket> results = getJ1939().requestPacket(request, DM24SPNSupportPacket.class,
                     address, 3, TimeUnit.SECONDS.toMillis(15));
             if (!results.isPresent()) {
                 listener.onResult(TIMEOUT_MESSAGE);
             } else {
                 DM24SPNSupportPacket packet = results.get();
-                listener.onResult(getTime() + " " + packet.getPacket().toString());
+                listener.onResult(packet.getPacket().toString(getDateTimeModule().getTimeFormatter()));
                 listener.onResult(packet.toString());
                 packets.add(packet);
             }

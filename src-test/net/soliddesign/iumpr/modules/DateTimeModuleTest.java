@@ -48,6 +48,18 @@ public class DateTimeModuleTest {
     }
 
     @Test
+    public void testGetDateTimeFormatter() throws Exception {
+        String expected = "10:15:30.000";
+        LocalTime time = LocalTime.parse(expected);
+        String actual = instance.getTimeFormatter().format(time);
+        assertEquals(expected, actual);
+
+        LocalDateTime dateTime = LocalDateTime.parse("2007-12-03T10:15:30.000");
+        String actualDateTime = instance.getTimeFormatter().format(dateTime);
+        assertEquals(expected, actualDateTime);
+    }
+
+    @Test
     public void testNow() {
         LocalDateTime before = LocalDateTime.now();
         LocalDateTime actual = instance.now();
@@ -64,6 +76,5 @@ public class DateTimeModuleTest {
 
         LocalTime expectedTime = LocalTime.parse("10:15:30.000");
         assertEquals(expectedTime, instance.parse("10:15:30.000"));
-
     }
 }

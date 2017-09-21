@@ -66,7 +66,7 @@ public class DTCModuleTest {
     public void testReportDM11NoResponseWithManyModules() {
         final int pgn = DM11ClearActiveDTCsPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEAFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEAFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         when(j1939.requestRaw(DM11ClearActiveDTCsPacket.class, requestPacket, 5500, TimeUnit.MILLISECONDS))
@@ -90,7 +90,7 @@ public class DTCModuleTest {
     public void testReportDM11WithManyModules() {
         final int pgn = DM11ClearActiveDTCsPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEAFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEAFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM11ClearActiveDTCsPacket packet1 = new DM11ClearActiveDTCsPacket(
@@ -126,7 +126,7 @@ public class DTCModuleTest {
     public void testReportDM11WithManyModulesWithNack() {
         final int pgn = DM11ClearActiveDTCsPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEAFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEAFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM11ClearActiveDTCsPacket packet1 = new DM11ClearActiveDTCsPacket(
@@ -162,7 +162,7 @@ public class DTCModuleTest {
     public void testReportDM11WithNoResponsesOneModule() {
         final int pgn = DM11ClearActiveDTCsPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEAFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEAFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
         when(j1939.requestRaw(DM11ClearActiveDTCsPacket.class, requestPacket, 5500, TimeUnit.MILLISECONDS))
                 .thenReturn(Stream.empty());
@@ -185,7 +185,7 @@ public class DTCModuleTest {
     public void testReportDM11WithOneModule() {
         final int pgn = DM11ClearActiveDTCsPacket.PGN;
 
-        Packet requestPacket1 = Packet.create(0xEAFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket1 = Packet.create(0xEAFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket1);
 
         DM11ClearActiveDTCsPacket packet1 = new DM11ClearActiveDTCsPacket(
@@ -213,7 +213,7 @@ public class DTCModuleTest {
     public void testReportDM11WithOneModuleWithNack() {
         final int pgn = DM11ClearActiveDTCsPacket.PGN;
 
-        Packet requestPacket1 = Packet.create(0xEAFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket1 = Packet.create(0xEAFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket1);
 
         DM11ClearActiveDTCsPacket packet1 = new DM11ClearActiveDTCsPacket(
@@ -241,7 +241,7 @@ public class DTCModuleTest {
     public void testReportDM12() {
         final int pgn = DM12MILOnEmissionDTCPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM12MILOnEmissionDTCPacket packet1 = new DM12MILOnEmissionDTCPacket(
@@ -278,7 +278,7 @@ public class DTCModuleTest {
     public void testReportDM12WithDTCs() {
         final int pgn = DM12MILOnEmissionDTCPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM12MILOnEmissionDTCPacket packet1 = new DM12MILOnEmissionDTCPacket(Packet.create(pgn, 0x00, 0x00, 0xFF, 0x61,
@@ -308,7 +308,7 @@ public class DTCModuleTest {
     public void testReportDM12WithNoResponses() {
         final int pgn = DM12MILOnEmissionDTCPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         when(j1939.requestMultiple(DM12MILOnEmissionDTCPacket.class, requestPacket)).thenReturn(Stream.empty());
@@ -330,7 +330,7 @@ public class DTCModuleTest {
     public void testReportDM23() {
         final int pgn = DM23PreviouslyMILOnEmissionDTCPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM23PreviouslyMILOnEmissionDTCPacket packet1 = new DM23PreviouslyMILOnEmissionDTCPacket(
@@ -367,7 +367,7 @@ public class DTCModuleTest {
     public void testReportDM23WithDTCs() {
         final int pgn = DM23PreviouslyMILOnEmissionDTCPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM23PreviouslyMILOnEmissionDTCPacket packet1 = new DM23PreviouslyMILOnEmissionDTCPacket(Packet.create(pgn, 0x00,
@@ -397,7 +397,7 @@ public class DTCModuleTest {
     public void testReportDM23WithNoResponses() {
         final int pgn = DM23PreviouslyMILOnEmissionDTCPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         String expected = "";
@@ -417,7 +417,7 @@ public class DTCModuleTest {
     public void testReportDM28() {
         final int pgn = DM28PermanentEmissionDTCPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM28PermanentEmissionDTCPacket packet1 = new DM28PermanentEmissionDTCPacket(
@@ -454,7 +454,7 @@ public class DTCModuleTest {
     public void testReportDM28WithDTCs() {
         final int pgn = DM28PermanentEmissionDTCPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM28PermanentEmissionDTCPacket packet1 = new DM28PermanentEmissionDTCPacket(Packet.create(pgn, 0x00, 0x00, 0xFF,
@@ -485,7 +485,7 @@ public class DTCModuleTest {
     public void testReportDM28WithNoResponses() {
         final int pgn = DM28PermanentEmissionDTCPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         String expected = "";
@@ -505,7 +505,7 @@ public class DTCModuleTest {
     public void testReportDM6() {
         final int pgn = DM6PendingEmissionDTCPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM6PendingEmissionDTCPacket packet1 = new DM6PendingEmissionDTCPacket(
@@ -542,7 +542,7 @@ public class DTCModuleTest {
     public void testReportDM6WithDTCs() {
         final int pgn = DM6PendingEmissionDTCPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM6PendingEmissionDTCPacket packet1 = new DM6PendingEmissionDTCPacket(
@@ -572,7 +572,7 @@ public class DTCModuleTest {
     public void testReportDM6WithNoResponses() {
         final int pgn = DM6PendingEmissionDTCPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         String expected = "";

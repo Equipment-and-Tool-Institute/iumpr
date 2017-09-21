@@ -307,7 +307,7 @@ public class DiagnosticReadinessModule extends FunctionalModule {
         Packet request = getJ1939().createRequestPacket(pgn, J1939.GLOBAL_ADDR);
         if (listener != null) {
             listener.onResult(getDateTime() + " " + title);
-            listener.onResult(getTime() + " " + request.toString() + TX);
+            listener.onResult(getTime() + " " + request.toString());
         }
 
         // Try three times to get packets and ensure there's one from the engine
@@ -330,7 +330,7 @@ public class DiagnosticReadinessModule extends FunctionalModule {
                 listener.onResult(TIMEOUT_MESSAGE);
             } else {
                 for (ParsedPacket packet : packets) {
-                    listener.onResult(getTime() + " " + packet.getPacket().toString());
+                    listener.onResult(packet.getPacket().toString(getDateTimeModule().getTimeFormatter()));
                     if (fullString) {
                         listener.onResult(packet.toString());
                     }

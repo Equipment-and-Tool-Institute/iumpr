@@ -37,13 +37,43 @@ public class DateTimeModule {
      * @param time
      *            the {@link TemporalAccessor} to format
      * @return {@link String}
+     * @throws DateTimeException
+     *             if an error occurs during formatting
      */
-    public String format(TemporalAccessor time) {
+    public String format(TemporalAccessor time) throws DateTimeException {
         try {
-            return getDateTimeFormatter().format(time);
+            return formatDateTime(time);
         } catch (DateTimeException e) {
-            return getTimeFormatter().format(time);
+            return formatTime(time);
         }
+    }
+
+    /**
+     * Formats the given {@link TemporalAccessor} as a {@link String} which
+     * includes the Date and Time
+     *
+     * @param dateTime
+     *            the {@link TemporalAccessor} to format
+     * @return {@link String}
+     * @throws DateTimeException
+     *             if an error occurs during formatting
+     */
+    private String formatDateTime(TemporalAccessor dateTime) throws DateTimeException {
+        return getDateTimeFormatter().format(dateTime);
+    }
+
+    /**
+     * Formats the given {@link TemporalAccessor} as a {@link String} which
+     * includes only the Time
+     *
+     * @param dateTime
+     *            the {@link TemporalAccessor} to format
+     * @return {@link String}
+     * @throws DateTimeException
+     *             if an error occurs during formatting
+     */
+    private String formatTime(TemporalAccessor time) throws DateTimeException {
+        return getTimeFormatter().format(time);
     }
 
     /**
@@ -52,7 +82,7 @@ public class DateTimeModule {
      * @return {@link String}
      */
     public String getDateTime() {
-        return getDateTimeFormatter().format(now());
+        return formatDateTime(now());
     }
 
     /**
@@ -80,7 +110,7 @@ public class DateTimeModule {
      * @return {@link String}
      */
     public String getTime() {
-        return getTimeFormatter().format(now());
+        return formatTime(now());
     }
 
     /**
@@ -88,7 +118,7 @@ public class DateTimeModule {
      *
      * @return the {@link DateTimeFormatter}
      */
-    private DateTimeFormatter getTimeFormatter() {
+    public DateTimeFormatter getTimeFormatter() {
         if (timeFormatter == null) {
             timeFormatter = new DateTimeFormatterBuilder().parseCaseInsensitive()
                     .appendValue(HOUR_OF_DAY, 2).appendLiteral(':').appendValue(MINUTE_OF_HOUR, 2).optionalStart()

@@ -3,6 +3,8 @@
  */
 package net.soliddesign.iumpr.bus;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.logging.Level;
@@ -17,6 +19,16 @@ import net.soliddesign.iumpr.IUMPR;
  *
  */
 public class Packet {
+
+    /**
+     * The indication that a packet was transmitted
+     */
+    public static final String TX = " (TX)";
+
+    public static Packet create(int id, int source, boolean transmitted, int... data) {
+        return new Packet(6, id, source, transmitted, data);
+    }
+
     /**
      * Creates an instance of Packet
      *
@@ -29,7 +41,7 @@ public class Packet {
      * @return Packet
      */
     public static Packet create(int id, int source, byte... bytes) {
-        return createPriority(6, id, source, false, bytes);
+        return create(6, id, source, false, bytes);
     }
 
     /**
@@ -44,7 +56,7 @@ public class Packet {
      * @return Packet
      */
     public static Packet create(int id, int source, int... data) {
-        return new Packet(6, id, source, false, data);
+        return create(id, source, false, data);
     }
 
     /**
@@ -62,7 +74,7 @@ public class Packet {
      *            the data bytes of the packet
      * @return Packet
      */
-    public static Packet createPriority(int priority, int id, int source, boolean transmitted, byte... bytes) {
+    public static Packet create(int priority, int id, int source, boolean transmitted, byte... bytes) {
         int[] data = new int[bytes.length];
         for (int i = 0; i < bytes.length; i++) {
             data[i] = bytes[i];
@@ -79,9 +91,9 @@ public class Packet {
      */
     public static Packet parse(String string) {
         try {
-            boolean tx = string.contains(" (TX)");
+            boolean tx = string.contains(TX);
             if (tx) {
-                string = string.replace(" (TX)", "");
+                string = string.replace(TX, "");
             }
             String[] parts = string.split(" ");
             int header = Integer.parseInt(parts[0].trim(), 16);
@@ -94,7 +106,7 @@ public class Packet {
                 bytes[i - 1] = (byte) (Integer.parseInt(parts[i].trim(), 16) & 0xFF);
             }
 
-            return Packet.createPriority(priority, id, source, tx, bytes);
+            return Packet.create(priority, id, source, tx, bytes);
         } catch (Exception e) {
             IUMPR.getLogger().log(Level.SEVERE, string + " could not be parsed into a Packet", e);
         }
@@ -108,6 +120,8 @@ public class Packet {
     private final int priority;
 
     private final int source;
+
+    private final LocalDateTime timestamp;
 
     private final boolean transmitted;
 
@@ -126,6 +140,7 @@ public class Packet {
      *            the data of the packet
      */
     private Packet(int priority, int id, int source, boolean transmitted, int... data) {
+        timestamp = LocalDateTime.now();
         this.priority = priority;
         this.id = id;
         this.source = source;
@@ -294,6 +309,15 @@ public class Packet {
         return source;
     }
 
+    /**
+     * Returns the Time the packet was received
+     *
+     * @return {@link LocalDateTime}
+     */
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, priority, source, transmitted, Arrays.hashCode(data));
@@ -310,8 +334,22 @@ public class Packet {
 
     @Override
     public String toString() {
-        return String.format("%06X%02X %s", priority << 18 | id, source,
-                Arrays.stream(data).mapToObj(x -> String.format("%02X", x)).collect(Collectors.joining(" "))
-                        + (isTransmitted() ? " (TX)" : ""));
+        return toString(null);
+    }
+
+    /**
+     * Creates the {@link String} of the Packet including the time received
+     * formatted by the {@link DateTimeFormatter}. If the formatter is null, the
+     * time is not included
+     *
+     * @param formatter
+     *            the {@link DateTimeFormatter} to format the time received
+     * @return a {@link String}
+     */
+    public String toString(DateTimeFormatter formatter) {
+        return (formatter == null ? "" : (formatter.format(timestamp) + " "))
+                + String.format("%06X%02X %s", priority << 18 | id, source,
+                        Arrays.stream(data).mapToObj(x -> String.format("%02X", x)).collect(Collectors.joining(" "))
+                                + (transmitted ? TX : ""));
     }
 }

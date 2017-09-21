@@ -10,6 +10,9 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import net.soliddesign.iumpr.modules.DateTimeModule;
+import net.soliddesign.iumpr.modules.TestDateTimeModule;
+
 /**
  * Unit tests for the {@link Packet} class
  *
@@ -46,7 +49,7 @@ public class PacketTest {
 
     @Test
     public void testCreateWithPriority() {
-        Packet instance = Packet.createPriority(18, 1234, 56, true, new byte[] { 11, 22, 33 });
+        Packet instance = Packet.create(18, 1234, 56, true, new byte[] { 11, 22, 33 });
         assertEquals(18, instance.getPriority());
         assertEquals(1234, instance.getId());
         assertEquals(56, instance.getSource());
@@ -59,8 +62,8 @@ public class PacketTest {
 
     @Test
     public void testEqualsAndHashCode() {
-        Packet instance1 = Packet.createPriority(6, 1234, 56, false, (byte) 11, (byte) 22, (byte) 33);
-        Packet instance2 = Packet.createPriority(6, 1234, 56, false, (byte) 11, (byte) 22, (byte) 33);
+        Packet instance1 = Packet.create(6, 1234, 56, false, (byte) 11, (byte) 22, (byte) 33);
+        Packet instance2 = Packet.create(6, 1234, 56, false, (byte) 11, (byte) 22, (byte) 33);
         assertTrue(instance1.equals(instance2));
         assertTrue(instance2.equals(instance1));
         assertTrue(instance1.hashCode() == instance2.hashCode());
@@ -84,7 +87,7 @@ public class PacketTest {
     @Test
     public void testGettersAndToString() {
         byte[] bytes = new byte[] { 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, (byte) 0x88 };
-        Packet instance = Packet.createPriority(6, 1234, 56, true, bytes);
+        Packet instance = Packet.create(6, 1234, 56, true, bytes);
         assertEquals(1234, instance.getId());
         assertEquals(6, instance.getPriority());
         assertEquals(56, instance.getSource());
@@ -149,8 +152,8 @@ public class PacketTest {
 
     @Test
     public void testNotEqualsPriority() {
-        Packet instance1 = Packet.createPriority(6, 1234, 56, true);
-        Packet instance2 = Packet.createPriority(9, 1234, 56, true);
+        Packet instance1 = Packet.create(6, 1234, 56, true);
+        Packet instance2 = Packet.create(9, 1234, 56, true);
         assertFalse(instance1.equals(instance2));
         assertFalse(instance2.equals(instance1));
     }
@@ -165,8 +168,8 @@ public class PacketTest {
 
     @Test
     public void testNotEqualsTransmitted() {
-        Packet instance1 = Packet.createPriority(6, 1234, 56, true);
-        Packet instance2 = Packet.createPriority(6, 1234, 56, false);
+        Packet instance1 = Packet.create(6, 1234, 56, true);
+        Packet instance2 = Packet.create(6, 1234, 56, false);
         assertFalse(instance1.equals(instance2));
         assertFalse(instance2.equals(instance1));
     }
@@ -175,7 +178,7 @@ public class PacketTest {
     public void testParse() {
         byte[] bytes = new byte[] { 0x33, 0x48, 0x41, 0x4D, 0x4B, 0x53, 0x54, 0x4E, 0x30, 0x46, 0x4C, 0x35, 0x37, 0x35,
                 0x30, 0x31, 0x32, 0x2A };
-        Packet expected = Packet.createPriority(06, 0xFEEC, 0x00, false, bytes);
+        Packet expected = Packet.create(06, 0xFEEC, 0x00, false, bytes);
         Packet instance = Packet
                 .parse("18FEEC00 33 48 41 4D 4B 53 54 4E 30 46 4C 35 37 35 30 31 32 2A");
 
@@ -198,11 +201,22 @@ public class PacketTest {
     public void testParseTransmitted() {
         byte[] bytes = new byte[] { 0x33, 0x48, 0x41, 0x4D, 0x4B, 0x53, 0x54, 0x4E, 0x30, 0x46, 0x4C, 0x35, 0x37, 0x35,
                 0x30, 0x31, 0x32, 0x2A };
-        Packet expected = Packet.createPriority(06, 0xFEEC, 0x00, true, bytes);
+        Packet expected = Packet.create(06, 0xFEEC, 0x00, true, bytes);
         Packet instance = Packet
                 .parse("18FEEC00 33 48 41 4D 4B 53 54 4E 30 46 4C 35 37 35 30 31 32 2A (TX)");
 
         assertEquals(expected, instance);
+    }
+
+    @Test
+    public void testToStringWithFormatter() {
+        DateTimeModule dateTimeModule = new TestDateTimeModule();
+        Packet instance = Packet
+                .parse("18FEEC00 33 48 41 4D 4B 53 54 4E 30 46 4C 35 37 35 30 31 32 2A");
+
+        String expected = "10:15:30.000 18FEEC00 33 48 41 4D 4B 53 54 4E 30 46 4C 35 37 35 30 31 32 2A";
+        String actual = instance.toString(dateTimeModule.getTimeFormatter());
+        assertEquals(expected, actual);
     }
 
 }

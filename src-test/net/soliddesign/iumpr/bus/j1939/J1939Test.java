@@ -6,20 +6,16 @@ package net.soliddesign.iumpr.bus.j1939;
 import static net.soliddesign.iumpr.bus.j1939.J1939.ENGINE_ADDR;
 import static net.soliddesign.iumpr.bus.j1939.J1939.GLOBAL_ADDR;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -36,24 +32,13 @@ import net.soliddesign.iumpr.bus.Bus;
 import net.soliddesign.iumpr.bus.BusException;
 import net.soliddesign.iumpr.bus.EchoBus;
 import net.soliddesign.iumpr.bus.Packet;
-import net.soliddesign.iumpr.bus.j1939.packets.ComponentIdentificationPacket;
 import net.soliddesign.iumpr.bus.j1939.packets.DM11ClearActiveDTCsPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.DM12MILOnEmissionDTCPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.DM19CalibrationInformationPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.DM20MonitorPerformanceRatioPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.DM21DiagnosticReadinessPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.DM23PreviouslyMILOnEmissionDTCPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.DM24SPNSupportPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.DM26TripDiagnosticReadinessPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.DM28PermanentEmissionDTCPacket;
 import net.soliddesign.iumpr.bus.j1939.packets.DM30ScaledTestResultsPacket;
 import net.soliddesign.iumpr.bus.j1939.packets.DM5DiagnosticReadinessPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.DM6PendingEmissionDTCPacket;
 import net.soliddesign.iumpr.bus.j1939.packets.DM7CommandTestsPacket;
 import net.soliddesign.iumpr.bus.j1939.packets.EngineHoursPacket;
 import net.soliddesign.iumpr.bus.j1939.packets.EngineSpeedPacket;
 import net.soliddesign.iumpr.bus.j1939.packets.ParsedPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.TotalVehicleDistancePacket;
 import net.soliddesign.iumpr.bus.j1939.packets.VehicleIdentificationPacket;
 
 /**
@@ -134,129 +119,12 @@ public class J1939Test {
     public void testReadByClass() throws Exception {
         Packet packet1 = Packet.create(EngineSpeedPacket.PGN, 0x00, 1, 2, 3, 4, 5, 6, 7, 8);
         Packet packet2 = Packet.create(VehicleIdentificationPacket.PGN, 0x00, 1, 2, 3, 4, 5, 6, 7, 8);
-        when(bus.read(2500, TimeUnit.MILLISECONDS))
+        when(bus.read(5000, TimeUnit.DAYS))
                 .thenReturn(Stream.of(packet1, packet2, packet1, packet2, packet1, packet2));
 
-        Stream<EngineSpeedPacket> response = instance.read(EngineSpeedPacket.class);
+        Stream<EngineSpeedPacket> response = instance.read(EngineSpeedPacket.class, 5000, TimeUnit.DAYS);
         List<EngineSpeedPacket> packets = response.collect(Collectors.toList());
         assertEquals(3, packets.size());
-    }
-
-    @Test
-    public void testReadEngineSpeed() throws Exception {
-        Packet packet1 = Packet.create(EngineSpeedPacket.PGN, 0x00, 1, 2, 3, 4, 5, 6, 7, 8);
-        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1));
-
-        Optional<EngineSpeedPacket> response = instance.read(EngineSpeedPacket.class, 0x00);
-        assertTrue(response.isPresent());
-        EngineSpeedPacket result = response.get();
-        assertEquals(160.5, result.getEngineSpeed(), 0.0);
-    }
-
-    @Test
-    public void testReadHandlesBusException() throws Exception {
-        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenThrow(new BusException("Testing"));
-
-        Optional<EngineSpeedPacket> response = instance.read(EngineSpeedPacket.class, 0x00);
-        assertFalse(response.isPresent());
-    }
-
-    @Test
-    public void testReadHandlesException() throws Exception {
-        Optional<TestPacket> response = instance.read(TestPacket.class, 0x00);
-        assertFalse(response.isPresent());
-    }
-
-    @Test
-    public void testReadHandlesTimeout() throws Exception {
-        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.empty());
-
-        Optional<EngineSpeedPacket> response = instance.read(EngineSpeedPacket.class, 0x00);
-        assertFalse(response.isPresent());
-    }
-
-    @Test
-    public void testReadIgnoresOtherPGNs() throws Exception {
-        Packet packet1 = Packet.create(EngineSpeedPacket.PGN - 1, 0x00, 1, 1, 1, 1, 1, 1, 1, 1);
-        Packet packet2 = Packet.create(EngineSpeedPacket.PGN, 0x00, 1, 2, 3, 4, 5, 6, 7, 8);
-        Packet packet3 = Packet.create(EngineSpeedPacket.PGN + 1, 0x00, 2, 2, 2, 2, 2, 2, 2, 2);
-        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1, packet2, packet3));
-
-        Optional<EngineSpeedPacket> response = instance.read(EngineSpeedPacket.class, 0x00);
-        assertTrue(response.isPresent());
-        EngineSpeedPacket result = response.get();
-        assertEquals(160.5, result.getEngineSpeed(), 0.0);
-    }
-
-    @Test
-    public void testReadIgnoresOtherSources() throws Exception {
-        Packet packet1 = Packet.create(EngineSpeedPacket.PGN, 0x01, 1, 1, 1, 1, 1, 1, 1, 1);
-        Packet packet2 = Packet.create(EngineSpeedPacket.PGN, 0x00, 1, 2, 3, 4, 5, 6, 7, 8);
-        Packet packet3 = Packet.create(EngineSpeedPacket.PGN, 0x02, 2, 2, 2, 2, 2, 2, 2, 2);
-        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1, packet2, packet3));
-
-        Optional<EngineSpeedPacket> response = instance.read(EngineSpeedPacket.class, 0x00);
-        assertTrue(response.isPresent());
-        EngineSpeedPacket result = response.get();
-        assertEquals(160.5, result.getEngineSpeed(), 0.0);
-    }
-
-    @Test
-    public void testReadTotalVehicleDistance() throws Exception {
-        Packet packet1 = Packet.create(TotalVehicleDistancePacket.PGN, 0x00, 1, 2, 3, 4, 5, 6, 7, 8);
-        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1));
-
-        Optional<TotalVehicleDistancePacket> response = instance.read(TotalVehicleDistancePacket.class, 0x00);
-        assertTrue(response.isPresent());
-        TotalVehicleDistancePacket result = response.get();
-        assertEquals(16834752.625, result.getTotalVehicleDistance(), 0.0);
-    }
-
-    @Test
-    public void testRequestAllPackets() throws Exception {
-        List<Class<? extends ParsedPacket>> testCases = new ArrayList<>();
-        testCases.add(DM5DiagnosticReadinessPacket.class);
-        testCases.add(DM6PendingEmissionDTCPacket.class);
-        testCases.add(DM12MILOnEmissionDTCPacket.class);
-        testCases.add(DM23PreviouslyMILOnEmissionDTCPacket.class);
-        testCases.add(DM26TripDiagnosticReadinessPacket.class);
-        testCases.add(DM28PermanentEmissionDTCPacket.class);
-        testCases.add(DM19CalibrationInformationPacket.class);
-        testCases.add(ComponentIdentificationPacket.class);
-        testCases.add(DM21DiagnosticReadinessPacket.class);
-        testCases.add(DM24SPNSupportPacket.class);
-        testCases.add(DM20MonitorPerformanceRatioPacket.class);
-        testCases.add(EngineHoursPacket.class);
-
-        for (Class<? extends ParsedPacket> clazz : testCases) {
-            int id = clazz.getField("PGN").getInt(null);
-            String message = "Class " + clazz.getSimpleName() + " failed";
-
-            Packet packet = Packet.create(id, 0x17, 11, 22, 33, 44, 55, 66, 77, 88);
-            when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet));
-
-            assertTrue(message, instance.request(clazz, 0x17).isPresent());
-        }
-    }
-
-    @Test
-    public void testRequestByPGN() throws Exception {
-        final int pgn = VehicleIdentificationPacket.PGN;
-        Packet packet1 = Packet.create(pgn, 0x00, "12345678901234567890*".getBytes(UTF8));
-        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1));
-
-        Optional<VehicleIdentificationPacket> response = instance.request(VehicleIdentificationPacket.class, 0x0);
-        assertTrue(response.isPresent());
-        VehicleIdentificationPacket result = response.get();
-        assertEquals("12345678901234567890", result.getVin());
-
-        verify(bus).send(sendPacketCaptor.capture());
-        List<Packet> packets = sendPacketCaptor.getAllValues();
-        assertEquals(1, packets.size());
-        Packet request = packets.get(0);
-        assertEquals(0xEA00, request.getId());
-        assertEquals(BUS_ADDR, request.getSource());
-        assertEquals(pgn, request.get24(0));
     }
 
     /**
@@ -338,152 +206,6 @@ public class J1939Test {
         Packet request = sendPacketCaptor.getValue();
         assertEquals(DM7CommandTestsPacket.PGN, request.getId());
         assertEquals(BUS_ADDR, request.getSource());
-    }
-
-    @Test
-    public void testRequestHandlesBusException() throws Exception {
-        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenThrow(new BusException("Testing"));
-
-        Optional<DM11ClearActiveDTCsPacket> response = instance.request(DM11ClearActiveDTCsPacket.class, 0x17);
-        assertFalse(response.isPresent());
-
-        verify(bus, never()).send(sendPacketCaptor.capture());
-    }
-
-    @Test
-    public void testRequestHandlesBusExceptionOnSecondAttempt() throws Exception {
-        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.empty()).thenThrow(new BusException("Testing"));
-
-        Optional<VehicleIdentificationPacket> response = instance.request(VehicleIdentificationPacket.class, 0x00);
-        assertFalse(response.isPresent());
-
-        verify(bus).send(sendPacketCaptor.capture());
-        List<Packet> packets = sendPacketCaptor.getAllValues();
-        assertEquals(1, packets.size());
-    }
-
-    @Test
-    public void testRequestHandlesBusy() throws Exception {
-        instance.setBusyRetryTime(50, TimeUnit.MILLISECONDS);
-        final Packet busyPacket = Packet.create(0xE8FF, 0x17, 0x03, 0xFF, 0xFF, 0xFF, BUS_ADDR, 0xD3, 0xFE, 0x00);
-        final Packet realPacket = Packet.create(0xE8FF, 0x17, 0x00, 0xFF, 0xFF, 0xFF, BUS_ADDR, 0xD3, 0xFE, 0x00);
-        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(busyPacket)).thenReturn(Stream.of(busyPacket))
-                .thenReturn(Stream.of(busyPacket)).thenReturn(Stream.of(busyPacket)).thenReturn(Stream.of(busyPacket))
-                .thenReturn(Stream.of(realPacket));
-
-        Optional<DM11ClearActiveDTCsPacket> response = instance.request(DM11ClearActiveDTCsPacket.class, 0x17);
-        assertTrue(response.isPresent());
-        DM11ClearActiveDTCsPacket packet = response.get();
-        assertEquals("Acknowledged", packet.getResponse().toString());
-
-        verify(bus, times(6)).send(sendPacketCaptor.capture());
-        List<Packet> packets = sendPacketCaptor.getAllValues();
-        assertEquals(6, packets.size());
-        Packet request = packets.get(0);
-        assertEquals(0xEA17, request.getId());
-        assertEquals(BUS_ADDR, request.getSource());
-        assertEquals(DM11ClearActiveDTCsPacket.PGN, request.get24(0));
-    }
-
-    @Test
-    public void testRequestHandlesException() throws Exception {
-        Optional<TestPacket> response = instance.request(TestPacket.class, 0x17);
-        assertFalse(response.isPresent());
-        verify(bus, never()).read(2500, TimeUnit.MILLISECONDS);
-        verify(bus, never()).send(sendPacketCaptor.capture());
-    }
-
-    @Test
-    public void testRequestHandlesTimeouts() throws Exception {
-        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.empty()).thenReturn(Stream.empty())
-                .thenReturn(Stream.empty());
-
-        Optional<VehicleIdentificationPacket> response = instance.request(VehicleIdentificationPacket.class, 0x00);
-        assertFalse(response.isPresent());
-
-        verify(bus, times(3)).send(sendPacketCaptor.capture());
-        List<Packet> packets = sendPacketCaptor.getAllValues();
-        assertEquals(3, packets.size());
-    }
-
-    @Test
-    public void testRequestIgnoresAcksToOthersAddresses() throws Exception {
-        final Packet packet1 = Packet.create(0xE8FF, 0x17, 0x01, 0xFF, 0xFF, 0xFF, BUS_ADDR + 1, 0xD3, 0xFE, 0x00);
-        final Packet packet2 = Packet.create(0xE8FF, 0x17, 0x00, 0xFF, 0xFF, 0xFF, BUS_ADDR, 0xD3, 0xFE, 0x00);
-        final Packet packet3 = Packet.create(0xE8FF, 0x17, 0x02, 0xFF, 0xFF, 0xFF, BUS_ADDR + 2, 0xD3, 0xFE, 0x00);
-        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1, packet2, packet3));
-
-        Optional<DM11ClearActiveDTCsPacket> response = instance.request(DM11ClearActiveDTCsPacket.class, 0x17);
-        assertTrue(response.isPresent());
-        DM11ClearActiveDTCsPacket packet = response.get();
-        assertEquals("Acknowledged", packet.getResponse().toString());
-
-        verify(bus).send(sendPacketCaptor.capture());
-        List<Packet> packets = sendPacketCaptor.getAllValues();
-        assertEquals(1, packets.size());
-    }
-
-    @Test
-    public void testRequestIgnoresAcksToOthersPGNs() throws Exception {
-        final Packet packet1 = Packet.create(0xE8FF, 0x17, 0x01, 0xFF, 0xFF, 0xFF, BUS_ADDR, 0xD2, 0xFE, 0x00);
-        final Packet packet2 = Packet.create(0xE8FF, 0x17, 0x00, 0xFF, 0xFF, 0xFF, BUS_ADDR, 0xD3, 0xFE, 0x00);
-        final Packet packet3 = Packet.create(0xE8FF, 0x17, 0x02, 0xFF, 0xFF, 0xFF, BUS_ADDR, 0xD4, 0xFE, 0x00);
-        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1, packet2, packet3));
-
-        Optional<DM11ClearActiveDTCsPacket> response = instance.request(DM11ClearActiveDTCsPacket.class, 0x17);
-        assertTrue(response.isPresent());
-        DM11ClearActiveDTCsPacket packet = response.get();
-        assertEquals("Acknowledged", packet.getResponse().toString());
-
-        verify(bus).send(sendPacketCaptor.capture());
-        List<Packet> packets = sendPacketCaptor.getAllValues();
-        assertEquals(1, packets.size());
-    }
-
-    @Test
-    public void testRequestIgnoresOthersByAddress() throws Exception {
-        String expected = "12345678901234567890";
-        Packet packet1 = Packet.create(VehicleIdentificationPacket.PGN, 0x00, ("09876543210987654321*").getBytes(UTF8));
-        Packet packet2 = Packet.create(VehicleIdentificationPacket.PGN, 0x17, (expected + "*").getBytes(UTF8));
-        Packet packet3 = Packet.create(VehicleIdentificationPacket.PGN, 0x21, ("alksdfjlasdjflkajsdf*").getBytes(UTF8));
-        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1, packet2, packet3));
-
-        Optional<VehicleIdentificationPacket> response = instance.request(VehicleIdentificationPacket.class, 0x17);
-        assertTrue(response.isPresent());
-        VehicleIdentificationPacket result = response.get();
-        assertEquals(expected, result.getVin());
-
-        verify(bus).send(sendPacketCaptor.capture());
-        List<Packet> packets = sendPacketCaptor.getAllValues();
-        assertEquals(1, packets.size());
-        Packet packet = packets.get(0);
-        assertEquals(0xEA17, packet.getId());
-        assertEquals(BUS_ADDR, packet.getSource());
-        assertEquals(VehicleIdentificationPacket.PGN, packet.get24(0));
-    }
-
-    @Test
-    public void testRequestIgnoresOthersByPGN() throws Exception {
-        String expected = "12345678901234567890";
-        Packet packet1 = Packet.create(VehicleIdentificationPacket.PGN - 1, 0x17,
-                ("09876543210987654321*").getBytes(UTF8));
-        Packet packet2 = Packet.create(VehicleIdentificationPacket.PGN, 0x17, (expected + "*").getBytes(UTF8));
-        Packet packet3 = Packet.create(VehicleIdentificationPacket.PGN + 2, 0x17,
-                ("alksdfjlasdjflkajsdf*").getBytes(UTF8));
-        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1, packet2, packet3));
-
-        Optional<VehicleIdentificationPacket> response = instance.request(VehicleIdentificationPacket.class, 0x17);
-        assertTrue(response.isPresent());
-        VehicleIdentificationPacket result = response.get();
-        assertEquals(expected, result.getVin());
-
-        verify(bus).send(sendPacketCaptor.capture());
-        List<Packet> packets = sendPacketCaptor.getAllValues();
-        assertEquals(1, packets.size());
-        Packet packet = packets.get(0);
-        assertEquals(0xEA17, packet.getId());
-        assertEquals(BUS_ADDR, packet.getSource());
-        assertEquals(VehicleIdentificationPacket.PGN, packet.get24(0));
     }
 
     @Test
@@ -679,72 +401,4 @@ public class J1939Test {
         assertEquals(8, packets.size());
     }
 
-    @Test
-    public void testRequestReturnsAck() throws Exception {
-        final Packet packet1 = Packet.create(0xE8FF, 0x17, 0x00, 0xFF, 0xFF, 0xFF, BUS_ADDR, 0xD3, 0xFE, 0x00);
-        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1));
-
-        Optional<DM11ClearActiveDTCsPacket> response = instance.request(DM11ClearActiveDTCsPacket.class, 0x17);
-        assertTrue(response.isPresent());
-        DM11ClearActiveDTCsPacket packet = response.get();
-        assertEquals("Acknowledged", packet.getResponse().toString());
-
-        verify(bus).send(sendPacketCaptor.capture());
-        List<Packet> packets = sendPacketCaptor.getAllValues();
-        assertEquals(1, packets.size());
-        Packet request = packets.get(0);
-        assertEquals(0xEA17, request.getId());
-        assertEquals(BUS_ADDR, request.getSource());
-        assertEquals(DM11ClearActiveDTCsPacket.PGN, request.get24(0));
-    }
-
-    @Test
-    public void testRequestReturnsFirstResponse() throws Exception {
-        Packet packet1 = Packet.create(VehicleIdentificationPacket.PGN, 0x17, "12345678901234567890*".getBytes(UTF8));
-        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.of(packet1));
-
-        Optional<VehicleIdentificationPacket> response = instance.request(VehicleIdentificationPacket.class, 0x17);
-        assertTrue(response.isPresent());
-        VehicleIdentificationPacket result = response.get();
-        assertEquals("12345678901234567890", result.getVin());
-
-        verify(bus).send(sendPacketCaptor.capture());
-        List<Packet> packets = sendPacketCaptor.getAllValues();
-        assertEquals(1, packets.size());
-        Packet request = packets.get(0);
-        assertEquals(0xEA17, request.getId());
-        assertEquals(BUS_ADDR, request.getSource());
-        assertEquals(VehicleIdentificationPacket.PGN, request.get24(0));
-    }
-
-    @Test
-    public void testRequestReturnsLastResponse() throws Exception {
-        Packet packet1 = Packet.create(VehicleIdentificationPacket.PGN, 0x00, "12345678901234567890*".getBytes(UTF8));
-        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.empty()).thenReturn(Stream.empty())
-                .thenReturn(Stream.of(packet1));
-
-        Optional<VehicleIdentificationPacket> response = instance.request(VehicleIdentificationPacket.class, 0x00);
-        assertTrue(response.isPresent());
-        VehicleIdentificationPacket result = response.get();
-        assertEquals("12345678901234567890", result.getVin());
-
-        verify(bus, times(3)).send(sendPacketCaptor.capture());
-        List<Packet> packets = sendPacketCaptor.getAllValues();
-        assertEquals(3, packets.size());
-    }
-
-    @Test
-    public void testRequestReturnsSecondResponse() throws Exception {
-        Packet packet1 = Packet.create(VehicleIdentificationPacket.PGN, 0x00, "12345678901234567890*".getBytes(UTF8));
-        when(bus.read(2500, TimeUnit.MILLISECONDS)).thenReturn(Stream.empty()).thenReturn(Stream.of(packet1));
-
-        Optional<VehicleIdentificationPacket> response = instance.request(VehicleIdentificationPacket.class, 0x00);
-        assertTrue(response.isPresent());
-        VehicleIdentificationPacket result = response.get();
-        assertEquals("12345678901234567890", result.getVin());
-
-        verify(bus, times(2)).send(sendPacketCaptor.capture());
-        List<Packet> packets = sendPacketCaptor.getAllValues();
-        assertEquals(2, packets.size());
-    }
 }

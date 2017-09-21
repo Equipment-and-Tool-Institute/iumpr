@@ -9,6 +9,7 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 import net.soliddesign.iumpr.bus.BusException;
 import net.soliddesign.iumpr.bus.Packet;
@@ -128,7 +129,8 @@ public class VehicleInformationModule extends FunctionalModule {
      */
     public void reportVehicleDistance(ResultsListener listener) {
         listener.onResult(getDateTime() + " Vehicle Distance");
-        Optional<HighResVehicleDistancePacket> hiResPacket = getJ1939().read(HighResVehicleDistancePacket.class)
+        Optional<HighResVehicleDistancePacket> hiResPacket = getJ1939()
+                .read(HighResVehicleDistancePacket.class, 3, TimeUnit.SECONDS)
                 .filter(p -> p.getTotalVehicleDistance() != ParsedPacket.NOT_AVAILABLE
                         && p.getTotalVehicleDistance() != ParsedPacket.ERROR)
                 .max((p1, p2) -> Double.compare(p1.getTotalVehicleDistance(), p2.getTotalVehicleDistance()));
@@ -137,7 +139,7 @@ public class VehicleInformationModule extends FunctionalModule {
         if (hiResPacket.isPresent()) {
             packet = hiResPacket;
         } else {
-            packet = getJ1939().read(TotalVehicleDistancePacket.class)
+            packet = getJ1939().read(TotalVehicleDistancePacket.class, 300, TimeUnit.MILLISECONDS)
                     .filter(p -> p.getTotalVehicleDistance() != ParsedPacket.NOT_AVAILABLE
                             && p.getTotalVehicleDistance() != ParsedPacket.ERROR)
                     .max((p1, p2) -> Double.compare(p1.getTotalVehicleDistance(), p2.getTotalVehicleDistance()));

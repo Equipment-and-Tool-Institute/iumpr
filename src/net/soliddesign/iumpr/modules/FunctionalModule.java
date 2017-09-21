@@ -25,8 +25,6 @@ public abstract class FunctionalModule {
 
     public static final String TIMEOUT_MESSAGE = "Error: Timeout - No Response.";
 
-    protected static final String TX = " (TX)";
-
     private final DateTimeModule dateTimeModule;
 
     private J1939 j1939;
@@ -85,7 +83,7 @@ public abstract class FunctionalModule {
     protected <T extends ParsedPacket> List<T> generateReport(ResultsListener listener, String title, Class<T> clazz,
             Packet request) {
         listener.onResult(getDateTime() + " " + title);
-        listener.onResult(getTime() + " " + request.toString() + TX);
+        listener.onResult(getTime() + " " + request.toString());
         Stream<T> packets = getJ1939().requestMultiple(clazz, request);
         return addToReport(listener, packets);
     }
@@ -118,7 +116,7 @@ public abstract class FunctionalModule {
     }
 
     protected Function<ParsedPacket, String> getPacketMapperFunction() {
-        return t -> getTime() + " " + t.getPacket() + NL + t.toString();
+        return t -> t.getPacket().toString(getDateTimeModule().getTimeFormatter()) + NL + t.toString();
     }
 
     /**

@@ -19,6 +19,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 import net.soliddesign.iumpr.IUMPR;
@@ -52,6 +53,11 @@ public class RP1210Bus implements Bus {
     private final ScheduledExecutorService exec;
 
     /**
+     * The {@link Logger} for errors
+     */
+    private final Logger logger;
+
+    /**
      * The Queue of {@link Packet}s
      */
     private final MultiQueue<Packet> queue;
@@ -73,7 +79,7 @@ public class RP1210Bus implements Bus {
      */
     public RP1210Bus(Adapter adapter, int address) throws BusException {
         this(RP1210Library.load(adapter), Executors.newSingleThreadScheduledExecutor(), new MultiQueue<>(), adapter,
-                address);
+                address, IUMPR.getLogger());
     }
 
     /**
@@ -89,15 +95,18 @@ public class RP1210Bus implements Bus {
      *            the {@link Adapter} thats connected to the vehicle
      * @param address
      *            the source address of this branch on the bus
+     * @param logger
+     *            the {@link Logger} for logging errors
      * @throws BusException
      *             if there is a problem connecting to the adapter
      */
     public RP1210Bus(RP1210Library rp1210Library, ScheduledExecutorService exec, MultiQueue<Packet> queue,
-            Adapter adapter, int address) throws BusException {
+            Adapter adapter, int address, Logger logger) throws BusException {
         this.rp1210Library = rp1210Library;
         this.exec = exec;
         this.queue = queue;
         this.address = address;
+        this.logger = logger;
 
         clientId = rp1210Library.RP1210_ClientConnect(0, adapter.getDeviceId(), "J1939:Baud=Auto", 0, 0,
                 (short) 0);
@@ -136,7 +145,7 @@ public class RP1210Bus implements Bus {
             int destination = data[10];
             pgn = pgn | (destination & 0xFF);
         }
-        return Packet.createPriority(priority, pgn, source, echoed != 0, Arrays.copyOfRange(data, 11, length));
+        return Packet.create(priority, pgn, source, echoed != 0, Arrays.copyOfRange(data, 11, length));
     }
 
     /**
@@ -174,6 +183,10 @@ public class RP1210Bus implements Bus {
         return Integer.parseInt(result);
     }
 
+    private Logger getLogger() {
+        return logger;
+    }
+
     /**
      * Checks the {@link RP1210Library} for any incoming messages. Any incoming
      * messages are decoded and added to the queue
@@ -183,14 +196,18 @@ public class RP1210Bus implements Bus {
             while (true) {
                 short rtn = rp1210Library.RP1210_ReadMessage(clientId, data, (short) data.length, BLOCKING_NONE);
                 if (rtn > 0) {
-                    queue.add(decode(data, rtn));
+                    Packet packet = decode(data, rtn);
+                    if (packet.getSource() == getAddress() && !packet.isTransmitted()) {
+                        getLogger().log(Level.WARNING, "Another module is using this address");
+                    }
+                    queue.add(packet);
                 } else {
                     verify(rtn);
                     break;
                 }
             }
         } catch (BusException e) {
-            IUMPR.getLogger().log(Level.WARNING, "Failed to read RP1210", e);
+            getLogger().log(Level.SEVERE, "Failed to read RP1210", e);
         }
     }
 

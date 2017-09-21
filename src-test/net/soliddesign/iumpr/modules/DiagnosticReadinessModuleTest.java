@@ -96,7 +96,7 @@ public class DiagnosticReadinessModuleTest {
     public void testGetDM20PacketsFalse() {
         final int pgn = DM20MonitorPerformanceRatioPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM20MonitorPerformanceRatioPacket packet1 = new DM20MonitorPerformanceRatioPacket(
@@ -126,7 +126,7 @@ public class DiagnosticReadinessModuleTest {
     public void testGetDM20PacketsNoEngineResponse() {
         final int pgn = DM20MonitorPerformanceRatioPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM20MonitorPerformanceRatioPacket packet1 = new DM20MonitorPerformanceRatioPacket(
@@ -152,7 +152,7 @@ public class DiagnosticReadinessModuleTest {
     public void testGetDM20PacketsNoResponse() {
         final int pgn = DM20MonitorPerformanceRatioPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         when(j1939.requestMultiple(DM20MonitorPerformanceRatioPacket.class, requestPacket)).thenReturn(Stream.empty())
@@ -173,7 +173,7 @@ public class DiagnosticReadinessModuleTest {
     public void testGetDM20PacketsTrue() {
         final int pgn = DM20MonitorPerformanceRatioPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM20MonitorPerformanceRatioPacket packet1 = new DM20MonitorPerformanceRatioPacket(
@@ -218,7 +218,7 @@ public class DiagnosticReadinessModuleTest {
     public void testGetDM20PacketsWithEngine1Response() {
         final int pgn = DM20MonitorPerformanceRatioPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM20MonitorPerformanceRatioPacket packet1 = new DM20MonitorPerformanceRatioPacket(
@@ -263,7 +263,7 @@ public class DiagnosticReadinessModuleTest {
     public void testGetDM20PacketWithNoListener() {
         final int pgn = DM20MonitorPerformanceRatioPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM20MonitorPerformanceRatioPacket packet1 = new DM20MonitorPerformanceRatioPacket(
@@ -286,7 +286,7 @@ public class DiagnosticReadinessModuleTest {
     public void testGetDM21PacketsFalse() {
         final int pgn = DM21DiagnosticReadinessPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM21DiagnosticReadinessPacket packet1 = new DM21DiagnosticReadinessPacket(
@@ -316,7 +316,7 @@ public class DiagnosticReadinessModuleTest {
     public void testGetDM21PacketsNoEngineResponse() {
         final int pgn = DM21DiagnosticReadinessPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM21DiagnosticReadinessPacket packet1 = new DM21DiagnosticReadinessPacket(
@@ -343,7 +343,7 @@ public class DiagnosticReadinessModuleTest {
     public void testGetDM21PacketsNoResponse() {
         final int pgn = DM21DiagnosticReadinessPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         when(j1939.requestMultiple(DM21DiagnosticReadinessPacket.class, requestPacket)).thenReturn(Stream.empty())
@@ -364,7 +364,7 @@ public class DiagnosticReadinessModuleTest {
     public void testGetDM21PacketsTrue() {
         final int pgn = DM21DiagnosticReadinessPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM21DiagnosticReadinessPacket packet1 = new DM21DiagnosticReadinessPacket(
@@ -412,7 +412,7 @@ public class DiagnosticReadinessModuleTest {
     public void testGetDM21PacketsWithEngine1Response() {
         final int pgn = DM21DiagnosticReadinessPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM21DiagnosticReadinessPacket packet1 = new DM21DiagnosticReadinessPacket(
@@ -460,7 +460,7 @@ public class DiagnosticReadinessModuleTest {
     public void testGetDM21PacketsWithNoListener() {
         final int pgn = DM21DiagnosticReadinessPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM21DiagnosticReadinessPacket packet1 = new DM21DiagnosticReadinessPacket(
@@ -483,7 +483,7 @@ public class DiagnosticReadinessModuleTest {
     public void testGetDM26PacketsFalse() {
         final int pgn = DM26TripDiagnosticReadinessPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM26TripDiagnosticReadinessPacket packet1 = new DM26TripDiagnosticReadinessPacket(
@@ -512,7 +512,7 @@ public class DiagnosticReadinessModuleTest {
     public void testGetDM26PacketsNoEngineResponse() {
         final int pgn = DM26TripDiagnosticReadinessPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM26TripDiagnosticReadinessPacket packet1 = new DM26TripDiagnosticReadinessPacket(
@@ -539,7 +539,7 @@ public class DiagnosticReadinessModuleTest {
     public void testGetDM26PacketsNoResponse() {
         final int pgn = DM26TripDiagnosticReadinessPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
         when(j1939.requestMultiple(DM26TripDiagnosticReadinessPacket.class, requestPacket)).thenReturn(Stream.empty())
                 .thenReturn(Stream.empty()).thenReturn(Stream.empty());
@@ -559,7 +559,7 @@ public class DiagnosticReadinessModuleTest {
     public void testGetDM26PacketsTrue() {
         final int pgn = DM26TripDiagnosticReadinessPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM26TripDiagnosticReadinessPacket packet1 = new DM26TripDiagnosticReadinessPacket(
@@ -595,7 +595,7 @@ public class DiagnosticReadinessModuleTest {
     public void testGetDM26PacketsWithEngine1Response() {
         final int pgn = DM26TripDiagnosticReadinessPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM26TripDiagnosticReadinessPacket packet1 = new DM26TripDiagnosticReadinessPacket(
@@ -631,7 +631,7 @@ public class DiagnosticReadinessModuleTest {
     public void testGetDM26PacketsWithNoListener() {
         final int pgn = DM26TripDiagnosticReadinessPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM26TripDiagnosticReadinessPacket packet1 = new DM26TripDiagnosticReadinessPacket(
@@ -654,7 +654,7 @@ public class DiagnosticReadinessModuleTest {
     public void testGetDM5PacketsEngine1Response() {
         final int pgn = DM5DiagnosticReadinessPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM5DiagnosticReadinessPacket packet1 = new DM5DiagnosticReadinessPacket(
@@ -690,7 +690,7 @@ public class DiagnosticReadinessModuleTest {
     public void testGetDM5PacketsFalse() {
         final int pgn = DM5DiagnosticReadinessPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM5DiagnosticReadinessPacket packet1 = new DM5DiagnosticReadinessPacket(
@@ -720,7 +720,7 @@ public class DiagnosticReadinessModuleTest {
     public void testGetDM5PacketsNoEngineResponse() {
         final int pgn = DM5DiagnosticReadinessPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM5DiagnosticReadinessPacket packet1 = new DM5DiagnosticReadinessPacket(
@@ -747,7 +747,7 @@ public class DiagnosticReadinessModuleTest {
     public void testGetDM5PacketsNoResponse() {
         final int pgn = DM5DiagnosticReadinessPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         when(j1939.requestMultiple(DM5DiagnosticReadinessPacket.class, requestPacket)).thenReturn(Stream.empty())
@@ -768,7 +768,7 @@ public class DiagnosticReadinessModuleTest {
     public void testGetDM5PacketsTrue() {
         final int pgn = DM5DiagnosticReadinessPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM5DiagnosticReadinessPacket packet1 = new DM5DiagnosticReadinessPacket(
@@ -804,7 +804,7 @@ public class DiagnosticReadinessModuleTest {
     public void testGetDM5PacketsWithNoListener() {
         final int pgn = DM5DiagnosticReadinessPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM5DiagnosticReadinessPacket packet1 = new DM5DiagnosticReadinessPacket(
@@ -901,7 +901,7 @@ public class DiagnosticReadinessModuleTest {
     public void testGetOBDModules() {
         final int pgn = DM5DiagnosticReadinessPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM5DiagnosticReadinessPacket packet1 = new DM5DiagnosticReadinessPacket(
@@ -1011,7 +1011,7 @@ public class DiagnosticReadinessModuleTest {
     public void testReportDM20() {
         final int pgn = DM20MonitorPerformanceRatioPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM20MonitorPerformanceRatioPacket packet1 = new DM20MonitorPerformanceRatioPacket(
@@ -1056,7 +1056,7 @@ public class DiagnosticReadinessModuleTest {
     public void testReportDM20WithNoResponses() {
         final int pgn = DM20MonitorPerformanceRatioPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
         when(j1939.requestMultiple(DM20MonitorPerformanceRatioPacket.class, requestPacket)).thenReturn(Stream.empty())
                 .thenReturn(Stream.empty()).thenReturn(Stream.empty());
@@ -1076,7 +1076,7 @@ public class DiagnosticReadinessModuleTest {
     public void testReportDM21() {
         final int pgn = DM21DiagnosticReadinessPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM21DiagnosticReadinessPacket packet1 = new DM21DiagnosticReadinessPacket(
@@ -1125,7 +1125,7 @@ public class DiagnosticReadinessModuleTest {
     public void testReportDM21WithGap() {
         final int pgn = DM21DiagnosticReadinessPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM21DiagnosticReadinessPacket packet1 = new DM21DiagnosticReadinessPacket(
@@ -1156,7 +1156,7 @@ public class DiagnosticReadinessModuleTest {
     public void testReportDM21WithNewFile() {
         final int pgn = DM21DiagnosticReadinessPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM21DiagnosticReadinessPacket packet1 = new DM21DiagnosticReadinessPacket(
@@ -1186,7 +1186,7 @@ public class DiagnosticReadinessModuleTest {
     public void testReportDM21WithNoResponses() {
         final int pgn = DM21DiagnosticReadinessPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
         when(j1939.requestMultiple(DM21DiagnosticReadinessPacket.class, requestPacket)).thenReturn(Stream.empty())
                 .thenReturn(Stream.empty()).thenReturn(Stream.empty());
@@ -1206,7 +1206,7 @@ public class DiagnosticReadinessModuleTest {
     public void testReportDM21WithReset() {
         final int pgn = DM21DiagnosticReadinessPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM21DiagnosticReadinessPacket packet1 = new DM21DiagnosticReadinessPacket(
@@ -1237,7 +1237,7 @@ public class DiagnosticReadinessModuleTest {
     public void testReportDM26() {
         final int pgn = DM26TripDiagnosticReadinessPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM26TripDiagnosticReadinessPacket packet1 = new DM26TripDiagnosticReadinessPacket(
@@ -1291,7 +1291,7 @@ public class DiagnosticReadinessModuleTest {
     public void testReportDM26WithNoResponses() {
         final int pgn = DM26TripDiagnosticReadinessPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
         when(j1939.requestMultiple(DM26TripDiagnosticReadinessPacket.class, requestPacket)).thenReturn(Stream.empty())
                 .thenReturn(Stream.empty()).thenReturn(Stream.empty());
@@ -1311,7 +1311,7 @@ public class DiagnosticReadinessModuleTest {
     public void testReportDM5() {
         final int pgn = DM5DiagnosticReadinessPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
 
         DM5DiagnosticReadinessPacket packet1 = new DM5DiagnosticReadinessPacket(
@@ -1365,7 +1365,7 @@ public class DiagnosticReadinessModuleTest {
     public void testReportDM5WithNoResponses() {
         final int pgn = DM5DiagnosticReadinessPacket.PGN;
 
-        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, pgn, pgn >> 8, pgn >> 16);
+        Packet requestPacket = Packet.create(0xEA00 | 0xFF, BUS_ADDR, true, pgn, pgn >> 8, pgn >> 16);
         when(j1939.createRequestPacket(pgn, 0xFF)).thenReturn(requestPacket);
         when(j1939.requestMultiple(DM5DiagnosticReadinessPacket.class, requestPacket)).thenReturn(Stream.empty())
                 .thenReturn(Stream.empty()).thenReturn(Stream.empty());

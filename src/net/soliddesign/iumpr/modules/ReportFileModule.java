@@ -4,6 +4,7 @@
 package net.soliddesign.iumpr.modules;
 
 import static net.soliddesign.iumpr.IUMPR.NL;
+import static net.soliddesign.iumpr.bus.Packet.TX;
 
 import java.io.BufferedWriter;
 import java.io.File;

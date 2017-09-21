@@ -21,6 +21,8 @@ import java.util.concurrent.Future;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 import org.junit.After;
@@ -53,6 +55,9 @@ public class RP1210BusTest {
     private RP1210Bus instance;
 
     @Mock
+    private Logger logger;
+
+    @Mock
     private MultiQueue<Packet> queue;
 
     @Mock
@@ -61,7 +66,7 @@ public class RP1210BusTest {
     private ArgumentCaptor<Runnable> runnableCaptor = ArgumentCaptor.forClass(Runnable.class);
 
     private void createInstance() throws BusException {
-        instance = new RP1210Bus(rp1210Library, exec, queue, adapter, ADDRESS);
+        instance = new RP1210Bus(rp1210Library, exec, queue, adapter, ADDRESS, logger);
     }
 
     @Before
@@ -96,7 +101,7 @@ public class RP1210BusTest {
 
     @After
     public void tearDown() throws Exception {
-        verifyNoMoreInteractions(rp1210Library, exec, queue);
+        verifyNoMoreInteractions(rp1210Library, exec, queue, logger);
     }
 
     @Test
@@ -312,7 +317,7 @@ public class RP1210BusTest {
                     byte[] data = arg0.getArgument(1);
                     System.arraycopy(encodedPacket, 0, data, 0, encodedPacket.length);
                     return (short) encodedPacket.length;
-                }).thenReturn((short) -1);
+                }).thenReturn((short) 0);
 
         startInstance();
         Runnable runnable = runnableCaptor.getValue();
@@ -325,7 +330,6 @@ public class RP1210BusTest {
         assertEquals(packet, actual);
         verify(rp1210Library, times(2)).RP1210_ReadMessage(eq((short) 1), any(byte[].class), eq((short) 2048),
                 eq((short) 0));
-        verify(rp1210Library).RP1210_GetErrorMsg(eq((short) 1), any(byte[].class));
     }
 
     @Test
@@ -347,11 +351,12 @@ public class RP1210BusTest {
         verify(queue, never()).add(any(Packet.class));
         verify(rp1210Library).RP1210_ReadMessage(eq((short) 1), any(byte[].class), eq((short) 2048), eq((short) 0));
         verify(rp1210Library).RP1210_GetErrorMsg(eq((short) 99), any());
+        verify(logger).log(eq(Level.SEVERE), eq("Failed to read RP1210"), any(BusException.class));
     }
 
     @Test
     public void testPollTransmitted() throws Exception {
-        Packet packet = Packet.createPriority(0x06, 0x1234, 0x56, true, (byte) 0x77, (byte) 0x88, (byte) 0x99,
+        Packet packet = Packet.create(0x06, 0x1234, 0x56, true, (byte) 0x77, (byte) 0x88, (byte) 0x99,
                 (byte) 0xAA, (byte) 0xBB, (byte) 0xCC, (byte) 0xDD, (byte) 0xEE);
         byte[] encodedPacket = new byte[] { 0x00, 0x00, 0x00, 0x00, 0x01, (byte) 0x34, (byte) 0x12, (byte) 0x00,
                 (byte) 0x06, (byte) 0x56, (byte) 0x34, (byte) 0x77, (byte) 0x88, (byte) 0x99, (byte) 0xAA, (byte) 0xBB,
@@ -361,7 +366,7 @@ public class RP1210BusTest {
                     byte[] data = arg0.getArgument(1);
                     System.arraycopy(encodedPacket, 0, data, 0, encodedPacket.length);
                     return (short) encodedPacket.length;
-                }).thenReturn((short) -1);
+                }).thenReturn((short) 0);
 
         startInstance();
         Runnable runnable = runnableCaptor.getValue();
@@ -374,7 +379,35 @@ public class RP1210BusTest {
         assertEquals(packet, actual);
         verify(rp1210Library, times(2)).RP1210_ReadMessage(eq((short) 1), any(byte[].class), eq((short) 2048),
                 eq((short) 0));
-        verify(rp1210Library).RP1210_GetErrorMsg(eq((short) 1), any(byte[].class));
+    }
+
+    @Test
+    public void testPollWithImposter() throws Exception {
+        Packet packet = Packet.create(0x06, 0x1234, ADDRESS, false, (byte) 0x77, (byte) 0x88, (byte) 0x99,
+                (byte) 0xAA, (byte) 0xBB, (byte) 0xCC, (byte) 0xDD, (byte) 0xEE);
+        byte[] encodedPacket = new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, (byte) 0x34, (byte) 0x12, (byte) 0x00,
+                (byte) 0x06, (byte) ADDRESS, (byte) 0x34, (byte) 0x77, (byte) 0x88, (byte) 0x99, (byte) 0xAA,
+                (byte) 0xBB,
+                (byte) 0xCC, (byte) 0xDD, (byte) 0xEE };
+        when(rp1210Library.RP1210_ReadMessage(eq((short) 1), any(byte[].class), eq((short) 2048), eq((short) 0)))
+                .thenAnswer(arg0 -> {
+                    byte[] data = arg0.getArgument(1);
+                    System.arraycopy(encodedPacket, 0, data, 0, encodedPacket.length);
+                    return (short) encodedPacket.length;
+                }).thenReturn((short) 0);
+
+        startInstance();
+        Runnable runnable = runnableCaptor.getValue();
+        runnable.run();
+
+        ArgumentCaptor<Packet> packetCaptor = ArgumentCaptor.forClass(Packet.class);
+        verify(queue).add(packetCaptor.capture());
+        Packet actual = packetCaptor.getValue();
+
+        assertEquals(packet, actual);
+        verify(rp1210Library, times(2)).RP1210_ReadMessage(eq((short) 1), any(byte[].class), eq((short) 2048),
+                eq((short) 0));
+        verify(logger).log(Level.WARNING, "Another module is using this address");
     }
 
     @Test
