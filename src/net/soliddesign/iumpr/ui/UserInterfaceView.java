@@ -12,6 +12,8 @@ import java.awt.Insets;
 import java.awt.event.ItemEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.lang.reflect.InvocationTargetException;
+import java.util.logging.Level;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -28,11 +30,13 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.DefaultCaret;
 
 import net.soliddesign.iumpr.BuildNumber;
+import net.soliddesign.iumpr.IUMPR;
 import net.soliddesign.iumpr.bus.Adapter;
 import net.soliddesign.iumpr.resources.Resources;
 import net.soliddesign.iumpr.ui.status.StatusView;
@@ -164,8 +168,17 @@ public class UserInterfaceView implements IUserInterfaceView {
      * String, java.lang.String, int)
      */
     @Override
-    public void displayDialog(String message, String title, int type) {
-        refreshUI(() -> JOptionPane.showMessageDialog(getFrame(), message, title, type));
+    public void displayDialog(String message, String title, int type, boolean modal) {
+        if (modal) {
+            try {
+                SwingUtilities.invokeAndWait(() -> JOptionPane.showConfirmDialog(getFrame(), message, title,
+                        JOptionPane.OK_CANCEL_OPTION, type));
+            } catch (InvocationTargetException | InterruptedException e) {
+                IUMPR.getLogger().log(Level.SEVERE, "Error displaying dialog", e);
+            }
+        } else {
+            refreshUI(() -> JOptionPane.showMessageDialog(getFrame(), message, title, type));
+        }
     }
 
     /*

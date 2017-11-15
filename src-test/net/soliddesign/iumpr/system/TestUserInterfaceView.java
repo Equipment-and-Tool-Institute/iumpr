@@ -52,7 +52,7 @@ public class TestUserInterfaceView implements IUserInterfaceView {
     }
 
     @Override
-    public void displayDialog(String message, String title, int type) {
+    public void displayDialog(String message, String title, int type, boolean modal) {
         lastDialog = message;
     }
 

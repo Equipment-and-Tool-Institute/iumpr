@@ -6,8 +6,8 @@ package net.soliddesign.iumpr.bus.simulated;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import net.soliddesign.iumpr.bus.Bus;
@@ -44,7 +44,8 @@ public class Engine implements AutoCloseable {
     private static final byte[] ENGINE_CVN7 = as4Bytes(0x1B72F353);
 
     private static final byte[] ENGINE_HOURS = as4Bytes(3564 * 20); // hrs
-    private static final byte[] ENGINE_SPEED = as2Bytes(100 * 8); // rpm
+    private static final byte[] ENGINE_SPEED = as2Bytes(400 * 8); // rpm
+    private static final byte[] ENGINE_SPEED_ZERO = as2Bytes(0); // rpm
     private static final byte NA = (byte) 0xFF;
     private static final byte[] NA3 = new byte[] { NA, NA, NA };
     private static final byte[] NA4 = new byte[] { NA, NA, NA, NA };
@@ -105,20 +106,26 @@ public class Engine implements AutoCloseable {
 
     private boolean dtcsCleared = false;
 
+    private boolean[] engineOn = { true };
+
+    private ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+
     private int numCount;
 
     private final Sim sim;
-
-    private Timer timer;
 
     public Engine(Bus bus) throws BusException {
         sim = new Sim(bus);
 
         // xmsn rate is actually engine speed dependent
         sim.schedule(100, 100, TimeUnit.MILLISECONDS,
-                () -> Packet.create(61444, ADDR, combine(NA3, ENGINE_SPEED, NA3)));
+                () -> Packet.create(61444, ADDR, combine(NA3, engineOn[0] ? ENGINE_SPEED : ENGINE_SPEED_ZERO, NA3)));
         sim.schedule(100, 100, TimeUnit.MILLISECONDS, () -> Packet.create(65248, ADDR, combine(NA4, DISTANCE)));
-        sim.response(p -> isRequestFor(65259, p), () -> Packet.create(65259, ADDR, COMPONENT_ID));
+        sim.response(p -> isRequestFor(65259, p), () -> {
+            // Start a timer to turn the engine off
+            executor.schedule(() -> engineOn[0] = false, 10, TimeUnit.SECONDS);
+            return Packet.create(65259, ADDR, COMPONENT_ID);
+        });
         sim.response(p -> isRequestFor(65253, p), () -> {
             // Start a timer that will increment the numerators and denominators
             // for UI demo purposes
@@ -205,21 +212,13 @@ public class Engine implements AutoCloseable {
     }
 
     private void startTimer() {
-        if (timer == null) {
-            timer = new Timer("Engine Timer");
-            timer.scheduleAtFixedRate(new TimerTask() {
-
-                @Override
-                public void run() {
-                    if (numCount < 0xFAFF) {
-                        numCount++;
-                    }
-                    if (demCount < 0xFAFF) {
-                        demCount++;
-                    }
-                }
-
-            }, 10000, 10000);
-        }
+        executor.scheduleAtFixedRate(() -> {
+            if (numCount < 0xFAFF) {
+                numCount++;
+            }
+            if (demCount < 0xFAFF) {
+                demCount++;
+            }
+        }, 10, 10, TimeUnit.SECONDS);
     }
 }

@@ -220,9 +220,9 @@ public class DataPlateControllerTest {
         inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Clearing Active Codes");
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Clearing Active Codes");
         inOrder.verify(dtcModule).reportDM11(any(ResultsListener.class), eq(obdModules));
-        inOrder.verify(listener).onUrgentMessage("The Diagnostic Trouble Codes were unable to be cleared.",
+        inOrder.verify(listener).onMessage("The Diagnostic Trouble Codes were unable to be cleared.",
                 "Clearing DTCs Failed", JOptionPane.ERROR_MESSAGE);
-        inOrder.verify(reportFileModule).onUrgentMessage("The Diagnostic Trouble Codes were unable to be cleared.",
+        inOrder.verify(reportFileModule).onMessage("The Diagnostic Trouble Codes were unable to be cleared.",
                 "Clearing DTCs Failed", JOptionPane.ERROR_MESSAGE);
 
         step++;
@@ -374,9 +374,9 @@ public class DataPlateControllerTest {
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting DM20");
         inOrder.verify(diagnosticReadinessModule).reportDM20(any(ResultsListener.class));
 
-        inOrder.verify(listener).onUrgentMessage("There were no DM20s received.", "Communications Error",
+        inOrder.verify(listener).onMessage("There were no DM20s received.", "Communications Error",
                 JOptionPane.ERROR_MESSAGE);
-        inOrder.verify(reportFileModule).onUrgentMessage("There were no DM20s received.", "Communications Error",
+        inOrder.verify(reportFileModule).onMessage("There were no DM20s received.", "Communications Error",
                 JOptionPane.ERROR_MESSAGE);
 
         inOrder.verify(listener).onResult("");
@@ -519,9 +519,9 @@ public class DataPlateControllerTest {
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting DM26");
         inOrder.verify(diagnosticReadinessModule).reportDM26(any(ResultsListener.class));
 
-        inOrder.verify(listener).onUrgentMessage("There were no DM26s received.", "Communications Error",
+        inOrder.verify(listener).onMessage("There were no DM26s received.", "Communications Error",
                 JOptionPane.ERROR_MESSAGE);
-        inOrder.verify(reportFileModule).onUrgentMessage("There were no DM26s received.", "Communications Error",
+        inOrder.verify(reportFileModule).onMessage("There were no DM26s received.", "Communications Error",
                 JOptionPane.ERROR_MESSAGE);
 
         inOrder.verify(listener).onResult("");
@@ -656,9 +656,9 @@ public class DataPlateControllerTest {
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting DM5");
         inOrder.verify(diagnosticReadinessModule).reportDM5(any(ResultsListener.class));
 
-        inOrder.verify(listener).onUrgentMessage("There were no DM5s received.", "Communications Error",
+        inOrder.verify(listener).onMessage("There were no DM5s received.", "Communications Error",
                 JOptionPane.ERROR_MESSAGE);
-        inOrder.verify(reportFileModule).onUrgentMessage("There were no DM5s received.", "Communications Error",
+        inOrder.verify(reportFileModule).onMessage("There were no DM5s received.", "Communications Error",
                 JOptionPane.ERROR_MESSAGE);
 
         inOrder.verify(listener).onResult("");
@@ -767,9 +767,9 @@ public class DataPlateControllerTest {
         inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting HD OBD Modules");
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting HD OBD Modules");
         inOrder.verify(diagnosticReadinessModule).getOBDModules(any(ResultsListener.class));
-        inOrder.verify(listener).onUrgentMessage("No HD OBD Modules were detected.", "No HD OBD Modules",
+        inOrder.verify(listener).onMessage("No HD OBD Modules were detected.", "No HD OBD Modules",
                 JOptionPane.ERROR_MESSAGE);
-        inOrder.verify(reportFileModule).onUrgentMessage("No HD OBD Modules were detected.", "No HD OBD Modules",
+        inOrder.verify(reportFileModule).onMessage("No HD OBD Modules were detected.", "No HD OBD Modules",
                 JOptionPane.ERROR_MESSAGE);
 
         inOrder.verify(listener).onResult("");
@@ -893,10 +893,10 @@ public class DataPlateControllerTest {
 
         verify(engineSpeedModule, atLeastOnce()).isEngineCommunicating();
 
-        inOrder.verify(listener).onUrgentMessage(
+        inOrder.verify(listener).onMessage(
                 "The engine is not communicating.  Please check the adapter connection with the vehicle and/or turn the key on/start the vehicle.",
                 "Engine Not Communicating", JOptionPane.WARNING_MESSAGE);
-        inOrder.verify(reportFileModule).onUrgentMessage(
+        inOrder.verify(reportFileModule).onMessage(
                 "The engine is not communicating.  Please check the adapter connection with the vehicle and/or turn the key on/start the vehicle.",
                 "Engine Not Communicating", JOptionPane.WARNING_MESSAGE);
         inOrder.verify(listener).onProgress(step, TOTAL_STEPS,
@@ -1084,9 +1084,9 @@ public class DataPlateControllerTest {
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting DM28");
         inOrder.verify(dtcModule).reportDM28(any(ResultsListener.class));
 
-        inOrder.verify(listener).onUrgentMessage("There were Diagnostic Trouble Codes reported.", "DTCs Exist",
+        inOrder.verify(listener).onMessage("There were Diagnostic Trouble Codes reported.", "DTCs Exist",
                 JOptionPane.WARNING_MESSAGE);
-        inOrder.verify(reportFileModule).onUrgentMessage("There were Diagnostic Trouble Codes reported.", "DTCs Exist",
+        inOrder.verify(reportFileModule).onMessage("There were Diagnostic Trouble Codes reported.", "DTCs Exist",
                 JOptionPane.WARNING_MESSAGE);
 
         step++;
@@ -1299,9 +1299,9 @@ public class DataPlateControllerTest {
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting DM28");
         inOrder.verify(dtcModule).reportDM28(any(ResultsListener.class));
 
-        inOrder.verify(listener).onUrgentMessage("There were Diagnostic Trouble Codes reported.", "DTCs Exist",
+        inOrder.verify(listener).onMessage("There were Diagnostic Trouble Codes reported.", "DTCs Exist",
                 JOptionPane.WARNING_MESSAGE);
-        inOrder.verify(reportFileModule).onUrgentMessage("There were Diagnostic Trouble Codes reported.", "DTCs Exist",
+        inOrder.verify(reportFileModule).onMessage("There were Diagnostic Trouble Codes reported.", "DTCs Exist",
                 JOptionPane.WARNING_MESSAGE);
 
         step++;
@@ -1513,9 +1513,9 @@ public class DataPlateControllerTest {
         inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting DM28");
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting DM28");
         inOrder.verify(dtcModule).reportDM28(any(ResultsListener.class));
-        inOrder.verify(listener).onUrgentMessage("There were Diagnostic Trouble Codes reported.", "DTCs Exist",
+        inOrder.verify(listener).onMessage("There were Diagnostic Trouble Codes reported.", "DTCs Exist",
                 JOptionPane.WARNING_MESSAGE);
-        inOrder.verify(reportFileModule).onUrgentMessage("There were Diagnostic Trouble Codes reported.", "DTCs Exist",
+        inOrder.verify(reportFileModule).onMessage("There were Diagnostic Trouble Codes reported.", "DTCs Exist",
                 JOptionPane.WARNING_MESSAGE);
 
         step++;
@@ -1728,9 +1728,9 @@ public class DataPlateControllerTest {
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting DM28");
         inOrder.verify(dtcModule).reportDM28(any(ResultsListener.class));
 
-        inOrder.verify(listener).onUrgentMessage("There were Diagnostic Trouble Codes reported.", "DTCs Exist",
+        inOrder.verify(listener).onMessage("There were Diagnostic Trouble Codes reported.", "DTCs Exist",
                 JOptionPane.WARNING_MESSAGE);
-        inOrder.verify(reportFileModule).onUrgentMessage("There were Diagnostic Trouble Codes reported.", "DTCs Exist",
+        inOrder.verify(reportFileModule).onMessage("There were Diagnostic Trouble Codes reported.", "DTCs Exist",
                 JOptionPane.WARNING_MESSAGE);
 
         step++;

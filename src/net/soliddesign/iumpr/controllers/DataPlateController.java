@@ -125,7 +125,7 @@ public class DataPlateController extends Controller {
         incrementProgress("Requesting HD OBD Modules");
         List<Integer> obdModules = getDiagnosticReadinessModule().getOBDModules(getListener());
         if (obdModules.isEmpty()) {
-            getListener().onUrgentMessage("No HD OBD Modules were detected.", "No HD OBD Modules",
+            getListener().onMessage("No HD OBD Modules were detected.", "No HD OBD Modules",
                     JOptionPane.ERROR_MESSAGE);
             setEnding(ABORTED);
         }
@@ -154,7 +154,7 @@ public class DataPlateController extends Controller {
             incrementProgress("Clearing Active Codes");
             boolean dm11Response = dtcModule.reportDM11(getListener(), obdModules);
             if (!dm11Response) {
-                getListener().onUrgentMessage("The Diagnostic Trouble Codes were unable to be cleared.",
+                getListener().onMessage("The Diagnostic Trouble Codes were unable to be cleared.",
                         "Clearing DTCs Failed", JOptionPane.ERROR_MESSAGE);
                 setEnding(ABORTED);
             }
@@ -169,7 +169,7 @@ public class DataPlateController extends Controller {
         boolean dm5Response = getDiagnosticReadinessModule().reportDM5(getListener());
         if (!dm5Response) {
             // Step 38 Abort if no response
-            getListener().onUrgentMessage("There were no DM5s received.", "Communications Error",
+            getListener().onMessage("There were no DM5s received.", "Communications Error",
                     JOptionPane.ERROR_MESSAGE);
             setEnding(ABORTED);
         }
@@ -180,7 +180,7 @@ public class DataPlateController extends Controller {
         boolean dm26Response = getDiagnosticReadinessModule().reportDM26(getListener());
         if (!dm26Response) {
             // Step 38 Abort if no response
-            getListener().onUrgentMessage("There were no DM26s received.", "Communications Error",
+            getListener().onMessage("There were no DM26s received.", "Communications Error",
                     JOptionPane.ERROR_MESSAGE);
             setEnding(ABORTED);
         }
@@ -191,7 +191,7 @@ public class DataPlateController extends Controller {
         boolean dm20Response = getDiagnosticReadinessModule().reportDM20(getListener());
         if (!dm20Response) {
             // Step 38 Abort if no response
-            getListener().onUrgentMessage("There were no DM20s received.", "Communications Error",
+            getListener().onMessage("There were no DM20s received.", "Communications Error",
                     JOptionPane.ERROR_MESSAGE);
             setEnding(ABORTED);
         }
@@ -223,7 +223,7 @@ public class DataPlateController extends Controller {
 
         // Step 41-42 - Notify the user but complete report
         if (dtcsPresent) {
-            getListener().onUrgentMessage("There were Diagnostic Trouble Codes reported.", "DTCs Exist",
+            getListener().onMessage("There were Diagnostic Trouble Codes reported.", "DTCs Exist",
                     JOptionPane.WARNING_MESSAGE);
         }
 

@@ -24,6 +24,18 @@ public interface ResultsListener {
     void onComplete(boolean success);
 
     /**
+     * Called when a dialog needs to be displayed to the user
+     *
+     * @param message
+     *            the message to display
+     * @param title
+     *            the title of the dialog
+     * @param type
+     *            the type of dialog to display (Error, Warning, Info, etc)
+     */
+    void onMessage(String message, String title, int type);
+
+    /**
      * Called when the {@link Controller} has progressed
      *
      * @param currentStep
@@ -61,7 +73,8 @@ public interface ResultsListener {
     void onResult(String result);
 
     /**
-     * Called when a dialog needs to be displayed to the user
+     * Called when a dialog needs to be displayed to the user that will force
+     * the application to pause until the user responds.
      *
      * @param message
      *            the message to display

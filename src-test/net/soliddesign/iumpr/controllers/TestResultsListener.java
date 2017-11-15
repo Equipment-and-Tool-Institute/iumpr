@@ -57,6 +57,11 @@ public class TestResultsListener implements ResultsListener {
     }
 
     @Override
+    public void onMessage(String message, String title, int type) {
+        fail("Method not implemented");
+    }
+
+    @Override
     public void onProgress(int currentStep, int totalSteps, String message) {
         if (currentStep < lastStep) {
             fail("Steps went backwards");

@@ -287,10 +287,10 @@ public class CollectResultsControllerTest {
 
         verify(engineSpeedModule, atLeastOnce()).isEngineCommunicating();
 
-        inOrder.verify(listener).onUrgentMessage(
+        inOrder.verify(listener).onMessage(
                 "The engine is not communicating.  Please check the adapter connection with the vehicle and/or turn the key on/start the vehicle.",
                 "Engine Not Communicating", JOptionPane.WARNING_MESSAGE);
-        inOrder.verify(reportFileModule).onUrgentMessage(
+        inOrder.verify(reportFileModule).onMessage(
                 "The engine is not communicating.  Please check the adapter connection with the vehicle and/or turn the key on/start the vehicle.",
                 "Engine Not Communicating", JOptionPane.WARNING_MESSAGE);
         inOrder.verify(listener).onProgress(1, 21, "Engine Not Communicating.  Please start vehicle or push Stop");

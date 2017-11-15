@@ -210,7 +210,7 @@ public class UserInterfaceController implements IUserInterfaceController {
                 adapters.addAll(rp1210.getAdapters());
             } catch (Exception e) {
                 getView().displayDialog("The List of Communication Adapters could not be loaded.", "Failure",
-                        JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.ERROR_MESSAGE, false);
             }
         }
         return adapters;
@@ -262,6 +262,11 @@ public class UserInterfaceController implements IUserInterfaceController {
             }
 
             @Override
+            public void onMessage(String message, String title, int type) {
+                getView().displayDialog(message, title, type, false);
+            }
+
+            @Override
             public void onProgress(int currentStep, int totalSteps, String message) {
                 getView().setProgressBarValue(0, totalSteps, currentStep);
                 getView().setProgressBarText(message);
@@ -286,10 +291,9 @@ public class UserInterfaceController implements IUserInterfaceController {
 
             @Override
             public void onUrgentMessage(String message, String title, int type) {
-                // This is executed in a runnable because the user may take a
-                // long time to respond
-                executor.execute(() -> getView().displayDialog(message, title, type));
+                getView().displayDialog(message, title, type, true);
             }
+
         };
     }
 
@@ -390,7 +394,7 @@ public class UserInterfaceController implements IUserInterfaceController {
                 }
                 message += NL + "Please select a different file.";
 
-                getView().displayDialog(message, "File Error", JOptionPane.ERROR_MESSAGE);
+                getView().displayDialog(message, "File Error", JOptionPane.ERROR_MESSAGE, false);
             }
             checkSetupComplete();
             getView().setAdapterComboBoxEnabled(true);
@@ -459,7 +463,7 @@ public class UserInterfaceController implements IUserInterfaceController {
                 result = getComparisonModule().compareFileToVehicle(resultsListener, getReportFileModule(), 2, 6);
             } catch (IOException e) {
                 getView().setProgressBarText(e.getMessage());
-                getView().displayDialog(e.getMessage(), "Communications Error", JOptionPane.ERROR_MESSAGE);
+                getView().displayDialog(e.getMessage(), "Communications Error", JOptionPane.ERROR_MESSAGE, false);
             } finally {
                 if (result) {
                     getView().setProgressBarText("Push Generate Vehicle Data Plate Button");
@@ -580,7 +584,7 @@ public class UserInterfaceController implements IUserInterfaceController {
         } catch (BusException e) {
             getLogger().log(Level.SEVERE, "Error Setting Adapter", e);
             getView().displayDialog("Communications could not be established using the selected adapter.",
-                    "Communication Failure", JOptionPane.ERROR_MESSAGE);
+                    "Communication Failure", JOptionPane.ERROR_MESSAGE, false);
         }
     }
 

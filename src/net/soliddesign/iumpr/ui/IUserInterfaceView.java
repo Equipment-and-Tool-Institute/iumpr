@@ -30,8 +30,11 @@ public interface IUserInterfaceView {
      *            the title of the dialog
      * @param type
      *            the type of the dialog
+     * @param modal
+     *            true to wait for the user to respond; false to "fire and
+     *            forget"
      */
-    void displayDialog(String message, String title, int type);
+    void displayDialog(String message, String title, int type, boolean modal);
 
     /**
      * Shows the File Chooser

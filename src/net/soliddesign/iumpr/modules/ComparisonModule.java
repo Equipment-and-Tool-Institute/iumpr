@@ -206,7 +206,7 @@ public class ComparisonModule extends FunctionalModule {
         String message = "The selected report file calibrations do not match the vehicle calibrations." + NL + NL +
                 "The Report Calibrations:" + NL + calibrationAsString(fileCals) + NL + NL
                 + "The Vehicle Calibrations:" + NL + calibrationAsString(getCalibrations());
-        listener.onUrgentMessage(message, "Calibrations Mismatch", JOptionPane.ERROR_MESSAGE);
+        listener.onMessage(message, "Calibrations Mismatch", JOptionPane.ERROR_MESSAGE);
     }
 
     /**
@@ -219,7 +219,7 @@ public class ComparisonModule extends FunctionalModule {
      */
     private void reportTSCCGap(ResultsListener listener, double delta) {
         String message = "The Time Since Code Cleared has an excessive gap of " + (int) delta + " minutes.";
-        listener.onUrgentMessage(message, "Time SCC Excess Gap Error", JOptionPane.WARNING_MESSAGE);
+        listener.onMessage(message, "Time SCC Excess Gap Error", JOptionPane.WARNING_MESSAGE);
     }
 
     /**
@@ -233,7 +233,7 @@ public class ComparisonModule extends FunctionalModule {
     private void reportTSCCReset(ResultsListener listener, double delta) {
         String message = "The Time Since Code Cleared was reset. The difference is " + Math.abs((int) delta)
                 + " minutes.";
-        listener.onUrgentMessage(message, "Time SCC Reset Error", JOptionPane.WARNING_MESSAGE);
+        listener.onMessage(message, "Time SCC Reset Error", JOptionPane.WARNING_MESSAGE);
     }
 
     /**
@@ -249,7 +249,7 @@ public class ComparisonModule extends FunctionalModule {
     private void reportVINMismatch(ResultsListener listener, String fileVin) throws IOException {
         String message = "The VIN found in the selected report file (" + fileVin +
                 ") does not match the VIN read from the vehicle (" + getVin() + ").";
-        listener.onUrgentMessage(message, "VIN Mismatch", JOptionPane.ERROR_MESSAGE);
+        listener.onMessage(message, "VIN Mismatch", JOptionPane.ERROR_MESSAGE);
     }
 
     /**

@@ -526,6 +526,11 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
         // Don't care
     }
 
+    @Override
+    public void onMessage(String message, String title, int type) {
+        // Don't care
+    }
+
     /**
      * Called when the tool exits so it can be noted in the log file
      */

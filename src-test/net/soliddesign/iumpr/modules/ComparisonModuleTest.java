@@ -218,7 +218,7 @@ public class ComparisonModuleTest {
         expected += "The Vehicle Calibrations:" + NL;
         expected += "CAL ID of id1 and CVN of cvn1" + NL;
         expected += "CAL ID of id2 and CVN of cvn2";
-        verify(listener).onUrgentMessage(expected, "Calibrations Mismatch", JOptionPane.ERROR_MESSAGE);
+        verify(listener).onMessage(expected, "Calibrations Mismatch", JOptionPane.ERROR_MESSAGE);
     }
 
     @Test
@@ -312,7 +312,7 @@ public class ComparisonModuleTest {
         inOrder.verify(listener).onProgress(3, 4, "Reading Time Since Code Cleared from Vehicle");
         inOrder.verify(listener).onProgress(4, 4, "Selected Report File Matches Connected Vehicle");
 
-        verify(listener).onUrgentMessage("The Time Since Code Cleared has an excessive gap of 114 minutes.",
+        verify(listener).onMessage("The Time Since Code Cleared has an excessive gap of 114 minutes.",
                 "Time SCC Excess Gap Error", JOptionPane.WARNING_MESSAGE);
     }
 
@@ -362,7 +362,7 @@ public class ComparisonModuleTest {
         inOrder.verify(listener).onProgress(3, 4, "Reading Time Since Code Cleared from Vehicle");
         inOrder.verify(listener).onProgress(4, 4, "Selected Report File Matches Connected Vehicle");
 
-        verify(listener).onUrgentMessage("The Time Since Code Cleared was reset. The difference is 200 minutes.",
+        verify(listener).onMessage("The Time Since Code Cleared was reset. The difference is 200 minutes.",
                 "Time SCC Reset Error", JOptionPane.WARNING_MESSAGE);
     }
 
@@ -432,7 +432,7 @@ public class ComparisonModuleTest {
         inOrder.verify(listener).onProgress(4, 4, "VIN Mismatch");
 
         String expected = "The VIN found in the selected report file (09876543210987654321) does not match the VIN read from the vehicle (12345678901234567890).";
-        verify(listener).onUrgentMessage(expected, "VIN Mismatch", JOptionPane.ERROR_MESSAGE);
+        verify(listener).onMessage(expected, "VIN Mismatch", JOptionPane.ERROR_MESSAGE);
     }
 
     @Test

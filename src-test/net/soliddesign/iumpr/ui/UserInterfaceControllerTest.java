@@ -222,7 +222,7 @@ public class UserInterfaceControllerTest {
         verify(rp1210).getAdapters();
 
         verify(view).displayDialog("The List of Communication Adapters could not be loaded.", "Failure",
-                JOptionPane.ERROR_MESSAGE);
+                JOptionPane.ERROR_MESSAGE, false);
     }
 
     @Test
@@ -336,7 +336,7 @@ public class UserInterfaceControllerTest {
         verify(view).displayDialog(
                 "File cannot be used." + NL + "File cannot be written" + NL + "Please select a different file.",
                 "File Error",
-                JOptionPane.ERROR_MESSAGE);
+                JOptionPane.ERROR_MESSAGE, false);
 
         verify(comparisonModule).reset();
 
@@ -372,7 +372,7 @@ public class UserInterfaceControllerTest {
         verify(view).displayDialog(
                 "File cannot be used." + NL + "There was a failure" + NL + "Please select a different file.",
                 "File Error",
-                JOptionPane.ERROR_MESSAGE);
+                JOptionPane.ERROR_MESSAGE, false);
         verify(reportFileModule).setReportFile(any(ResultsListener.class), eq(file), eq(false));
 
         verify(comparisonModule).reset();
@@ -408,7 +408,7 @@ public class UserInterfaceControllerTest {
         verify(view).displayDialog(
                 "File cannot be used." + NL + "File cannot be written" + NL + "Please select a different file.",
                 "File Error",
-                JOptionPane.ERROR_MESSAGE);
+                JOptionPane.ERROR_MESSAGE, false);
 
         verify(comparisonModule).reset();
 
@@ -483,7 +483,7 @@ public class UserInterfaceControllerTest {
         verify(view).displayDialog(
                 "File cannot be used." + NL + "File cannot be created" + NL + "Please select a different file.",
                 "File Error",
-                JOptionPane.ERROR_MESSAGE);
+                JOptionPane.ERROR_MESSAGE, false);
 
         verify(comparisonModule).reset();
 
@@ -747,7 +747,7 @@ public class UserInterfaceControllerTest {
         inOrder.verify(view).setProgressBarValue(0, 6, 2);
         inOrder.verify(view).setProgressBarText("Reading Vehicle Calibrations");
         inOrder.verify(view).setProgressBarText("Cals not read");
-        inOrder.verify(view).displayDialog("Cals not read", "Communications Error", JOptionPane.ERROR_MESSAGE);
+        inOrder.verify(view).displayDialog("Cals not read", "Communications Error", JOptionPane.ERROR_MESSAGE, false);
         inOrder.verify(view).setGenerateDataPlateButtonEnabled(false);
         inOrder.verify(view).setStopButtonEnabled(false);
         inOrder.verify(view).setReadVehicleInfoButtonEnabled(true);
@@ -775,7 +775,7 @@ public class UserInterfaceControllerTest {
         verify(view).setProgressBarValue(0, 6, 1);
         verify(view).setProgressBarText("Reading Vehicle Identification Number");
         verify(view).setProgressBarText("VIN not read");
-        verify(view).displayDialog("VIN not read", "Communications Error", JOptionPane.ERROR_MESSAGE);
+        verify(view).displayDialog("VIN not read", "Communications Error", JOptionPane.ERROR_MESSAGE, false);
 
         verify(view).setReadVehicleInfoButtonEnabled(true);
         verify(view).setAdapterComboBoxEnabled(true);
@@ -792,15 +792,6 @@ public class UserInterfaceControllerTest {
 
         instance.onReadVehicleInfoButtonClicked();
         executor.run();
-
-        ResultsListener listener = listenerCaptor.getValue();
-        listener.onResult("This is a result");
-        verify(view).appendResults("This is a result" + NL);
-
-        listener.onUrgentMessage("Message", "Title", -1);
-        executor.run();
-
-        verify(view).displayDialog("Message", "Title", -1);
 
         verify(comparisonModule).reset();
         verify(comparisonModule).getVin();

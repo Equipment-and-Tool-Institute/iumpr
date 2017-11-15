@@ -50,6 +50,11 @@ public abstract class Controller {
         }
 
         @Override
+        public void onMessage(String message, String title, int type) {
+            Arrays.stream(listeners).forEach(l -> l.onMessage(message, title, type));
+        }
+
+        @Override
         public void onProgress(int currentStep, int totalSteps, String message) {
             Arrays.stream(listeners).forEach(l -> l.onProgress(currentStep, totalSteps, message));
         }
@@ -230,7 +235,7 @@ public abstract class Controller {
     private void checkEngineSpeed() throws InterruptedException {
         incrementProgress("Reading Engine Speed");
         if (!getEngineSpeedModule().isEngineCommunicating()) {
-            getListener().onUrgentMessage(
+            getListener().onMessage(
                     "The engine is not communicating.  Please check the adapter connection with the vehicle and/or turn the key on/start the vehicle.",
                     "Engine Not Communicating", JOptionPane.WARNING_MESSAGE);
             updateProgress("Engine Not Communicating.  Please start vehicle or push Stop");
@@ -441,7 +446,7 @@ public abstract class Controller {
                     if (message == null) {
                         message = "An Error Occurred";
                     }
-                    getListener().onUrgentMessage(message, "Error", JOptionPane.ERROR_MESSAGE);
+                    getListener().onMessage(message, "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } finally {
                 finished();
