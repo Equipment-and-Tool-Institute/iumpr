@@ -411,6 +411,7 @@ public class J1939 {
             return stream
                     .filter(interruptFn)
                     .filter(pgnFilter(pgn))
+                    .distinct()
                     .map(t -> process(t));
         } catch (Exception e) {
             getLogger().log(Level.SEVERE, "Error reading packets", e);
@@ -505,6 +506,7 @@ public class J1939 {
                     .filter(interruptFn)
                     .filter(sourceFilter(destination).or(p -> destination == GLOBAL_ADDR))
                     .filter(pgnFilter(pgn).or(ackFilter(pgn)))
+                    .distinct()
                     .map(rawPacket -> process(rawPacket));
         } catch (Exception e) {
             getLogger().log(Level.SEVERE, "Error requesting packet", e);
@@ -568,7 +570,6 @@ public class J1939 {
             getBus().send(packetToSend);
 
             Stream<Packet> packets = stream
-
                     .filter(interruptFn)
                     .filter(sourceFilter(destination))
                     .filter(pgnFilter(expectedResponsePGN).or(dsPgnFilter(expectedResponsePGN)));
@@ -614,6 +615,7 @@ public class J1939 {
                     .filter(interruptFn)
                     .filter(sourceFilter(destination).or(p -> destination == GLOBAL_ADDR))
                     .filter(pgnFilter(pgn).or(ackNackFilter(pgn)))
+                    .distinct()
                     .map(rawPacket -> process(rawPacket));
         } catch (Exception e) {
             getLogger().log(Level.SEVERE, "Error requesting packet", e);
