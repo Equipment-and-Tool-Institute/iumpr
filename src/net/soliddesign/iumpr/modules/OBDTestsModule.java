@@ -84,19 +84,16 @@ public class OBDTestsModule extends FunctionalModule {
                     .collect(Collectors.toList());
             if (spns.isEmpty()) {
                 listener.onResult(moduleName + " does not have any tests that support scaled tests results");
+                listener.onResult("");
             } else {
                 List<ScaledTestResult> testResults = requestScaledTestResultsFromModule(listener, destination,
                         moduleName, spns);
                 allTestResults.put(destination, testResults);
                 if (testResults.isEmpty()) {
                     listener.onResult("No Scaled Tests Results from " + moduleName);
-                } else {
-                    listener.onResult("Scaled Tests Results from " + moduleName + ": [");
-                    listener.onResult(testResults.stream().map(t -> "  " + t.toString()).collect(Collectors.toList()));
-                    listener.onResult("]");
+                    listener.onResult("");
                 }
             }
-            listener.onResult("");
         }
 
         boolean hasTests = false;
@@ -145,9 +142,12 @@ public class OBDTestsModule extends FunctionalModule {
                 .orElse(null);
         if (packet == null) {
             listener.onResult(TIMEOUT_MESSAGE);
+            listener.onResult("");
             return Collections.emptyList();
         } else {
             listener.onResult(packet.getPacket().toString(getDateTimeModule().getTimeFormatter()));
+            listener.onResult(packet.toString());
+            listener.onResult("");
             return packet.getTestResults();
         }
     }
@@ -174,7 +174,6 @@ public class OBDTestsModule extends FunctionalModule {
             List<ScaledTestResult> results = requestScaledTestResultsForSpn(listener, destination, spn);
             scaledTestResults.addAll(results);
         }
-        listener.onResult("");
         return scaledTestResults;
     }
 

@@ -137,27 +137,24 @@ public class OBDTestsModuleTest {
         expected += "2007-12-03T10:15:30.000 Direct DM30 Requests to Engine #1 (0)" + NL;
         expected += "10:15:30.000 18E300A5 F7 66 00 1F FF FF FF FF (TX)" + NL;
         expected += "10:15:30.000 18A40000 F7 66 00 12 D0 00 00 FB FF FF FF FF" + NL;
+        expected += "DM30 from 0: SPN 102 FMI 18 Result: Test Not Complete." + NL;
+        expected += "" + NL;
         expected += "10:15:30.000 18E300A5 F7 00 02 1F FF FF FF FF (TX)" + NL;
         expected += "10:15:30.000 18A40000 F7 00 02 12 D0 00 00 FB FF FF FF FF" + NL;
+        expected += "DM30 from 0: SPN 512 FMI 18 Result: Test Not Complete." + NL;
+        expected += "" + NL;
         expected += "10:15:30.000 18E300A5 F7 9C F0 FF FF FF FF FF (TX)" + NL;
         expected += "10:15:30.000 18A40000 F7 9C F0 FF D0 00 00 FB FF FF FF FF" + NL;
-        expected += "" + NL;
-        expected += "Scaled Tests Results from Engine #1 (0): [" + NL;
-        expected += "  SPN 102 FMI 18 Result: Test Not Complete." + NL;
-        expected += "  SPN 512 FMI 18 Result: Test Not Complete." + NL;
-        expected += "  SPN 520348 FMI 31 Result: Test Not Complete." + NL;
-        expected += "]" + NL;
+        expected += "DM30 from 0: SPN 520348 FMI 31 Result: Test Not Complete." + NL;
         expected += "" + NL;
         expected += "2007-12-03T10:15:30.000 Direct DM30 Requests to Diesel Particulate Filter Controller (85)" + NL;
         expected += "10:15:30.000 18E355A5 F7 9A 0C 1F FF FF FF FF (TX)" + NL;
         expected += "10:15:30.000 18A40055 F7 9A 0C 0A 00 01 00 FB FF FF FF FF" + NL;
+        expected += "DM30 from 85: SPN 3226 FMI 10 Result: Test Not Complete." + NL;
+        expected += "" + NL;
         expected += "10:15:30.000 18E355A5 F7 0C 11 1F FF FF FF FF (TX)" + NL;
         expected += "10:15:30.000 18A40055 F7 0C 11 00 FB FF FF FF FF FF FF FF" + NL;
-        expected += "" + NL;
-        expected += "Scaled Tests Results from Diesel Particulate Filter Controller (85): [" + NL;
-        expected += "  SPN 3226 FMI 10 Result: Test Not Complete." + NL;
-        expected += "  SPN 4364 FMI 0 Result: Test Passed. Min: N/A, Value: 65,535, Max: N/A" + NL;
-        expected += "]" + NL;
+        expected += "DM30 from 85: SPN 4364 FMI 0 Result: Test Passed. Min: N/A, Value: 65,535, Max: N/A" + NL;
         expected += "" + NL;
         expected += "Incomplete Tests: [" + NL;
         expected += "  Diesel Particulate Filter Controller (85): SPN 3226 FMI 10 Result: Test Not Complete." + NL;
@@ -205,7 +202,7 @@ public class OBDTestsModuleTest {
         when(j1939.createRequestPacket(64950, 0x00)).thenReturn(dm24RequestPacket);
 
         DM30ScaledTestResultsPacket engineDm30Packet = new DM30ScaledTestResultsPacket(
-                Packet.create(0xA400, 0x00, 0xF7, 0x66, 0x00, 0x12, 0xD0, 0x00, 0x00, 0xFB, 0xFF, 0xFF, 0xFF, 0xFF));
+                Packet.create(0xA400, 0x00, 0xF7, 0x66, 0x00, 0x12, 0xD0, 0x00, 0x00, 0xFA, 0xFF, 0xFF, 0xFF, 0xFF));
 
         when(j1939.requestPacket(any(Packet.class), eq(DM30ScaledTestResultsPacket.class), eq(0x00), eq(3)))
                 .thenReturn(Optional.of(engineDm30Packet));
@@ -227,16 +224,10 @@ public class OBDTestsModuleTest {
         expected += NL;
         expected += "2007-12-03T10:15:30.000 Direct DM30 Requests to Engine #1 (0)" + NL;
         expected += "10:15:30.000 18E300A5 F7 66 00 1F FF FF FF FF (TX)" + NL;
-        expected += "10:15:30.000 18A40000 F7 66 00 12 D0 00 00 FB FF FF FF FF" + NL;
+        expected += "10:15:30.000 18A40000 F7 66 00 12 D0 00 00 FA FF FF FF FF" + NL;
+        expected += "DM30 from 0: SPN 102 FMI 18 Result: Test Passed. Min: N/A, Value: 64,000, Max: N/A" + NL;
         expected += "" + NL;
-        expected += "Scaled Tests Results from Engine #1 (0): [" + NL;
-        expected += "  SPN 102 FMI 18 Result: Test Not Complete." + NL;
-        expected += "]" + NL;
-        expected += "" + NL;
-        expected += "Incomplete Tests: [" + NL;
-        expected += "  Engine #1 (0): SPN 102 FMI 18 Result: Test Not Complete." + NL;
-        expected += "]" + NL;
-        expected += "1 Incomplete Test" + NL;
+        expected += "All Tests Complete" + NL;
 
         assertEquals(expected, listener.getResults());
 

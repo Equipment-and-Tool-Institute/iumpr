@@ -31,6 +31,11 @@ public class DM30ScaledTestResultsPacket extends ParsedPacket {
         return "DM30";
     }
 
+    @Override
+    protected String getStringPrefix() {
+        return getName() + " from " + getSourceAddress() + ": ";
+    }
+
     /**
      * Returns the {@link ScaledTestResult}s
      *
