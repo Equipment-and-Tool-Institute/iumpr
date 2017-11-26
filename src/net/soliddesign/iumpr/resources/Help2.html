@@ -65,13 +65,14 @@
 		driving demonstration cycles planned for the monitor entry conditions of individual tests.<br>
 	</p>
 	<p>
-		<i>The last report contained in any tool output file to be provided to CARB shall be the report from E. Collect
-			Test Results. The first report in any tool output file shall be the report from B Generate Vehicle Data Plate.</i>
+		<i>The last report contained in any tool output file to be provided to CARB shall be the report from Function E
+			(Collect Test Results). The first report in any tool output file shall be the report from Function B (Generate
+			Vehicle Data Plate).</i>
 	</p>
 	<h3>Sequence of Steps</h3>
 	<ul style="list-style-type: none">
 		<li><b>Selecting a Vehicle Adapter (Section 2.3)</b> <br>The software can only be used with a TMC RP 1210C
-			adaptor. This feature presents the available adaptors from which the user must select how he prefers to communicate
+			adapter. This feature presents the available adapters from which the user must select how he prefers to communicate
 			with the vehicle.</li>
 		<li><br></li>
 		<li><b>Function A. Select/Create a Report File (Section 2.4) and Read Vehicle Information (Section 2.5)</b><br>
@@ -229,7 +230,7 @@
 		Report File" is displayed in the progress bar and the user can then select or create a report file. Once report
 		generation has begun, the Select Vehicle Adapter control is disabled until the report generation has completed.</p>
 	<p>Follow the adapter manufacturer's recommendations for connecting the adapter to the PC and to the vehicle.
-		Adaptors are often recommended to be connected to the PC and the vehicle's diagnostic connector before the ignition
+		Adapters are often recommended to be connected to the PC and the vehicle's diagnostic connector before the ignition
 		key is turned on. Only the adapter to be used by the data collection tool software should be connected to the
 		vehicle's J1939-13 connecter while the application software is in use.</p>
 	<br>
@@ -377,18 +378,19 @@
 		Vehicle Data Plate in the report file. This information is displayed in the Performance Ratio Table of the Status
 		View. <br>
 	<p>Field background colors indicate a Numerator change relative to the Baseline data (first Vehicle Data Plate
-		Report of the data file). If a Numerator has changed since the initial values were read when the first data plate was
-		generated, the changed Numerator will be highlighted green. If a change to a Numerator is observed while the
+		Report of the data file). If a Numerator has incremented since the initial values were read when the first data plate
+		was generated, the changed Numerator will be highlighted green. If a increased to a Numerator is observed while the
 		application is executing the Tracking Monitor Completion Status function IN THIS SESSION, the entire row will be
-		highlighted in green.</p>
+		highlighted in green. In the event a Numerator or Denominator decrement, they will be highlighted red.</p>
 	<p>The user can sort the table by clicking on the column headings. By default, the column will sort ratios by
 		source, then by ratio name.</p>
 	<br>
 	<h3>Supported Monitors Table (Vehicle Monitors – Trip Status (DM26) – Overall Status (DM5))</h3>
 	<p>The Supported Monitors Table (DM26/DM5) shows the composite vehicle monitors status. It shows the Trip Status
 		from DM26 packets, and the Overall Status from DM5 packets. Monitors that are disabled or not supported or monitored
-		are highlighted red. Monitors that are not complete will be the background color. Monitors that are complete are
-		highlighted green.</p>
+		are highlighted grey. Monitors that are not complete will be the background color. Monitors that are complete are
+		highlighted green. In the event that the Overall Status for a Monitor is supported and not complete but the Trip
+		Status is disabled, the row will be highlighted red.</p>
 	<br>
 	<h3>Communication Status (bottom right)</h3>
 	<p>The lower right section of the Status View displays the communication status of the DM5, DM20, DM26, and DM21
