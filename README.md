@@ -1,26 +1,28 @@
 ## Synopsis
 
-The SAE J3162 [Heavy-Duty OBD] In-Use Monitor Performance Ratio (IUMPR) Data Collection Tool Process allows manufacturers to automate analysis on the on-board data as the test vehicle is driven to verify that the subjected monitors are running on the road, and that the vehicle software is appropriately updating the relevant data parameters.  This provides for consistent and uniform testing amongst the heavy-duty engine manufacturers and provide for a standardized report format for review by California Air Resources Board (ARB) staff.
+The SAE J3162 [Heavy-Duty OBD] In-Use Monitor Performance Ratio (IUMPR) Data Collection Tool Process automates the collection and analysis of vehicle test data required by 13 CCR 1971.1 (l)(2.3.3). The process was created through collaboration between HD engine manufacturers and ARB staff. It is memorialized by [draft] SAE J3162™ to provide a conventional industry standard framework for this realization of the process that is provided by the released software in this repository.
+
+To satisfy the regulation given in (l)(2.3.3), vehicles are driven to verify that the subject monitors operate in use, and that the OBD software as evidenced by the required SAE J1939-73 defined data that counts the number of times all aspects of an OBD monitorhave run (as displayed by DM20) and that flags a monitor has run (as displayed by DM5). Common software for data collection provides for consistent and uniform data collection among the heavy-duty engine manufacturers producing a standardized report format for review by California Air Resources Board (ARB) staff.
 
 
-## Motivation
+## Background for the HD OBD IUMPR Tool
 
 California's Heavy-Duty On-Board Diagnostic (HD-OBD) regulations require vehicle and engine manufacturers to implement on-board monitoring strategies capable of detecting emission-related malfunctions as vehicles are driven on the road.  When a malfunction is detected, the vehicle's Malfunction Indicator Light (MIL) is illuminated, and fault information is stored in the vehicle's on-board computer to aid technicians in vehicle repair.  The purpose of HD-OBD systems is to alert vehicle operators to the presence of malfunctions as they occur so that the time between their occurrence and repair is shortened, minimizing the excess emissions caused by the malfunction.
 
-To be effective in accomplishing this goal, system and component monitoring strategies that comprise the HD OBD system must function with adequate frequency during in-use operation.  To help ensure that in-use performance is acceptable, HD OBD systems store information in the on-board computer to:
+To be effective in accomplishing this goal, system and component monitoring strategies that comprise the HD OBD system must function with adequate frequency during when the vehicle is driven.  To track the in-use performance, HD OBD systems store information in the on-board computer to:
 
-1. Track the operational frequency of several monitoring strategies relative to satisfying specific drive cycle conditions.  This is accomplished by incrementing a counter when a monitoring strategy subject to the requirements operates on the road, and also tracking when the vehicle's driving cycle meets specified milestones (e.g., 600 seconds of engine operation with 300 cumulative seconds of operation at a vehicle speed greater than 25 miles per hour).  The first counter serves as the numerator and the second as the denominator to calculate the In-Use Monitor Performance Ratio (IUMPR) for the monitor.  If the average IUMPR from a sample of in-use vehicles is too low, the OBD group for the HD engine may be found non-compliant and subject to corrective action.
+1. Determine the operational frequency of several monitoring strategies relative to specific drive cycle conditions.  This is accomplished by incrementing a counter when a monitoring strategy subject to the requirements operates on the road, and also tracking when the vehicle's driving cycle meets specified milestones (e.g., 600 seconds of engine operation with 300 cumulative seconds of operation at a vehicle speed greater than 25 miles per hour).  The first counter serves as the numerator and the second as the denominator to calculate the In-Use Monitor Performance Ratio for the monitor.  Overall, the collected ratio data is subject to minimum frequencies that depend on the model year of the engine.
 
-2. Record whether or not specific monitoring strategies have been able to complete an evaluation of component/system performance since the last time the vehicle OBD system's memory was cleared.  These data parameters are known as "readiness indicators" and play a critical role in vehicle inspection and maintenance programs.
+2. Record whether or not specific monitoring strategies have been able to complete an evaluation of component/system performance since the last time the vehicle OBD system's memory was cleared.  These data are known as "readiness indicators" and play a critical role in vehicle inspection and maintenance programs.
 
-The HD-OBD regulations require manufacturers to test production vehicles every model year to verify that the software used to track the numerators and denominators works properly during on-road driving (Title 13 California Code of Regulations, Section 1971.1(l)(2.2.3)).  Practically, the procedure to do so involves operating the vehicle(s) on the road such that the necessary operating conditions for applicable monitoring strategies are encountered while tracking the status of the stored numerators, denominators, and readiness indicators to verify incrementing or setting as expected.  Within the OBD community, this type of testing is known as "dynamic" Production Vehicle Evaluation (PVE) testing. 
+The HD-OBD regulations require manufacturers to test production vehicles every model year to verify that the software used to track the numerators and denominators works properly during on-road driving (Title 13 California Code of Regulations, Section 1971.1(l)(2.3.3)).  Data collection involves operating the vehicle(s) on the road such that the necessary operating conditions for applicable monitoring strategies are encountered while tracking the status of the stored numerators, denominators, and readiness indicators to verify incrementing or setting as expected.
 
 ## Installation
 In order to use the IUMPR Data Collection Tool, a Windows 7 (or greater) computer is required with TMC RP1210 Adapters installed.
 
 Download the IUMPR-installer.exe file from releases and execute.  The default installation location works the best, however alternative locations may be used.
 
-Additionally information about using the application can be found in the Help file.
+Additional information about using the application can be found in the Help file.
 
 ## Contribute
 This project was developed in Java using Eclipse.  All tools necessary for development, other than an installed JDK, are included in the repository.
@@ -36,7 +38,7 @@ The code base includes a simulated engine for testing without a connected module
 To build a new release, verify that the environment variable JRE_HOME points to a 32 bit JRE that can be included in the build like this:
 
 ```
-C:\Users\joe>echo %JRE_HOME%
+C:\>echo %JRE_HOME%
 C:\Program Files (x86)\Java\jre1.8.0_121
 ```
 
@@ -44,6 +46,8 @@ Then execute the "dist" target.  It will generate the jar, followed by an exe an
 
 ## Author
 This software was developed for the [Equipment & Tool Institute](http://etools.org) by [Solid Design, Inc.](http://soliddesign.net)
+
+[Note: SAE J3162™ is a trademark of SAE International, Inc.]
 
 ## License
 
