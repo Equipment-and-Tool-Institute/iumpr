@@ -1,8 +1,8 @@
 ## Synopsis
 
-The SAE J3162 [Heavy-Duty OBD] In-Use Monitor Performance Ratio (IUMPR) Data Collection Tool Process automates the collection and analysis of vehicle test data required by 13 CCR 1971.1 (l)(2.3.3). The process was created through collaboration between HD engine manufacturers and ARB staff. It is memorialized by [draft] SAE J3162™ to provide a conventional industry standard framework for this realization of the process that is provided by the released software in this repository.
+The [Heavy-Duty OBD] In-Use Monitor Performance Ratio (IUMPR) Data Collection Tool Process automates the collection and analysis of vehicle test data required by 13 CCR 1971.1 (l)(2.3.3). The process was created through collaboration between HD engine manufacturers and ARB staff. It is memorialized by [draft] SAE J3162™ to provide a conventional industry standard framework for this realization of the process that is provided by the released software in this repository.
 
-To satisfy the regulation given in (l)(2.3.3), vehicles are driven to verify that the subject monitors operate in use, and that the OBD software as evidenced by the required SAE J1939-73 defined data that counts the number of times all aspects of an OBD monitorhave run (as displayed by DM20) and that flags a monitor has run (as displayed by DM5). Common software for data collection provides for consistent and uniform data collection among the heavy-duty engine manufacturers producing a standardized report format for review by California Air Resources Board (ARB) staff.
+To satisfy the regulation given in (l)(2.3.3), vehicles are driven to verify that the subject monitors operate in use, and that the OBD software as evidenced by the required SAE J1939-73 defined data that counts the number of times all aspects of an OBD monitor have run (as displayed by DM20) and that flags a monitor has run (as displayed by DM5). Common software for data collection provides for consistent and uniform data collection among the heavy-duty engine manufacturers producing a standardized report format for review by California Air Resources Board (ARB) staff.
 
 
 ## Background for the HD OBD IUMPR Tool
