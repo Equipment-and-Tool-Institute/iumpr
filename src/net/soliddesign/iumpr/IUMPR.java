@@ -65,8 +65,7 @@ public class IUMPR {
      * @return true if it's being debugged
      */
     public static final boolean isDebug() {
-        return java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments().toString()
-                .indexOf("-agentlib:jdwp") > 0;
+        return false;
     }
 
     /**

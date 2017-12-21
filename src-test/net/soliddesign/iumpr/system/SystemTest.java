@@ -6,7 +6,6 @@ package net.soliddesign.iumpr.system;
 import static net.soliddesign.iumpr.IUMPR.NL;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -21,8 +20,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import net.soliddesign.iumpr.BuildNumber;
@@ -55,7 +54,6 @@ import net.soliddesign.iumpr.ui.help.HelpView;
  * @author Matt Gumbel (matt@soliddesign.net)
  *
  */
-@Ignore // FIXME These need fixed after all the changes are completed
 public class SystemTest {
 
     private UserInterfaceController controller;
@@ -139,7 +137,7 @@ public class SystemTest {
         }
         controller.onFileChosen(testFile);
         // Give time for the file to be scanned
-        wait(3, 7, 5, TimeUnit.SECONDS);
+        wait(3, 7, 30, TimeUnit.SECONDS);
 
         // Read Vehicle Information
         controller.onReadVehicleInfoButtonClicked();
@@ -175,7 +173,6 @@ public class SystemTest {
 
         // Read the expected results
         String expectedResults = getFileContents("expectedExistingFileResults.txt");
-
         assertEquals(expectedResults + IUMPR.NL, view.getResults());
 
         String fileResults = Files.lines(testFile.toPath()).filter(l -> !l.contains("File:"))
@@ -231,7 +228,7 @@ public class SystemTest {
             sb.append("Scanning Report File").append(NL);
         }
         sb.append("Push Read Vehicle Info Button").append(NL);
-        sb.append("Reading VIN from Engine").append(NL);
+        sb.append("Reading Vehicle Identification Number").append(NL);
         sb.append("Reading Vehicle Calibrations").append(NL);
         sb.append("Reading VIN from Vehicle").append(NL);
         sb.append("Reading Calibrations from Vehicle").append(NL);
@@ -292,7 +289,7 @@ public class SystemTest {
             sb.append("Scanning Report File").append(NL);
         }
         sb.append("Push Read Vehicle Info Button").append(NL);
-        sb.append("Reading VIN from Engine").append(NL);
+        sb.append("Reading Vehicle Identification Number").append(NL);
         sb.append("Reading Vehicle Calibrations").append(NL);
         sb.append("Reading VIN from Vehicle").append(NL);
         sb.append("VIN Mismatch");
@@ -329,7 +326,7 @@ public class SystemTest {
         // Read Vehicle Information
         controller.onReadVehicleInfoButtonClicked();
         // Wait for vehicle info to be read
-        wait(7, 31, 5, TimeUnit.SECONDS);
+        wait(7, 31, 30, TimeUnit.SECONDS);
         assertEquals("3HAMKSTN0FL575012", view.vin);
         assertEquals("CAL ID of PBT5MPR3 and CVN of 0x40DCBF96", view.cals);
 
@@ -344,7 +341,7 @@ public class SystemTest {
             sb.append("Scanning Report File").append(NL);
         }
         sb.append("Push Read Vehicle Info Button").append(NL);
-        sb.append("Reading VIN from Engine").append(NL);
+        sb.append("Reading Vehicle Identification Number").append(NL);
         sb.append("Reading Vehicle Calibrations").append(NL);
         sb.append("Reading VIN from Vehicle").append(NL);
         sb.append("Reading Calibrations from Vehicle").append(NL);
@@ -384,7 +381,7 @@ public class SystemTest {
         // Read Vehicle Information
         controller.onReadVehicleInfoButtonClicked();
         // Wait for vehicle info to be read
-        wait(7, 31, 5, TimeUnit.SECONDS);
+        wait(7, 31, 30, TimeUnit.SECONDS);
         assertEquals("3HAMKSTN0FL575012", view.vin);
         assertEquals("CAL ID of PBT5MPR3 and CVN of 0x40DCBF96", view.cals);
 
@@ -399,7 +396,7 @@ public class SystemTest {
             sb.append("Scanning Report File").append(NL);
         }
         sb.append("Push Read Vehicle Info Button").append(NL);
-        sb.append("Reading VIN from Engine").append(NL);
+        sb.append("Reading Vehicle Identification Number").append(NL);
         sb.append("Reading Vehicle Calibrations").append(NL);
         sb.append("Reading VIN from Vehicle").append(NL);
         sb.append("Reading Calibrations from Vehicle").append(NL);
@@ -450,7 +447,7 @@ public class SystemTest {
 
         assertTrue(view.statusViewVisible);
         // Let the tracking run through one cycle
-        Thread.sleep(TimeUnit.MINUTES.toMillis(4));
+        Thread.sleep(TimeUnit.SECONDS.toMillis(60));
 
         // End Tracking
         MonitorCompletionController mcc = (MonitorCompletionController) controller.getActiveController();
@@ -470,7 +467,6 @@ public class SystemTest {
 
         // Read the expected results
         String expectedResults = getFileContents("expectedNewFile.txt");
-
         assertEquals(expectedResults + IUMPR.NL, view.getResults());
 
         String fileResults = Files.lines(testFile.toPath()).filter(l -> !l.contains("File:"))
@@ -556,14 +552,16 @@ public class SystemTest {
 
         while (view.getEnabled() == startingValue) {
             if (System.currentTimeMillis() - start > maxTime) {
-                fail("no response.  final value was " + view.getEnabled());
+                Assert.assertEquals("transition: " + startingValue + " -> " + endingValue, startingValue,
+                        view.getEnabled());
             }
             Thread.sleep(100);
         }
 
         while (view.getEnabled() != endingValue) {
             if (System.currentTimeMillis() - start > maxTime) {
-                fail("no response.  final value was " + view.getEnabled());
+                Assert.assertEquals("transition: " + startingValue + " -> " + endingValue, endingValue,
+                        view.getEnabled());
             }
             Thread.sleep(100);
         }

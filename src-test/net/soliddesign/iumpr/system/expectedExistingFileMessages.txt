@@ -465,8 +465,18 @@ Scanning Report File
 Scanning Report File
 Scanning Report File
 Scanning Report File
+Scanning Report File
+Scanning Report File
+Scanning Report File
+Scanning Report File
+Scanning Report File
+Scanning Report File
+Scanning Report File
+Scanning Report File
+Scanning Report File
+Scanning Report File
 Push Read Vehicle Info Button
-Reading VIN from Engine
+Reading Vehicle Identification Number
 Reading Vehicle Calibrations
 Reading VIN from Vehicle
 Reading Calibrations from Vehicle
@@ -482,6 +492,8 @@ Reading Time Since Code Cleared from Vehicle
 Selected Report File Matches Connected Vehicle
 Generating Header
 Gathering File Information
+Reading Connection Speed
+Address Claim
 Requesting VIN
 Requesting Calibration Information
 Requesting DM21

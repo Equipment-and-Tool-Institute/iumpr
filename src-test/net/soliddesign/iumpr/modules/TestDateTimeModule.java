@@ -6,6 +6,7 @@ package net.soliddesign.iumpr.modules;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
 
 /**
  * {@link DateTimeModule} that reports a fixed point in time for testing
@@ -20,7 +21,13 @@ public class TestDateTimeModule extends DateTimeModule {
      * value.
      */
     private final DateTimeFormatter timeFormatter = new DateTimeFormatterBuilder()
-            .appendLiteral("10:15:30.000").toFormatter();
+            .appendLiteral("10:15:30.000")
+            .parseDefaulting(ChronoField.HOUR_OF_DAY, 10)
+            .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 15)
+            .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 30)
+            .parseDefaulting(ChronoField.YEAR_OF_ERA, 2016)
+            .parseDefaulting(ChronoField.DAY_OF_YEAR, 1)
+            .toFormatter();
 
     /**
      * Method returns the actual {@link DateTimeFormatter} used in production

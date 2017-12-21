@@ -2,7 +2,7 @@ Connecting to Adapter
 Select Report File
 Scanning Report File
 Push Read Vehicle Info Button
-Reading VIN from Engine
+Reading Vehicle Identification Number
 Reading Vehicle Calibrations
 Selected Report File is new - not checked with vehicle.
 Push Generate Vehicle Data Plate Button
@@ -12,11 +12,8 @@ Comparing Vehicle to Report File
 Selected Report File is new - not checked with vehicle.
 Generating Header
 Gathering File Information
+Reading Connection Speed
+Address Claim
 Requesting VIN
 Requesting Calibration Information
-Requesting DM21
-Requesting HD OBD Modules
-Requesting Component Identification
-Clearing Active Codes
-Requesting DM5
 Data Plate Report Stopped

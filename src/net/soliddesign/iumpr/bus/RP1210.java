@@ -92,10 +92,10 @@ public class RP1210 {
         List<Adapter> list = new ArrayList<>();
         if (base != null) {
             try {
-                Ini ini = new Ini(new File(base, "RP121032.ini"));
+                Ini ini = new Ini(new File(base, "RP121032.INI"));
                 for (String id : ini.get("RP1210Support").getOrDefault("APIImplementations", "").split("\\s*,\\s*")) {
                     try {
-                        Ini driver = new Ini(new File(base, id + ".ini"));
+                        Ini driver = new Ini(new File(base, id + ".INI"));
                         Section vendorSection = driver.get("VendorInformation");
                         final String vendorName = vendorSection.getOrDefault("Name", "");
 
