@@ -42,21 +42,23 @@
 		<a name="1.0_Introduction"></a>1.0 Introduction
 	</h1>
 	<p>The IUMPR Data Collection Tool provides for the automated collection of data required by 13 CCR
-		1971.1(l)(2.3.3), while producing a standardized report format for the submission of the data for review by California
+		1971.1 (l)(2.3.3), while producing a standardized report format for the submission of the data for review by California
 		Air Resources Board (CARB) staff. One key feature of this process is the tracking for data collection as the test
 		vehicle is driven to identify when the subject monitors have completed and incremented their respective numerators and
 		denominators. The Data Collection Tool's automated collection of In Use Monitor Performance Ratios [IUMPR], test
 		results, and quality checks provide for consistent reporting among the heavy-duty engine manufacturers.</p>
+	
+	<p>The HD OBD IUMPR Data Collection Tool and process is memorialized in [draft] SAE J3162&trade;.  This help file links the software and its process back to SAE J3162.  Thus, the software and process have been given an industry standard reference that will provide for clear communication among Engine Manufacturers and CARB staff.  
+13 CCR (l)(2.3.3) States:</p>
 	<blockquote>
-		<i>(l)(2.3.3) The evaluation shall verify that the software used to track the numerator and denominator for
-			purposes of determining in-use monitoring frequency correctly increments as required in section (d)(4).</i>
+		<i>(l)(2.3.3) The evaluation shall verify that the software used to track the numerator and denominator for purposes of determining in-use monitoring frequency correctly increments as required in section (d)(4).</i>
 	</blockquote>
 
 	<h2>
 		<a name="1.1_IUMPR_Data_Collection_Tool_Overview"></a>1.1 IUMPR Data Collection Tool Overview
 	</h2>
 	<p>The IUMPR Data Collection Tool is used for HD vehicles that comply with US EPA and CARB data communications
-		regulations using the SAE J1939 family of standards. The purpose of the tool is the collection and summary of vehicle
+		regulations using the SAE J1939&trade; family of standards. The purpose of the tool is the collection and summary of vehicle
 		telemetry for test results, monitor ratios, and monitor completion. The collected data and summaries are then
 		automatically reported creating a standardized format for the submission of (l)(2.3.3) data to CARB.</p>
 	<p>
@@ -365,13 +367,13 @@
 			Status View Window for Tracking Monitor Completion Status<br>
 		</h4>
 	</div>
-	<h3>Information Table (Name – Value – Unit)</h3>
+	<h3>Information Table (Name &mdash; Value &mdash; Unit)</h3>
 	<p>The Information Table at the top shows the Time and Distance since DTCs were cleared information from DM21
 		packets. It also displays the number of Ignition Cycles and OBD Monitoring Conditions Encountered from DM20 packets.
 		If a value changes from the beginning of the session, the entire row containing the changed value will be highlighted.</p>
 	<p>The user can sort the table by clicking on the column headings.</p>
 	<br>
-	<h3>Performance Ratio Table (Source – Monitor from DM20 – Numerator – Denominator)</h3>
+	<h3>Performance Ratio Table (Source &mdash; Monitor from DM20 &mdash; Numerator &mdash; Denominator)</h3>
 	<p>
 		While executing the Tracking Monitor Completion Status function, the application will display the current Performance
 		Ratios from the DM20 packets and compare current DM20 monitor data to the DM20 monitor Baseline data from the first
@@ -385,7 +387,7 @@
 	<p>The user can sort the table by clicking on the column headings. By default, the column will sort ratios by
 		source, then by ratio name.</p>
 	<br>
-	<h3>Supported Monitors Table (Vehicle Monitors – Trip Status (DM26) – Overall Status (DM5))</h3>
+	<h3>Supported Monitors Table (Vehicle Monitors &mdash; Trip Status (DM26) &mdash; Overall Status (DM5))</h3>
 	<p>The Supported Monitors Table (DM26/DM5) shows the composite vehicle monitors status. It shows the Trip Status
 		from DM26 packets, and the Overall Status from DM5 packets. Monitors that are disabled or not supported or monitored
 		are highlighted grey. Monitors that are not complete will be the background color. Monitors that are complete are
@@ -461,5 +463,9 @@
 		THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS
 		OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 		OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+
+	<p>Note:<br/> 
+	  SAE J1939&trade;, SAE J1939-13&trade;, SAE J1939-73&trade;, and SAE J3162&trade; are trademarks of SAE International, Inc. 
+	</p>
 </body>
 </html>
