@@ -1,0 +1,886 @@
+2017-06-06T14:12:59.838 I U M P R Data Collection Tool for 13 CCR 1971.1(l)(2) and (h)(1.7)
+2017-06-06T14:12:59.843 I U M P R Data Collection Tool version 0.4.2 - 2017/06/05 11:27
+
+IIIIIIIII  UUU     UUU  MMM       MMM  PPPPPPPP     RRRRRRRR     DATA PLATE REPORT
+IIIIIIIII  UUU     UUU  MMMM     MMMM  PPPPPPPPP    RRRRRRRRR    DATA PLATE REPORT
+   III     UUU     UUU  MMMMM   MMMMM  PPP    PPP   RRR    RRR   DATA PLATE REPORT
+   III     UUU     UUU  MMMMMMMMMMMMM  PPP     PPP  RRR     RRR  DATA PLATE REPORT
+   III     UUU     UUU  MMM  MMM  MMM  PPP     PPP  RRR     RRR  DATA PLATE REPORT
+   III     UUU     UUU  MMM   M   MMM  PPP    PPP   RRR    RRR   DATA PLATE REPORT
+   III     UUU     UUU  MMM       MMM  PPPPPPPPP    RRRRRRRRR    DATA PLATE REPORT
+   III     UUU     UUU  MMM       MMM  PPPPPPPP     RRRRRRRR     DATA PLATE REPORT
+   III     UUU     UUU  MMM       MMM  PPP          RRR RRR      DATA PLATE REPORT
+   III     UUU     UUU  MMM       MMM  PPP          RRR  RRR     DATA PLATE REPORT
+   III     UUU     UUU  MMM       MMM  PPP          RRR   RRR    DATA PLATE REPORT
+IIIIIIIII  UUUUUUUUUUU  MMM       MMM  PPP          RRR    RRR   DATA PLATE REPORT
+IIIIIIIII   UUUUUUUUU   MMM       MMM  PPP          RRR     RRR  DATA PLATE REPORT
+
+2017-06-06T14:12:59.845 I U M P R Data Collection Tool Data Plate Report
+
+2017-06-06T14:12:59.845 New File: C:\Users\matt\Documents\V4-D1.iumpr
+
+2017-06-06T14:12:59.845 Global VIN Request
+2017-06-06T14:12:59.845 18EAFFF9 EC FE 00 (TX)
+2017-06-06T14:13:01.095 1CFEEC00 33 48 41 45 55 4D 4D 4C 38 4A 4C 35 34 31 30 39 32 2A
+Vehicle Identification from Engine #1 (0): 3HAEUMML8JL541092
+
+2017-06-06T14:13:01.140 Global DM19 (Calibration Information) Request
+2017-06-06T14:13:01.140 18EAFFF9 00 D3 00 (TX)
+2017-06-06T14:13:02.390 1CD30000 77 7C B6 A3 48 43 38 30 30 32 35 2E 31 33 00 00 00 00 00 00 A8 73 89 13 4E 4F 78 2D 53 41 45 31 34 61 20 41 54 49 31 00 8C 4B F9 C9 4E 4F 78 2D 53 41 45 31 34 61 20 41 54 4F 31 00 AC FF 33 00 30 32 30 31 30 31 30 30 30 32 00 00 00 00 00 00 D2 BF 0F A9 50 4D 53 31 32 33 34 31 41 31 30 31 00 00 00 00 62 79 48 A5 30 32 31 32 30 34 46 46 46 46 00 00 00 00 00 00
+DM19 from Engine #1 (0): [
+  CAL ID of HC80025.13 and CVN of 0xA3B67C77
+  CAL ID of NOx-SAE14a ATI1 and CVN of 0x138973A8
+  CAL ID of NOx-SAE14a ATO1 and CVN of 0xC9F94B8C
+  CAL ID of 0201010002 and CVN of 0x33FFAC
+  CAL ID of PMS12341A101 and CVN of 0xA90FBFD2
+  CAL ID of 021204FFFF and CVN of 0xA5487962
+]
+
+2017-06-06T14:13:02.391 Global DM21 Request
+2017-06-06T14:13:02.391 18EAFFF9 00 C1 00 (TX)
+2017-06-06T14:13:03.642 18C10000 03 00 04 00 0C 00 5D 00
+DM21 from Engine #1 (0): [
+  Distance Traveled While MIL is Activated:     3 km (1.864 mi)
+  Time Run by Engine While MIL is Activated:    12 minutes
+  Distance Since DTCs Cleared:                  4 km (2.485 mi)
+  Time Since DTCs Cleared:                      93 minutes
+]
+
+2017-06-06T14:13:03.653 Global DM5 Request
+2017-06-06T14:13:03.653 18EAFFF9 CE FE 00 (TX)
+2017-06-06T14:13:04.904 18FECE00 00 03 14 27 E0 1E A0 1E
+2017-06-06T14:13:04.904 18FECE19 00 00 05 00 00 00 00 00
+Engine #1 (0) reported as an HD-OBD Module.
+
+2017-06-06T14:13:04.906 Global Component Identification Request
+2017-06-06T14:13:04.906 18EAFFF9 EB FE 00 (TX)
+2017-06-06T14:13:06.156 18FEEBE9 49 4E 54 20 20 2A 34 30 36 31 39 36 38 43 32 2A 30 30 30 41 41 41 2A 2A
+Component Identification from Door Controller #3 (233): Make: INT, Model: 4061968C2, Serial Number: 000AAA, Unit Number: 
+2017-06-06T14:13:06.156 18FEEBEA 49 4E 54 20 20 2A 34 30 36 31 39 36 38 43 32 2A 30 30 30 41 42 42 2A 2A
+Component Identification from Door Controller #4 (234): Make: INT, Model: 4061968C2, Serial Number: 000ABB, Unit Number: 
+2017-06-06T14:13:06.156 18FEEB0B 4D 45 52 57 42 2A 41 42 53 20 34 30 30 38 36 34 35 31 36 30 2A 34 34 35 30 30 35 39 33 35 32 2A 2A
+Component Identification from Brakes - System Controller (11): Make: MERWB, Model: ABS 4008645160, Serial Number: 4450059352, Unit Number: 
+2017-06-06T14:13:06.156 18FEEB17 49 4E 54 2A 34 30 36 32 38 37 37 43 31 2A 39 38 38 38 34 36 30 30 31 36 33 37 38 36 30 2A 2A
+Component Identification from Instrument Cluster #1 (23): Make: INT, Model: 4062877C1, Serial Number: 988846001637860, Unit Number: 
+2017-06-06T14:13:06.156 1CFEEB19 49 4E 54 20 20 2A 34 30 36 35 33 33 31 43 33 2A 30 30 30 30 30 30 30 30 30 30 30 32 32 37 33 39 2A 2A
+Component Identification from Passenger-Operator Climate Control #1 (25): Make: INT, Model: 4065331C3, Serial Number: 0000000000022739, Unit Number: 
+2017-06-06T14:13:06.158 18FEEB97 49 4E 54 20 20 2A 20 34 30 35 37 36 38 39 43 31 2A 4D 31 37 30 37 35 35 34 31 30 39 32 30 31 30 30 33 34 2A 2A
+Component Identification from Reserved for future assignment 151 (151): Make: INT, Model: 4057689C1, Serial Number: M17075541092010034, Unit Number: 
+2017-06-06T14:13:06.158 18FEEB37 49 4E 54 20 20 2A 20 34 30 38 36 38 36 38 43 31 2A 4C 31 37 30 37 36 35 34 31 30 39 32 30 30 30 30 31 37 2A 2A
+Component Identification from Lighting - Operator Controls (55): Make: INT, Model: 4086868C1, Serial Number: L17076541092000017, Unit Number: 
+2017-06-06T14:13:06.158 1CFEEB00 43 4D 4D 4E 53 2A 36 42 20 75 31 33 44 30 36 37 30 30 30 30 30 30 30 2A 37 34 31 31 34 32 35 30 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Component Identification from Engine #1 (0): Make: CMMNS, Model: 6B u13D0670000000, Serial Number: 74114250, Unit Number: 
+
+2017-06-06T14:13:06.161 Clearing Diagnostic Trouble Codes
+2017-06-06T14:13:06.161 Global DM11 Request
+2017-06-06T14:13:06.161 18EAFFF9 D3 FE 00 (TX)
+2017-06-06T14:13:06.168 18E80017 00 FF FF FF F9 D3 FE 00
+DM11 from Instrument Cluster #1 (23): Response is Acknowledged
+2017-06-06T14:13:06.176 18E8000B 00 FF FF FF FF D3 FE 00
+DM11 from Brakes - System Controller (11): Response is Acknowledged
+2017-06-06T14:13:06.192 18E8000B 00 FF FF FF FF D3 FE 00
+DM11 from Brakes - System Controller (11): Response is Acknowledged
+2017-06-06T14:13:11.663 Diagnostic Trouble Codes were successfully cleared.
+
+2017-06-06T14:13:11.663 Global DM5 Request
+2017-06-06T14:13:11.663 18EAFFF9 CE FE 00 (TX)
+2017-06-06T14:13:12.913 18FECE00 00 00 14 37 E0 1E E0 1E
+DM5 from Engine #1 (0): OBD Compliance: HD OBD (20), Active Codes: 0, Previously Active Codes: 0
+2017-06-06T14:13:12.918 18FECE19 00 00 05 00 00 00 00 00
+DM5 from Passenger-Operator Climate Control #1 (25): OBD Compliance: Not intended to meet OBD II requirements (5), Active Codes: 0, Previously Active Codes: 0
+
+2017-06-06T14:13:12.918 Vehicle Composite of DM5:
+A/C system refrigerant monitoring                      disabled/not supported
+Boost pressure control system monitoring               not complete
+Catalyst monitoring                                    disabled/not supported
+Cold start aid system monitoring                       disabled/not supported
+Comprehensive component monitoring                         complete
+Diesel Particulate Filter (DPF) monitoring             not complete
+EGR/VVT system monitoring                              not complete
+Evaporative system monitoring                          disabled/not supported
+Exhaust Gas Sensor heater monitoring                   not complete
+Exhaust Gas Sensor monitoring                          not complete
+Fuel System monitoring                                 not complete
+Heated catalyst monitoring                             disabled/not supported
+Misfire monitoring                                     not complete
+NMHC converting catalyst monitoring                    not complete
+NOx converting catalyst and/or NOx adsorber monitoring not complete
+Secondary air system monitoring                        disabled/not supported
+
+2017-06-06T14:13:12.922 Global DM26 Request
+2017-06-06T14:13:12.922 18EAFFF9 B8 FD 00 (TX)
+2017-06-06T14:13:14.173 18FDB800 00 00 00 37 E0 1E E0 1E
+DM26 from Engine #1 (0): Warm-ups: 0, Time Since Engine Start: 0 seconds
+
+2017-06-06T14:13:14.173 Vehicle Composite of DM26:
+A/C system refrigerant monitoring                      disabled/not supported
+Boost pressure control system monitoring               not complete
+Catalyst monitoring                                    disabled/not supported
+Cold start aid system monitoring                       disabled/not supported
+Comprehensive component monitoring                         complete
+Diesel Particulate Filter (DPF) monitoring             not complete
+EGR/VVT system monitoring                              not complete
+Evaporative system monitoring                          disabled/not supported
+Exhaust Gas Sensor heater monitoring                   not complete
+Exhaust Gas Sensor monitoring                          not complete
+Fuel System monitoring                                 not complete
+Heated catalyst monitoring                             disabled/not supported
+Misfire monitoring                                     not complete
+NMHC converting catalyst monitoring                    not complete
+NOx converting catalyst and/or NOx adsorber monitoring not complete
+Secondary air system monitoring                        disabled/not supported
+
+2017-06-06T14:13:14.178 Global DM20 Request
+2017-06-06T14:13:14.178 18EAFFF9 00 C2 00 (TX)
+2017-06-06T14:13:15.428 1CC20000 02 01 0B 00 C9 14 F8 00 00 0B 00 F2 0B F8 00 00 0B 00 C6 14 F8 00 00 0B 00 EF 0B F8 00 00 0B 00 CA 14 F8 01 00 02 00 B8 12 F8 00 00 0A 00 F8 0B F8 00 00 0B 00
+DM20 from Engine #1 (0):  [
+                                                                  NUM'OR / DEM'OR
+Ignition Cycles                                                               258
+OBD Monitoring Conditions Encountered                                          11
+SPN 5321 Engine Intake Manifold Pressure System Monitor                0 /     11
+SPN 3058 Engine Exhaust Gas Recirculation System Monitor               0 /     11
+SPN 5318 Aftertreatment Exhaust Gas Sensor System Monitor              0 /     11
+SPN 3055 Engine Fuel System Monitor                                    0 /     11
+SPN 5322 Aftertreatment NMHC Converting Catalyst System Monitor        1 /      2
+SPN 4792 Aftertreatment 1 Selective Catalytic Reduction System         0 /     10
+SPN 3064 Aftertreatment Diesel Particulate Filter System Monitor       0 /     11
+]
+
+2017-06-06T14:13:15.432 Global DM6 Request
+2017-06-06T14:13:15.432 18EAFFF9 CF FE 00 (TX)
+2017-06-06T14:13:16.682 18FECF17 00 FF 00 00 00 00 FF FF
+DM6 from Instrument Cluster #1 (23): MIL: Off, RSL: Off, AWL: Off, PL: Off
+No DTCs
+2017-06-06T14:13:16.683 18E80017 00 FF FF FF F9 CF FE 00
+DM6 from Instrument Cluster #1 (23): MIL: Off, RSL: Off, AWL: Off, PL: Off
+No DTCs
+2017-06-06T14:13:16.683 18FECF00 03 FF 00 00 00 00 FF FF
+DM6 from Engine #1 (0): MIL: Off, RSL: Off, AWL: Off, PL: Other
+No DTCs
+
+2017-06-06T14:13:16.686 Global DM12 Request
+2017-06-06T14:13:16.686 18EAFFF9 D4 FE 00 (TX)
+2017-06-06T14:13:17.936 18FED417 00 FF 00 00 00 00 FF FF
+DM12 from Instrument Cluster #1 (23): MIL: Off, RSL: Off, AWL: Off, PL: Off
+No DTCs
+2017-06-06T14:13:17.936 18E80017 00 FF FF FF F9 D4 FE 00
+DM12 from Instrument Cluster #1 (23): MIL: Off, RSL: Off, AWL: Off, PL: Off
+No DTCs
+2017-06-06T14:13:17.936 18FED400 03 FF 00 00 00 00 FF FF
+DM12 from Engine #1 (0): MIL: Off, RSL: Off, AWL: Off, PL: Other
+No DTCs
+
+2017-06-06T14:13:17.937 Global DM23 Request
+2017-06-06T14:13:17.937 18EAFFF9 B5 FD 00 (TX)
+2017-06-06T14:13:19.187 18FDB500 03 FF 00 00 00 00 FF FF
+DM23 from Engine #1 (0): MIL: Off, RSL: Off, AWL: Off, PL: Other
+No DTCs
+
+2017-06-06T14:13:19.188 Global DM28 Request
+2017-06-06T14:13:19.188 18EAFFF9 80 FD 00 (TX)
+2017-06-06T14:13:20.438 18FD8000 03 FF 00 00 00 00 FF FF
+DM28 from Engine #1 (0): MIL: Off, RSL: Off, AWL: Off, PL: Other
+No DTCs
+
+2017-06-06T14:13:20.439 Global DM21 Request
+2017-06-06T14:13:20.439 18EAFFF9 00 C1 00 (TX)
+2017-06-06T14:13:21.689 18C10000 00 00 00 00 00 00 00 00
+DM21 from Engine #1 (0): [
+  Distance Traveled While MIL is Activated:     0 km (0 mi)
+  Time Run by Engine While MIL is Activated:    0 minutes
+  Distance Since DTCs Cleared:                  0 km (0 mi)
+  Time Since DTCs Cleared:                      0 minutes
+]
+2017-06-06T14:13:21.689 ERROR Time Since Code Cleared Reset / Rollover
+
+2017-06-06T14:13:21.690 Vehicle Distance
+2017-06-06T14:13:22.449 18FEC100 7E B4 00 00 8A B4 00 00
+High Resolution Vehicle Distance from Engine #1 (0): 231.03 km (143.555 mi)
+
+2017-06-06T14:13:22.449 Engine Hours Request
+2017-06-06T14:13:22.450 18EA00F9 E5 FE 00 (TX)
+2017-06-06T14:13:23.700 18FEE500 02 03 00 00 D1 07 00 00
+Engine Hours from Engine #1 (0): 38.5 hours
+
+2017-06-06T14:13:23.700 Total Queries: 15
+2017-06-06T14:13:23.700 Total Time Out Errors: 0
+
+2017-06-06T14:13:23.701 I U M P R Data Collection Tool Data Plate Report END OF REPORT
+
+2017-06-06T14:13:35.950 I U M P R Data Collection Tool for 13 CCR 1971.1(l)(2) and (h)(1.7)
+2017-06-06T14:13:35.951 I U M P R Data Collection Tool version 0.4.2 - 2017/06/05 11:27
+
+IIIIIIIII  UUU     UUU  MMM       MMM  PPPPPPPP     RRRRRRRR     DATA MONITOR LOG
+IIIIIIIII  UUU     UUU  MMMM     MMMM  PPPPPPPPP    RRRRRRRRR    DATA MONITOR LOG
+   III     UUU     UUU  MMMMM   MMMMM  PPP    PPP   RRR    RRR   DATA MONITOR LOG
+   III     UUU     UUU  MMMMMMMMMMMMM  PPP     PPP  RRR     RRR  DATA MONITOR LOG
+   III     UUU     UUU  MMM  MMM  MMM  PPP     PPP  RRR     RRR  DATA MONITOR LOG
+   III     UUU     UUU  MMM   M   MMM  PPP    PPP   RRR    RRR   DATA MONITOR LOG
+   III     UUU     UUU  MMM       MMM  PPPPPPPPP    RRRRRRRRR    DATA MONITOR LOG
+   III     UUU     UUU  MMM       MMM  PPPPPPPP     RRRRRRRR     DATA MONITOR LOG
+   III     UUU     UUU  MMM       MMM  PPP          RRR RRR      DATA MONITOR LOG
+   III     UUU     UUU  MMM       MMM  PPP          RRR  RRR     DATA MONITOR LOG
+   III     UUU     UUU  MMM       MMM  PPP          RRR   RRR    DATA MONITOR LOG
+IIIIIIIII  UUUUUUUUUUU  MMM       MMM  PPP          RRR    RRR   DATA MONITOR LOG
+IIIIIIIII   UUUUUUUUU   MMM       MMM  PPP          RRR     RRR  DATA MONITOR LOG
+
+2017-06-06T14:13:35.952 I U M P R Data Collection Tool Data Monitor Log
+
+2017-06-06T14:13:35.952 Global VIN Request
+2017-06-06T14:13:35.952 18EAFFF9 EC FE 00 (TX)
+2017-06-06T14:13:37.202 1CFEEC00 33 48 41 45 55 4D 4D 4C 38 4A 4C 35 34 31 30 39 32 2A
+Vehicle Identification from Engine #1 (0): 3HAEUMML8JL541092
+
+2017-06-06T14:13:37.202 Global DM19 (Calibration Information) Request
+2017-06-06T14:13:37.202 18EAFFF9 00 D3 00 (TX)
+2017-06-06T14:13:38.452 1CD30000 77 7C B6 A3 48 43 38 30 30 32 35 2E 31 33 00 00 00 00 00 00 A8 73 89 13 4E 4F 78 2D 53 41 45 31 34 61 20 41 54 49 31 00 8C 4B F9 C9 4E 4F 78 2D 53 41 45 31 34 61 20 41 54 4F 31 00 AC FF 33 00 30 32 30 31 30 31 30 30 30 32 00 00 00 00 00 00 D2 BF 0F A9 50 4D 53 31 32 33 34 31 41 31 30 31 00 00 00 00 62 79 48 A5 30 32 31 32 30 34 46 46 46 46 00 00 00 00 00 00
+DM19 from Engine #1 (0): [
+  CAL ID of HC80025.13 and CVN of 0xA3B67C77
+  CAL ID of NOx-SAE14a ATI1 and CVN of 0x138973A8
+  CAL ID of NOx-SAE14a ATO1 and CVN of 0xC9F94B8C
+  CAL ID of 0201010002 and CVN of 0x33FFAC
+  CAL ID of PMS12341A101 and CVN of 0xA90FBFD2
+  CAL ID of 021204FFFF and CVN of 0xA5487962
+]
+
+2017-06-06T14:13:38.453 Global DM21 Request
+2017-06-06T14:13:38.453 18EAFFF9 00 C1 00 (TX)
+2017-06-06T14:13:39.703 18C10000 00 00 00 00 00 00 00 00
+DM21 from Engine #1 (0): [
+  Distance Traveled While MIL is Activated:     0 km (0 mi)
+  Time Run by Engine While MIL is Activated:    0 minutes
+  Distance Since DTCs Cleared:                  0 km (0 mi)
+  Time Since DTCs Cleared:                      0 minutes
+]
+2017-06-06T14:13:39.703 Time Since Code Cleared Gap of 0 minutes
+
+2017-06-06T14:13:39.704 Begin Tracking Monitor Completion Status
+
+2017-06-06T14:16:34.710 DM5 Packet(s) Received
+2017-06-06T14:16:34.713 18FECE00 00 00 14 37 E0 1E E0 1E
+2017-06-06T14:16:34.714 18FECE19 00 00 05 00 00 00 00 00
+
+2017-06-06T14:16:34.714 DM20 Packet(s) Received
+2017-06-06T14:16:34.715 1CC20000 03 01 0B 00 C9 14 F8 00 00 0B 00 F2 0B F8 00 00 0B 00 C6 14 F8 00 00 0B 00 EF 0B F8 00 00 0B 00 CA 14 F8 01 00 02 00 B8 12 F8 00 00 0A 00 F8 0B F8 00 00 0B 00
+
+2017-06-06T14:16:34.715 DM26 Packet(s) Received
+2017-06-06T14:16:34.715 18FDB800 B7 00 00 37 E0 1E E0 1E
+
+2017-06-06T14:19:34.722 DM5 Packet(s) Received
+2017-06-06T14:19:34.722 18FECE00 00 00 14 37 E0 1E E0 1E
+2017-06-06T14:19:34.722 18FECE19 00 00 05 00 00 00 00 00
+
+2017-06-06T14:19:34.722 DM20 Packet(s) Received
+2017-06-06T14:19:34.722 1CC20000 03 01 0B 00 C9 14 F8 00 00 0B 00 F2 0B F8 00 00 0B 00 C6 14 F8 00 00 0B 00 EF 0B F8 00 00 0B 00 CA 14 F8 01 00 02 00 B8 12 F8 00 00 0A 00 F8 0B F8 00 00 0B 00
+
+2017-06-06T14:19:34.723 DM26 Packet(s) Received
+2017-06-06T14:19:34.723 18FDB800 6B 01 01 37 E0 1E E0 1E
+
+2017-06-06T14:22:34.731 DM5 Packet(s) Received
+2017-06-06T14:22:34.731 18FECE00 00 00 14 37 E0 1E E0 1E
+2017-06-06T14:22:34.731 18FECE19 00 00 05 00 00 00 00 00
+
+2017-06-06T14:22:34.731 DM20 Packet(s) Received
+2017-06-06T14:22:34.731 1CC20000 03 01 0B 00 C9 14 F8 00 00 0B 00 F2 0B F8 00 00 0B 00 C6 14 F8 00 00 0B 00 EF 0B F8 00 00 0B 00 CA 14 F8 01 00 02 00 B8 12 F8 00 00 0A 00 F8 0B F8 00 00 0B 00
+
+2017-06-06T14:22:34.732 DM26 Packet(s) Received
+2017-06-06T14:22:34.732 18FDB800 1F 02 01 37 E0 1E E0 1E
+
+2017-06-06T14:25:34.741 DM5 Packet(s) Received
+2017-06-06T14:25:34.741 18FECE00 00 00 14 37 E0 1E E0 1E
+2017-06-06T14:25:34.741 18FECE19 00 00 05 00 00 00 00 00
+
+2017-06-06T14:25:34.741 DM20 Packet(s) Received
+2017-06-06T14:25:34.741 1CC20000 03 01 0B 00 C9 14 F8 00 00 0B 00 F2 0B F8 00 00 0B 00 C6 14 F8 00 00 0B 00 EF 0B F8 00 00 0B 00 CA 14 F8 01 00 02 00 B8 12 F8 00 00 0A 00 F8 0B F8 00 00 0B 00
+
+2017-06-06T14:25:34.742 DM26 Packet(s) Received
+2017-06-06T14:25:34.742 18FDB800 D3 02 01 37 E0 1E E0 1E
+
+2017-06-06T14:28:34.732 DM5 Packet(s) Received
+2017-06-06T14:28:34.732 18FECE00 00 00 14 37 E0 1E E0 1E
+2017-06-06T14:28:34.732 18FECE19 00 00 05 00 00 00 00 00
+
+2017-06-06T14:28:34.732 DM20 Packet(s) Received
+2017-06-06T14:28:34.732 1CC20000 03 01 0B 00 C9 14 F8 00 00 0B 00 F2 0B F8 00 00 0B 00 C6 14 F8 00 00 0B 00 EF 0B F8 00 00 0B 00 CA 14 F8 01 00 02 00 B8 12 F8 00 00 0A 00 F8 0B F8 00 00 0B 00
+
+2017-06-06T14:28:34.733 DM26 Packet(s) Received
+2017-06-06T14:28:34.733 18FDB800 87 03 01 37 E0 1E E0 1E
+
+2017-06-06T14:31:34.745 DM5 Packet(s) Received
+2017-06-06T14:31:34.745 18FECE00 00 00 14 37 E0 1E E0 1E
+2017-06-06T14:31:34.745 18FECE19 00 00 05 00 00 00 00 00
+
+2017-06-06T14:31:34.747 DM20 Packet(s) Received
+2017-06-06T14:31:34.747 1CC20000 03 01 0B 00 C9 14 F8 00 00 0B 00 F2 0B F8 00 00 0B 00 C6 14 F8 00 00 0B 00 EF 0B F8 00 00 0B 00 CA 14 F8 01 00 02 00 B8 12 F8 00 00 0A 00 F8 0B F8 00 00 0B 00
+
+2017-06-06T14:31:34.748 DM26 Packet(s) Received
+2017-06-06T14:31:34.748 18FDB800 3B 04 01 37 E0 1E E0 1E
+
+2017-06-06T14:32:51.849 End Tracking Monitor Completion Status. 116 Total Cycles.
+
+2017-06-06T14:32:51.850 Vehicle Composite Results of DM5:
++--------------------------------------------------------+-------------------------+--------------------------+
+|                         Monitor                        |     Initial Status      |       Last Status        |
+|                                                        | 2017-06-06T14:13:12.913 | 2017-06-06T14:32:50.996  |
++--------------------------------------------------------+-------------------------+--------------------------+
+| A/C system refrigerant monitoring                      | disabled/not supported  | disabled/not supported   |
+| Boost pressure control system monitoring               | not complete            | not complete             |
+| Catalyst monitoring                                    | disabled/not supported  | disabled/not supported   |
+| Cold start aid system monitoring                       | disabled/not supported  | disabled/not supported   |
+| Comprehensive component monitoring                     |     complete            |     complete             |
+| Diesel Particulate Filter (DPF) monitoring             | not complete            | not complete             |
+| EGR/VVT system monitoring                              | not complete            | not complete             |
+| Evaporative system monitoring                          | disabled/not supported  | disabled/not supported   |
+| Exhaust Gas Sensor heater monitoring                   | not complete            | not complete             |
+| Exhaust Gas Sensor monitoring                          | not complete            | not complete             |
+| Fuel System monitoring                                 | not complete            | not complete             |
+| Heated catalyst monitoring                             | disabled/not supported  | disabled/not supported   |
+| Misfire monitoring                                     | not complete            | not complete             |
+| NMHC converting catalyst monitoring                    | not complete            | not complete             |
+| NOx converting catalyst and/or NOx adsorber monitoring | not complete            | not complete             |
+| Secondary air system monitoring                        | disabled/not supported  | disabled/not supported   |
++--------------------------------------------------------+-------------------------+--------------------------+
+
+2017-06-06T14:32:51.854 Vehicle Composite Results of DM20:
++---------------+------------------------------------------------------------------+---------------------------+----------------------------+
+|               |                                                                  |      Initial Status       |         Last Status        |
+|               |                                                                  |  2017-06-06T14:13:15.428  |  2017-06-06T14:32:51.849   |
++---------------+------------------------------------------------------------------+---------------------------+----------------------------+
+|               | Ignition Cycles                                                  |                       258 |                       259* |
+|               | OBD Monitoring Conditions Encountered                            |                        11 |                        11  |
++---------------+------------------------------------------------------------------+-------------+-------------+-------------+--------------+
+| Source        | Monitor Name                                                     |   Numerator | Denominator |  Numerator  | Denominator  |
++---------------+------------------------------------------------------------------+-------------+-------------+-------------+--------------+
+| Engine #1 (0) | SPN 3055 Engine Fuel System Monitor                              |           0 |          11 |          0  |          11  |
+| Engine #1 (0) | SPN 3058 Engine Exhaust Gas Recirculation System Monitor         |           0 |          11 |          0  |          11  |
+| Engine #1 (0) | SPN 3064 Aftertreatment Diesel Particulate Filter System Monitor |           0 |          11 |          0  |          11  |
+| Engine #1 (0) | SPN 4792 Aftertreatment 1 Selective Catalytic Reduction System   |           0 |          10 |          0  |          10  |
+| Engine #1 (0) | SPN 5318 Aftertreatment Exhaust Gas Sensor System Monitor        |           0 |          11 |          0  |          11  |
+| Engine #1 (0) | SPN 5321 Engine Intake Manifold Pressure System Monitor          |           0 |          11 |          0  |          11  |
+| Engine #1 (0) | SPN 5322 Aftertreatment NMHC Converting Catalyst System Monitor  |           1 |           2 |          1  |           2  |
++---------------+------------------------------------------------------------------+-------------+-------------+-------------+--------------+
+
+2017-06-06T14:32:51.858 Global DM21 Request
+2017-06-06T14:32:51.859 18EAFFF9 00 C1 00 (TX)
+2017-06-06T14:32:53.109 18C10000 00 00 0E 00 00 00 13 00
+DM21 from Engine #1 (0): [
+  Distance Traveled While MIL is Activated:     0 km (0 mi)
+  Time Run by Engine While MIL is Activated:    0 minutes
+  Distance Since DTCs Cleared:                  14 km (8.699 mi)
+  Time Since DTCs Cleared:                      19 minutes
+]
+2017-06-06T14:32:53.109 Time Since Code Cleared Gap of 19 minutes
+
+2017-06-06T14:32:53.110 Vehicle Distance
+2017-06-06T14:32:53.515 18FEC100 DD BF 00 00 E9 BF 00 00
+High Resolution Vehicle Distance from Engine #1 (0): 245.585 km (152.599 mi)
+
+2017-06-06T14:32:53.515 Engine Hours Request
+2017-06-06T14:32:53.516 18EA00F9 E5 FE 00 (TX)
+2017-06-06T14:32:54.766 18FEE500 08 03 00 00 EA 07 00 00
+Engine Hours from Engine #1 (0): 38.8 hours
+
+2017-06-06T14:32:54.766 Total Queries: 467
+2017-06-06T14:32:54.766 Total Time Out Errors: 0
+
+2017-06-06T14:32:54.766 I U M P R Data Collection Tool Data Monitor Log END OF REPORT
+
+2017-06-06T14:32:59.055 I U M P R Data Collection Tool for 13 CCR 1971.1(l)(2) and (h)(1.7)
+2017-06-06T14:32:59.055 I U M P R Data Collection Tool version 0.4.2 - 2017/06/05 11:27
+
+IIIIIIIII  UUU     UUU  MMM       MMM  PPPPPPPP     RRRRRRRR     DATA COLLECTION LOG
+IIIIIIIII  UUU     UUU  MMMM     MMMM  PPPPPPPPP    RRRRRRRRR    DATA COLLECTION LOG
+   III     UUU     UUU  MMMMM   MMMMM  PPP    PPP   RRR    RRR   DATA COLLECTION LOG
+   III     UUU     UUU  MMMMMMMMMMMMM  PPP     PPP  RRR     RRR  DATA COLLECTION LOG
+   III     UUU     UUU  MMM  MMM  MMM  PPP     PPP  RRR     RRR  DATA COLLECTION LOG
+   III     UUU     UUU  MMM   M   MMM  PPP    PPP   RRR    RRR   DATA COLLECTION LOG
+   III     UUU     UUU  MMM       MMM  PPPPPPPPP    RRRRRRRRR    DATA COLLECTION LOG
+   III     UUU     UUU  MMM       MMM  PPPPPPPP     RRRRRRRR     DATA COLLECTION LOG
+   III     UUU     UUU  MMM       MMM  PPP          RRR RRR      DATA COLLECTION LOG
+   III     UUU     UUU  MMM       MMM  PPP          RRR  RRR     DATA COLLECTION LOG
+   III     UUU     UUU  MMM       MMM  PPP          RRR   RRR    DATA COLLECTION LOG
+IIIIIIIII  UUUUUUUUUUU  MMM       MMM  PPP          RRR    RRR   DATA COLLECTION LOG
+IIIIIIIII   UUUUUUUUU   MMM       MMM  PPP          RRR     RRR  DATA COLLECTION LOG
+
+2017-06-06T14:32:59.056 I U M P R Data Collection Tool Data Collection Log
+
+2017-06-06T14:32:59.057 Global VIN Request
+2017-06-06T14:32:59.057 18EAFFF9 EC FE 00 (TX)
+2017-06-06T14:33:00.307 1CFEEC00 33 48 41 45 55 4D 4D 4C 38 4A 4C 35 34 31 30 39 32 2A
+Vehicle Identification from Engine #1 (0): 3HAEUMML8JL541092
+
+2017-06-06T14:33:00.308 Global DM19 (Calibration Information) Request
+2017-06-06T14:33:00.308 18EAFFF9 00 D3 00 (TX)
+2017-06-06T14:33:01.558 1CD30000 77 7C B6 A3 48 43 38 30 30 32 35 2E 31 33 00 00 00 00 00 00 A8 73 89 13 4E 4F 78 2D 53 41 45 31 34 61 20 41 54 49 31 00 8C 4B F9 C9 4E 4F 78 2D 53 41 45 31 34 61 20 41 54 4F 31 00 AC FF 33 00 30 32 30 31 30 31 30 30 30 32 00 00 00 00 00 00 D2 BF 0F A9 50 4D 53 31 32 33 34 31 41 31 30 31 00 00 00 00 62 79 48 A5 30 32 31 32 30 34 46 46 46 46 00 00 00 00 00 00
+DM19 from Engine #1 (0): [
+  CAL ID of HC80025.13 and CVN of 0xA3B67C77
+  CAL ID of NOx-SAE14a ATI1 and CVN of 0x138973A8
+  CAL ID of NOx-SAE14a ATO1 and CVN of 0xC9F94B8C
+  CAL ID of 0201010002 and CVN of 0x33FFAC
+  CAL ID of PMS12341A101 and CVN of 0xA90FBFD2
+  CAL ID of 021204FFFF and CVN of 0xA5487962
+]
+
+2017-06-06T14:33:01.558 Global DM21 Request
+2017-06-06T14:33:01.558 18EAFFF9 00 C1 00 (TX)
+2017-06-06T14:33:02.809 18C10000 00 00 0E 00 00 00 13 00
+DM21 from Engine #1 (0): [
+  Distance Traveled While MIL is Activated:     0 km (0 mi)
+  Time Run by Engine While MIL is Activated:    0 minutes
+  Distance Since DTCs Cleared:                  14 km (8.699 mi)
+  Time Since DTCs Cleared:                      19 minutes
+]
+2017-06-06T14:33:02.809 Time Since Code Cleared Gap of 0 minutes
+
+2017-06-06T14:33:02.810 Global DM5 Request
+2017-06-06T14:33:02.810 18EAFFF9 CE FE 00 (TX)
+2017-06-06T14:33:04.060 18FECE00 00 00 14 37 E0 1E E0 1E
+2017-06-06T14:33:04.060 18FECE19 00 00 05 00 00 00 00 00
+Engine #1 (0) reported as an HD-OBD Module.
+
+2017-06-06T14:33:04.060 Direct DM24 Request to Engine #1 (0)
+2017-06-06T14:33:04.060 18EA00F9 B6 FD 00 (TX)
+2017-06-06T14:33:04.101 1CFDB600 5C 00 1C 01 BE 00 1C 02 54 00 1C 02 69 00 1C 01 E5 0C 1C 02 60 00 1C 01 A8 00 1C 02 9C 05 1C 02 01 02 1C 01 20 02 1C 02 1B 02 1C 01 1C 02 1C 01 1D 02 1C 01 1E 02 1C 01 1F 02 1C 01 1B 00 1C 02 E7 0A 1C 02 C5 16 1C 02 9C 01 1C 02 FE 14 1C 01 33 00 1C 01 9D 00 18 02 C1 14 1C 02 66 00 18 01 EB 0A 1C 01 81 02 1C 01 B9 04 1C 02 51 15 1C 01 67 00 1C 02 94 04 1C 02 9D 12 1C 02 AE 0C 1C 02 AA 0C 1C 02 0B 11 1C 02 B3 0C 18 02 1A 0E 1C 02 90 0C 18 02 9A 0C 18 02 74 0E 1C 01 5A 15 1C 02 02 02 1C 01 3F 0A 1C 01 00 02 1C 01 5B 00 1C 01 6E 00 1C 01 6C 00 1C 01 CD 16 1C 01 D0 03 1C 01 B9 1C 1C 02 B7 1C 1C 02 E1 06 1C 01 EF 1A 1C 02 A5 1C 1C 02 58 15 1C 02 A5 14 1B 00 90 12 1B 00 2B 05 1B 00 2C 05 1B 00 2D 05 1B 00 2E 05 1B 00 2F 05 1B 00 30 05 1B 00 B2 14 1B 00 BC 12 1B 00 C7 14 1B 00 BB 12 1B 00 60 0F 1B 00 15 15 1B 00 F2 0B 1B 00 A0 13 1B 00 92 0C 1B 00 ED 14 1B 00 2A 05 1B 00 A7 13 1B 00 9C 0C 1B 00 A1 1C 1B 00 CB 16 1B 00 79 1A 1B 00 75 1A 1B 00 8B 02 1B 00 8C 02 1B 00 8D 02 1B 00 8E 02 1B 00 8F 02 1B 00 90 02 1B 00 EB 10 1B 00 BA 12 1B 00 0C 11 1B 00 91 0C 1B 00 9B 0C 1B 00 EE 10 1B 00 C1 0D 1B 00 22 0D 1B 00 B7 00 1D 00 EB 00 1D 00 ED 00 1D 00 F7 00 1D 00 F8 00 1D 00 4C 02 1D 00 39 04 1D 00 20 0B 1D 00 BC 0D 1D 00 D8 13 1D 00 CB 14 1D 00 4E 15 1D 00 57 15 1D 00 C3 16 1D 00 ED 1A 1D 00 EE 1A 1D 00 E1 1C 1D 00
+DM24 from Engine #1 (0): [
+  SPN 92 - Engine Percent Load At Current Speed: Supports Data Stream, Expanded Freeze Frame with data length 1 bytes
+  SPN 190 - Engine Speed: Supports Data Stream, Expanded Freeze Frame with data length 2 bytes
+  SPN 84 - Wheel-Based Vehicle Speed: Supports Data Stream, Expanded Freeze Frame with data length 2 bytes
+  SPN 105 - Engine Intake Manifold 1 Temperature: Supports Data Stream, Expanded Freeze Frame with data length 1 bytes
+  SPN 3301 - Time Since Engine Start: Supports Data Stream, Expanded Freeze Frame with data length 2 bytes
+  SPN 96 - Fuel Level 1: Supports Data Stream, Expanded Freeze Frame with data length 1 bytes
+  SPN 168 - Battery Potential / Power Input 1: Supports Data Stream, Expanded Freeze Frame with data length 2 bytes
+  SPN 1436 - Engine Actual Ignition Timing: Supports Data Stream, Expanded Freeze Frame with data length 2 bytes
+  SPN 513 - Actual Engine - Percent Torque: Supports Data Stream, Expanded Freeze Frame with data length 1 bytes
+  SPN 544 - Engine Reference Torque: Supports Data Stream, Expanded Freeze Frame with data length 2 bytes
+  SPN 539 - Engine Percent Torque At Idle, Point 1: Supports Data Stream, Expanded Freeze Frame with data length 1 bytes
+  SPN 540 - Engine Percent Torque At Point 2: Supports Data Stream, Expanded Freeze Frame with data length 1 bytes
+  SPN 541 - Engine Percent Torque At Point 3: Supports Data Stream, Expanded Freeze Frame with data length 1 bytes
+  SPN 542 - Engine Percent Torque At Point 4: Supports Data Stream, Expanded Freeze Frame with data length 1 bytes
+  SPN 543 - Engine Percent Torque At Point 5: Supports Data Stream, Expanded Freeze Frame with data length 1 bytes
+  SPN 27 - Engine Exhaust Gas Recirculation 1 Valve Position: Supports Data Stream, Expanded Freeze Frame with data length 2 bytes
+  SPN 2791 - Engine Exhaust Gas Recirculation 1 Valve 1 Control 1: Supports Data Stream, Expanded Freeze Frame with data length 2 bytes
+  SPN 5829 - Engine Exhaust Gas Recirculation 1 Valve 1 Position Error: Supports Data Stream, Expanded Freeze Frame with data length 2 bytes
+  SPN 412 - Engine Exhaust Gas Recirculation 1 Temperature: Supports Data Stream, Expanded Freeze Frame with data length 2 bytes
+  SPN 5374 - Engine Desired Throttle Valve 1 Position : Supports Data Stream, Expanded Freeze Frame with data length 1 bytes
+  SPN 51 - Engine Throttle Valve 1 Position 1: Supports Data Stream, Expanded Freeze Frame with data length 1 bytes
+  SPN 157 - Engine Fuel 1 Injector Metering Rail 1 Pressure: Supports Data Stream, Expanded Freeze Frame, Scaled Test Results with data length 2 bytes
+  SPN 5313 - Commanded Engine Fuel Rail Pressure: Supports Data Stream, Expanded Freeze Frame with data length 2 bytes
+  SPN 102 - Engine Intake Manifold #1 Pressure: Supports Data Stream, Expanded Freeze Frame, Scaled Test Results with data length 1 bytes
+  SPN 2795 - Engine Variable Geometry Turbocharger (VGT) 1 Actuator Position: Supports Data Stream, Expanded Freeze Frame with data length 1 bytes
+  SPN 641 - Engine Variable Geometry Turbocharger Actuator #1: Supports Data Stream, Expanded Freeze Frame with data length 1 bytes
+  SPN 1209 - Engine Exhaust Pressure 1: Supports Data Stream, Expanded Freeze Frame with data length 2 bytes
+  SPN 5457 - Engine Variable Geometry Turbocharger 1 Control Mode: Supports Data Stream, Expanded Freeze Frame with data length 1 bytes
+  SPN 103 - Engine Turbocharger 1 Speed: Supports Data Stream, Expanded Freeze Frame with data length 2 bytes
+  SPN 1172 - Engine Turbocharger 1 Compressor Intake Temperature: Supports Data Stream, Expanded Freeze Frame with data length 2 bytes
+  SPN 4765 - Aftertreatment 1 Diesel Oxidation Catalyst Intake Temperature: Supports Data Stream, Expanded Freeze Frame with data length 2 bytes
+  SPN 3246 - Aftertreatment 1 Diesel Particulate Filter Outlet Temperature: Supports Data Stream, Expanded Freeze Frame with data length 2 bytes
+  SPN 3242 - Aftertreatment 1 Diesel Particulate Filter Intake Temperature: Supports Data Stream, Expanded Freeze Frame with data length 2 bytes
+  SPN 4363 - Aftertreatment 1 SCR Outlet Temperature: Supports Data Stream, Expanded Freeze Frame with data length 2 bytes
+  SPN 3251 - Aftertreatment 1 Diesel Particulate Filter Differential Pressure: Supports Data Stream, Expanded Freeze Frame, Scaled Test Results with data length 2 bytes
+  SPN 3610 - Aftertreatment 1 Diesel Particulate Filter Outlet Pressure: Supports Data Stream, Expanded Freeze Frame with data length 2 bytes
+  SPN 3216 - Aftertreatment 1 SCR Intake NOx 1: Supports Data Stream, Expanded Freeze Frame, Scaled Test Results with data length 2 bytes
+  SPN 3226 - Aftertreatment 1 Outlet NOx 1: Supports Data Stream, Expanded Freeze Frame, Scaled Test Results with data length 2 bytes
+  SPN 3700 - Aftertreatment Diesel Particulate Filter Active Regeneration Status: Supports Data Stream, Expanded Freeze Frame with data length 1 bytes
+  SPN 5466 - Aftertreatment 1 Diesel Particulate Filter Soot Load Regeneration Threshold: Supports Data Stream, Expanded Freeze Frame with data length 2 bytes
+  SPN 514 - Nominal Friction - Percent Torque: Supports Data Stream, Expanded Freeze Frame with data length 1 bytes
+  SPN 2623 - Accelerator Pedal #1 Channel 2: Supports Data Stream, Expanded Freeze Frame with data length 1 bytes
+  SPN 512 - Driver's Demand Engine - Percent Torque: Supports Data Stream, Expanded Freeze Frame with data length 1 bytes
+  SPN 91 - Accelerator Pedal Position 1: Supports Data Stream, Expanded Freeze Frame with data length 1 bytes
+  SPN 110 - Engine Coolant Temperature: Supports Data Stream, Expanded Freeze Frame with data length 1 bytes
+  SPN 108 - Barometric Pressure: Supports Data Stream, Expanded Freeze Frame with data length 1 bytes
+  SPN 5837 - Fuel Type: Supports Data Stream, Expanded Freeze Frame with data length 1 bytes
+  SPN 976 - PTO Governor State: Supports Data Stream, Expanded Freeze Frame with data length 1 bytes
+  SPN 7353 - Aftertreatment 1 SCR Intake Corrected NOx: Supports Data Stream, Expanded Freeze Frame with data length 2 bytes
+  SPN 7351 - Aftertreatment 1 Outlet Corrected NOx: Supports Data Stream, Expanded Freeze Frame with data length 2 bytes
+  SPN 1761 - Aftertreatment 1 Diesel Exhaust Fluid Tank Volume: Supports Data Stream, Expanded Freeze Frame with data length 1 bytes
+  SPN 6895 - Engine Exhaust Flow Rate: Supports Data Stream, Expanded Freeze Frame with data length 2 bytes
+  SPN 7333 - Cylinder Fuel Rate: Supports Data Stream, Expanded Freeze Frame with data length 2 bytes
+  SPN 5464 - Hybrid Battery Pack Remaining Charge: Supports Data Stream, Expanded Freeze Frame with data length 2 bytes
+  SPN 5285 - Engine Charge Air Cooler 1 Efficiency: Supports Scaled Test Results with data length 0 bytes
+  SPN 4752 - Engine Exhaust Gas Recirculation 1 Cooler Efficiency: Supports Scaled Test Results with data length 0 bytes
+  SPN 1323 - Engine Misfire Cylinder #1: Supports Scaled Test Results with data length 0 bytes
+  SPN 1324 - Engine Misfire Cylinder #2: Supports Scaled Test Results with data length 0 bytes
+  SPN 1325 - Engine Misfire Cylinder #3: Supports Scaled Test Results with data length 0 bytes
+  SPN 1326 - Engine Misfire Cylinder #4: Supports Scaled Test Results with data length 0 bytes
+  SPN 1327 - Engine Misfire Cylinder #5: Supports Scaled Test Results with data length 0 bytes
+  SPN 1328 - Engine Misfire Cylinder #6: Supports Scaled Test Results with data length 0 bytes
+  SPN 5298 - Aftertreatment 1 Diesel Oxidation Catalyst Conversion Efficiency: Supports Scaled Test Results with data length 0 bytes
+  SPN 4796 - Aftertreatment 1 Diesel Oxidation Catalyst Missing : Supports Scaled Test Results with data length 0 bytes
+  SPN 5319 - Aftertreatment 1 Diesel Particulate Filter Incomplete Regeneration: Supports Scaled Test Results with data length 0 bytes
+  SPN 4795 - Aftertreatment 1 Diesel Particulate Filter Missing: Supports Scaled Test Results with data length 0 bytes
+  SPN 3936 - Aftertreatment Diesel Particulate Filter System: Supports Scaled Test Results with data length 0 bytes
+  SPN 5397 - Aftertreatment 1 Diesel Particulate Filter Regeneration too Frequent: Supports Scaled Test Results with data length 0 bytes
+  SPN 3058 - Engine Exhaust Gas Recirculation System Monitor: Supports Scaled Test Results with data length 0 bytes
+  SPN 5024 - Aftertreatment 1 Intake NOx Sensor Heater Ratio: Supports Scaled Test Results with data length 0 bytes
+  SPN 3218 - Aftertreatment 1 Intake Gas Sensor 1 Power In Range: Supports Scaled Test Results with data length 0 bytes
+  SPN 5357 - Engine Fuel Injection Quantity Error for Multiple Cylinders : Supports Scaled Test Results with data length 0 bytes
+  SPN 1322 - Engine Misfire for Multiple Cylinders: Supports Scaled Test Results with data length 0 bytes
+  SPN 5031 - Aftertreatment 1 Outlet NOx Sensor Heater Ratio: Supports Scaled Test Results with data length 0 bytes
+  SPN 3228 - Aftertreatment 1 Outlet Gas Sensor 1 Power In Range: Supports Scaled Test Results with data length 0 bytes
+  SPN 7329 - Aftertreatment 1 Particulate Sensor Heater Power Supply Preliminary FMI: Supports Scaled Test Results with data length 0 bytes
+  SPN 5835 - Aftertreatment 1 Particulate Sensor: Supports Scaled Test Results with data length 0 bytes
+  SPN 6777 - Aftertreatment 1 Particulate Sensor Detection Status: Supports Scaled Test Results with data length 0 bytes
+  SPN 6773 - Aftertreatment 1 Particulate Sensor Regeneration Status: Supports Scaled Test Results with data length 0 bytes
+  SPN 651 - Engine Fuel 1 Injector Cylinder 1: Supports Scaled Test Results with data length 0 bytes
+  SPN 652 - Engine Fuel 1 Injector Cylinder 2: Supports Scaled Test Results with data length 0 bytes
+  SPN 653 - Engine Fuel 1 Injector Cylinder 3: Supports Scaled Test Results with data length 0 bytes
+  SPN 654 - Engine Fuel 1 Injector Cylinder 4: Supports Scaled Test Results with data length 0 bytes
+  SPN 655 - Engine Fuel 1 Injector Cylinder 5: Supports Scaled Test Results with data length 0 bytes
+  SPN 656 - Engine Fuel 1 Injector Cylinder 6: Supports Scaled Test Results with data length 0 bytes
+  SPN 4331 - Aftertreatment 1 Diesel Exhaust Fluid Actual Dosing Quantity: Supports Scaled Test Results with data length 0 bytes
+  SPN 4794 - Aftertreatment 1 SCR System Missing: Supports Scaled Test Results with data length 0 bytes
+  SPN 4364 - Aftertreatment 1 SCR Conversion Efficiency: Supports Scaled Test Results with data length 0 bytes
+  SPN 3217 - Aftertreatment 1 Intake Percent Oxygen 1: Supports Scaled Test Results with data length 0 bytes
+  SPN 3227 - Aftertreatment 1 Outlet Percent Oxygen 1: Supports Scaled Test Results with data length 0 bytes
+  SPN 4334 - Aftertreatment 1 Diesel Exhaust Fluid Doser 1 Absolute Pressure: Supports Scaled Test Results with data length 0 bytes
+  SPN 3521 - Aftertreatment 1 Diesel Exhaust Fluid Property: Supports Scaled Test Results with data length 0 bytes
+  SPN 3362 - Aftertreatment 1 Diesel Exhaust Fluid Dosing Unit 1 Input Lines: Supports Scaled Test Results with data length 0 bytes
+  SPN 183 - Engine Fuel Rate: Supports Data Stream with data length 0 bytes
+  SPN 235 - Engine Total Idle Hours: Supports Data Stream with data length 0 bytes
+  SPN 237 - Vehicle Identification Number: Supports Data Stream with data length 0 bytes
+  SPN 247 - Engine Total Hours of Operation: Supports Data Stream with data length 0 bytes
+  SPN 248 - Total Power Takeoff Hours: Supports Data Stream with data length 0 bytes
+  SPN 588 - Serial Number: Supports Data Stream with data length 0 bytes
+  SPN 1081 - Engine Wait to Start Lamp: Supports Data Stream with data length 0 bytes
+  SPN 2848 - NAME of Controller Application (for address claimed): Supports Data Stream with data length 0 bytes
+  SPN 3516 - Aftertreatment 1 Diesel Exhaust Fluid Concentration: Supports Data Stream with data length 0 bytes
+  SPN 5080 - OBD Malfunction Indicator Lamp Command: Supports Data Stream with data length 0 bytes
+  SPN 5323 - Engine Fuel Control Mode: Supports Data Stream with data length 0 bytes
+  SPN 5454 - Aftertreatment 1 Diesel Particulate Filter Average Time Between Active Regenerations: Supports Data Stream with data length 0 bytes
+  SPN 5463 - Aftertreatment SCR Operator Inducement Active Traveled Distance: Supports Data Stream with data length 0 bytes
+  SPN 5827 - Aftertreatment 1 Diesel Particulate Filter Average Distance Between Active Regenerations: Supports Data Stream with data length 0 bytes
+  SPN 6893 - PEMS Engine Fuel Mass Flow Rate: Supports Data Stream with data length 0 bytes
+  SPN 6894 - Vehicle Fuel Rate: Supports Data Stream with data length 0 bytes
+  SPN 7393 - Aftertreatment 1 Particulate Sensor Current: Supports Data Stream with data length 0 bytes
+]
+
+2017-06-06T14:33:04.111 Direct DM30 Requests to Engine #1 (0)
+2017-06-06T14:33:04.111 18E300F9 F7 66 00 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.126 1CA40000 F7 66 00 10 84 01 00 FB FF FF FF FF F7 66 00 12 84 01 00 FB FF FF FF FF F7 66 00 0A 84 01 00 FB FF FF FF FF
+2017-06-06T14:33:04.128 18E300F9 F7 9D 00 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.142 1CA40000 F7 9D 00 10 82 01 C1 0F 6C DC B8 0B F7 9D 00 12 82 01 C1 0F 88 13 00 00 F7 9D 00 07 82 01 E3 0F BA 13 00 00 F7 9D 00 07 82 01 E3 0F 6C DC 86 0B
+2017-06-06T14:33:04.143 18E300F9 F7 8B 02 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.156 1CA40000 F7 8B 02 07 2D 00 00 FB FF FF FF FF
+2017-06-06T14:33:04.156 18E300F9 F7 8C 02 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.166 1CA40000 F7 8C 02 07 2D 00 00 FB FF FF FF FF
+2017-06-06T14:33:04.166 18E300F9 F7 8D 02 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.180 1CA40000 F7 8D 02 07 2D 00 00 FB FF FF FF FF
+2017-06-06T14:33:04.180 18E300F9 F7 8E 02 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.196 1CA40000 F7 8E 02 07 2D 00 00 FB FF FF FF FF
+2017-06-06T14:33:04.196 18E300F9 F7 8F 02 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.206 1CA40000 F7 8F 02 07 2D 00 00 FB FF FF FF FF
+2017-06-06T14:33:04.206 18E300F9 F7 90 02 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.223 1CA40000 F7 90 02 07 2D 00 00 FB FF FF FF FF
+2017-06-06T14:33:04.223 18E300F9 F7 2A 05 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.240 1CA40000 F7 2A 05 1F 0C 00 00 FB FF FF FF FF
+2017-06-06T14:33:04.240 18E300F9 F7 2B 05 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.251 1CA40000 F7 2B 05 1F D0 00 00 FB FF FF FF FF F7 2B 05 1F D0 00 00 FB FF FF FF FF
+2017-06-06T14:33:04.251 18E300F9 F7 2C 05 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.261 1CA40000 F7 2C 05 1F D0 00 00 FB FF FF FF FF F7 2C 05 1F D0 00 00 FB FF FF FF FF
+2017-06-06T14:33:04.261 18E300F9 F7 2D 05 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.276 1CA40000 F7 2D 05 1F D0 00 00 FB FF FF FF FF F7 2D 05 1F D0 00 00 FB FF FF FF FF
+2017-06-06T14:33:04.276 18E300F9 F7 2E 05 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.286 1CA40000 F7 2E 05 1F D0 00 00 FB FF FF FF FF F7 2E 05 1F D0 00 00 FB FF FF FF FF
+2017-06-06T14:33:04.286 18E300F9 F7 2F 05 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.301 1CA40000 F7 2F 05 1F D0 00 00 FB FF FF FF FF F7 2F 05 1F D0 00 00 FB FF FF FF FF
+2017-06-06T14:33:04.301 18E300F9 F7 30 05 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.316 1CA40000 F7 30 05 1F D0 00 00 FB FF FF FF FF F7 30 05 1F D0 00 00 FB FF FF FF FF
+2017-06-06T14:33:04.316 18E300F9 F7 F2 0B 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.327 1CA40000 F7 F2 0B 10 84 01 00 FB FF FF FF FF F7 F2 0B 12 84 01 00 FB FF FF FF FF F7 F2 0B 0A 32 01 00 FB FF FF FF FF
+2017-06-06T14:33:04.327 18E300F9 F7 90 0C 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.342 1CA40000 F7 90 0C 02 5C 01 41 43 FF FA 8C 0A F7 90 0C 14 5C 01 00 FB FF FF FF FF F7 90 0C 15 5C 01 00 FB FF FF FF FF F7 90 0C 0A 06 00 00 00 95 00 00 00
+2017-06-06T14:33:04.342 18E300F9 F7 91 0C 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.358 1CA40000 F7 91 0C 14 0C 00 00 FB FF FF FF FF F7 91 0C 15 0C 00 00 FB FF FF FF FF
+2017-06-06T14:33:04.358 18E300F9 F7 92 0C 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.371 1CA40000 F7 92 0C 02 0C 00 00 00 0B 00 00 00
+2017-06-06T14:33:04.371 18E300F9 F7 9A 0C 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.382 1CA40000 F7 9A 0C 02 5C 01 00 FB FF FF FF FF F7 9A 0C 14 5C 01 00 FB FF FF FF FF F7 9A 0C 15 5C 01 00 FB FF FF FF FF F7 9A 0C 0A 2D 00 00 FB FF FF FF FF
+2017-06-06T14:33:04.382 18E300F9 F7 9B 0C 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.396 1CA40000 F7 9B 0C 14 0C 00 00 FB FF FF FF FF F7 9B 0C 15 0C 00 00 FB FF FF FF FF
+2017-06-06T14:33:04.396 18E300F9 F7 9C 0C 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.411 1CA40000 F7 9C 0C 02 0C 00 00 00 0B 00 00 00
+2017-06-06T14:33:04.411 18E300F9 F7 B3 0C 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.421 1CA40000 F7 B3 0C 0A 63 01 00 FB FF FF FF FF
+2017-06-06T14:33:04.421 18E300F9 F7 22 0D 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.431 1CA40000 F7 22 0D 1F 0C 00 69 03 B6 03 EE 02
+2017-06-06T14:33:04.431 18E300F9 F7 C1 0D 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.440 1CA40000 F7 C1 0D 12 2D 00 7D 00 D7 00 00 00
+2017-06-06T14:33:04.440 18E300F9 F7 60 0F 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.451 1CA40000 F7 60 0F 02 93 01 00 FB FF FF FF FF
+2017-06-06T14:33:04.451 18E300F9 F7 EB 10 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.460 1CA40000 F7 EB 10 12 32 01 82 7D 83 7D 00 00
+2017-06-06T14:33:04.460 18E300F9 F7 EE 10 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.472 1CA40000 F7 EE 10 12 63 01 F5 9E FF FA DA 98
+2017-06-06T14:33:04.472 18E300F9 F7 0C 11 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.485 1CA40000 F7 0C 11 1F 32 01 00 FB FF FF FF FF
+2017-06-06T14:33:04.485 18E300F9 F7 90 12 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.496 1CA40000 F7 90 12 12 44 00 00 FB FF FF FF FF
+2017-06-06T14:33:04.496 18E300F9 F7 BA 12 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.505 1CA40000 F7 BA 12 1F 0C 00 00 FB FF FF FF FF
+2017-06-06T14:33:04.505 18E300F9 F7 BB 12 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.516 1CA40000 F7 BB 12 1F 0C 00 00 FB FF FF FF FF
+2017-06-06T14:33:04.516 18E300F9 F7 BC 12 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.526 1CA40000 F7 BC 12 1F 44 00 B1 3C FF FA E0 25
+2017-06-06T14:33:04.527 18E300F9 F7 A0 13 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.541 1CA40000 F7 A0 13 0A 2D 00 7D 00 81 00 7D 00 F7 A0 13 0A 0C 00 00 00 04 00 00 00 F7 A0 13 0A 06 00 00 00 77 00 00 00
+2017-06-06T14:33:04.541 18E300F9 F7 A7 13 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.557 1CA40000 F7 A7 13 0A 06 00 00 00 77 00 00 00 F7 A7 13 0A 2D 00 7D 00 87 00 7D 00 F7 A7 13 0A 0C 00 00 00 05 00 00 00
+2017-06-06T14:33:04.557 18E300F9 F7 A5 14 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.571 1CA40000 F7 A5 14 12 06 00 00 FB FF FF FF FF
+2017-06-06T14:33:04.571 18E300F9 F7 B2 14 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.581 1CA40000 F7 B2 14 12 0C 00 00 FB FF FF FF FF F7 B2 14 11 0C 00 00 FB FF FF FF FF
+2017-06-06T14:33:04.581 18E300F9 F7 C7 14 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.591 1CA40000 F7 C7 14 1F 1F 01 00 FB FF FF FF FF
+2017-06-06T14:33:04.591 18E300F9 F7 ED 14 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.600 1CA40000 F7 ED 14 1F 85 01 00 FB FF FF FF FF
+2017-06-06T14:33:04.600 18E300F9 F7 15 15 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.611 1CA40000 F7 15 15 1F 0C 00 00 FB FF FF FF FF
+2017-06-06T14:33:04.611 18E300F9 F7 CB 16 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.622 1CA40000 F7 CB 16 15 86 01 00 FB FF FF FF FF
+2017-06-06T14:33:04.622 18E300F9 F7 75 1A 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.636 1CA40000 F7 75 1A 07 0C 00 00 FB FF FF FF FF F7 75 1A 10 93 01 00 FB FF FF FF FF
+2017-06-06T14:33:04.637 18E300F9 F7 79 1A 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.645 1CA40000 F7 79 1A 0A 32 01 00 FB FF FF FF FF
+2017-06-06T14:33:04.645 18E300F9 F7 A1 1C 1F FF FF FF FF (TX)
+2017-06-06T14:33:04.656 1CA40000 F7 A1 1C 02 32 01 80 7D 81 7D 80 7D F7 A1 1C 02 32 01 00 FB FF FF FF FF
+
+Scaled Tests Results from Engine #1 (0): [
+  Test 247: Engine Intake Manifold #1 Pressure (102), Data Valid But Above Normal Operating Range - Moderately Severe Level (16), Result: Test Not Complete.
+  Test 247: Engine Intake Manifold #1 Pressure (102), Data Valid But Below Normal Operating Range - Moderately Severe Level (18), Result: Test Not Complete.
+  Test 247: Engine Intake Manifold #1 Pressure (102), Abnormal Rate Of Change (10), Result: Test Not Complete.
+  Test 247: Engine Fuel 1 Injector Metering Rail 1 Pressure (157), Data Valid But Above Normal Operating Range - Moderately Severe Level (16), Result: Test Passed. Min: -10,000 kPa, Value: 330 kPa, Max: 524,280 kPa
+  Test 247: Engine Fuel 1 Injector Metering Rail 1 Pressure (157), Data Valid But Below Normal Operating Range - Moderately Severe Level (18), Result: Test Passed. Min: -40,000 kPa, Value: 330 kPa, Max: 10,000 kPa
+  Test 247: Engine Fuel 1 Injector Metering Rail 1 Pressure (157), Mechanical System Not Responding Or Out Of Adjustment (7), Result: Test Passed. Min: -40,000 kPa, Value: 670 kPa, Max: 10,500 kPa
+  Test 247: Engine Fuel 1 Injector Metering Rail 1 Pressure (157), Mechanical System Not Responding Or Out Of Adjustment (7), Result: Test Passed. Min: -10,500 kPa, Value: 670 kPa, Max: 524,280 kPa
+  Test 247: Engine Fuel 1 Injector Cylinder 1 (651), Mechanical System Not Responding Or Out Of Adjustment (7), Result: Test Not Complete.
+  Test 247: Engine Fuel 1 Injector Cylinder 2 (652), Mechanical System Not Responding Or Out Of Adjustment (7), Result: Test Not Complete.
+  Test 247: Engine Fuel 1 Injector Cylinder 3 (653), Mechanical System Not Responding Or Out Of Adjustment (7), Result: Test Not Complete.
+  Test 247: Engine Fuel 1 Injector Cylinder 4 (654), Mechanical System Not Responding Or Out Of Adjustment (7), Result: Test Not Complete.
+  Test 247: Engine Fuel 1 Injector Cylinder 5 (655), Mechanical System Not Responding Or Out Of Adjustment (7), Result: Test Not Complete.
+  Test 247: Engine Fuel 1 Injector Cylinder 6 (656), Mechanical System Not Responding Or Out Of Adjustment (7), Result: Test Not Complete.
+  Test 247: Engine Misfire for Multiple Cylinders (1322), Condition Exists (31), Result: Test Not Complete.
+  Test 247: Engine Misfire Cylinder #1 (1323), Condition Exists (31), Result: Test Not Complete.
+  Test 247: Engine Misfire Cylinder #1 (1323), Condition Exists (31), Result: Test Not Complete.
+  Test 247: Engine Misfire Cylinder #2 (1324), Condition Exists (31), Result: Test Not Complete.
+  Test 247: Engine Misfire Cylinder #2 (1324), Condition Exists (31), Result: Test Not Complete.
+  Test 247: Engine Misfire Cylinder #3 (1325), Condition Exists (31), Result: Test Not Complete.
+  Test 247: Engine Misfire Cylinder #3 (1325), Condition Exists (31), Result: Test Not Complete.
+  Test 247: Engine Misfire Cylinder #4 (1326), Condition Exists (31), Result: Test Not Complete.
+  Test 247: Engine Misfire Cylinder #4 (1326), Condition Exists (31), Result: Test Not Complete.
+  Test 247: Engine Misfire Cylinder #5 (1327), Condition Exists (31), Result: Test Not Complete.
+  Test 247: Engine Misfire Cylinder #5 (1327), Condition Exists (31), Result: Test Not Complete.
+  Test 247: Engine Misfire Cylinder #6 (1328), Condition Exists (31), Result: Test Not Complete.
+  Test 247: Engine Misfire Cylinder #6 (1328), Condition Exists (31), Result: Test Not Complete.
+  Test 247: Engine Exhaust Gas Recirculation System Monitor (3058), Data Valid But Above Normal Operating Range - Moderately Severe Level (16), Result: Test Not Complete.
+  Test 247: Engine Exhaust Gas Recirculation System Monitor (3058), Data Valid But Below Normal Operating Range - Moderately Severe Level (18), Result: Test Not Complete.
+  Test 247: Engine Exhaust Gas Recirculation System Monitor (3058), Abnormal Rate Of Change (10), Result: Test Not Complete.
+  Test 247: Aftertreatment 1 SCR Intake NOx 1 (3216), Data Erratic, Intermittent Or Incorrect (2), Result: Test Passed. Min: 70 ppm, Value: 1,521.7 ppm, Max: 6,225.5 ppm
+  Test 247: Aftertreatment 1 SCR Intake NOx 1 (3216), Data Drifted High (20), Result: Test Not Complete.
+  Test 247: Aftertreatment 1 SCR Intake NOx 1 (3216), Data Drifted Low (21), Result: Test Not Complete.
+  Test 247: Aftertreatment 1 SCR Intake NOx 1 (3216), Abnormal Rate Of Change (10), Result: Test Passed. Min: 0 s, Value: 0 s, Max: 149 s
+  Test 247: Aftertreatment 1 Intake Percent Oxygen 1 (3217), Data Drifted High (20), Result: Test Not Complete.
+  Test 247: Aftertreatment 1 Intake Percent Oxygen 1 (3217), Data Drifted Low (21), Result: Test Not Complete.
+  Test 247: Aftertreatment 1 Intake Gas Sensor 1 Power In Range (3218), Data Erratic, Intermittent Or Incorrect (2), Result: Test Passed. Min: 0, Value: 0, Max: 11
+  Test 247: Aftertreatment 1 Outlet NOx 1 (3226), Data Erratic, Intermittent Or Incorrect (2), Result: Test Not Complete.
+  Test 247: Aftertreatment 1 Outlet NOx 1 (3226), Data Drifted High (20), Result: Test Not Complete.
+  Test 247: Aftertreatment 1 Outlet NOx 1 (3226), Data Drifted Low (21), Result: Test Not Complete.
+  Test 247: Aftertreatment 1 Outlet NOx 1 (3226), Abnormal Rate Of Change (10), Result: Test Not Complete.
+  Test 247: Aftertreatment 1 Outlet Percent Oxygen 1 (3227), Data Drifted High (20), Result: Test Not Complete.
+  Test 247: Aftertreatment 1 Outlet Percent Oxygen 1 (3227), Data Drifted Low (21), Result: Test Not Complete.
+  Test 247: Aftertreatment 1 Outlet Gas Sensor 1 Power In Range (3228), Data Erratic, Intermittent Or Incorrect (2), Result: Test Passed. Min: 0, Value: 0, Max: 11
+  Test 247: Aftertreatment 1 Diesel Particulate Filter Differential Pressure (3251), Abnormal Rate Of Change (10), Result: Test Not Complete.
+  Test 247: Aftertreatment 1 Diesel Exhaust Fluid Dosing Unit 1 Input Lines (3362), Condition Exists (31), Result: Test Passed. Min: 750, Value: 873, Max: 950
+  Test 247: Aftertreatment 1 Diesel Exhaust Fluid Property (3521), Data Valid But Below Normal Operating Range - Moderately Severe Level (18), Result: Test Passed. Min: -125 %, Value: 0 %, Max: 90 %
+  Test 247: Aftertreatment Diesel Particulate Filter System (3936), Data Erratic, Intermittent Or Incorrect (2), Result: Test Not Complete.
+  Test 247: Aftertreatment 1 Diesel Exhaust Fluid Actual Dosing Quantity (4331), Data Valid But Below Normal Operating Range - Moderately Severe Level (18), Result: Test Passed. Min: -32,128, Value: 2, Max: 3
+  Test 247: Aftertreatment 1 Diesel Exhaust Fluid Doser 1 Absolute Pressure (4334), Data Valid But Below Normal Operating Range - Moderately Severe Level (18), Result: Test Passed. Min: 700.3 kPa, Value: 856.6 kPa, Max: 3,212.8 kPa
+  Test 247: Aftertreatment 1 SCR Conversion Efficiency (4364), Condition Exists (31), Result: Test Not Complete.
+  Test 247: Engine Exhaust Gas Recirculation 1 Cooler Efficiency (4752), Data Valid But Below Normal Operating Range - Moderately Severe Level (18), Result: Test Not Complete.
+  Test 247: Aftertreatment 1 SCR System Missing (4794), Condition Exists (31), Result: Test Not Complete.
+  Test 247: Aftertreatment 1 Diesel Particulate Filter Missing (4795), Condition Exists (31), Result: Test Not Complete.
+  Test 247: Aftertreatment 1 Diesel Oxidation Catalyst Missing  (4796), Condition Exists (31), Result: Test Passed. Min: 30 C, Value: 212.531 C, Max: 1,734.969 C
+  Test 247: Aftertreatment 1 Intake NOx Sensor Heater Ratio (5024), Abnormal Rate Of Change (10), Result: Test Passed. Min: 0 %, Value: 0 %, Max: 4 %
+  Test 247: Aftertreatment 1 Intake NOx Sensor Heater Ratio (5024), Abnormal Rate Of Change (10), Result: Test Passed. Min: 0, Value: 0, Max: 4
+  Test 247: Aftertreatment 1 Intake NOx Sensor Heater Ratio (5024), Abnormal Rate Of Change (10), Result: Test Passed. Min: 0 s, Value: 0 s, Max: 119 s
+  Test 247: Aftertreatment 1 Outlet NOx Sensor Heater Ratio (5031), Abnormal Rate Of Change (10), Result: Test Passed. Min: 0 s, Value: 0 s, Max: 119 s
+  Test 247: Aftertreatment 1 Outlet NOx Sensor Heater Ratio (5031), Abnormal Rate Of Change (10), Result: Test Passed. Min: 0 %, Value: 0 %, Max: 10 %
+  Test 247: Aftertreatment 1 Outlet NOx Sensor Heater Ratio (5031), Abnormal Rate Of Change (10), Result: Test Passed. Min: 0, Value: 0, Max: 5
+  Test 247: Engine Charge Air Cooler 1 Efficiency (5285), Data Valid But Below Normal Operating Range - Moderately Severe Level (18), Result: Test Not Complete.
+  Test 247: Aftertreatment 1 Diesel Oxidation Catalyst Conversion Efficiency (5298), Data Valid But Below Normal Operating Range - Moderately Severe Level (18), Result: Test Not Complete.
+  Test 247: Aftertreatment 1 Diesel Oxidation Catalyst Conversion Efficiency (5298), Data Valid But Below Normal Operating Range - Least Severe Level (17), Result: Test Not Complete.
+  Test 247: Aftertreatment 1 Diesel Particulate Filter Incomplete Regeneration (5319), Condition Exists (31), Result: Test Not Complete.
+  Test 247: Engine Fuel Injection Quantity Error for Multiple Cylinders  (5357), Condition Exists (31), Result: Test Not Complete.
+  Test 247: Aftertreatment 1 Diesel Particulate Filter Regeneration too Frequent (5397), Condition Exists (31), Result: Test Not Complete.
+  Test 247: Aftertreatment 1 Particulate Sensor (5835), Data Drifted Low (21), Result: Test Not Complete.
+  Test 247: Aftertreatment 1 Particulate Sensor Regeneration Status (6773), Mechanical System Not Responding Or Out Of Adjustment (7), Result: Test Not Complete.
+  Test 247: Aftertreatment 1 Particulate Sensor Regeneration Status (6773), Data Valid But Above Normal Operating Range - Moderately Severe Level (16), Result: Test Not Complete.
+  Test 247: Aftertreatment 1 Particulate Sensor Detection Status (6777), Abnormal Rate Of Change (10), Result: Test Not Complete.
+  Test 247: Aftertreatment 1 Particulate Sensor Heater Power Supply Preliminary FMI (7329), Data Erratic, Intermittent Or Incorrect (2), Result: Test Passed. Min: 0, Value: 0, Max: 1
+  Test 247: Aftertreatment 1 Particulate Sensor Heater Power Supply Preliminary FMI (7329), Data Erratic, Intermittent Or Incorrect (2), Result: Test Not Complete.
+]
+
+2017-06-06T14:33:04.68052 Incomplete Tests: [
+  Engine #1 (0): Test 247: Aftertreatment 1 Diesel Oxidation Catalyst Conversion Efficiency (5298), Data Valid But Below Normal Operating Range - Least Severe Level (17), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Aftertreatment 1 Diesel Oxidation Catalyst Conversion Efficiency (5298), Data Valid But Below Normal Operating Range - Moderately Severe Level (18), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Aftertreatment 1 Diesel Particulate Filter Differential Pressure (3251), Abnormal Rate Of Change (10), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Aftertreatment 1 Diesel Particulate Filter Incomplete Regeneration (5319), Condition Exists (31), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Aftertreatment 1 Diesel Particulate Filter Missing (4795), Condition Exists (31), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Aftertreatment 1 Diesel Particulate Filter Regeneration too Frequent (5397), Condition Exists (31), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Aftertreatment 1 Intake Percent Oxygen 1 (3217), Data Drifted High (20), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Aftertreatment 1 Intake Percent Oxygen 1 (3217), Data Drifted Low (21), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Aftertreatment 1 Outlet NOx 1 (3226), Abnormal Rate Of Change (10), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Aftertreatment 1 Outlet NOx 1 (3226), Data Drifted High (20), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Aftertreatment 1 Outlet NOx 1 (3226), Data Drifted Low (21), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Aftertreatment 1 Outlet NOx 1 (3226), Data Erratic, Intermittent Or Incorrect (2), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Aftertreatment 1 Outlet Percent Oxygen 1 (3227), Data Drifted High (20), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Aftertreatment 1 Outlet Percent Oxygen 1 (3227), Data Drifted Low (21), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Aftertreatment 1 Particulate Sensor (5835), Data Drifted Low (21), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Aftertreatment 1 Particulate Sensor Detection Status (6777), Abnormal Rate Of Change (10), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Aftertreatment 1 Particulate Sensor Heater Power Supply Preliminary FMI (7329), Data Erratic, Intermittent Or Incorrect (2), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Aftertreatment 1 Particulate Sensor Regeneration Status (6773), Data Valid But Above Normal Operating Range - Moderately Severe Level (16), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Aftertreatment 1 Particulate Sensor Regeneration Status (6773), Mechanical System Not Responding Or Out Of Adjustment (7), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Aftertreatment 1 SCR Conversion Efficiency (4364), Condition Exists (31), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Aftertreatment 1 SCR Intake NOx 1 (3216), Data Drifted High (20), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Aftertreatment 1 SCR Intake NOx 1 (3216), Data Drifted Low (21), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Aftertreatment 1 SCR System Missing (4794), Condition Exists (31), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Aftertreatment Diesel Particulate Filter System (3936), Data Erratic, Intermittent Or Incorrect (2), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Engine Charge Air Cooler 1 Efficiency (5285), Data Valid But Below Normal Operating Range - Moderately Severe Level (18), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Engine Exhaust Gas Recirculation 1 Cooler Efficiency (4752), Data Valid But Below Normal Operating Range - Moderately Severe Level (18), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Engine Exhaust Gas Recirculation System Monitor (3058), Abnormal Rate Of Change (10), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Engine Exhaust Gas Recirculation System Monitor (3058), Data Valid But Above Normal Operating Range - Moderately Severe Level (16), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Engine Exhaust Gas Recirculation System Monitor (3058), Data Valid But Below Normal Operating Range - Moderately Severe Level (18), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Engine Fuel 1 Injector Cylinder 1 (651), Mechanical System Not Responding Or Out Of Adjustment (7), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Engine Fuel 1 Injector Cylinder 2 (652), Mechanical System Not Responding Or Out Of Adjustment (7), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Engine Fuel 1 Injector Cylinder 3 (653), Mechanical System Not Responding Or Out Of Adjustment (7), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Engine Fuel 1 Injector Cylinder 4 (654), Mechanical System Not Responding Or Out Of Adjustment (7), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Engine Fuel 1 Injector Cylinder 5 (655), Mechanical System Not Responding Or Out Of Adjustment (7), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Engine Fuel 1 Injector Cylinder 6 (656), Mechanical System Not Responding Or Out Of Adjustment (7), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Engine Fuel Injection Quantity Error for Multiple Cylinders  (5357), Condition Exists (31), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Engine Intake Manifold #1 Pressure (102), Abnormal Rate Of Change (10), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Engine Intake Manifold #1 Pressure (102), Data Valid But Above Normal Operating Range - Moderately Severe Level (16), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Engine Intake Manifold #1 Pressure (102), Data Valid But Below Normal Operating Range - Moderately Severe Level (18), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Engine Misfire Cylinder #1 (1323), Condition Exists (31), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Engine Misfire Cylinder #1 (1323), Condition Exists (31), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Engine Misfire Cylinder #2 (1324), Condition Exists (31), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Engine Misfire Cylinder #2 (1324), Condition Exists (31), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Engine Misfire Cylinder #3 (1325), Condition Exists (31), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Engine Misfire Cylinder #3 (1325), Condition Exists (31), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Engine Misfire Cylinder #4 (1326), Condition Exists (31), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Engine Misfire Cylinder #4 (1326), Condition Exists (31), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Engine Misfire Cylinder #5 (1327), Condition Exists (31), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Engine Misfire Cylinder #5 (1327), Condition Exists (31), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Engine Misfire Cylinder #6 (1328), Condition Exists (31), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Engine Misfire Cylinder #6 (1328), Condition Exists (31), Result: Test Not Complete.
+  Engine #1 (0): Test 247: Engine Misfire for Multiple Cylinders (1322), Condition Exists (31), Result: Test Not Complete.
+]
+
+2017-06-06T14:33:04.683 Global DM5 Request
+2017-06-06T14:33:04.683 18EAFFF9 CE FE 00 (TX)
+2017-06-06T14:33:05.933 18FECE00 00 00 14 37 E0 1E E0 1E
+DM5 from Engine #1 (0): OBD Compliance: HD OBD (20), Active Codes: 0, Previously Active Codes: 0
+2017-06-06T14:33:05.933 18FECE19 00 00 05 00 00 00 00 00
+DM5 from Passenger-Operator Climate Control #1 (25): OBD Compliance: Not intended to meet OBD II requirements (5), Active Codes: 0, Previously Active Codes: 0
+
+2017-06-06T14:33:05.933 Vehicle Composite of DM5:
+A/C system refrigerant monitoring                      disabled/not supported
+Boost pressure control system monitoring               not complete
+Catalyst monitoring                                    disabled/not supported
+Cold start aid system monitoring                       disabled/not supported
+Comprehensive component monitoring                         complete
+Diesel Particulate Filter (DPF) monitoring             not complete
+EGR/VVT system monitoring                              not complete
+Evaporative system monitoring                          disabled/not supported
+Exhaust Gas Sensor heater monitoring                   not complete
+Exhaust Gas Sensor monitoring                          not complete
+Fuel System monitoring                                 not complete
+Heated catalyst monitoring                             disabled/not supported
+Misfire monitoring                                     not complete
+NMHC converting catalyst monitoring                    not complete
+NOx converting catalyst and/or NOx adsorber monitoring not complete
+Secondary air system monitoring                        disabled/not supported
+
+2017-06-06T14:33:05.935 Global DM26 Request
+2017-06-06T14:33:05.935 18EAFFF9 B8 FD 00 (TX)
+2017-06-06T14:33:07.185 18FDB800 98 04 01 37 E0 1E E0 1E
+DM26 from Engine #1 (0): Warm-ups: 1, Time Since Engine Start: 1,176 seconds
+
+2017-06-06T14:33:07.185 Vehicle Composite of DM26:
+A/C system refrigerant monitoring                      disabled/not supported
+Boost pressure control system monitoring               not complete
+Catalyst monitoring                                    disabled/not supported
+Cold start aid system monitoring                       disabled/not supported
+Comprehensive component monitoring                         complete
+Diesel Particulate Filter (DPF) monitoring             not complete
+EGR/VVT system monitoring                              not complete
+Evaporative system monitoring                          disabled/not supported
+Exhaust Gas Sensor heater monitoring                   not complete
+Exhaust Gas Sensor monitoring                          not complete
+Fuel System monitoring                                 not complete
+Heated catalyst monitoring                             disabled/not supported
+Misfire monitoring                                     not complete
+NMHC converting catalyst monitoring                    not complete
+NOx converting catalyst and/or NOx adsorber monitoring not complete
+Secondary air system monitoring                        disabled/not supported
+
+2017-06-06T14:33:07.187 Global DM20 Request
+2017-06-06T14:33:07.188 18EAFFF9 00 C2 00 (TX)
+2017-06-06T14:33:08.438 1CC20000 03 01 0B 00 C9 14 F8 00 00 0B 00 F2 0B F8 00 00 0B 00 C6 14 F8 00 00 0B 00 EF 0B F8 00 00 0B 00 CA 14 F8 01 00 02 00 B8 12 F8 00 00 0A 00 F8 0B F8 00 00 0B 00
+DM20 from Engine #1 (0):  [
+                                                                  NUM'OR / DEM'OR
+Ignition Cycles                                                               259
+OBD Monitoring Conditions Encountered                                          11
+SPN 5321 Engine Intake Manifold Pressure System Monitor                0 /     11
+SPN 3058 Engine Exhaust Gas Recirculation System Monitor               0 /     11
+SPN 5318 Aftertreatment Exhaust Gas Sensor System Monitor              0 /     11
+SPN 3055 Engine Fuel System Monitor                                    0 /     11
+SPN 5322 Aftertreatment NMHC Converting Catalyst System Monitor        1 /      2
+SPN 4792 Aftertreatment 1 Selective Catalytic Reduction System         0 /     10
+SPN 3064 Aftertreatment Diesel Particulate Filter System Monitor       0 /     11
+]
+
+2017-06-06T14:33:08.439 Global DM21 Request
+2017-06-06T14:33:08.439 18EAFFF9 00 C1 00 (TX)
+2017-06-06T14:33:09.689 18C10000 00 00 0E 00 00 00 13 00
+DM21 from Engine #1 (0): [
+  Distance Traveled While MIL is Activated:     0 km (0 mi)
+  Time Run by Engine While MIL is Activated:    0 minutes
+  Distance Since DTCs Cleared:                  14 km (8.699 mi)
+  Time Since DTCs Cleared:                      19 minutes
+]
+2017-06-06T14:33:09.689 Time Since Code Cleared Gap of 0 minutes
+
+2017-06-06T14:33:09.692 Vehicle Distance
+2017-06-06T14:33:10.517 18FEC100 DD BF 00 00 EB BF 00 00
+High Resolution Vehicle Distance from Engine #1 (0): 245.585 km (152.599 mi)
+
+2017-06-06T14:33:10.523 Engine Hours Request
+2017-06-06T14:33:10.525 18EA00F9 E5 FE 00 (TX)
+2017-06-06T14:33:11.775 18FEE500 08 03 00 00 EA 07 00 00
+Engine Hours from Engine #1 (0): 38.8 hours
+
+2017-06-06T14:33:11.775 Global VIN Request
+2017-06-06T14:33:11.775 18EAFFF9 EC FE 00 (TX)
+2017-06-06T14:33:13.025 1CFEEC00 33 48 41 45 55 4D 4D 4C 38 4A 4C 35 34 31 30 39 32 2A
+Vehicle Identification from Engine #1 (0): 3HAEUMML8JL541092
+
+2017-06-06T14:33:13.025 Global DM19 (Calibration Information) Request
+2017-06-06T14:33:13.025 18EAFFF9 00 D3 00 (TX)
+2017-06-06T14:33:14.275 1CD30000 77 7C B6 A3 48 43 38 30 30 32 35 2E 31 33 00 00 00 00 00 00 A8 73 89 13 4E 4F 78 2D 53 41 45 31 34 61 20 41 54 49 31 00 8C 4B F9 C9 4E 4F 78 2D 53 41 45 31 34 61 20 41 54 4F 31 00 AC FF 33 00 30 32 30 31 30 31 30 30 30 32 00 00 00 00 00 00 D2 BF 0F A9 50 4D 53 31 32 33 34 31 41 31 30 31 00 00 00 00 62 79 48 A5 30 32 31 32 30 34 46 46 46 46 00 00 00 00 00 00
+DM19 from Engine #1 (0): [
+  CAL ID of HC80025.13 and CVN of 0xA3B67C77
+  CAL ID of NOx-SAE14a ATI1 and CVN of 0x138973A8
+  CAL ID of NOx-SAE14a ATO1 and CVN of 0xC9F94B8C
+  CAL ID of 0201010002 and CVN of 0x33FFAC
+  CAL ID of PMS12341A101 and CVN of 0xA90FBFD2
+  CAL ID of 021204FFFF and CVN of 0xA5487962
+]
+
+2017-06-06T14:33:14.275 Total Queries: 56
+2017-06-06T14:33:14.275 Total Time Out Errors: 0
+2017-06-06T14:33:14.276 Total Data Collection Log Reports: 1
+2017-06-06T14:33:14.276 Total Excessive Time Since Code Clear Gaps: 0
+
+2017-06-06T14:33:14.276 I U M P R Data Collection Tool Data Collection Log END OF REPORT
+
+2017-06-06T14:33:15.400 End of I U M P R Data Collection Tool Execution
+

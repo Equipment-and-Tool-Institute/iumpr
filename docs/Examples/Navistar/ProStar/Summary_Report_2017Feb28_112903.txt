@@ -1,0 +1,84 @@
+Test Summary Report: SAE J1939-84 HD OBD Scan Tool Test 2.2 Beta 3
+
+Date: 02/28/2017 Time: 11:29:03
+
+Vehicle Identification
+
+VIN 3HCDJSNR2HL648684
+
+Baud Rate: 500 kbps
+
+HD OBD Devices
+
+SA: 0, Engine #1
+CAL ID: M133XXM_B282NE06 
+CVN: 0xCB465A72 
+ESN: 00000000000000000 MAKE INT   MODEL 7571031515
+
+SA: 85, Diesel Particulate Filter Controller
+CAL ID: OUBNDXA          
+CVN: 0x02B134EB 
+ESN: 00000000 MAKE  MODEL 6X2u07D1500000000
+
+SA: 85, Diesel Particulate Filter Controller
+CAL ID: NOx-SAE14a ATI1  
+CVN: 0x138973A8 
+ESN: 00000000 MAKE  MODEL 6X2u07D1500000000
+
+SA: 85, Diesel Particulate Filter Controller
+CAL ID: NOx-SAE14a ATO1  
+CVN: 0xC9F94B8C 
+ESN: 00000000 MAKE  MODEL 6X2u07D1500000000
+
+SA: 85, Diesel Particulate Filter Controller
+CAL ID: 12DBB20001       
+CVN: 0x00009F4A 
+ESN: 00000000 MAKE  MODEL 6X2u07D1500000000
+
+SA: 85, Diesel Particulate Filter Controller
+CAL ID: PMS12330A100     
+CVN: 0xD7169BE8 
+ESN: 00000000 MAKE  MODEL 6X2u07D1500000000
+
+Non HD OBD Devices
+
+None 
+
+Address Claim 
+
+
+Part 1: KOEO Data Collection                                                                                              Result: Fail        Timing: Fail      
+
+
+Part 2: Key On Engine Running Data Collection                                                                             Result: Fail        Timing: Fail      
+
+
+Part 3: Test Pending Fault A                                                                                              Result: Fail        Timing: Pass      
+
+
+Part 4: Test Confirmed Fault A                                                                                            Result: Fail        Timing: Pass      
+
+
+Part 5: Correct Fault A First Cycle                                                                                       Result: Pass        Timing: Pass      
+
+
+Part 6: Complete Fault A Three Cycle Countdown                                                                            Result: Fail        Timing: Pass      
+
+
+Part 7: Verify DM23 Transition                                                                                            Result: Fail        Timing: Fail      
+
+
+Part 8: Verify Fault B for General Denominator Demonstration                                                              Result: Fail        Timing: Pass      
+
+
+Part 9: Verify Deletion of Fault B with DM11                                                                              Result: Fail        Timing: Pass      
+
+
+Part 10: Prime Diagnostic Executive for General Denominator Demonstration                                                 Result: Pass        Timing: Pass      
+
+
+Part 11: Exercise General Denominator                                                                                     Result: Pass        Timing: Pass      
+
+
+Part 12: Verify Deletion of Fault B from DM28                                                                             Result: Fail        Timing: Fail      
+

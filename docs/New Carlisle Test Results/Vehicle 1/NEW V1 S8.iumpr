@@ -1,0 +1,319 @@
+2017-06-06T14:41:50.741 I U M P R Data Collection Tool for 13 CCR 1971.1(l)(2) and (h)(1.7)
+2017-06-06T14:41:50.757 I U M P R Data Collection Tool version 0.4.2 - 2017/06/05 11:27
+
+IIIIIIIII  UUU     UUU  MMM       MMM  PPPPPPPP     RRRRRRRR     DATA PLATE REPORT
+IIIIIIIII  UUU     UUU  MMMM     MMMM  PPPPPPPPP    RRRRRRRRR    DATA PLATE REPORT
+   III     UUU     UUU  MMMMM   MMMMM  PPP    PPP   RRR    RRR   DATA PLATE REPORT
+   III     UUU     UUU  MMMMMMMMMMMMM  PPP     PPP  RRR     RRR  DATA PLATE REPORT
+   III     UUU     UUU  MMM  MMM  MMM  PPP     PPP  RRR     RRR  DATA PLATE REPORT
+   III     UUU     UUU  MMM   M   MMM  PPP    PPP   RRR    RRR   DATA PLATE REPORT
+   III     UUU     UUU  MMM       MMM  PPPPPPPPP    RRRRRRRRR    DATA PLATE REPORT
+   III     UUU     UUU  MMM       MMM  PPPPPPPP     RRRRRRRR     DATA PLATE REPORT
+   III     UUU     UUU  MMM       MMM  PPP          RRR RRR      DATA PLATE REPORT
+   III     UUU     UUU  MMM       MMM  PPP          RRR  RRR     DATA PLATE REPORT
+   III     UUU     UUU  MMM       MMM  PPP          RRR   RRR    DATA PLATE REPORT
+IIIIIIIII  UUUUUUUUUUU  MMM       MMM  PPP          RRR    RRR   DATA PLATE REPORT
+IIIIIIIII   UUUUUUUUU   MMM       MMM  PPP          RRR     RRR  DATA PLATE REPORT
+
+2017-06-06T14:41:50.757 I U M P R Data Collection Tool Data Plate Report
+
+2017-06-06T14:41:50.757 New File: C:\Users\RickM\Documents\NEW V1 S8.iumpr
+
+2017-06-06T14:41:50.757 Global VIN Request
+2017-06-06T14:41:50.757 18EAFFF9 EC FE 00 (TX)
+2017-06-06T14:41:52.010 18FEEC00 33 48 53 44 4A 53 4E 52 38 45 4E 37 39 30 31 32 33 2A
+Vehicle Identification from Engine #1 (0): 3HSDJSNR8EN790123
+
+2017-06-06T14:41:52.095 Global DM19 (Calibration Information) Request
+2017-06-06T14:41:52.095 18EAFFF9 00 D3 00 (TX)
+2017-06-06T14:41:53.358 1CD30055 1E BC 37 40 31 33 31 31 30 30 44 45 31 30 00 00 00 00 00 00
+DM19 from Diesel Particulate Filter Controller (85): CAL ID of 131100DE10 and CVN of 0x4037BC1E
+2017-06-06T14:41:53.358 18D30000 7D 1C 73 86 4D 31 33 31 58 58 4D 5F 42 32 32 33 44 45 31 30
+DM19 from Engine #1 (0): CAL ID of M131XXM_B223DE10 and CVN of 0x86731C7D
+
+2017-06-06T14:41:53.358 Global DM21 Request
+2017-06-06T14:41:53.358 18EAFFF9 00 C1 00 (TX)
+2017-06-06T14:41:54.612 18C10000 00 00 23 00 00 00 69 00
+DM21 from Engine #1 (0): [
+  Distance Traveled While MIL is Activated:     0 km (0 mi)
+  Time Run by Engine While MIL is Activated:    0 minutes
+  Distance Since DTCs Cleared:                  35 km (21.748 mi)
+  Time Since DTCs Cleared:                      105 minutes
+]
+
+2017-06-06T14:41:54.627 Global DM5 Request
+2017-06-06T14:41:54.627 18EAFFF9 CE FE 00 (TX)
+2017-06-06T14:41:55.877 18FECE55 FF FF 14 00 00 00 00 00
+2017-06-06T14:41:55.877 18FECE00 00 01 14 06 E0 1E E0 1E
+2017-06-06T14:41:55.878 18FECEA7 00 02 FF 00 00 00 00 00
+Engine #1 (0) reported as an HD-OBD Module.
+Diesel Particulate Filter Controller (85) reported as an HD-OBD Module.
+
+2017-06-06T14:41:55.880 Global Component Identification Request
+2017-06-06T14:41:55.880 18EAFFF9 EB FE 00 (TX)
+2017-06-06T14:41:57.144 18FEEB28 49 4E 54 2A 50 52 45 4D 49 55 4D 20 36 31 30 38 36 35 35 43 31 2A 2A 2A
+Component Identification from Cab Display #1 (40): Make: INT, Model: PREMIUM 6108655C1, Serial Number: , Unit Number: 
+2017-06-06T14:41:57.144 18FEEBA7 49 4E 54 2A 33 35 39 38 33 34 35 46 39 32 2A 30 FF FF FF FF FF FF 2A 2A
+Component Identification from Instrument Cluster #2 (167): Make: INT, Model: 3598345F92, Serial Number: 0ÿÿÿÿÿÿ, Unit Number: 
+2017-06-06T14:41:57.144 18FEEB17 49 4E 54 2A 36 31 31 32 32 33 34 43 39 32 2A 30 31 33 31 35 38 37 39 30 31 32 33 2A 37 39 30 31 32 33 2A
+Component Identification from Instrument Cluster #1 (23): Make: INT, Model: 6112234C92, Serial Number: 013158790123, Unit Number: 790123
+2017-06-06T14:41:57.144 18FEEB55 2A 36 58 32 75 30 37 44 31 35 30 30 30 30 30 30 30 30 2A 30 30 30 30 30 30 30 30 2A 31 33 31 31 30 30 44 45 31 30 2A
+Component Identification from Diesel Particulate Filter Controller (85): Make: , Model: 6X2u07D1500000000, Serial Number: 00000000, Unit Number: 131100DE10
+2017-06-06T14:41:57.144 1CFEEB0B 42 4E 44 57 53 2A 45 43 36 30 2D 70 72 65 2A 44 31 38 31 33 30 30 32 38 33 2A 2A
+Component Identification from Brakes - System Controller (11): Make: BNDWS, Model: EC60-pre, Serial Number: D181300283, Unit Number: 
+2017-06-06T14:41:57.144 18FEEB00 49 4E 54 20 20 2A 37 35 37 31 30 31 31 33 31 33 2A 31 32 36 48 4D 32 59 34 33 30 30 36 35 34 00 00 00 2A 30 00 00 00 00 00 00 00 00 00 2A
+Component Identification from Engine #1 (0): Make: INT, Model: 7571011313, Serial Number: 126HM2Y4300654, Unit Number: 0
+
+2017-06-06T14:41:57.144 Clearing Diagnostic Trouble Codes
+2017-06-06T14:41:57.144 Global DM11 Request
+2017-06-06T14:41:57.144 18EAFFF9 D3 FE 00 (TX)
+2017-06-06T14:41:57.181 18E8000B 00 FF FF FF FF D3 FE 00
+DM11 from Brakes - System Controller (11): Response is Acknowledged
+2017-06-06T14:41:57.197 18E80017 00 FF FF FF FF D3 FE 00
+DM11 from Instrument Cluster #1 (23): Response is Acknowledged
+2017-06-06T14:42:02.649 Diagnostic Trouble Codes were successfully cleared.
+
+2017-06-06T14:42:02.649 Global DM5 Request
+2017-06-06T14:42:02.649 18EAFFF9 CE FE 00 (TX)
+2017-06-06T14:42:03.904 18FECE00 00 01 14 06 E0 1E E0 1E
+DM5 from Engine #1 (0): OBD Compliance: HD OBD (20), Active Codes: 0, Previously Active Codes: 1
+2017-06-06T14:42:03.919 18FECEA7 00 02 FF 00 00 00 00 00
+DM5 from Instrument Cluster #2 (167): OBD Compliance: Not available (255), Active Codes: 0, Previously Active Codes: 2
+2017-06-06T14:42:03.919 18FECE55 FF FF 14 00 00 00 00 00
+DM5 from Diesel Particulate Filter Controller (85): OBD Compliance: HD OBD (20), Active Codes: not available, Previously Active Codes: not available
+
+2017-06-06T14:42:03.919 Vehicle Composite of DM5:
+A/C system refrigerant monitoring                      disabled/not supported
+Boost pressure control system monitoring               not complete
+Catalyst monitoring                                    disabled/not supported
+Cold start aid system monitoring                       disabled/not supported
+Comprehensive component monitoring                         complete
+Diesel Particulate Filter (DPF) monitoring             not complete
+EGR/VVT system monitoring                              not complete
+Evaporative system monitoring                          disabled/not supported
+Exhaust Gas Sensor heater monitoring                   not complete
+Exhaust Gas Sensor monitoring                          not complete
+Fuel System monitoring                                     complete
+Heated catalyst monitoring                             disabled/not supported
+Misfire monitoring                                     disabled/not supported
+NMHC converting catalyst monitoring                    not complete
+NOx converting catalyst and/or NOx adsorber monitoring not complete
+Secondary air system monitoring                        disabled/not supported
+
+2017-06-06T14:42:03.919 Global DM26 Request
+2017-06-06T14:42:03.919 18EAFFF9 B8 FD 00 (TX)
+2017-06-06T14:42:05.183 18FDB800 13 00 01 36 40 1C E0 1E
+DM26 from Engine #1 (0): Warm-ups: 1, Time Since Engine Start: 19 seconds
+
+2017-06-06T14:42:05.184 Vehicle Composite of DM26:
+A/C system refrigerant monitoring                      disabled/not supported
+Boost pressure control system monitoring               disabled/not supported
+Catalyst monitoring                                    disabled/not supported
+Cold start aid system monitoring                       disabled/not supported
+Comprehensive component monitoring                         complete
+Diesel Particulate Filter (DPF) monitoring             not complete
+EGR/VVT system monitoring                              disabled/not supported
+Evaporative system monitoring                          disabled/not supported
+Exhaust Gas Sensor heater monitoring                   not complete
+Exhaust Gas Sensor monitoring                          disabled/not supported
+Fuel System monitoring                                 not complete
+Heated catalyst monitoring                             disabled/not supported
+Misfire monitoring                                     disabled/not supported
+NMHC converting catalyst monitoring                    not complete
+NOx converting catalyst and/or NOx adsorber monitoring not complete
+Secondary air system monitoring                        disabled/not supported
+
+2017-06-06T14:42:05.189 Global DM20 Request
+2017-06-06T14:42:05.189 18EAFFF9 00 C2 00 (TX)
+2017-06-06T14:42:06.453 18C20000 2F 00 12 00 CA 14 F8 02 00 01 00 B8 12 F8 00 00 12 00 BC 14 F8 00 00 00 00 C6 14 F8 00 00 12 00 F2 0B F8 03 00 12 00 EA 0C F8 00 00 00 00 F8 0B F8 00 00 12 00 C9 14 F8 0B 00 12 00 EC 0B F8 00 00 00 00 EF 0B F8 0C 00 12 00
+DM20 from Engine #1 (0):  [
+                                                                  NUM'OR / DEM'OR
+Ignition Cycles                                                                47
+OBD Monitoring Conditions Encountered                                          18
+SPN 5322 Aftertreatment NMHC Converting Catalyst System Monitor        2 /      1
+SPN 4792 Aftertreatment 1 Selective Catalytic Reduction System         0 /     18
+SPN 5308 Aftertreatment 1 NOx Adsorber Catalyst System Monitor         0 /      0
+SPN 5318 Aftertreatment Exhaust Gas Sensor System Monitor              0 /     18
+SPN 3058 Engine Exhaust Gas Recirculation System Monitor               3 /     18
+SPN 3306 Variable Valve Timing and/or Control                          0 /      0
+SPN 3064 Aftertreatment Diesel Particulate Filter System Monitor       0 /     18
+SPN 5321 Engine Intake Manifold Pressure System Monitor               11 /     18
+SPN 3052 Engine Misfire System Monitor                                 0 /      0
+SPN 3055 Engine Fuel System Monitor                                   12 /     18
+]
+
+2017-06-06T14:42:06.453 Global DM6 Request
+2017-06-06T14:42:06.453 18EAFFF9 CF FE 00 (TX)
+2017-06-06T14:42:07.708 18FECF00 40 FF 9A 0C 0A 01 90 0C 0A 01 F8 10 03 01
+DM6 from Engine #1 (0): MIL: On, RSL: Off, AWL: Off, PL: Off
+DTC: Aftertreatment 1 Outlet NOx 1 (3226) Abnormal Rate Of Change (10) 1 times
+DTC: Aftertreatment 1 SCR Intake NOx 1 (3216) Abnormal Rate Of Change (10) 1 times
+DTC: Aftertreatment 1 Diesel Exhaust Fluid Line Heater 3 State (4344) Voltage Above Normal, Or Shorted To High Source (3) 1 times
+
+2017-06-06T14:42:07.708 Global DM12 Request
+2017-06-06T14:42:07.708 18EAFFF9 D4 FE 00 (TX)
+2017-06-06T14:42:08.971 18FED400 40 FF 7F 02 13 11 FF FF
+DM12 from Engine #1 (0): MIL: On, RSL: Off, AWL: Off, PL: Off
+DTC: J1939 Network #1, Primary Vehicle Network (639) Received Network Data In Error (19) 17 times
+2017-06-06T14:42:08.971 18FED417 00 FF 00 00 00 00 FF FF
+DM12 from Instrument Cluster #1 (23): MIL: Off, RSL: Off, AWL: Off, PL: Off
+No DTCs
+2017-06-06T14:42:08.971 18FED4A7 00 FF 00 00 00 00 FF FF
+DM12 from Instrument Cluster #2 (167): MIL: Off, RSL: Off, AWL: Off, PL: Off
+No DTCs
+
+2017-06-06T14:42:08.971 Global DM23 Request
+2017-06-06T14:42:08.971 18EAFFF9 B5 FD 00 (TX)
+2017-06-06T14:42:10.225 18FDB500 40 FF 00 00 00 00 FF FF
+DM23 from Engine #1 (0): MIL: On, RSL: Off, AWL: Off, PL: Off
+No DTCs
+
+2017-06-06T14:42:10.225 Global DM28 Request
+2017-06-06T14:42:10.225 18EAFFF9 80 FD 00 (TX)
+2017-06-06T14:42:11.488 18FD8000 40 FF 9A 0C 0A 01 FF FF
+DM28 from Engine #1 (0): MIL: On, RSL: Off, AWL: Off, PL: Off
+DTC: Aftertreatment 1 Outlet NOx 1 (3226) Abnormal Rate Of Change (10) 1 times
+
+2017-06-06T14:42:11.495 Global DM21 Request
+2017-06-06T14:42:11.495 18EAFFF9 00 C1 00 (TX)
+2017-06-06T14:42:12.759 18C10000 00 00 23 00 00 00 69 00
+DM21 from Engine #1 (0): [
+  Distance Traveled While MIL is Activated:     0 km (0 mi)
+  Time Run by Engine While MIL is Activated:    0 minutes
+  Distance Since DTCs Cleared:                  35 km (21.748 mi)
+  Time Since DTCs Cleared:                      105 minutes
+]
+2017-06-06T14:42:12.759 Time Since Code Cleared Gap of 0 minutes
+
+2017-06-06T14:42:12.759 Vehicle Distance
+2017-06-06T14:42:12.975 18FEC100 8C FD 0B 03 C4 53 22 02
+High Resolution Vehicle Distance from Engine #1 (0): 255,587.26 km (158,814.56 mi)
+
+2017-06-06T14:42:12.975 Engine Hours Request
+2017-06-06T14:42:12.975 18EA00F9 E5 FE 00 (TX)
+2017-06-06T14:42:14.229 18FEE500 6B 64 01 00 7E 87 04 00
+Engine Hours from Engine #1 (0): 4,562.15 hours
+
+2017-06-06T14:42:14.229 Total Queries: 15
+2017-06-06T14:42:14.229 Total Time Out Errors: 0
+
+2017-06-06T14:42:14.229 I U M P R Data Collection Tool Data Plate Report END OF REPORT
+
+2017-06-06T14:44:08.360 I U M P R Data Collection Tool for 13 CCR 1971.1(l)(2) and (h)(1.7)
+2017-06-06T14:44:08.362 I U M P R Data Collection Tool version 0.4.2 - 2017/06/05 11:27
+
+IIIIIIIII  UUU     UUU  MMM       MMM  PPPPPPPP     RRRRRRRR     DATA MONITOR LOG
+IIIIIIIII  UUU     UUU  MMMM     MMMM  PPPPPPPPP    RRRRRRRRR    DATA MONITOR LOG
+   III     UUU     UUU  MMMMM   MMMMM  PPP    PPP   RRR    RRR   DATA MONITOR LOG
+   III     UUU     UUU  MMMMMMMMMMMMM  PPP     PPP  RRR     RRR  DATA MONITOR LOG
+   III     UUU     UUU  MMM  MMM  MMM  PPP     PPP  RRR     RRR  DATA MONITOR LOG
+   III     UUU     UUU  MMM   M   MMM  PPP    PPP   RRR    RRR   DATA MONITOR LOG
+   III     UUU     UUU  MMM       MMM  PPPPPPPPP    RRRRRRRRR    DATA MONITOR LOG
+   III     UUU     UUU  MMM       MMM  PPPPPPPP     RRRRRRRR     DATA MONITOR LOG
+   III     UUU     UUU  MMM       MMM  PPP          RRR RRR      DATA MONITOR LOG
+   III     UUU     UUU  MMM       MMM  PPP          RRR  RRR     DATA MONITOR LOG
+   III     UUU     UUU  MMM       MMM  PPP          RRR   RRR    DATA MONITOR LOG
+IIIIIIIII  UUUUUUUUUUU  MMM       MMM  PPP          RRR    RRR   DATA MONITOR LOG
+IIIIIIIII   UUUUUUUUU   MMM       MMM  PPP          RRR     RRR  DATA MONITOR LOG
+
+2017-06-06T14:44:08.364 I U M P R Data Collection Tool Data Monitor Log
+
+2017-06-06T14:44:08.364 Global VIN Request
+2017-06-06T14:44:08.364 18EAFFF9 EC FE 00 (TX)
+2017-06-06T14:44:09.627 18FEEC00 33 48 53 44 4A 53 4E 52 38 45 4E 37 39 30 31 32 33 2A
+Vehicle Identification from Engine #1 (0): 3HSDJSNR8EN790123
+
+2017-06-06T14:44:09.627 Global DM19 (Calibration Information) Request
+2017-06-06T14:44:09.627 18EAFFF9 00 D3 00 (TX)
+2017-06-06T14:44:10.881 1CD30055 1E BC 37 40 31 33 31 31 30 30 44 45 31 30 00 00 00 00 00 00
+DM19 from Diesel Particulate Filter Controller (85): CAL ID of 131100DE10 and CVN of 0x4037BC1E
+2017-06-06T14:44:10.881 18D30000 7D 1C 73 86 4D 31 33 31 58 58 4D 5F 42 32 32 33 44 45 31 30
+DM19 from Engine #1 (0): CAL ID of M131XXM_B223DE10 and CVN of 0x86731C7D
+
+2017-06-06T14:44:10.881 Global DM21 Request
+2017-06-06T14:44:10.881 18EAFFF9 00 C1 00 (TX)
+2017-06-06T14:44:12.145 18C10000 00 00 23 00 02 00 6B 00
+DM21 from Engine #1 (0): [
+  Distance Traveled While MIL is Activated:     0 km (0 mi)
+  Time Run by Engine While MIL is Activated:    2 minutes
+  Distance Since DTCs Cleared:                  35 km (21.748 mi)
+  Time Since DTCs Cleared:                      107 minutes
+]
+2017-06-06T14:44:12.145 Time Since Code Cleared Gap of 2 minutes
+
+2017-06-06T14:44:12.145 Begin Tracking Monitor Completion Status
+
+2017-06-06T14:45:24.611 End Tracking Monitor Completion Status. 8 Total Cycles.
+
+2017-06-06T14:45:24.611 Vehicle Composite Results of DM5:
++--------------------------------------------------------+-------------------------+--------------------------+
+|                         Monitor                        |     Initial Status      |       Last Status        |
+|                                                        | 2017-06-06T14:42:03.904 | 2017-06-06T14:45:23.429  |
++--------------------------------------------------------+-------------------------+--------------------------+
+| A/C system refrigerant monitoring                      | disabled/not supported  | disabled/not supported   |
+| Boost pressure control system monitoring               | not complete            | not complete             |
+| Catalyst monitoring                                    | disabled/not supported  | disabled/not supported   |
+| Cold start aid system monitoring                       | disabled/not supported  | disabled/not supported   |
+| Comprehensive component monitoring                     |     complete            |     complete             |
+| Diesel Particulate Filter (DPF) monitoring             | not complete            | not complete             |
+| EGR/VVT system monitoring                              | not complete            | not complete             |
+| Evaporative system monitoring                          | disabled/not supported  | disabled/not supported   |
+| Exhaust Gas Sensor heater monitoring                   | not complete            | not complete             |
+| Exhaust Gas Sensor monitoring                          | not complete            | not complete             |
+| Fuel System monitoring                                 |     complete            |     complete             |
+| Heated catalyst monitoring                             | disabled/not supported  | disabled/not supported   |
+| Misfire monitoring                                     | disabled/not supported  | disabled/not supported   |
+| NMHC converting catalyst monitoring                    | not complete            | not complete             |
+| NOx converting catalyst and/or NOx adsorber monitoring | not complete            | not complete             |
+| Secondary air system monitoring                        | disabled/not supported  | disabled/not supported   |
++--------------------------------------------------------+-------------------------+--------------------------+
+
+2017-06-06T14:45:24.648 Vehicle Composite Results of DM20:
++---------------+------------------------------------------------------------------+---------------------------+----------------------------+
+|               |                                                                  |      Initial Status       |         Last Status        |
+|               |                                                                  |  2017-06-06T14:42:06.453  |  2017-06-06T14:45:24.611   |
++---------------+------------------------------------------------------------------+---------------------------+----------------------------+
+|               | Ignition Cycles                                                  |                        47 |                        47  |
+|               | OBD Monitoring Conditions Encountered                            |                        18 |                        18  |
++---------------+------------------------------------------------------------------+-------------+-------------+-------------+--------------+
+| Source        | Monitor Name                                                     |   Numerator | Denominator |  Numerator  | Denominator  |
++---------------+------------------------------------------------------------------+-------------+-------------+-------------+--------------+
+| Engine #1 (0) | SPN 3052 Engine Misfire System Monitor                           |           0 |           0 |          0  |           0  |
+| Engine #1 (0) | SPN 3055 Engine Fuel System Monitor                              |          12 |          18 |         12  |          18  |
+| Engine #1 (0) | SPN 3058 Engine Exhaust Gas Recirculation System Monitor         |           3 |          18 |          3  |          18  |
+| Engine #1 (0) | SPN 3064 Aftertreatment Diesel Particulate Filter System Monitor |           0 |          18 |          0  |          18  |
+| Engine #1 (0) | SPN 3306 Variable Valve Timing and/or Control                    |           0 |           0 |          0  |           0  |
+| Engine #1 (0) | SPN 4792 Aftertreatment 1 Selective Catalytic Reduction System   |           0 |          18 |          0  |          18  |
+| Engine #1 (0) | SPN 5308 Aftertreatment 1 NOx Adsorber Catalyst System Monitor   |           0 |           0 |          0  |           0  |
+| Engine #1 (0) | SPN 5318 Aftertreatment Exhaust Gas Sensor System Monitor        |           0 |          18 |          0  |          18  |
+| Engine #1 (0) | SPN 5321 Engine Intake Manifold Pressure System Monitor          |          11 |          18 |         11  |          18  |
+| Engine #1 (0) | SPN 5322 Aftertreatment NMHC Converting Catalyst System Monitor  |           2 |           1 |          2  |           1  |
++---------------+------------------------------------------------------------------+-------------+-------------+-------------+--------------+
+
+2017-06-06T14:45:24.664 Global DM21 Request
+2017-06-06T14:45:24.664 18EAFFF9 00 C1 00 (TX)
+2017-06-06T14:45:25.928 18C10000 00 00 23 00 03 00 6C 00
+DM21 from Engine #1 (0): [
+  Distance Traveled While MIL is Activated:     0 km (0 mi)
+  Time Run by Engine While MIL is Activated:    3 minutes
+  Distance Since DTCs Cleared:                  35 km (21.748 mi)
+  Time Since DTCs Cleared:                      108 minutes
+]
+2017-06-06T14:45:25.930 Time Since Code Cleared Gap of 1 minutes
+
+2017-06-06T14:45:25.931 Vehicle Distance
+2017-06-06T14:45:25.949 18FEC100 8C FD 0B 03 C4 53 22 02
+High Resolution Vehicle Distance from Engine #1 (0): 255,587.26 km (158,814.56 mi)
+
+2017-06-06T14:45:25.949 Engine Hours Request
+2017-06-06T14:45:25.949 18EA00F9 E5 FE 00 (TX)
+2017-06-06T14:45:27.213 18FEE500 6C 64 01 00 80 87 04 00
+Engine Hours from Engine #1 (0): 4,562.2 hours
+
+2017-06-06T14:45:27.213 Total Queries: 35
+2017-06-06T14:45:27.213 Total Time Out Errors: 0
+
+2017-06-06T14:45:27.213 I U M P R Data Collection Tool Data Monitor Log END OF REPORT
+
+2017-06-06T14:45:49.970 End of I U M P R Data Collection Tool Execution
+

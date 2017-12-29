@@ -1,0 +1,515 @@
+Test Detail Report: SAE J1939-84 HD OBD Scan Tool Test 2.2 Beta 2.1
+
+Date: 01/13/2017 Time: 09:50:32
+
+Vehicle Identification
+
+VIN 1FVACWFB3HHHM9371
+
+Baud Rate: 500 kbps
+
+HD OBD Devices
+
+SA: 1, Engine #2
+CAL ID: 19123CN030DD05CI 
+CVN: 0xE74769C7 
+
+SA: 0, Engine #1
+CAL ID: 0-00R0000DAIMLER 
+CVN: 0xEAD91DEF 
+ESN: 0047146 MAKE DTDSC MODEL 934N16
+
+SA: 61, Exhaust Emission Controller
+CAL ID: 29v00CN021721001 
+CVN: 0x6AEF7245 
+
+SA: 61, Exhaust Emission Controller
+CAL ID: NOx-SW7011 ATI1  
+CVN: 0xE7A26DB4 
+
+SA: 61, Exhaust Emission Controller
+CAL ID: NOx-SW7011 ATO1  
+CVN: 0xE8B74EAD 
+
+SA: 61, Exhaust Emission Controller
+CAL ID: PMS*12*320*A100  
+CVN: 0x92D8B1F0 
+
+Non HD OBD Devices
+
+None 
+
+Address Claim 
+
+
+Part 1: KOEO Data Collection                                                                                              Result: Fail        Timing: Pass      
+
+Step Test Title                                                                                
+3    Global DM5 (request 59904 for PGN 65230 (SPN 1220))                                        Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+
+4    Direct DM24 (request 59904 for PGN 64950 (SPNs 3297, 4100-4103))                           Result: Fail      
+      WARNING: (N.4) Alternative(s) for SPN 1637 supported in DM24 data stream
+      WARNING: (N.4) Alternative(s) for SPN 4193 supported in DM24 data stream
+      WARNING: (N.3) Preferred SPN #158 wasn't supported in the data stream
+      FAIL: (N.2) SPN 5829 not supported in DM24 for datastream access
+      WARNING: (N.3) Preferred SPN #5313 wasn't supported in the data stream
+      FAIL: (N.2) Shared SPN 7346 not supported in DM24 for data stream access
+
+5    Global VIN Request 59904 for PGN 65260 (SPN 237)                                           Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+
+6    Global DM56 (request 59904 for PGN 64711 (SPNs 5844 and 5845))                             Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+      FAIL: Received a NACK instead of a response from SA 37
+      FAIL: Received a NACK instead of a response from SA 37
+
+7    Global DM19 (request 59904 for PGN 54016 (SPNs 1634 and 1635))                             Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+      WARNING: Received a DM19 with more than one CALID/CVN (4)
+      WARNING: Received 6 CALIDs, user was expecting 3 CALIDs
+
+8    Global DM20 (request 59904 for PGN 49664 (SPNs 3048, 3049, 3066-3068)                      Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+
+9    Global Component ID request (PGN 59904) for PGN 65259 (SPNs 586, 587, and 588)             Result: Fail      
+      FAIL: Received a ACK instead of a response from SA 37
+      WARNING: Received an ESN from SA 3 directly but not globally.
+      WARNING: Received an ESN from SA 3 directly but not globally.
+
+11   Global DM21 (request 59904 for PGN 49408 (SPNs 3069, 3294-3296))                           Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+
+12   Direct DM7 w/TID 247 + each DM24 SPN + FMI 31                                              Result: Fail      
+      FAIL: Uninitialized test results received from SPN #1761 and FMI 18 from SA 61
+      FAIL: No SPNs for Injector Quantity (High Flow)/Injector Timing were received
+      FAIL: No SPNs for Injector Quantity (Low Flow)/Injector Timing were received
+      FAIL: No SPNs for Low Flow were received
+      FAIL: No SPNs for High Flow were received
+      FAIL: No SPNs for Cooler performance were received
+      FAIL: No SPNs for SCR or Other Reductant delivery performance were received
+
+13   Global DM5 (request 59904 for PGN 65230 (SPNs 1218-1223))                                  Result: Fail      
+      FAIL: Global DM5 has improper comprehensive components support and status
+      FAIL: Received a NACK instead of a response from SA 37
+
+14   Global DM26 (request 59904 for PGN 64952 (SPNs 3302-3305))                                 Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+
+16   Global DM2 (request 59904 for PGN 65227 (SPNs 1213-1215, 3038, 1706))                      Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+      WARNING: Non-OBD Module response being used
+      WARNING: Non-OBD Module response being used
+
+17   Global DM6 (request 59904 for PGN 65227 (SPNs 1213-1215, 3038, 1706))                      Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+
+18   Global DM12 (request 59904 for PGN 65236 (SPNs 1213-1215, 3038, 1706))                     Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+
+19   Global DM23 (request 59904 for PGN 64949 (SPNs 1213-1215, 3038, 1706))                     Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+
+20   Global DM28 (request 59904 for PGN 64896 (SPNs 1213-1215, 3038, 1706))                     Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+
+21   Global DM27 (request 59904 for PGN 64898 (SPNs 1213-1215,3038,1706))                       Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+      FAIL: Received a NACK instead of a response from SA 37
+      FAIL: Received a NACK instead of a response from SA 37
+
+22   Global DM29 (request 59904 for PGN 40448 (SPNs 4104-4108))                                 Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+      FAIL: Global DM29 received from SA 1 has All Pending DTC counts not equal to 0xFF (0), and SA 1 did not support DM27
+      FAIL: Global DM29 received from SA 61 has All Pending DTC counts not equal to 0xFF (0), and SA 61 did not support DM27
+
+23   Global DM31 (request 59904 for PGN 47128 (SPNs 1214-1215, 4113, 4117))                     Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+      FAIL: Received a NACK instead of a response from SA 37
+      FAIL: Received a NACK instead of a response from SA 37
+
+26   Gather broadcast data for all DM24 supported datastream                                    Result: Fail      
+      WARNING: (N.8) Global DM24 Data Stream has invalid data received for SPN 2978 from SA 0 is supported and has received invalid data of 1.000000
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 5314 from SA 1 instead of not available (0xFF) SPN 5314 is not supported in DM24 and received 00.
+      WARNING: (N.8) Global DM24 Data Stream has invalid data received for SPN 3226 from SA 61 is supported and has received invalid data of 1650.000000
+      WARNING: (N.8) Global DM24 Data Stream has invalid data received for SPN 2978 from SA 0 is supported and has received invalid data of 1.000000
+      WARNING: (N.6) DM24 Data Stream has received data for SPN 84 from non-OBD module with SA 23
+      WARNING: (N.5) More than one ECU has provided SPN 84 in the datastream
+      WARNING: (N.8) Global DM24 Data Stream has invalid data received for SPN 3226 from SA 61 is supported and has received invalid data of 1650.000000
+      WARNING: (N.6) DM24 Data Stream has received data for SPN 84 from non-OBD module with SA 33
+      WARNING: (N.5) More than one ECU has provided SPN 84 in the datastream
+      WARNING: (N.8) Global DM24 Data Stream has invalid data received for SPN 2978 from SA 0 is supported and has received invalid data of 1.000000
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 5314 from SA 1 instead of not available (0xFF) SPN 5314 is not supported in DM24 and received 00.
+      WARNING: (N.8) Global DM24 Data Stream has invalid data received for SPN 3226 from SA 61 is supported and has received invalid data of 1650.000000
+      WARNING: (N.6) DM24 Data Stream has received data for SPN 84 from non-OBD module with SA 23
+      WARNING: (N.6) DM24 Data Stream has received data for SPN 84 from non-OBD module with SA 33
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 5314 from SA 1 instead of not available (0xFF) SPN 5314 is not supported in DM24 and received 00.
+      WARNING: (N.6) DM24 Data Stream has received data for SPN 84 from non-OBD module with SA 23
+      WARNING: (N.6) DM24 Data Stream has received data for SPN 84 from non-OBD module with SA 33
+      INFO: DM24 Data Stream has received data for SPN 158 from non-OBD module with SA 74
+      INFO: DM24 Data Stream has received data for SPN 168 from non-OBD module with SA 74
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 3563 from SA 1 instead of not available (0xFF) SPN 3563 is not supported in DM24 and received 32.
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 157 from SA 1 instead of not available (0xFF) SPN 157 is not supported in DM24 and received 00.
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 164 from SA 1 instead of not available (0xFF) SPN 164 is not supported in DM24 and received 00.
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 3609 from SA 61 instead of not available (0xFF) SPN 3609 is not supported in DM24 and received 00.
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 3610 from SA 61 instead of not available (0xFF) SPN 3610 is not supported in DM24 and received 00.
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 3251 from SA 61 instead of not available (0xFF) SPN 3251 is not supported in DM24 and received 00.
+      WARNING: (N.8) Global DM24 Data Stream has invalid data received for SPN 6895 from SA 1 is supported and has received invalid data of 34.400000
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 158 from SA 0 instead of not available (0xFF) SPN 158 is not supported in DM24 and received 00.
+      INFO: DM24 Data Stream has received data for SPN 158 from non-OBD module with SA 23
+      INFO: DM24 Data Stream has received data for SPN 168 from non-OBD module with SA 23
+      WARNING: (N.6) DM24 Data Stream has received data for SPN 96 from non-OBD module with SA 23
+      WARNING: (N.6) DM24 Data Stream has received data for SPN 38 from non-OBD module with SA 23
+      WARNING: (N.6) DM24 Data Stream has received data for SPN 96 from non-OBD module with SA 33
+      WARNING: (N.5) More than one ECU has provided SPN 96 in the datastream
+      WARNING: (N.6) DM24 Data Stream has received data for SPN 38 from non-OBD module with SA 33
+      WARNING: (N.5) More than one ECU has provided SPN 38 in the datastream
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 3563 from SA 1 instead of not available (0xFF) SPN 3563 is not supported in DM24 and received 32.
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 157 from SA 1 instead of not available (0xFF) SPN 157 is not supported in DM24 and received 01.
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 164 from SA 1 instead of not available (0xFF) SPN 164 is not supported in DM24 and received 01.
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 3609 from SA 61 instead of not available (0xFF) SPN 3609 is not supported in DM24 and received 00.
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 3610 from SA 61 instead of not available (0xFF) SPN 3610 is not supported in DM24 and received 00.
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 4193 from SA 1 instead of not available (0xFF) SPN 4193 is not supported in DM24 and received 00.
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 3251 from SA 61 instead of not available (0xFF) SPN 3251 is not supported in DM24 and received 00.
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 1637 from SA 1 instead of not available (0xFF) SPN 1637 is not supported in DM24 and received 27.
+      INFO: DM24 Data Stream has received data for SPN 158 from non-OBD module with SA 74
+      INFO: DM24 Data Stream has received data for SPN 168 from non-OBD module with SA 74
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 3563 from SA 1 instead of not available (0xFF) SPN 3563 is not supported in DM24 and received 32.
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 157 from SA 1 instead of not available (0xFF) SPN 157 is not supported in DM24 and received 01.
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 164 from SA 1 instead of not available (0xFF) SPN 164 is not supported in DM24 and received 01.
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 3609 from SA 61 instead of not available (0xFF) SPN 3609 is not supported in DM24 and received 00.
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 3610 from SA 61 instead of not available (0xFF) SPN 3610 is not supported in DM24 and received 00.
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 3251 from SA 61 instead of not available (0xFF) SPN 3251 is not supported in DM24 and received 00.
+      WARNING: (N.8) Global DM24 Data Stream has invalid data received for SPN 6895 from SA 1 is supported and has received invalid data of 34.400000
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 158 from SA 0 instead of not available (0xFF) SPN 158 is not supported in DM24 and received 00.
+      INFO: DM24 Data Stream has received data for SPN 158 from non-OBD module with SA 23
+      INFO: DM24 Data Stream has received data for SPN 168 from non-OBD module with SA 23
+      WARNING: (N.6) DM24 Data Stream has received data for SPN 96 from non-OBD module with SA 23
+      WARNING: (N.6) DM24 Data Stream has received data for SPN 38 from non-OBD module with SA 23
+      WARNING: (N.6) DM24 Data Stream has received data for SPN 96 from non-OBD module with SA 33
+      WARNING: (N.6) DM24 Data Stream has received data for SPN 38 from non-OBD module with SA 33
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 4193 from SA 1 instead of not available (0xFF) SPN 4193 is not supported in DM24 and received 00.
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 1637 from SA 1 instead of not available (0xFF) SPN 1637 is not supported in DM24 and received 27.
+      INFO: DM24 Data Stream has received data for SPN 158 from non-OBD module with SA 74
+      INFO: DM24 Data Stream has received data for SPN 168 from non-OBD module with SA 74
+      WARNING: (N.8) Global DM24 Data Stream has invalid data received for SPN 6895 from SA 1 is supported and has received invalid data of 34.400000
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 158 from SA 0 instead of not available (0xFF) SPN 158 is not supported in DM24 and received 00.
+      INFO: DM24 Data Stream has received data for SPN 158 from non-OBD module with SA 23
+      INFO: DM24 Data Stream has received data for SPN 168 from non-OBD module with SA 23
+      WARNING: (N.6) DM24 Data Stream has received data for SPN 96 from non-OBD module with SA 23
+      WARNING: (N.6) DM24 Data Stream has received data for SPN 38 from non-OBD module with SA 23
+      WARNING: (N.6) DM24 Data Stream has received data for SPN 96 from non-OBD module with SA 33
+      WARNING: (N.6) DM24 Data Stream has received data for SPN 38 from non-OBD module with SA 33
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 4193 from SA 1 instead of not available (0xFF) SPN 4193 is not supported in DM24 and received 00.
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 1637 from SA 1 instead of not available (0xFF) SPN 1637 is not supported in DM24 and received 27.
+      WARNING: DM24 Data Stream: Did not receive 3 messages from SA 0 at the average rate of 20 ms for SPN 512.  May be RPM Dependent.
+      WARNING: DM24 Data Stream: Did not receive 3 messages from SA 0 at the average rate of 20 ms for SPN 513.  May be RPM Dependent.
+      FAIL: DM24 Data Stream: Did not receive 3 messages from SA 0 at the average rate of 250 ms for SPN 514
+      FAIL: DM24 Data Stream: Did not receive 3 messages from SA 0 at the average rate of 250 ms for SPN 2978
+      WARNING: DM24 Data Stream: Did not receive 3 messages from SA 0 at the average rate of 20 ms for SPN 190.  May be RPM Dependent.
+
+26   If no response/no valid data for any upon request SPN indicated as supported in DM24, send global message to request that SPN(s) Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+      FAIL: Direct and Global DM24s for PGN 64587 and SPN 6895 did not have valid data received
+
+
+
+Part 2: Key On Engine Running Data Collection                                                                             Result: Fail        Timing: Pass      
+
+Step Test Title                                                                                
+2    Global DM5 (request 59904 for PGN 65230 (SPNs 1218-1223))                                  Result: Fail      
+      FAIL: Global DM5 has improper comprehensive components support and status
+      FAIL: Received a NACK instead of a response from SA 37
+
+4    Global DM20 (request 59904 for PGN 49664 (SPNs 3048-3049, 3066-3068))                      Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+
+7    Destination Specific (DS) Component ID request (PGN 59904) for PGN 65259 (SPNs 586, 587, and 588) Result: Fail      
+      FAIL: SA 71 failed to respond to a Direct ESN Message when the engine was one.  Responded when the engine was off
+      FAIL: SA 40 failed to respond to a Direct ESN Message when the engine was one.  Responded when the engine was off
+      FAIL: SA 23 failed to respond to a Direct ESN Message when the engine was one.  Responded when the engine was off
+      FAIL: SA 3 failed to respond to a Direct ESN Message when the engine was one.  Responded when the engine was off
+      FAIL: SA 33 failed to respond to a Direct ESN Message when the engine was one.  Responded when the engine was off
+      FAIL: SA 37 failed to respond to a Direct ESN Message when the engine was one.  Responded when the engine was off
+      FAIL: SA 11 failed to respond to a Direct ESN Message when the engine was one.  Responded when the engine was off
+      FAIL: SA 74 failed to respond to a Direct ESN Message when the engine was one.  Responded when the engine was off
+
+7    Global Component ID request (PGN 59904) for PGN 65259 (SPNs 586, 587o, and 588)            Result: Fail      
+      FAIL: Received a ACK instead of a response from SA 37
+      WARNING: Received an ESN from SA 3 directly but not globally.
+      WARNING: Received an ESN from SA 3 directly but not globally.
+
+8    Global DM26                                                                                Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+
+9    Global DM21 (request 59904 for PGN 49408 (SPNs 3069, 3294-3296))                           Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+
+10   DS DM7 to OBD ECUs w/TID 247+ each DM24 SPN +FMI 31                                        Result: Fail      
+      FAIL: Direct DM7 message to source address #1 timed out for SPN 157
+      FAIL: Direct DM7 message to source address #1 timed out for SPN 102
+
+12   Global DM29 (request 59904 for PGN 40448 (SPNs 4104-4108))                                 Result: Fail      
+      FAIL: Global DM29 received from SA 61 has All Pending DTC counts not equal to 0xFF (0), and SA 61 did not support DM27
+      FAIL: Received a NACK instead of a response from SA 37
+      FAIL: Global DM29 received from SA 1 has All Pending DTC counts not equal to 0xFF (0), and SA 1 did not support DM27
+
+15   Global DM33 (request 59904 for PGN 41216 (SPNs 4124-4126))                                 Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+
+16   Global DM34 (request 59904 for PGN 40960 (SPNs 4127-4132))                                 Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+
+
+
+Part 3: Test Pending Fault A                                                                                              Result: Fail        Timing: Pass      
+
+Step Test Title                                                                                
+2    Global DM6 (request 59904 for PGN 65227 (SPNs 1213-1215, 3038, 1706))                      Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+
+4    Global DM29 (request 59904 for PGN 40448 (SPNs 4104-4108))                                 Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+      FAIL: Global DM29 received from SA 61 has all pending DTC counts that are not 0xFF (1)
+      FAIL: Global DM29 received from SA 1 has all pending DTC counts that are not 0xFF (0)
+
+7    Global DM2 (request 59904 for PGN 65227 (SPNs 1213-1215, 3038, 1706))                      Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+      WARNING: Non-OBD Module response being used
+      WARNING: Non-OBD Module response being used
+
+8    Global DM5 (request 59904 for PGN 65230 (SPNs 1218-1219))                                  Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+
+9    Global DM12 (request 59904 for PGN 65236 (SPNs 1213-1215, 3038, 1706))                     Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+
+10   Global DM23 (request 59904 for PGN 64949 (SPNs 1213-1215, 3038, 1706))                     Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+
+11   Global DM28 (request 59904 for PGN 64896 (SPNs 1213-1215, 3038, 1706))                     Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+
+
+
+Part 4: Test Confirmed Fault A                                                                                            Result: Fail        Timing: Pass      
+
+Step Test Title                                                                                
+2    Global DM12 (request 59904 for PGN 65236 (SPNs 1213-1215, 3038, 1706))                     Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+
+4    Global DM2 (request 59904 for PGN 65227 (SPNs 1213-1215, 3038, 1706))                      Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+      WARNING: Non-OBD Module response being used
+      WARNING: Non-OBD Module response being used
+
+6    Global DM5 (request 59904 for PGN 65230 (SPNs 1218-1219))                                  Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+
+8    Global DM6 (request 59904 for PGN 65227 (SPNs 1213-1215, 3038, 1706))                      Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+
+13   DS DM3 (request 59904 for PGN 65228) to each OBD ECU                                       Result: Fail      
+      FAIL: Direct DM3 from SA 61 NACKed with an invalid control byte
+
+13   Get Diag Info From ECUs                                                                    Result: Fail      
+      FAIL: Found erased or partially erased data
+
+13   Global DM3                                                                                 Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+      FAIL: Received a ACK instead of a response from SA 33
+      FAIL: Received a ACK instead of a response from SA 11
+
+
+
+Part 5: Correct Fault A First Cycle                                                                                       Result: Fail        Timing: Pass      
+
+Step Test Title                                                                                
+2    Global DM12 (request 59904 for PGN 65236 (SPNs 1213-1215, 3038, 1706))                     Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+
+3    Receive broadcast DM1 (PGN 65226 (SPNs 1213-1215, 3038, 1706))                             Result: Fail      
+      FAIL: DM1 from SA 0 was not received in DM12
+
+5    Global DM29 (request 59904 for PGN 40448 (SPNs 4104-4108))                                 Result: Fail      
+      FAIL: Global DM29 received from SA 61 has all pending DTC counts that are not 0xFF (0)
+      FAIL: Global DM29 received from SA 1 has all pending DTC counts that are not 0xFF (0)
+      FAIL: Received a NACK instead of a response from SA 37
+
+
+
+Part 6: Complete Fault A Three Cycle Countdown                                                                            Result: Fail        Timing: Pass      
+
+Step Test Title                                                                                
+2    Global DM5 (request 59904 for PGN 65230 (SPNs 1218-1219))                                  Result: Fail      
+      FAIL: Global DM5 has improper comprehensive components support and status
+      FAIL: Received a NACK instead of a response from SA 37
+
+8    DS DM29 (request 59904 for PGN 40448 (SPNs 4104-4108)) to OBD ECUs                         Result: Fail      
+      FAIL: Direct DM29 received from SA 1 has all pending DTC counts that are not 0xFF (0)
+      FAIL: Direct DM29 received from SA 61 has all pending DTC counts that are not 0xFF (0)
+
+
+
+Part 7: Verify DM23 Transition                                                                                            Result: Fail        Timing: Pass      
+
+Step Test Title                                                                                
+3    Global DM2 (request 59904 for PGN 65227 (SPNs 1213-1215, 3038, 1706))                      Result: Fail      
+      WARNING: Non-OBD Module response being used
+      FAIL: Received a NACK instead of a response from SA 37
+      WARNING: Non-OBD Module response being used
+
+6    Global DM5 (request 59904 for PGN 65230 (SPNs 1218-1219                                    Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+
+7    Global DM6 (request 59904 for PGN 65227 (SPNs 1213-1215, 3038, 1706))                      Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+
+10   Global DM29 (request 59904 for PGN 40448 (SPNs 4104-4108))                                 Result: Fail      
+      FAIL: Global DM29 received from SA 1 has All Pending DTC counts not equal to 0xFF (0), and SA 1 did not support DM27
+      FAIL: Received a NACK instead of a response from SA 37
+      FAIL: Global DM29 received from SA 61 has All Pending DTC counts not equal to 0xFF (0), and SA 61 did not support DM27
+
+12   DS DM25 (request 59904 for PGN 64951 (SPNs 3300, 1214-1215)) to OBD ECUs                   Result: Fail      
+      FAIL: DM25 from SA 61 is missing SPN 520361 FMI 16 from DM23
+      FAIL: Direct DM25 messages did not have freeze frame data
+
+16   Global DM3 (request 59904 for PGN 65228)                                                   Result: Fail      
+      FAIL: Received a ACK instead of a response from SA 33
+      FAIL: Received a NACK instead of a response from SA 37
+      FAIL: Received a ACK instead of a response from SA 11
+
+16   Get Diag Info From ECUs                                                                    Result: Fail      
+      FAIL: Found erased or partially erased data
+
+16   DS DM3 to OBD ECUs                                                                         Result: Fail      
+      FAIL: Direct DM3 from SA 61 NACKed with an invalid control byte
+
+
+
+Part 8: Verify Fault B for General Denominator Demonstration                                                              Result: Fail        Timing: Pass      
+
+Step Test Title                                                                                
+2    Global DM12 (request 59904 for PGN 65236 (SPNs 1213-1215, 3038, 1706))                     Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+
+3    Receive broadcast data (PGN 65226 (SPNs 1213-1215, 3038, 1706))                            Result: Fail      
+      FAIL: DM1 from SA 0 was not received in DM12
+
+4    Global DM23 (request 59904 for PGN 64949 (SPNs 1213-1215, 3038, 1706))                     Result: Fail      
+      FAIL: DM23 from SA 61 is missing SPN 520361 FMI 16 from the previous DM12
+      FAIL: Received a NACK instead of a response from SA 37
+      FAIL: Global DM23 responses have no previous DTCs
+
+5    Global DM2 (request 59904 for PGN 65227 (SPNs 1213-1215, 3038, 1706))                      Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+      WARNING: Non-OBD Module response being used
+      WARNING: Non-OBD Module response being used
+
+6    Global DM5 (request 59904 for PGN 65230 (SPNs 1218-1223))                                  Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+
+7    Global DM28 (request 59904 for PGN 64896 (SPNs 1213-1215, 3038, 1706))                     Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+
+8    Global DM29 (request 59904 for PGN 40448 (SPNs 4104-4108))                                 Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+      FAIL: Global DM29 received from SA 61 has all pending DTC counts that are not 0xFF (0)
+      FAIL: Global DM29 received from SA 1 has all pending DTC counts that are not 0xFF (0)
+      FAIL: Global DM29 doesn't report any previous MIL On faults
+
+13   DS DM3 (request 59904 for PGN 65228) to each OBD ECU                                       Result: Fail      
+      FAIL: Direct DM3 from SA 61 NACKed with an invalid control byte
+
+13   Get Diag Info From ECUs                                                                    Result: Fail      
+      FAIL: Found erased or partially erased data
+
+13   Global DM3                                                                                 Result: Fail      
+      FAIL: Received a ACK instead of a response from SA 33
+      FAIL: Received a NACK instead of a response from SA 37
+      FAIL: Received a ACK instead of a response from SA 11
+
+
+
+Part 9: Verify Deletion of Fault B with DM11                                                                              Result: Fail        Timing: Pass      
+
+Step Test Title                                                                                
+2    Global DM12 (request 59904 for PGN 65236 (SPNs 1213-1215, 3038, 1706))                     Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+
+4    Global DM20 (request 59904 for PGN 49664 (SPNs 3048-3049, 3066-3068))                      Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+
+6    DS DM7 w/TID 247 and specific SPN with non-initialized test results from list created in Step 8.11.1.1 + FMI 31 Result: Fail      
+      FAIL: DM30 from SA 1 has initialized test results 64256/65535/65535 for SPN 3306 FMI 2 TID 247
+      FAIL: DM30 from SA 1 has initialized test results 64256/65535/65535 for SPN 3306 FMI 7 TID 247
+
+7    Global DM33 (request 59904 for PGN 41216 (SPNs 4124-4126))                                 Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+
+8    Global DM11                                                                                Result: Fail      
+      WARNING: DM11 from SA 11 responded with an ACK
+      FAIL: DM11 from SA 37 responded with a NACK
+
+10   DS DM7 w/TID 250 and each SPN+FMI from list in Step 1                                      Result: Fail      
+      FAIL: Uninitialized test results received from SPN #1761 and FMI 18 from SA 61
+
+15   Global DM29 (request 59904 for PGN 40448 (SPNs 4104-4108))                                 Result: Fail      
+      FAIL: Global DM29 received from SA 61 has all pending DTC counts that are not 0xFF (0)
+      FAIL: Received a NACK instead of a response from SA 37
+      FAIL: Global DM29 received from SA 1 has all pending DTC counts that are not 0xFF (0)
+
+20   Global DM6 (request 59904 for PGN 65227 (SPNs 1213-1215, 3038, 1706))                      Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+
+21   Global DM5 (request 59904 for PGN 65230 (SPNs 1218-1219))                                  Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+
+22   Global DM2 (request 59904 for PGN 65227 (SPNs 1213-1215, 3038, 1706))                      Result: Fail      
+      WARNING: Non-OBD Module response being used
+      WARNING: Non-OBD Module response being used
+      FAIL: Received a NACK instead of a response from SA 37
+
+
+
+Part 10: Prime Diagnostic Executive for General Denominator Demonstration                                                 Result: Pass        Timing: Pass      
+
+
+Part 11: Exercise General Denominator                                                                                     Result: Fail        Timing: Pass      
+
+Step Test Title                                                                                
+2    Global DM26 (request 59904 for PGN 64952 (SPN 3301))                                       Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+
+4    Global DM29 (request 59904 for PGN 40448 (SPNs 4104-4108))                                 Result: Fail      
+      FAIL: Global DM29 received from SA 61 has all pending DTC counts that are not 0xFF (0)
+      FAIL: Global DM29 received from SA 1 has all pending DTC counts that are not 0xFF (0)
+      FAIL: Received a NACK instead of a response from SA 37
+
+
+
+Part 12: Verify Deletion of Fault B from DM28                                                                             Result: Fail        Timing: Pass      
+
+Step Test Title                                                                                
+3    DS DM5 (request 59904 for PGN 65230 (SPNs 1221-1223)) to OBD ECUs                          Result: Fail      
+      FAIL: Direct DM5 from SA 1 Exhaust gas sensor monitoring status is supported with a not complete status
+      FAIL: Direct DM5 from SA 61 Exhaust gas sensor monitoring status is supported with a not complete status
+
+5    Global DM29 (request 59904 for PGN 40448 (SPNs 4104-4108))                                 Result: Fail      
+      FAIL: Global DM29 received from SA 61 has All Pending DTC counts not equal to 0xFF (0), and SA 61 did not support DM27
+      FAIL: Global DM29 received from SA 1 has All Pending DTC counts not equal to 0xFF (0), and SA 1 did not support DM27
+      FAIL: Received a NACK instead of a response from SA 37
+
+7    Global DM21 (request 59904 for PGN 49408 (SPNs 3294, 3296))                                Result: Fail      
+      FAIL: Received a NACK instead of a response from SA 37
+
+9    DS DM11 (request 59904 for PGN 65235) to OBD ECUs                                          Result: Fail      
+      FAIL: Direct DM11 from SA 0 did not respond with a NACK
+      FAIL: Direct DM11 from SA 1 did not respond with a NACK
+      FAIL: Direct DM11 from SA 61 did not respond with a NACK
+
+9    Global DM11                                                                                Result: Fail      
+      FAIL: DM11 from SA 37 responded with a NACK
+      WARNING: DM11 from SA 11 responded with an ACK
+
+

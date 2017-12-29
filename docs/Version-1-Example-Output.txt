@@ -1,0 +1,1921 @@
+﻿2017-09-20T14:52:45.006 IUMPR Data Collection Tool for 13 CCR 1971.1(l)(2) and (h)(1.7)
+2017-09-20T14:52:45.018 IUMPR Data Collection Tool version 1.0.0 - 2017/09/18 09:14
+
+IIIIIIIII  UUU     UUU  MMM       MMM  PPPPPPPP     RRRRRRRR     DATA PLATE REPORT
+IIIIIIIII  UUU     UUU  MMMM     MMMM  PPPPPPPPP    RRRRRRRRR    DATA PLATE REPORT
+   III     UUU     UUU  MMMMM   MMMMM  PPP    PPP   RRR    RRR   DATA PLATE REPORT
+   III     UUU     UUU  MMMMMMMMMMMMM  PPP     PPP  RRR     RRR  DATA PLATE REPORT
+   III     UUU     UUU  MMM  MMM  MMM  PPP     PPP  RRR     RRR  DATA PLATE REPORT
+   III     UUU     UUU  MMM   M   MMM  PPP    PPP   RRR    RRR   DATA PLATE REPORT
+   III     UUU     UUU  MMM       MMM  PPPPPPPPP    RRRRRRRRR    DATA PLATE REPORT
+   III     UUU     UUU  MMM       MMM  PPPPPPPP     RRRRRRRR     DATA PLATE REPORT
+   III     UUU     UUU  MMM       MMM  PPP          RRR RRR      DATA PLATE REPORT
+   III     UUU     UUU  MMM       MMM  PPP          RRR  RRR     DATA PLATE REPORT
+   III     UUU     UUU  MMM       MMM  PPP          RRR   RRR    DATA PLATE REPORT
+IIIIIIIII  UUUUUUUUUUU  MMM       MMM  PPP          RRR    RRR   DATA PLATE REPORT
+IIIIIIIII   UUUUUUUUU   MMM       MMM  PPP          RRR     RRR  DATA PLATE REPORT
+
+2017-09-20T14:52:45.020 IUMPR Data Collection Tool Data Plate Report
+
+2017-09-20T14:52:45.021 New File: C:\Users\u00jrpf\Desktop\JL442725v1_0_0.iumpr
+
+2017-09-20T14:52:45.022 Baud Rate: 500,000 bps
+
+2017-09-20T14:52:45.040 Global Request for Address Claim
+14:52:45.040 18EAFFF9 00 EE 00 (TX)
+14:52:47.543 18EEFF4C 38 32 A0 01 00 38 00 00
+Communications Unit, Radio (76) reported as: {
+  Industry Group: Global
+  Vehicle System: Non-specific System, System Instance: 0
+  Function: Communications Unit, Radio, Functional Instance: 0, ECU Instance: 0
+  Manufactured by: *** Redacted ***,  Identity Number: 12856
+  Is not arbitrary address capable.
+}
+14:52:47.543 18EEFFF9 00 00 E0 FF 00 81 00 00 (TX)
+Off Board Diagnostic-Service Tool #1 (249) reported as: {
+  Industry Group: Global
+  Vehicle System: Non-specific System, System Instance: 0
+  Function: Off-board diagnostic-service tool, Functional Instance: 0, ECU Instance: 0
+  Manufactured by: Equipment & Tool Institute, Identity Number: 0
+  Is not arbitrary address capable.
+}
+14:52:47.543 18EEFF97 00 00 60 05 00 87 00 00
+Reserved for future assignment 151 (151) reported as: {
+  Industry Group: Global
+  Vehicle System: Non-specific System, System Instance: 0
+  Function: Keypad, Functional Instance: 0, ECU Instance: 0
+  Manufactured by: *** Redacted ***, Vehicle Electronics, Identity Number: 0
+  Is not arbitrary address capable.
+}
+14:52:47.543 18EEFF21 2B 00 60 05 00 1A 00 10
+Body Controller (33) reported as: {
+  Industry Group: On-Highway Equipment
+  Vehicle System: Unknown System (0), System Instance: 0
+  Function: Unknown Function (26), Functional Instance: 0, ECU Instance: 0
+  Manufactured by: *** Redacted ***, Vehicle Electronics, Identity Number: 43
+  Is not arbitrary address capable.
+}
+14:52:47.543 18EEFF00 00 00 40 05 00 00 00 00
+Engine #1 (0) reported as: {
+  Industry Group: Global
+  Vehicle System: Non-specific System, System Instance: 0
+  Function: Engine, Functional Instance: 0, ECU Instance: 0
+  Manufactured by: *** Redacted ***, Engine Electronics, Identity Number: 0
+  Is not arbitrary address capable.
+}
+14:52:47.543 18EEFF03 00 00 40 02 00 03 00 00
+Transmission #1 (3) reported as: {
+  Industry Group: Global
+  Vehicle System: Non-specific System, System Instance: 0
+  Function: Transmission, Functional Instance: 0, ECU Instance: 0
+  Manufactured by: *** Redacted ***, Identity Number: 0
+  Is not arbitrary address capable.
+}
+14:52:47.544 18EEFF37 0D 00 60 05 00 29 52 00
+Lighting - Operator Controls (55) reported as: {
+  Industry Group: Global
+  Vehicle System: Unknown System (41), System Instance: 0
+  Function: Unknown Function (41), Functional Instance: 0, ECU Instance: 0
+  Manufactured by: *** Redacted ***, Vehicle Electronics, Identity Number: 13
+  Is not arbitrary address capable.
+}
+14:52:47.544 18EEFF98 00 00 60 05 09 87 00 00
+Reserved for future assignment 152 (152) reported as: {
+  Industry Group: Global
+  Vehicle System: Non-specific System, System Instance: 0
+  Function: Keypad, Functional Instance: 1, ECU Instance: 1
+  Manufactured by: *** Redacted ***, Vehicle Electronics, Identity Number: 0
+  Is not arbitrary address capable.
+}
+14:52:47.544 18EEFF05 42 50 60 05 00 05 02 10
+Shift Console - Primary (5) reported as: {
+  Industry Group: On-Highway Equipment
+  Vehicle System: Unknown System (1), System Instance: 0
+  Function: Unknown Function (5), Functional Instance: 0, ECU Instance: 0
+  Manufactured by: *** Redacted ***, Vehicle Electronics, Identity Number: 20546
+  Is not arbitrary address capable.
+}
+14:52:47.544 18EEFFFE 80 06 60 05 00 81 00 10
+Null Address (254) reported as: {
+  Industry Group: On-Highway Equipment
+  Vehicle System: Non-specific System, System Instance: 0
+  Function: Door Controller, Functional Instance: 0, ECU Instance: 0
+  Manufactured by: *** Redacted ***, Vehicle Electronics, Identity Number: 1664
+  Is not arbitrary address capable.
+}
+14:52:47.544 18EEFFFE 19 01 60 05 08 81 00 10
+Null Address (254) reported as: {
+  Industry Group: On-Highway Equipment
+  Vehicle System: Non-specific System, System Instance: 0
+  Function: Door Controller, Functional Instance: 1, ECU Instance: 0
+  Manufactured by: *** Redacted ***, Vehicle Electronics, Identity Number: 281
+  Is not arbitrary address capable.
+}
+14:52:47.544 18EEFF19 00 00 60 05 00 15 00 00
+Passenger-Operator Climate Control #1 (25) reported as: {
+  Industry Group: Global
+  Vehicle System: Non-specific System, System Instance: 0
+  Function: Cab Climate Control, Functional Instance: 0, ECU Instance: 0
+  Manufactured by: *** Redacted ***, Vehicle Electronics, Identity Number: 0
+  Is not arbitrary address capable.
+}
+14:52:47.544 18EEFF17 43 47 60 05 00 13 00 00
+Instrument Cluster #1 (23) reported as: {
+  Industry Group: Global
+  Vehicle System: Non-specific System, System Instance: 0
+  Function: Instrument Cluster, Functional Instance: 0, ECU Instance: 0
+  Manufactured by: *** Redacted ***, Vehicle Electronics, Identity Number: 18243
+  Is not arbitrary address capable.
+}
+14:52:47.544 18EEFFFE 19 01 60 05 08 81 00 10
+Null Address (254) reported as: {
+  Industry Group: On-Highway Equipment
+  Vehicle System: Non-specific System, System Instance: 0
+  Function: Door Controller, Functional Instance: 1, ECU Instance: 0
+  Manufactured by: *** Redacted ***, Vehicle Electronics, Identity Number: 281
+  Is not arbitrary address capable.
+}
+14:52:47.544 18EEFFFE 80 06 60 05 00 81 00 10
+Null Address (254) reported as: {
+  Industry Group: On-Highway Equipment
+  Vehicle System: Non-specific System, System Instance: 0
+  Function: Door Controller, Functional Instance: 0, ECU Instance: 0
+  Manufactured by: *** Redacted ***, Vehicle Electronics, Identity Number: 1664
+  Is not arbitrary address capable.
+}
+14:52:47.544 18EEFF4C 38 32 A0 01 00 38 00 00
+Communications Unit, Radio (76) reported as: {
+  Industry Group: Global
+  Vehicle System: Non-specific System, System Instance: 0
+  Function: Communications Unit, Radio, Functional Instance: 0, ECU Instance: 0
+  Manufactured by: *** Redacted ***,  Identity Number: 12856
+  Is not arbitrary address capable.
+}
+
+2017-09-20T14:52:47.552 Global VIN Request
+14:52:47.553 18EAFFF9 EC FE 00 (TX)
+14:52:50.053 18FEEC00 33 48 43 44 5A 54 5A 52 33 4A 4C 34 34 32 37 32 35 2A
+Vehicle Identification from Engine #1 (0): **REDACTED*442725
+
+2017-09-20T14:52:50.054 Global DM19 (Calibration Information) Request
+14:52:50.054 18EAFFF9 00 D3 00 (TX)
+14:52:52.555 18D30000 66 E7 B4 62 52 41 44 58 53 46 41 42 00 00 00 00 00 00 00 00 A8 73 89 13 4E 4F 78 2D 53 41 45 31 34 61 20 41 54 49 31 00 8C 4B F9 C9 4E 4F 78 2D 53 41 45 31 34 61 20 41 54 4F 31 00 DE E5 00 00 31 32 44 42 42 32 30 30 30 32 00 00 00 00 00 00 D2 BF 0F A9 50 4D 53 31 32 33 34 31 41 31 30 31 00 00 00 00
+DM19 from Engine #1 (0): [
+  CAL ID of RADXSFAB and CVN of 0x62B4E766
+  CAL ID of NOx-SAE14a ATI1 and CVN of 0x138973A8
+  CAL ID of NOx-SAE14a ATO1 and CVN of 0xC9F94B8C
+  CAL ID of 12DBB20002 and CVN of 0x0000E5DE
+  CAL ID of PMS12341A101 and CVN of 0xA90FBFD2
+]
+
+2017-09-20T14:52:52.556 Global DM21 Request
+14:52:52.556 18EAFFF9 00 C1 00 (TX)
+14:52:55.057 18C10000 00 00 00 00 00 00 0B 00
+DM21 from Engine #1 (0): [
+  Distance Traveled While MIL is Activated:     0 km (0 mi)
+  Time Run by Engine While MIL is Activated:    0 minutes
+  Distance Since DTCs Cleared:                  0 km (0 mi)
+  Time Since DTCs Cleared:                      11 minutes
+]
+
+2017-09-20T14:52:55.064 Global DM5 Request
+14:52:55.064 18EAFFF9 CE FE 00 (TX)
+14:52:57.565 18FECE00 00 00 14 27 E0 1E E0 1E
+14:52:57.565 18FECE03 00 05 05 00 00 00 00 00
+14:52:57.566 18FECE19 00 00 05 00 00 00 00 00
+Engine #1 (0) reported as an HD-OBD Module.
+
+2017-09-20T14:52:57.568 Global Component Identification Request
+14:52:57.569 18EAFFF9 EB FE 00 (TX)
+14:53:00.069 18FEEB17 49 4E 54 2A 34 30 36 32 38 37 37 43 31 2A 39 38 38 38 34 36 30 30 30 35 43 36 36 37 33 2A 2A
+Found Instrument Cluster #1 (23): Make: ***, Model: 4062877C1, Serial: 9888460005C6673, Unit: 
+14:53:00.069 1CFEEB03 45 41 54 4F 4E 2A 46 41 4F 4D 2D 78 78 38 31 30 43 2D 45 41 33 2A 50 31 30 31 38 32 35 36 2A 2A
+Found Transmission #1 (3): Make: *****, Model: FAOM-xx810C-EA3, Serial: P1018256, Unit: 
+14:53:00.069 1CFEEB05 49 4E 54 20 20 2A 52 4E 44 4D 4C 3B 20 4D 6F 64 65 50 65 72 73 69 73 74 3D 74 72 75 65 2A 2A 2A
+Found Shift Console - Primary (5): Make: ***, Model: RNDML; ModePersist=true, Serial: , Unit: 
+14:53:00.069 1CFEEB19 49 4E 54 20 20 2A 34 30 36 35 33 33 31 43 33 2A 30 30 30 30 30 30 30 30 30 30 30 30 37 33 37 38 2A 2A
+Found Passenger-Operator Climate Control #1 (25): Make: ***, Model: 4065331C3, Serial: 0000000000007378, Unit: 
+14:53:00.070 18FEEB98 49 4E 54 20 20 2A 20 34 30 35 37 36 38 39 43 31 2A 4D 31 36 33 34 30 34 34 32 37 32 35 30 32 30 33 36 35 2A 2A
+Found Reserved for future assignment 152 (152): Make: ***, Model: 4057689C1, Serial: M16340442725020365, Unit: 
+14:53:00.070 18FEEB97 49 4E 54 20 20 2A 20 34 30 35 37 36 38 39 43 31 2A 4D 31 36 33 34 31 34 34 32 37 32 35 30 31 30 30 33 39 2A 2A
+Found Reserved for future assignment 151 (151): Make: ***, Model: 4057689C1, Serial: M16341442725010039, Unit: 
+14:53:00.070 18FEEB37 49 4E 54 20 20 2A 20 34 30 38 30 39 34 31 43 31 2A 4C 31 36 33 34 30 34 34 32 37 32 35 30 30 30 32 30 32 2A 2A
+Found Lighting - Operator Controls (55): Make: ***, Model: 4080941C1, Serial: L16340442725000202, Unit: 
+14:53:00.070 18FEEB00 49 4E 54 20 20 2A 37 35 37 31 30 33 31 37 31 37 2A 31 32 34 4B 4D 32 59 34 35 30 30 30 31 39 00 00 00 2A 30 00 00 00 00 00 00 00 00 00 2A 19 19 19 19 19 19 19 19 19 19 19 19 19 19 19 19 00
+Found Engine #1 (0): Make: ***, Model: 7571031717, Serial: 124KM2Y4500019, Unit: 0
+
+2017-09-20T14:53:00.075 Clearing Diagnostic Trouble Codes
+14:53:00.076 Global DM11 Request
+14:53:00.076 18EAFFF9 D3 FE 00 (TX)
+14:53:00.081 18E8FF17 00 FF FF FF F9 D3 FE 00
+DM11 from Instrument Cluster #1 (23): Response is Acknowledged
+Diagnostic Trouble Codes were successfully cleared.
+
+2017-09-20T14:53:05.578 Global DM5 Request
+14:53:05.578 18EAFFF9 CE FE 00 (TX)
+14:53:08.078 18FECE00 00 00 14 27 E0 1E E0 1E
+DM5 from Engine #1 (0): OBD Compliance: HD OBD (20), Active Codes: 0, Previously Active Codes: 0
+14:53:08.081 18FECE03 00 05 05 00 00 00 00 00
+DM5 from Transmission #1 (3): OBD Compliance: Not intended to meet OBD II requirements (5), Active Codes: 0, Previously Active Codes: 5
+14:53:08.082 18FECE19 00 00 05 00 00 00 00 00
+DM5 from Passenger-Operator Climate Control #1 (25): OBD Compliance: Not intended to meet OBD II requirements (5), Active Codes: 0, Previously Active Codes: 0
+
+Vehicle Composite of DM5:
+A/C system refrigerant     not supported,     complete
+Boost pressure control sys     supported, not complete
+Catalyst                   not supported,     complete
+Cold start aid system      not supported,     complete
+Comprehensive component        supported,     complete
+Diesel Particulate Filter      supported, not complete
+EGR/VVT system                 supported, not complete
+Evaporative system         not supported,     complete
+Exhaust Gas Sensor             supported, not complete
+Exhaust Gas Sensor heater      supported, not complete
+Fuel System                    supported, not complete
+Heated catalyst            not supported,     complete
+Misfire                        supported,     complete
+NMHC converting catalyst       supported, not complete
+NOx catalyst/adsorber          supported, not complete
+Secondary air system       not supported,     complete
+
+2017-09-20T14:53:08.091 Global DM26 Request
+14:53:08.091 18EAFFF9 B8 FD 00 (TX)
+14:53:10.591 18FDB800 00 00 00 37 80 16 E0 1E
+DM26 from Engine #1 (0): Warm-ups: 0, Time Since Engine Start: 0 seconds
+
+Vehicle Composite of DM26:
+A/C system refrigerant     not enabled,     complete
+Boost pressure control sys     enabled, not complete
+Catalyst                   not enabled,     complete
+Cold start aid system      not enabled,     complete
+Comprehensive component        enabled,     complete
+Diesel Particulate Filter      enabled, not complete
+EGR/VVT system                 enabled, not complete
+Evaporative system         not enabled,     complete
+Exhaust Gas Sensor         not enabled, not complete
+Exhaust Gas Sensor heater  not enabled, not complete
+Fuel System                    enabled, not complete
+Heated catalyst            not enabled,     complete
+Misfire                        enabled, not complete
+NMHC converting catalyst       enabled, not complete
+NOx catalyst/adsorber      not enabled, not complete
+Secondary air system       not enabled,     complete
+
+2017-09-20T14:53:10.597 Global DM20 Request
+14:53:10.597 18EAFFF9 00 C2 00 (TX)
+14:53:13.098 18C20000 2D 02 23 00 CA 14 F8 00 00 10 00 B8 12 F8 00 00 23 00 C6 14 F8 00 00 23 00 F2 0B F8 00 00 23 00 F8 0B F8 00 00 23 00 C9 14 F8 00 00 23 00 EF 0B F8 07 00 23 00
+DM20 from Engine #1 (0):  [
+                                                                   Num'r /  Den'r
+Ignition Cycles                                                               557
+OBD Monitoring Conditions Encountered                                          35
+SPN 5322 Aftertreatment NMHC Converting Catalyst System Monitor        0 /     16
+SPN 4792 Aftertreatment 1 Selective Catalytic Reduction System         0 /     35
+SPN 5318 Aftertreatment Exhaust Gas Sensor System Monitor              0 /     35
+SPN 3058 Engine Exhaust Gas Recirculation System Monitor               0 /     35
+SPN 3064 Aftertreatment Diesel Particulate Filter System Monitor       0 /     35
+SPN 5321 Engine Intake Manifold Pressure System Monitor                0 /     35
+SPN 3055 Engine Fuel System Monitor                                    7 /     35
+]
+
+2017-09-20T14:53:13.108 Global DM6 Request
+14:53:13.109 18EAFFF9 CF FE 00 (TX)
+14:53:15.610 18FECF17 00 FF 00 00 00 00 FF FF
+DM6 from Instrument Cluster #1 (23): MIL: Off, RSL: Off, AWL: Off, PL: Off
+No DTCs
+14:53:15.611 18E8FF17 00 FF FF FF F9 CF FE 00
+DM6 from Instrument Cluster #1 (23): MIL: Off, RSL: Off, AWL: Off, PL: Off
+No DTCs
+14:53:15.611 18FECF00 00 FF 00 00 00 00 FF FF
+DM6 from Engine #1 (0): MIL: Off, RSL: Off, AWL: Off, PL: Off
+No DTCs
+
+2017-09-20T14:53:15.619 Global DM12 Request
+14:53:15.620 18EAFFF9 D4 FE 00 (TX)
+14:53:18.120 18FED417 00 FF 00 00 00 00 FF FF
+DM12 from Instrument Cluster #1 (23): MIL: Off, RSL: Off, AWL: Off, PL: Off
+No DTCs
+14:53:18.120 18E8FF17 00 FF FF FF F9 D4 FE 00
+DM12 from Instrument Cluster #1 (23): MIL: Off, RSL: Off, AWL: Off, PL: Off
+No DTCs
+14:53:18.120 18FED400 00 FF 00 00 00 00 FF FF
+DM12 from Engine #1 (0): MIL: Off, RSL: Off, AWL: Off, PL: Off
+No DTCs
+
+2017-09-20T14:53:18.122 Global DM23 Request
+14:53:18.122 18EAFFF9 B5 FD 00 (TX)
+14:53:20.622 18FDB500 00 FF 00 00 00 00 FF FF
+DM23 from Engine #1 (0): MIL: Off, RSL: Off, AWL: Off, PL: Off
+No DTCs
+
+2017-09-20T14:53:20.623 Global DM28 Request
+14:53:20.623 18EAFFF9 80 FD 00 (TX)
+14:53:23.124 18FD8000 00 FF 4A 0A 05 01 12 15 07 01 AB 00 02 00
+DM28 from Engine #1 (0): MIL: Off, RSL: Off, AWL: Off, PL: Off
+DTC: Power Relay (2634) Current Below Normal Or Open Circuit (5) 1 times
+DTC: Aftertreatment 1 Diesel Exhaust Fluid Doser Valve 1 (5394) Mechanical System Not Responding Or Out Of Adjustment (7) 1 times
+DTC: Ambient Air Temperature (171) Data Erratic, Intermittent Or Incorrect (2) 0 times
+
+2017-09-20T14:53:23.128 Global DM21 Request
+14:53:23.128 18EAFFF9 00 C1 00 (TX)
+14:53:25.628 18C10000 00 00 00 00 00 00 0B 00
+DM21 from Engine #1 (0): [
+  Distance Traveled While MIL is Activated:     0 km (0 mi)
+  Time Run by Engine While MIL is Activated:    0 minutes
+  Distance Since DTCs Cleared:                  0 km (0 mi)
+  Time Since DTCs Cleared:                      11 minutes
+]
+
+2017-09-20T14:53:25.632 Vehicle Distance
+14:53:28.133 18FEC117 7B 7F 01 00 FF FF FF FF
+High Resolution Vehicle Distance from Instrument Cluster #1 (23): 490.855 km (305.003 mi)
+
+2017-09-20T14:53:28.134 Engine Hours Request
+14:53:28.134 18EAFFF9 E5 FE 00 (TX)
+14:53:30.634 18FEE500 29 07 00 00 70 15 00 00
+Engine Hours from Engine #1 (0): 91.65 hours
+
+2017-09-20T14:53:30.634 Total Queries: 17
+2017-09-20T14:53:30.635 Total Time Out Errors: 0
+
+2017-09-20T14:53:30.635 IUMPR Data Collection Tool Data Plate Report END OF REPORT
+
+2017-09-20T14:53:45.962 IUMPR Data Collection Tool for 13 CCR 1971.1(l)(2) and (h)(1.7)
+2017-09-20T14:53:45.963 IUMPR Data Collection Tool version 1.0.0 - 2017/09/18 09:14
+
+IIIIIIIII  UUU     UUU  MMM       MMM  PPPPPPPP     RRRRRRRR     DATA MONITOR LOG
+IIIIIIIII  UUU     UUU  MMMM     MMMM  PPPPPPPPP    RRRRRRRRR    DATA MONITOR LOG
+   III     UUU     UUU  MMMMM   MMMMM  PPP    PPP   RRR    RRR   DATA MONITOR LOG
+   III     UUU     UUU  MMMMMMMMMMMMM  PPP     PPP  RRR     RRR  DATA MONITOR LOG
+   III     UUU     UUU  MMM  MMM  MMM  PPP     PPP  RRR     RRR  DATA MONITOR LOG
+   III     UUU     UUU  MMM   M   MMM  PPP    PPP   RRR    RRR   DATA MONITOR LOG
+   III     UUU     UUU  MMM       MMM  PPPPPPPPP    RRRRRRRRR    DATA MONITOR LOG
+   III     UUU     UUU  MMM       MMM  PPPPPPPP     RRRRRRRR     DATA MONITOR LOG
+   III     UUU     UUU  MMM       MMM  PPP          RRR RRR      DATA MONITOR LOG
+   III     UUU     UUU  MMM       MMM  PPP          RRR  RRR     DATA MONITOR LOG
+   III     UUU     UUU  MMM       MMM  PPP          RRR   RRR    DATA MONITOR LOG
+IIIIIIIII  UUUUUUUUUUU  MMM       MMM  PPP          RRR    RRR   DATA MONITOR LOG
+IIIIIIIII   UUUUUUUUU   MMM       MMM  PPP          RRR     RRR  DATA MONITOR LOG
+
+2017-09-20T14:53:45.965 IUMPR Data Collection Tool Data Monitor Log
+
+2017-09-20T14:53:45.966 Global VIN Request
+14:53:45.966 18EAFFF9 EC FE 00 (TX)
+14:53:48.466 18FEEC00 33 48 43 44 5A 54 5A 52 33 4A 4C 34 34 32 37 32 35 2A
+Vehicle Identification from Engine #1 (0): **REDACTED*442725
+
+2017-09-20T14:53:48.466 Global DM19 (Calibration Information) Request
+14:53:48.466 18EAFFF9 00 D3 00 (TX)
+14:53:50.966 18D30000 66 E7 B4 62 52 41 44 58 53 46 41 42 00 00 00 00 00 00 00 00 A8 73 89 13 4E 4F 78 2D 53 41 45 31 34 61 20 41 54 49 31 00 8C 4B F9 C9 4E 4F 78 2D 53 41 45 31 34 61 20 41 54 4F 31 00 DE E5 00 00 31 32 44 42 42 32 30 30 30 32 00 00 00 00 00 00 D2 BF 0F A9 50 4D 53 31 32 33 34 31 41 31 30 31 00 00 00 00
+DM19 from Engine #1 (0): [
+  CAL ID of RADXSFAB and CVN of 0x62B4E766
+  CAL ID of NOx-SAE14a ATI1 and CVN of 0x138973A8
+  CAL ID of NOx-SAE14a ATO1 and CVN of 0xC9F94B8C
+  CAL ID of 12DBB20002 and CVN of 0x0000E5DE
+  CAL ID of PMS12341A101 and CVN of 0xA90FBFD2
+]
+
+2017-09-20T14:53:50.967 Global DM21 Request
+14:53:50.967 18EAFFF9 00 C1 00 (TX)
+14:53:53.467 18C10000 00 00 00 00 00 00 0B 00
+DM21 from Engine #1 (0): [
+  Distance Traveled While MIL is Activated:     0 km (0 mi)
+  Time Run by Engine While MIL is Activated:    0 minutes
+  Distance Since DTCs Cleared:                  0 km (0 mi)
+  Time Since DTCs Cleared:                      11 minutes
+]
+Time Since Code Cleared Gap of 0 minutes
+
+2017-09-20T14:53:53.471 Begin Tracking Monitor Completion Status
+
+14:56:53.564 DM5 Packet(s) Received
+14:56:53.565 18FECE00 00 00 14 27 E0 1E E0 1E
+14:56:53.565 18FECE03 00 05 05 00 00 00 00 00
+14:56:53.566 18FECE19 00 00 05 00 00 00 00 00
+
+14:56:53.566 DM20 Packet(s) Received
+14:56:53.566 18C20000 2E 02 23 00 CA 14 F8 00 00 10 00 B8 12 F8 00 00 23 00 C6 14 F8 00 00 23 00 F2 0B F8 00 00 23 00 F8 0B F8 00 00 23 00 C9 14 F8 00 00 23 00 EF 0B F8 07 00 23 00
+
+14:56:53.566 DM26 Packet(s) Received
+14:56:53.566 18FDB800 AE 00 00 37 80 16 E0 1E
+
+14:59:53.654 DM5 Packet(s) Received
+14:59:53.655 18FECE00 00 00 14 27 E0 1E E0 1E
+14:59:53.655 18FECE03 00 05 05 00 00 00 00 00
+14:59:53.655 18FECE19 00 00 05 00 00 00 00 00
+
+14:59:53.655 DM20 Packet(s) Received
+14:59:53.655 18C20000 2E 02 23 00 CA 14 F8 00 00 10 00 B8 12 F8 00 00 23 00 C6 14 F8 00 00 23 00 F2 0B F8 00 00 23 00 F8 0B F8 00 00 23 00 C9 14 F8 00 00 23 00 EF 0B F8 07 00 23 00
+
+14:59:53.656 DM26 Packet(s) Received
+14:59:53.656 18FDB800 62 01 00 37 80 16 E0 1E
+
+15:02:53.793 DM5 Packet(s) Received
+15:02:53.793 18FECE00 00 00 14 27 E0 1E E0 1E
+15:02:53.793 18FECE03 00 05 05 00 00 00 00 00
+15:02:53.793 18FECE19 00 00 05 00 00 00 00 00
+
+15:02:53.794 DM20 Packet(s) Received
+15:02:53.794 18C20000 2E 02 23 00 CA 14 F8 00 00 10 00 B8 12 F8 00 00 23 00 C6 14 F8 00 00 23 00 F2 0B F8 00 00 23 00 F8 0B F8 00 00 23 00 C9 14 F8 00 00 23 00 EF 0B F8 07 00 23 00
+
+15:02:53.794 DM26 Packet(s) Received
+15:02:53.794 18FDB800 16 02 00 27 80 16 E0 1E
+
+15:04:08.842 Ratios Updated
+
+15:04:13.849 DM5 Packet(s) Received
+15:04:13.849 18FECE03 00 05 05 00 00 00 00 00
+15:04:13.849 18FECE00 00 00 14 27 E0 1E E0 1E
+15:04:13.850 18FECE19 00 00 05 00 00 00 00 00
+
+15:04:13.850 DM20 Packet(s) Received
+15:04:13.850 18C20000 2E 02 24 00 CA 14 F8 00 00 10 00 B8 12 F8 00 00 24 00 C6 14 F8 00 00 24 00 F2 0B F8 00 00 24 00 F8 0B F8 00 00 24 00 C9 14 F8 00 00 24 00 EF 0B F8 07 00 24 00
+
+15:04:13.851 DM26 Packet(s) Received
+15:04:13.851 18FDB800 67 02 00 27 80 16 E0 1E
+
+15:07:14.001 DM5 Packet(s) Received
+15:07:14.005 18FECE00 00 00 14 27 E0 1E E0 1E
+15:07:14.005 18FECE03 00 05 05 00 00 00 00 00
+15:07:14.005 18FECE19 00 00 05 00 00 00 00 00
+
+15:07:14.006 DM20 Packet(s) Received
+15:07:14.006 18C20000 2E 02 24 00 CA 14 F8 00 00 10 00 B8 12 F8 00 00 24 00 C6 14 F8 00 00 24 00 F2 0B F8 00 00 24 00 F8 0B F8 00 00 24 00 C9 14 F8 00 00 24 00 EF 0B F8 07 00 24 00
+
+15:07:14.006 DM26 Packet(s) Received
+15:07:14.006 18FDB800 1B 03 01 27 80 16 E0 1E
+
+15:10:14.129 DM5 Packet(s) Received
+15:10:14.133 18FECE03 00 05 05 00 00 00 00 00
+15:10:14.133 18FECE00 00 00 14 27 E0 1E E0 1E
+15:10:14.133 18FECE19 00 00 05 00 00 00 00 00
+
+15:10:14.134 DM20 Packet(s) Received
+15:10:14.134 18C20000 2E 02 24 00 CA 14 F8 00 00 10 00 B8 12 F8 00 00 24 00 C6 14 F8 00 00 24 00 F2 0B F8 00 00 24 00 F8 0B F8 00 00 24 00 C9 14 F8 00 00 24 00 EF 0B F8 07 00 24 00
+
+15:10:14.135 DM26 Packet(s) Received
+15:10:14.138 18FDB800 CF 03 01 27 80 16 E0 1E
+
+15:11:26.689 Monitors Updated
+
+15:11:34.189 DM5 Packet(s) Received
+15:11:34.189 18FECE00 00 00 14 27 E0 1E A0 1E
+15:11:34.190 18FECE03 00 05 05 00 00 00 00 00
+15:11:34.190 18FECE19 00 00 05 00 00 00 00 00
+
+15:11:34.190 DM20 Packet(s) Received
+15:11:34.190 18C20000 2E 02 24 00 CA 14 F8 00 00 10 00 B8 12 F8 00 00 24 00 C6 14 F8 00 00 24 00 F2 0B F8 00 00 24 00 F8 0B F8 00 00 24 00 C9 14 F8 00 00 24 00 EF 0B F8 07 00 24 00
+
+15:11:34.190 DM26 Packet(s) Received
+15:11:34.191 18FDB800 1F 04 01 27 80 16 A0 1E
+
+15:14:34.337 DM5 Packet(s) Received
+15:14:34.340 18FECE00 00 00 14 27 E0 1E A0 1E
+15:14:34.341 18FECE03 00 05 05 00 00 00 00 00
+15:14:34.341 18FECE19 00 00 05 00 00 00 00 00
+
+15:14:34.341 DM20 Packet(s) Received
+15:14:34.342 18C20000 2E 02 24 00 CA 14 F8 00 00 10 00 B8 12 F8 00 00 24 00 C6 14 F8 00 00 24 00 F2 0B F8 00 00 24 00 F8 0B F8 00 00 24 00 C9 14 F8 00 00 24 00 EF 0B F8 07 00 24 00
+
+15:14:34.345 DM26 Packet(s) Received
+15:14:34.346 18FDB800 D3 04 01 27 80 16 A0 1E
+
+2017-09-20T15:17:29.485 End Tracking Monitor Completion Status. 142 Total Cycles.
+
+2017-09-20T15:17:29.487 Vehicle Composite Results of DM5:
++----------------------------+----------------+----------------+
+|           Monitor          | Initial Status |  Last Status   |
+|                            |   2017-09-20   |   2017-09-20   |
+|                            |  14:53:08.078  |  15:17:26.984  |
++----------------------------+----------------+----------------+
+| A/C system refrigerant     |  Unsupported   |  Unsupported   |
+| Boost pressure control sys |  Not Complete  |  Not Complete  |
+| Catalyst                   |  Unsupported   |  Unsupported   |
+| Cold start aid system      |  Unsupported   |  Unsupported   |
+| Comprehensive component    |      Complete  |      Complete  |
+| Diesel Particulate Filter  |  Not Complete  |  Not Complete  |
+| EGR/VVT system             |  Not Complete  |  Not Complete  |
+| Evaporative system         |  Unsupported   |  Unsupported   |
+| Exhaust Gas Sensor         |  Not Complete  |  Not Complete  |
+|*Exhaust Gas Sensor heater  |  Not Complete  |      Complete *|
+| Fuel System                |  Not Complete  |  Not Complete  |
+| Heated catalyst            |  Unsupported   |  Unsupported   |
+| Misfire                    |      Complete  |      Complete  |
+| NMHC converting catalyst   |  Not Complete  |  Not Complete  |
+| NOx catalyst/adsorber      |  Not Complete  |  Not Complete  |
+| Secondary air system       |  Unsupported   |  Unsupported   |
++----------------------------+----------------+----------------+
+
+2017-09-20T15:17:29.492 Vehicle Composite Results of DM20:
++-----+----------------------------------+-----------------+-----------------+
+|     |                                  |  Initial Status |   Last Status   |
+|     |                                  |    2017-09-20   |    2017-09-20   |
+|     |                                  |   14:53:13.098  |   15:17:29.485  |
++-----+----------------------------------+-----------------+-----------------+
+|*    | Ignition Cycles                  |             557 |            558 *|
+|*    | OBD Monitoring Conditions Count  |              35 |             36 *|
++-----+----------------------------------+--------+--------+--------+--------+
+| Src | Monitor                          |  Num'r |  Den'r |  Num'r |  Den'r |
++-----+----------------------------------+--------+--------+--------+--------+
+|*  0 | 3055 Fuel Sys Mon                |      7 |     35 |     7  |    36 *|
+|*  0 | 3058 EGR Sys Mon                 |      0 |     35 |     0  |    36 *|
+|*  0 | 3064 AFT DPF Sys Mon             |      0 |     35 |     0  |    36 *|
+|*  0 | 4792 AFT 1 SCR Sys               |      0 |     35 |     0  |    36 *|
+|*  0 | 5318 AFT Exh Gas Snsr Sys Mon    |      0 |     35 |     0  |    36 *|
+|*  0 | 5321 Intake Manifold Press Sys ..|      0 |     35 |     0  |    36 *|
+|   0 | 5322 AFT NMHC Converting Cataly..|      0 |     16 |     0  |    16  |
++-----+----------------------------------+--------+--------+--------+--------+
+
+2017-09-20T15:17:29.497 Global DM21 Request
+15:17:29.498 18EAFFF9 00 C1 00 (TX)
+15:17:32.002 18C10000 00 00 00 00 00 00 22 00
+DM21 from Engine #1 (0): [
+  Distance Traveled While MIL is Activated:     0 km (0 mi)
+  Time Run by Engine While MIL is Activated:    0 minutes
+  Distance Since DTCs Cleared:                  0 km (0 mi)
+  Time Since DTCs Cleared:                      34 minutes
+]
+
+2017-09-20T15:17:32.003 Vehicle Distance
+15:17:34.503 18FEC117 DD 84 01 00 FF FF FF FF
+High Resolution Vehicle Distance from Instrument Cluster #1 (23): 497.745 km (309.284 mi)
+
+2017-09-20T15:17:34.503 Engine Hours Request
+15:17:34.503 18EAFFF9 E5 FE 00 (TX)
+15:17:37.003 18FEE500 31 07 00 00 8F 15 00 00
+Engine Hours from Engine #1 (0): 92.05 hours
+
+2017-09-20T15:17:37.004 Total Queries: 571
+2017-09-20T15:17:37.004 Total Time Out Errors: 0
+
+2017-09-20T15:17:37.004 IUMPR Data Collection Tool Data Monitor Log END OF REPORT
+
+2017-09-20T15:18:00.637 IUMPR Data Collection Tool for 13 CCR 1971.1(l)(2) and (h)(1.7)
+2017-09-20T15:18:00.637 IUMPR Data Collection Tool version 1.0.0 - 2017/09/18 09:14
+
+IIIIIIIII  UUU     UUU  MMM       MMM  PPPPPPPP     RRRRRRRR     DATA COLLECTION LOG
+IIIIIIIII  UUU     UUU  MMMM     MMMM  PPPPPPPPP    RRRRRRRRR    DATA COLLECTION LOG
+   III     UUU     UUU  MMMMM   MMMMM  PPP    PPP   RRR    RRR   DATA COLLECTION LOG
+   III     UUU     UUU  MMMMMMMMMMMMM  PPP     PPP  RRR     RRR  DATA COLLECTION LOG
+   III     UUU     UUU  MMM  MMM  MMM  PPP     PPP  RRR     RRR  DATA COLLECTION LOG
+   III     UUU     UUU  MMM   M   MMM  PPP    PPP   RRR    RRR   DATA COLLECTION LOG
+   III     UUU     UUU  MMM       MMM  PPPPPPPPP    RRRRRRRRR    DATA COLLECTION LOG
+   III     UUU     UUU  MMM       MMM  PPPPPPPP     RRRRRRRR     DATA COLLECTION LOG
+   III     UUU     UUU  MMM       MMM  PPP          RRR RRR      DATA COLLECTION LOG
+   III     UUU     UUU  MMM       MMM  PPP          RRR  RRR     DATA COLLECTION LOG
+   III     UUU     UUU  MMM       MMM  PPP          RRR   RRR    DATA COLLECTION LOG
+IIIIIIIII  UUUUUUUUUUU  MMM       MMM  PPP          RRR    RRR   DATA COLLECTION LOG
+IIIIIIIII   UUUUUUUUU   MMM       MMM  PPP          RRR     RRR  DATA COLLECTION LOG
+
+2017-09-20T15:18:00.639 IUMPR Data Collection Tool Data Collection Log
+
+2017-09-20T15:18:00.640 Global VIN Request
+15:18:00.640 18EAFFF9 EC FE 00 (TX)
+15:18:03.140 18FEEC00 33 48 43 44 5A 54 5A 52 33 4A 4C 34 34 32 37 32 35 2A
+Vehicle Identification from Engine #1 (0): **REDACTED*442725
+
+2017-09-20T15:18:03.141 Global DM19 (Calibration Information) Request
+15:18:03.141 18EAFFF9 00 D3 00 (TX)
+15:18:05.641 18D30000 66 E7 B4 62 52 41 44 58 53 46 41 42 00 00 00 00 00 00 00 00 A8 73 89 13 4E 4F 78 2D 53 41 45 31 34 61 20 41 54 49 31 00 8C 4B F9 C9 4E 4F 78 2D 53 41 45 31 34 61 20 41 54 4F 31 00 DE E5 00 00 31 32 44 42 42 32 30 30 30 32 00 00 00 00 00 00 D2 BF 0F A9 50 4D 53 31 32 33 34 31 41 31 30 31 00 00 00 00
+DM19 from Engine #1 (0): [
+  CAL ID of RADXSFAB and CVN of 0x62B4E766
+  CAL ID of NOx-SAE14a ATI1 and CVN of 0x138973A8
+  CAL ID of NOx-SAE14a ATO1 and CVN of 0xC9F94B8C
+  CAL ID of 12DBB20002 and CVN of 0x0000E5DE
+  CAL ID of PMS12341A101 and CVN of 0xA90FBFD2
+]
+
+2017-09-20T15:18:05.642 Global DM21 Request
+15:18:05.642 18EAFFF9 00 C1 00 (TX)
+15:18:08.142 18C10000 00 00 00 00 00 00 23 00
+DM21 from Engine #1 (0): [
+  Distance Traveled While MIL is Activated:     0 km (0 mi)
+  Time Run by Engine While MIL is Activated:    0 minutes
+  Distance Since DTCs Cleared:                  0 km (0 mi)
+  Time Since DTCs Cleared:                      35 minutes
+]
+Time Since Code Cleared Gap of 1 minutes
+
+2017-09-20T15:18:08.143 Global DM5 Request
+15:18:08.143 18EAFFF9 CE FE 00 (TX)
+15:18:10.643 18FECE03 00 05 05 00 00 00 00 00
+15:18:10.643 18FECE00 00 00 14 27 E0 1E A0 1E
+15:18:10.644 18FECE19 00 00 05 00 00 00 00 00
+Engine #1 (0) reported as an HD-OBD Module.
+
+2017-09-20T15:18:10.644 Direct DM24 Request to Engine #1 (0)
+15:18:10.644 18EA00F9 B6 FD 00 (TX)
+15:18:15.516 18FDB600 5C 00 1C 01 00 02 1C 01 01 02 1C 01 20 02 1C 02 1B 02 1C 01 1C 02 1C 01 1D 02 1C 01 1E 02 1C 01 1F 02 1C 01 6E 00 18 01 AF 00 1C 02 BE 00 1C 02 E5 0C 1C 02 54 00 1C 02 6C 00 1C 01 9E 00 1C 02 5A 15 1C 02 74 0E 1C 01 CB 14 1C 01 85 05 1C 02 86 05 1C 02 87 05 1C 02 88 05 1C 02 89 05 1C 02 8A 05 1C 02 AC 00 1C 01 69 00 1C 01 EB 0D 1C 01 84 00 1C 02 AB 00 1C 02 E7 0A 1C 02 1B 00 1C 02 D0 03 1C 01 5B 00 1C 01 3F 0A 1C 01 B7 00 1C 02 66 00 18 01 9D 00 18 02 C1 14 1C 02 AA 0C 1C 02 1A 0E 1C 02 AE 0C 1C 02 B3 0C 1C 02 F0 18 1C 02 AD 00 1C 02 EB 0A 1C 01 81 02 1C 01 39 04 1C 01 9C 01 1C 02 51 15 1C 01 E1 06 1C 01 90 0C 18 02 91 0C 1C 02 9A 0C 18 02 64 00 1E 01 F7 00 1C 04 10 02 1E 02 11 02 1E 02 12 02 1E 02 13 02 1E 02 2E 02 1E 01 54 02 1E 01 55 02 1E 01 56 02 1E 01 83 03 1E 01 95 03 1E 04 BF 03 1E 01 C0 03 1E 01 C1 03 1E 01 C2 03 1E 01 C3 03 1E 01 C4 03 1E 01 D2 03 1E 01 D3 03 1E 01 D5 04 1E 01 41 06 1E 01 42 06 1E 01 D7 0B 1E 01 98 0D 1A 02 A2 0D 1E 01 08 11 1E 02 0B 11 1E 02 9D 12 1E 02 0A 10 1D 01 CD 16 1D 01 E7 0C 1D 02 FD 0B 1D 02 DE 0C 1D 02 E6 0C 1D 01 C4 04 1D 02 BD 04 1D 01 1F 10 1D 01 22 10 1D 02 4E 15 1D 04 A5 1C 1D 02 02 02 1D 01 EF 1A 1D 03 E1 1C 19 01 57 15 1D 02 BC 0D 19 01 B7 1C 1D 01 B9 1C 1D 01 8B 02 1B 01 8C 02 1B 01 8D 02 1B 01 8E 02 1B 01 8F 02 1B 01 90 02 1B 01 D4 02 1B 01 2B 05 1B 01 2C 05 1B 01 2D 05 1B 01 2E 05 1B 01 2F 05 1B 01 30 05 1B 01 63 0A 1B 01 90 12 1B 01 2A 05 1B 01 B2 14 1B 01 0C 11 1B 01 15 15 1B 01 C7 14 1B 01 A7 13 1B 01 F5 0B 1B 01 22 0D 1B 01 E4 0D 1B 01 60 0F 1B 01 EB 10 1B 01 EE 10 1B 01 A0 13 1B 01 A5 14 1B 01 73 16 1B 01 CB 16 1B 01 76 1A 1B 01 7C 1A 1B 01 A2 1C 1B 01 92 0C 1B 01 9C 0C 1B 01 BB 12 1B 01 EB 00 1D 04 F8 00 1D 04 C5 16 1D 02
+DM24 from Engine #1 (0): (Supporting Scaled Test Results) [
+  SPN 110 - Engine Coolant Temperature
+  SPN 102 - Engine Intake Manifold #1 Pressure
+  SPN 157 - Engine Fuel 1 Injector Metering Rail 1 Pressure
+  SPN 3216 - Aftertreatment 1 SCR Intake NOx 1
+  SPN 3226 - Aftertreatment 1 Outlet NOx 1
+  SPN 3480 - Aftertreatment 1 Fuel Pressure 1
+  SPN 7393 - Aftertreatment 1 Particulate Sensor Current
+  SPN 3516 - Aftertreatment 1 Diesel Exhaust Fluid Concentration
+  SPN 651 - Engine Fuel 1 Injector Cylinder 1
+  SPN 652 - Engine Fuel 1 Injector Cylinder 2
+  SPN 653 - Engine Fuel 1 Injector Cylinder 3
+  SPN 654 - Engine Fuel 1 Injector Cylinder 4
+  SPN 655 - Engine Fuel 1 Injector Cylinder 5
+  SPN 656 - Engine Fuel 1 Injector Cylinder 6
+  SPN 724 - O2 Sensor
+  SPN 1323 - Engine Misfire Cylinder #1
+  SPN 1324 - Engine Misfire Cylinder #2
+  SPN 1325 - Engine Misfire Cylinder #3
+  SPN 1326 - Engine Misfire Cylinder #4
+  SPN 1327 - Engine Misfire Cylinder #5
+  SPN 1328 - Engine Misfire Cylinder #6
+  SPN 2659 - Engine Exhaust Gas Recirculation 1 Mass Flow Rate
+  SPN 4752 - Engine Exhaust Gas Recirculation 1 Cooler Efficiency
+  SPN 1322 - Engine Misfire for Multiple Cylinders
+  SPN 5298 - Aftertreatment 1 Diesel Oxidation Catalyst Conversion Efficiency
+  SPN 4364 - Aftertreatment 1 SCR Conversion Efficiency
+  SPN 5397 - Aftertreatment 1 Diesel Particulate Filter Regeneration too Frequent
+  SPN 5319 - Aftertreatment 1 Diesel Particulate Filter Incomplete Regeneration
+  SPN 5031 - Aftertreatment 1 Outlet NOx Sensor Heater Ratio
+  SPN 3061 - Engine Cold Start Emission Reduction Strategy System Monitor
+  SPN 3362 - Aftertreatment 1 Diesel Exhaust Fluid Dosing Unit 1 Input Lines
+  SPN 3556 - Aftertreatment 1 Hydrocarbon Doser 1
+  SPN 3936 - Aftertreatment Diesel Particulate Filter System
+  SPN 4331 - Aftertreatment 1 Diesel Exhaust Fluid Actual Dosing Quantity
+  SPN 4334 - Aftertreatment 1 Diesel Exhaust Fluid Doser 1 Absolute Pressure
+  SPN 5024 - Aftertreatment 1 Intake NOx Sensor Heater Ratio
+  SPN 5285 - Engine Charge Air Cooler 1 Efficiency
+  SPN 5747 - Aftertreatment 1 Outlet Soot Sensor Heater
+  SPN 5835 - Aftertreatment 1 Particulate Sensor
+  SPN 6774 - Aftertreatment 1 Particulate Sensor Regeneration State
+  SPN 6780 - Aftertreatment 1 Particulate Sensor Temperature
+  SPN 7330 - Aftertreatment 1 Particulate Sensor Heater Power Supply Diagnostic Status
+  SPN 3218 - Aftertreatment 1 Intake Gas Sensor 1 Power In Range
+  SPN 3228 - Aftertreatment 1 Outlet Gas Sensor 1 Power In Range
+  SPN 4795 - Aftertreatment 1 Diesel Particulate Filter Missing
+]
+
+2017-09-20T15:18:15.526 Direct DM30 Requests to Engine #1 (0)
+15:18:15.529 18E300F9 F7 66 00 1F FF FF FF FF (TX)
+15:18:15.846 18A40000 F7 66 00 10 34 00 2D 7F CC 8D FF FF F7 66 00 0A 0C 00 00 FB FF FF FF FF F7 66 00 12 34 00 2D 7F FF FF F3 71
+15:18:15.848 18E300F9 F7 6E 00 1F FF FF FF FF (TX)
+15:18:16.165 18A40000 F7 6E 00 10 44 00 19 2C 80 30 FF FF F7 6E 00 0A 44 00 19 2C FF FF 60 28 F7 6E 00 12 44 00 19 2C FF FF 60 23
+15:18:16.166 18E300F9 F7 9D 00 1F FF FF FF FF (TX)
+15:18:16.365 18A40000 F7 9D 00 12 89 01 5B 71 7D 87 FF FF F7 9D 00 10 89 01 5B 71 FF FF 12 5B
+15:18:16.366 18E300F9 F7 8B 02 1F FF FF FF FF (TX)
+15:18:16.565 18A40000 F7 8B 02 10 3F 01 00 FB FF FF FF FF F7 8B 02 12 3F 01 00 FB FF FF FF FF
+15:18:16.566 18E300F9 F7 8C 02 1F FF FF FF FF (TX)
+15:18:16.765 18A40000 F7 8C 02 10 3F 01 00 FB FF FF FF FF F7 8C 02 12 3F 01 00 FB FF FF FF FF
+15:18:16.766 18E300F9 F7 8D 02 1F FF FF FF FF (TX)
+15:18:16.956 18A40000 F7 8D 02 10 3F 01 00 FB FF FF FF FF F7 8D 02 12 3F 01 00 FB FF FF FF FF
+15:18:16.957 18E300F9 F7 8E 02 1F FF FF FF FF (TX)
+15:18:17.155 18A40000 F7 8E 02 10 3F 01 00 FB FF FF FF FF F7 8E 02 12 3F 01 00 FB FF FF FF FF
+15:18:17.156 18E300F9 F7 8F 02 1F FF FF FF FF (TX)
+15:18:17.356 18A40000 F7 8F 02 10 3F 01 00 FB FF FF FF FF F7 8F 02 12 3F 01 00 FB FF FF FF FF
+15:18:17.357 18E300F9 F7 90 02 1F FF FF FF FF (TX)
+15:18:17.555 18A40000 F7 90 02 10 3F 01 00 FB FF FF FF FF F7 90 02 12 3F 01 00 FB FF FF FF FF
+15:18:17.556 18E300F9 F7 D4 02 1F FF FF FF FF (TX)
+15:18:18.055 18A40000 F7 D4 02 10 20 00 0A 04 7D 04 FF FF F7 D4 02 12 20 00 0A 04 FF FF 83 03 F7 D4 02 02 84 00 5D 01 BB 02 FF FF F7 D4 02 02 84 00 81 00 DB 05 FF FF F7 D4 02 02 84 00 DF 01 CF 07 FF FF
+15:18:18.056 18E300F9 F7 2A 05 1F FF FF FF FF (TX)
+15:18:18.255 18A40000 F7 2A 05 1F 0C 00 00 00 01 00 FF FF F7 2A 05 0E 0C 00 00 00 03 00 FF FF
+15:18:18.255 18E300F9 F7 2B 05 1F FF FF FF FF (TX)
+15:18:18.335 18A40000 F7 2B 05 1F 0C 00 00 00 B4 00 00 00
+15:18:18.336 18E300F9 F7 2C 05 1F FF FF FF FF (TX)
+15:18:18.415 18A40000 F7 2C 05 1F 0C 00 00 00 B4 00 00 00
+15:18:18.415 18E300F9 F7 2D 05 1F FF FF FF FF (TX)
+15:18:18.497 18A40000 F7 2D 05 1F 0C 00 00 00 B4 00 00 00
+15:18:18.498 18E300F9 F7 2E 05 1F FF FF FF FF (TX)
+15:18:18.576 18A40000 F7 2E 05 1F 0C 00 00 00 B4 00 00 00
+15:18:18.576 18E300F9 F7 2F 05 1F FF FF FF FF (TX)
+15:18:18.655 18A40000 F7 2F 05 1F 0C 00 01 00 B4 00 00 00
+15:18:18.655 18E300F9 F7 30 05 1F FF FF FF FF (TX)
+15:18:18.735 18A40000 F7 30 05 1F 0C 00 00 00 B4 00 00 00
+15:18:18.736 18E300F9 F7 63 0A 1F FF FF FF FF (TX)
+15:18:19.055 18A40000 F7 63 0A 10 68 01 7F 7D 72 81 FF FF F7 63 0A 12 68 01 00 FB FF FF FF FF F7 63 0A 0A 0C 00 13 00 32 01 FF FF
+15:18:19.055 18E300F9 F7 F5 0B 1F FF FF FF FF (TX)
+15:18:19.135 18A40000 F7 F5 0B 1F 40 00 00 FB FF FF FF FF
+15:18:19.136 18E300F9 F7 90 0C 1F FF FF FF FF (TX)
+15:18:19.516 18A40000 F7 90 0C 12 5D 01 00 FB FF FF FF FF F7 90 0C 10 5D 01 00 FB FF FF FF FF F7 90 0C 02 0C 00 00 FB FF FF FF FF F7 90 0C 0A 00 01 00 FB FF FF FF FF
+15:18:19.516 18E300F9 F7 92 0C 1F FF FF FF FF (TX)
+15:18:19.596 18A40000 F7 92 0C 02 0C 00 00 00 05 00 FF FF
+15:18:19.596 18E300F9 F7 9A 0C 1F FF FF FF FF (TX)
+15:18:19.976 18A40000 F7 9A 0C 02 5D 01 00 FB FF FF FF FF F7 9A 0C 10 5D 01 00 FB FF FF FF FF F7 9A 0C 12 5D 01 00 FB FF FF FF FF F7 9A 0C 0A 00 01 00 FB FF FF FF FF
+15:18:19.977 18E300F9 F7 9C 0C 1F FF FF FF FF (TX)
+15:18:20.055 18A40000 F7 9C 0C 02 0C 00 00 00 05 00 FF FF
+15:18:20.056 18E300F9 F7 22 0D 1F FF FF FF FF (TX)
+15:18:20.135 18A40000 F7 22 0D 1F 0C 00 49 03 98 03 0C 03
+15:18:20.136 18E300F9 F7 98 0D 1F FF FF FF FF (TX)
+15:18:20.215 18A40000 F7 98 0D 11 63 01 00 FB FF FF FF FF
+15:18:20.215 18E300F9 F7 BC 0D 1F FF FF FF FF (TX)
+15:18:20.296 18A40000 F7 BC 0D 12 00 01 80 7D 80 AA FF FF
+15:18:20.297 18E300F9 F7 E4 0D 1F FF FF FF FF (TX)
+15:18:20.496 18A40000 F7 E4 0D 12 20 00 00 FB FF FF FF FF F7 E4 0D 02 63 01 00 FB FF FF FF FF
+15:18:20.496 18E300F9 F7 60 0F 1F FF FF FF FF (TX)
+15:18:20.696 18A40000 F7 60 0F 12 20 00 00 FB FF FF FF FF F7 60 0F 10 93 01 00 FB FF FF FF FF
+15:18:20.697 18E300F9 F7 EB 10 1F FF FF FF FF (TX)
+15:18:20.776 18A40000 F7 EB 10 10 20 00 5C 0A 4D 0C FF FF
+15:18:20.776 18E300F9 F7 EE 10 1F FF FF FF FF (TX)
+15:18:20.857 18A40000 F7 EE 10 12 63 01 CC 9F FF FF D7 98
+15:18:20.857 18E300F9 F7 0C 11 1F FF FF FF FF (TX)
+15:18:20.936 18A40000 F7 0C 11 12 00 01 00 FB FF FF FF FF
+15:18:20.936 18E300F9 F7 90 12 1F FF FF FF FF (TX)
+15:18:21.016 18A40000 F7 90 12 12 44 00 00 FB FF FF FF FF
+15:18:21.016 18E300F9 F7 BB 12 1F FF FF FF FF (TX)
+15:18:21.096 18A40000 F7 BB 12 1F 65 01 91 01 FF FF 20 00
+15:18:21.097 18E300F9 F7 A0 13 1F FF FF FF FF (TX)
+15:18:21.416 18A40000 F7 A0 13 0A 00 01 80 7D 86 7D FF FF F7 A0 13 0A 0C 00 00 00 01 00 FF FF F7 A0 13 0A 4D 01 2F 1B 30 75 FF FF
+15:18:21.416 18E300F9 F7 A7 13 1F FF FF FF FF (TX)
+15:18:21.737 18A40000 F7 A7 13 0A 4D 01 BC 1B E0 2E FF FF F7 A7 13 0A 00 01 80 7D 00 80 FF FF F7 A7 13 0A 0C 00 00 00 05 00 FF FF
+15:18:21.737 18E300F9 F7 A5 14 1F FF FF FF FF (TX)
+15:18:21.816 18A40000 F7 A5 14 12 00 01 00 FB FF FF FF FF
+15:18:21.817 18E300F9 F7 B2 14 1F FF FF FF FF (TX)
+15:18:21.897 18A40000 F7 B2 14 12 20 00 00 FB FF FF FF FF
+15:18:21.897 18E300F9 F7 C7 14 1F FF FF FF FF (TX)
+15:18:21.976 18A40000 F7 C7 14 1F 2E 01 00 FB FF FF FF FF
+15:18:21.976 18E300F9 F7 15 15 1F FF FF FF FF (TX)
+15:18:22.057 18A40000 F7 15 15 1F 0C 00 00 FB FF FF FF FF
+15:18:22.057 18E300F9 F7 73 16 1F FF FF FF FF (TX)
+15:18:22.137 18A40000 F7 73 16 0A 93 01 00 00 00 05 00 00
+15:18:22.138 18E300F9 F7 CB 16 1F FF FF FF FF (TX)
+15:18:22.217 18A40000 F7 CB 16 15 20 00 00 FB FF FF FF FF
+15:18:22.219 18E300F9 F7 76 1A 1F FF FF FF FF (TX)
+15:18:22.299 18A40000 F7 76 1A 07 0C 00 01 00 01 00 FF FF
+15:18:22.299 18E300F9 F7 7C 1A 1F FF FF FF FF (TX)
+15:18:22.377 18A40000 F7 7C 1A 02 44 00 31 1F 1E 27 1E 13
+15:18:22.378 18E300F9 F7 A2 1C 1F FF FF FF FF (TX)
+15:18:22.578 18A40000 F7 A2 1C 02 0C 00 00 00 01 00 FF FF F7 A2 1C 02 22 01 17 00 25 00 0F 00
+15:18:22.578 18E300F9 F7 E1 1C 1F FF FF FF FF (TX)
+15:18:22.656 18A40000 F7 E1 1C 0A 00 01 80 7D 80 96 FF FF
+
+Scaled Tests Results from Engine #1 (0): [
+  SPN 102 FMI 16 Result: Test Passed. Min: N/A, Value: 4.352, Max: 33.594 kPa
+  SPN 102 FMI 10 Result: Test Not Complete.
+  SPN 102 FMI 18 Result: Test Passed. Min: -22.102, Value: 4.352, Max: N/A kPa
+  SPN 110 FMI 16 Result: Test Passed. Min: N/A, Value: 79.781, Max: 115 C
+  SPN 110 FMI 10 Result: Test Passed. Min: 50, Value: 79.781, Max: N/A C
+  SPN 110 FMI 18 Result: Test Passed. Min: 10, Value: 79.781, Max: N/A C
+  SPN 157 FMI 18 Result: Test Passed. Min: N/A, Value: 0.067, Max: 19.998 MPa
+  SPN 157 FMI 16 Result: Test Passed. Min: -20.001, Value: 0.067, Max: N/A MPa
+  SPN 651 FMI 16 Result: Test Not Complete.
+  SPN 651 FMI 18 Result: Test Not Complete.
+  SPN 652 FMI 16 Result: Test Not Complete.
+  SPN 652 FMI 18 Result: Test Not Complete.
+  SPN 653 FMI 16 Result: Test Not Complete.
+  SPN 653 FMI 18 Result: Test Not Complete.
+  SPN 654 FMI 16 Result: Test Not Complete.
+  SPN 654 FMI 18 Result: Test Not Complete.
+  SPN 655 FMI 16 Result: Test Not Complete.
+  SPN 655 FMI 18 Result: Test Not Complete.
+  SPN 656 FMI 16 Result: Test Not Complete.
+  SPN 656 FMI 18 Result: Test Not Complete.
+  SPN 724 FMI 16 Result: Test Passed. Min: N/A, Value: 1.034, Max: 1.149
+  SPN 724 FMI 18 Result: Test Passed. Min: 0.899, Value: 1.034, Max: N/A
+  SPN 724 FMI 2 Result: Test Passed. Min: N/A, Value: 349, Max: 699 ms
+  SPN 724 FMI 2 Result: Test Passed. Min: N/A, Value: 129, Max: 1,499 ms
+  SPN 724 FMI 2 Result: Test Passed. Min: N/A, Value: 479, Max: 1,999 ms
+  SPN 1322 FMI 31 Result: Test Passed. Min: N/A, Value: 0, Max: 1
+  SPN 1322 FMI 14 Result: Test Passed. Min: N/A, Value: 0, Max: 3
+  SPN 1323 FMI 31 Result: Test Passed. Min: 0, Value: 0, Max: 180
+  SPN 1324 FMI 31 Result: Test Passed. Min: 0, Value: 0, Max: 180
+  SPN 1325 FMI 31 Result: Test Passed. Min: 0, Value: 0, Max: 180
+  SPN 1326 FMI 31 Result: Test Passed. Min: 0, Value: 0, Max: 180
+  SPN 1327 FMI 31 Result: Test Passed. Min: 0, Value: 1, Max: 180
+  SPN 1328 FMI 31 Result: Test Passed. Min: 0, Value: 0, Max: 180
+  SPN 2659 FMI 16 Result: Test Passed. Min: N/A, Value: 0, Max: 101.1 kg/h
+  SPN 2659 FMI 18 Result: Test Not Complete.
+  SPN 2659 FMI 10 Result: Test Passed. Min: N/A, Value: 19, Max: 306
+  SPN 3061 FMI 31 Result: Test Not Complete.
+  SPN 3216 FMI 18 Result: Test Not Complete.
+  SPN 3216 FMI 16 Result: Test Not Complete.
+  SPN 3216 FMI 2 Result: Test Not Complete.
+  SPN 3216 FMI 10 Result: Test Not Complete.
+  SPN 3218 FMI 2 Result: Test Passed. Min: N/A, Value: 0, Max: 5
+  SPN 3226 FMI 2 Result: Test Not Complete.
+  SPN 3226 FMI 16 Result: Test Not Complete.
+  SPN 3226 FMI 18 Result: Test Not Complete.
+  SPN 3226 FMI 10 Result: Test Not Complete.
+  SPN 3228 FMI 2 Result: Test Passed. Min: N/A, Value: 0, Max: 5
+  SPN 3362 FMI 31 Result: Test Passed. Min: 780, Value: 841, Max: 920
+  SPN 3480 FMI 17 Result: Test Not Complete.
+  SPN 3516 FMI 18 Result: Test Passed. Min: N/A, Value: 0, Max: 90 %
+  SPN 3556 FMI 18 Result: Test Not Complete.
+  SPN 3556 FMI 2 Result: Test Not Complete.
+  SPN 3936 FMI 18 Result: Test Not Complete.
+  SPN 3936 FMI 16 Result: Test Not Complete.
+  SPN 4331 FMI 16 Result: Test Passed. Min: N/A, Value: 2.652, Max: 3.149
+  SPN 4334 FMI 18 Result: Test Passed. Min: 700, Value: 878.1, Max: N/A kPa
+  SPN 4364 FMI 18 Result: Test Not Complete.
+  SPN 4752 FMI 18 Result: Test Not Complete.
+  SPN 4795 FMI 31 Result: Test Passed. Min: 0.25, Value: 3.133, Max: N/A kPa
+  SPN 5024 FMI 10 Result: Test Passed. Min: N/A, Value: 0, Max: 0.047 %
+  SPN 5024 FMI 10 Result: Test Passed. Min: N/A, Value: 0, Max: 1
+  SPN 5024 FMI 10 Result: Test Passed. Min: N/A, Value: 69.59, Max: 300 s
+  SPN 5031 FMI 10 Result: Test Passed. Min: N/A, Value: 71, Max: 120 s
+  SPN 5031 FMI 10 Result: Test Passed. Min: N/A, Value: 0, Max: 5 %
+  SPN 5031 FMI 10 Result: Test Passed. Min: N/A, Value: 0, Max: 5
+  SPN 5285 FMI 18 Result: Test Not Complete.
+  SPN 5298 FMI 18 Result: Test Not Complete.
+  SPN 5319 FMI 31 Result: Test Not Complete.
+  SPN 5397 FMI 31 Result: Test Not Complete.
+  SPN 5747 FMI 10 Result: Test Passed. Min: 0, Value: 0, Max: 5 ÂµA
+  SPN 5835 FMI 21 Result: Test Not Complete.
+  SPN 6774 FMI 7 Result: Test Passed. Min: N/A, Value: 1, Max: 1
+  SPN 6780 FMI 2 Result: Test Passed. Min: -120.062, Value: -23.469, Max: 39.938 C
+  SPN 7330 FMI 2 Result: Test Passed. Min: N/A, Value: 0, Max: 1
+  SPN 7330 FMI 2 Result: Test Passed. Min: 1.5, Value: 2.3, Max: 3.7 ohm
+  SPN 7393 FMI 10 Result: Test Passed. Min: N/A, Value: 0, Max: 50 %
+]
+
+Incomplete Tests: [
+  Engine #1 (0): SPN 102 FMI 10 Result: Test Not Complete.
+  Engine #1 (0): SPN 2659 FMI 18 Result: Test Not Complete.
+  Engine #1 (0): SPN 3061 FMI 31 Result: Test Not Complete.
+  Engine #1 (0): SPN 3216 FMI 10 Result: Test Not Complete.
+  Engine #1 (0): SPN 3216 FMI 16 Result: Test Not Complete.
+  Engine #1 (0): SPN 3216 FMI 18 Result: Test Not Complete.
+  Engine #1 (0): SPN 3216 FMI 2 Result: Test Not Complete.
+  Engine #1 (0): SPN 3226 FMI 10 Result: Test Not Complete.
+  Engine #1 (0): SPN 3226 FMI 16 Result: Test Not Complete.
+  Engine #1 (0): SPN 3226 FMI 18 Result: Test Not Complete.
+  Engine #1 (0): SPN 3226 FMI 2 Result: Test Not Complete.
+  Engine #1 (0): SPN 3480 FMI 17 Result: Test Not Complete.
+  Engine #1 (0): SPN 3556 FMI 18 Result: Test Not Complete.
+  Engine #1 (0): SPN 3556 FMI 2 Result: Test Not Complete.
+  Engine #1 (0): SPN 3936 FMI 16 Result: Test Not Complete.
+  Engine #1 (0): SPN 3936 FMI 18 Result: Test Not Complete.
+  Engine #1 (0): SPN 4364 FMI 18 Result: Test Not Complete.
+  Engine #1 (0): SPN 4752 FMI 18 Result: Test Not Complete.
+  Engine #1 (0): SPN 5285 FMI 18 Result: Test Not Complete.
+  Engine #1 (0): SPN 5298 FMI 18 Result: Test Not Complete.
+  Engine #1 (0): SPN 5319 FMI 31 Result: Test Not Complete.
+  Engine #1 (0): SPN 5397 FMI 31 Result: Test Not Complete.
+  Engine #1 (0): SPN 5835 FMI 21 Result: Test Not Complete.
+  Engine #1 (0): SPN 651 FMI 16 Result: Test Not Complete.
+  Engine #1 (0): SPN 651 FMI 18 Result: Test Not Complete.
+  Engine #1 (0): SPN 652 FMI 16 Result: Test Not Complete.
+  Engine #1 (0): SPN 652 FMI 18 Result: Test Not Complete.
+  Engine #1 (0): SPN 653 FMI 16 Result: Test Not Complete.
+  Engine #1 (0): SPN 653 FMI 18 Result: Test Not Complete.
+  Engine #1 (0): SPN 654 FMI 16 Result: Test Not Complete.
+  Engine #1 (0): SPN 654 FMI 18 Result: Test Not Complete.
+  Engine #1 (0): SPN 655 FMI 16 Result: Test Not Complete.
+  Engine #1 (0): SPN 655 FMI 18 Result: Test Not Complete.
+  Engine #1 (0): SPN 656 FMI 16 Result: Test Not Complete.
+  Engine #1 (0): SPN 656 FMI 18 Result: Test Not Complete.
+]
+35 Incomplete Tests
+
+2017-09-20T15:18:22.683 Global DM5 Request
+15:18:22.683 18EAFFF9 CE FE 00 (TX)
+15:18:25.183 18FECE03 00 05 05 00 00 00 00 00
+15:18:25.183 18FECE00 00 00 14 27 E0 1E A0 1E
+15:18:25.183 18FECE19 00 00 05 00 00 00 00 00
+
+2017-09-20T15:18:25.186 Vehicle Composite Results of DM5:
++----------------------------+----------------+----------------+
+|           Monitor          | Initial Status |  Last Status   |
+|                            |   2017-09-20   |   2017-09-20   |
+|                            |  14:53:08.078  |  15:18:25.184  |
++----------------------------+----------------+----------------+
+| A/C system refrigerant     |  Unsupported   |  Unsupported   |
+| Boost pressure control sys |  Not Complete  |  Not Complete  |
+| Catalyst                   |  Unsupported   |  Unsupported   |
+| Cold start aid system      |  Unsupported   |  Unsupported   |
+| Comprehensive component    |      Complete  |      Complete  |
+| Diesel Particulate Filter  |  Not Complete  |  Not Complete  |
+| EGR/VVT system             |  Not Complete  |  Not Complete  |
+| Evaporative system         |  Unsupported   |  Unsupported   |
+| Exhaust Gas Sensor         |  Not Complete  |  Not Complete  |
+|*Exhaust Gas Sensor heater  |  Not Complete  |      Complete *|
+| Fuel System                |  Not Complete  |  Not Complete  |
+| Heated catalyst            |  Unsupported   |  Unsupported   |
+| Misfire                    |      Complete  |      Complete  |
+| NMHC converting catalyst   |  Not Complete  |  Not Complete  |
+| NOx catalyst/adsorber      |  Not Complete  |  Not Complete  |
+| Secondary air system       |  Unsupported   |  Unsupported   |
++----------------------------+----------------+----------------+
+
+2017-09-20T15:18:25.189 Global DM26 Request
+15:18:25.189 18EAFFF9 B8 FD 00 (TX)
+15:18:27.689 18FDB800 BF 05 01 27 80 16 A0 1E
+DM26 from Engine #1 (0): Warm-ups: 1, Time Since Engine Start: 1,471 seconds
+
+Vehicle Composite of DM26:
+A/C system refrigerant     not enabled,     complete
+Boost pressure control sys     enabled, not complete
+Catalyst                   not enabled,     complete
+Cold start aid system      not enabled,     complete
+Comprehensive component        enabled,     complete
+Diesel Particulate Filter      enabled, not complete
+EGR/VVT system                 enabled, not complete
+Evaporative system         not enabled,     complete
+Exhaust Gas Sensor         not enabled, not complete
+Exhaust Gas Sensor heater  not enabled,     complete
+Fuel System                    enabled, not complete
+Heated catalyst            not enabled,     complete
+Misfire                        enabled,     complete
+NMHC converting catalyst       enabled, not complete
+NOx catalyst/adsorber      not enabled, not complete
+Secondary air system       not enabled,     complete
+
+2017-09-20T15:18:27.691 Global DM20 Request
+15:18:27.691 18EAFFF9 00 C2 00 (TX)
+15:18:30.191 18C20000 2E 02 24 00 CA 14 F8 00 00 10 00 B8 12 F8 00 00 24 00 C6 14 F8 00 00 24 00 F2 0B F8 00 00 24 00 F8 0B F8 00 00 24 00 C9 14 F8 00 00 24 00 EF 0B F8 07 00 24 00
+
+2017-09-20T15:18:30.192 Vehicle Composite Results of DM20:
++-----+----------------------------------+-----------------+-----------------+
+|     |                                  |  Initial Status |   Last Status   |
+|     |                                  |    2017-09-20   |    2017-09-20   |
+|     |                                  |   14:53:13.098  |   15:18:30.192  |
++-----+----------------------------------+-----------------+-----------------+
+|*    | Ignition Cycles                  |             557 |            558 *|
+|*    | OBD Monitoring Conditions Count  |              35 |             36 *|
++-----+----------------------------------+--------+--------+--------+--------+
+| Src | Monitor                          |  Num'r |  Den'r |  Num'r |  Den'r |
++-----+----------------------------------+--------+--------+--------+--------+
+|*  0 | 3055 Fuel Sys Mon                |      7 |     35 |     7  |    36 *|
+|*  0 | 3058 EGR Sys Mon                 |      0 |     35 |     0  |    36 *|
+|*  0 | 3064 AFT DPF Sys Mon             |      0 |     35 |     0  |    36 *|
+|*  0 | 4792 AFT 1 SCR Sys               |      0 |     35 |     0  |    36 *|
+|*  0 | 5318 AFT Exh Gas Snsr Sys Mon    |      0 |     35 |     0  |    36 *|
+|*  0 | 5321 Intake Manifold Press Sys ..|      0 |     35 |     0  |    36 *|
+|   0 | 5322 AFT NMHC Converting Cataly..|      0 |     16 |     0  |    16  |
++-----+----------------------------------+--------+--------+--------+--------+
+
+2017-09-20T15:18:30.198 Global DM21 Request
+15:18:30.198 18EAFFF9 00 C1 00 (TX)
+15:18:32.698 18C10000 00 00 00 00 00 00 23 00
+DM21 from Engine #1 (0): [
+  Distance Traveled While MIL is Activated:     0 km (0 mi)
+  Time Run by Engine While MIL is Activated:    0 minutes
+  Distance Since DTCs Cleared:                  0 km (0 mi)
+  Time Since DTCs Cleared:                      35 minutes
+]
+Time Since Code Cleared Gap of 0 minutes
+
+2017-09-20T15:18:32.700 Vehicle Distance
+15:18:35.200 18FEC117 DD 84 01 00 FF FF FF FF
+High Resolution Vehicle Distance from Instrument Cluster #1 (23): 497.745 km (309.284 mi)
+
+2017-09-20T15:18:35.201 Engine Hours Request
+15:18:35.201 18EAFFF9 E5 FE 00 (TX)
+15:18:37.701 18FEE500 31 07 00 00 90 15 00 00
+Engine Hours from Engine #1 (0): 92.05 hours
+
+2017-09-20T15:18:37.701 Global VIN Request
+15:18:37.702 18EAFFF9 EC FE 00 (TX)
+15:18:40.202 18FEEC00 33 48 43 44 5A 54 5A 52 33 4A 4C 34 34 32 37 32 35 2A
+Vehicle Identification from Engine #1 (0): **REDACTED*442725
+
+2017-09-20T15:18:40.203 Global DM19 (Calibration Information) Request
+15:18:40.203 18EAFFF9 00 D3 00 (TX)
+15:18:42.703 18D30000 66 E7 B4 62 52 41 44 58 53 46 41 42 00 00 00 00 00 00 00 00 A8 73 89 13 4E 4F 78 2D 53 41 45 31 34 61 20 41 54 49 31 00 8C 4B F9 C9 4E 4F 78 2D 53 41 45 31 34 61 20 41 54 4F 31 00 DE E5 00 00 31 32 44 42 42 32 30 30 30 32 00 00 00 00 00 00 D2 BF 0F A9 50 4D 53 31 32 33 34 31 41 31 30 31 00 00 00 00
+DM19 from Engine #1 (0): [
+  CAL ID of RADXSFAB and CVN of 0x62B4E766
+  CAL ID of NOx-SAE14a ATI1 and CVN of 0x138973A8
+  CAL ID of NOx-SAE14a ATO1 and CVN of 0xC9F94B8C
+  CAL ID of 12DBB20002 and CVN of 0x0000E5DE
+  CAL ID of PMS12341A101 and CVN of 0xA90FBFD2
+]
+
+2017-09-20T15:18:42.705 Total Queries: 57
+2017-09-20T15:18:42.705 Total Time Out Errors: 0
+2017-09-20T15:18:42.705 Total Data Collection Log Reports: 1
+2017-09-20T15:18:42.705 Total Excessive Time Since Code Clear Gaps: 0
+
+2017-09-20T15:18:42.706 IUMPR Data Collection Tool Data Collection Log END OF REPORT
+
+2017-09-20T15:18:57.793 End of IUMPR Data Collection Tool Execution
+
+2017-09-20T15:33:20.382 IUMPR Data Collection Tool for 13 CCR 1971.1(l)(2) and (h)(1.7)
+2017-09-20T15:33:20.385 IUMPR Data Collection Tool version 1.0.0 - 2017/09/18 09:14
+
+IIIIIIIII  UUU     UUU  MMM       MMM  PPPPPPPP     RRRRRRRR     DATA PLATE REPORT
+IIIIIIIII  UUU     UUU  MMMM     MMMM  PPPPPPPPP    RRRRRRRRR    DATA PLATE REPORT
+   III     UUU     UUU  MMMMM   MMMMM  PPP    PPP   RRR    RRR   DATA PLATE REPORT
+   III     UUU     UUU  MMMMMMMMMMMMM  PPP     PPP  RRR     RRR  DATA PLATE REPORT
+   III     UUU     UUU  MMM  MMM  MMM  PPP     PPP  RRR     RRR  DATA PLATE REPORT
+   III     UUU     UUU  MMM   M   MMM  PPP    PPP   RRR    RRR   DATA PLATE REPORT
+   III     UUU     UUU  MMM       MMM  PPPPPPPPP    RRRRRRRRR    DATA PLATE REPORT
+   III     UUU     UUU  MMM       MMM  PPPPPPPP     RRRRRRRR     DATA PLATE REPORT
+   III     UUU     UUU  MMM       MMM  PPP          RRR RRR      DATA PLATE REPORT
+   III     UUU     UUU  MMM       MMM  PPP          RRR  RRR     DATA PLATE REPORT
+   III     UUU     UUU  MMM       MMM  PPP          RRR   RRR    DATA PLATE REPORT
+IIIIIIIII  UUUUUUUUUUU  MMM       MMM  PPP          RRR    RRR   DATA PLATE REPORT
+IIIIIIIII   UUUUUUUUU   MMM       MMM  PPP          RRR     RRR  DATA PLATE REPORT
+
+2017-09-20T15:33:20.388 IUMPR Data Collection Tool Data Plate Report
+
+2017-09-20T15:33:20.388 Existing File: C:\Users\u00jrpf\Desktop\JL442725v1_0_0.iumpr
+
+2017-09-20T15:33:20.388 Baud Rate: 500,000 bps
+
+2017-09-20T15:33:20.398 Global Request for Address Claim
+15:33:20.399 18EAFFF9 00 EE 00 (TX)
+15:33:22.901 18EEFFF9 00 00 E0 FF 00 81 00 00 (TX)
+Off Board Diagnostic-Service Tool #1 (249) reported as: {
+  Industry Group: Global
+  Vehicle System: Non-specific System, System Instance: 0
+  Function: Off-board diagnostic-service tool, Functional Instance: 0, ECU Instance: 0
+  Manufactured by: Equipment & Tool Institute, Identity Number: 0
+  Is not arbitrary address capable.
+}
+15:33:22.901 18EEFF4C 38 32 A0 01 00 38 00 00
+Communications Unit, Radio (76) reported as: {
+  Industry Group: Global
+  Vehicle System: Non-specific System, System Instance: 0
+  Function: Communications Unit, Radio, Functional Instance: 0, ECU Instance: 0
+  Manufactured by: *** Redacted ***,  Identity Number: 12856
+  Is not arbitrary address capable.
+}
+15:33:22.901 18EEFF00 00 00 40 05 00 00 00 00
+Engine #1 (0) reported as: {
+  Industry Group: Global
+  Vehicle System: Non-specific System, System Instance: 0
+  Function: Engine, Functional Instance: 0, ECU Instance: 0
+  Manufactured by: *** Redacted ***, Engine Electronics, Identity Number: 0
+  Is not arbitrary address capable.
+}
+15:33:22.901 18EEFF0B 00 00 40 0B 00 09 00 00
+Brakes - System Controller (11) reported as: {
+  Industry Group: Global
+  Vehicle System: Non-specific System, System Instance: 0
+  Function: Brakes - System Controller, Functional Instance: 0, ECU Instance: 0
+  Manufactured by: ***Redacted***, Identity Number: 0
+  Is not arbitrary address capable.
+}
+15:33:22.901 18EEFF21 2B 00 60 05 00 1A 00 10
+Body Controller (33) reported as: {
+  Industry Group: On-Highway Equipment
+  Vehicle System: Unknown System (0), System Instance: 0
+  Function: Unknown Function (26), Functional Instance: 0, ECU Instance: 0
+  Manufactured by: *** Redacted ***, Vehicle Electronics, Identity Number: 43
+  Is not arbitrary address capable.
+}
+15:33:22.901 18EEFF03 00 00 40 02 00 03 00 00
+Transmission #1 (3) reported as: {
+  Industry Group: Global
+  Vehicle System: Non-specific System, System Instance: 0
+  Function: Transmission, Functional Instance: 0, ECU Instance: 0
+  Manufactured by: *** Redacted ***, Identity Number: 0
+  Is not arbitrary address capable.
+}
+15:33:22.901 18EEFF37 0D 00 60 05 00 29 52 00
+Lighting - Operator Controls (55) reported as: {
+  Industry Group: Global
+  Vehicle System: Unknown System (41), System Instance: 0
+  Function: Unknown Function (41), Functional Instance: 0, ECU Instance: 0
+  Manufactured by: *** Redacted ***, Vehicle Electronics, Identity Number: 13
+  Is not arbitrary address capable.
+}
+15:33:22.901 18EEFF97 00 00 60 05 00 87 00 00
+Reserved for future assignment 151 (151) reported as: {
+  Industry Group: Global
+  Vehicle System: Non-specific System, System Instance: 0
+  Function: Keypad, Functional Instance: 0, ECU Instance: 0
+  Manufactured by: *** Redacted ***, Vehicle Electronics, Identity Number: 0
+  Is not arbitrary address capable.
+}
+15:33:22.901 18EEFF98 00 00 60 05 09 87 00 00
+Reserved for future assignment 152 (152) reported as: {
+  Industry Group: Global
+  Vehicle System: Non-specific System, System Instance: 0
+  Function: Keypad, Functional Instance: 1, ECU Instance: 1
+  Manufactured by: *** Redacted ***, Vehicle Electronics, Identity Number: 0
+  Is not arbitrary address capable.
+}
+15:33:22.901 18EEFF19 00 00 60 05 00 15 00 00
+Passenger-Operator Climate Control #1 (25) reported as: {
+  Industry Group: Global
+  Vehicle System: Non-specific System, System Instance: 0
+  Function: Cab Climate Control, Functional Instance: 0, ECU Instance: 0
+  Manufactured by: *** Redacted ***, Vehicle Electronics, Identity Number: 0
+  Is not arbitrary address capable.
+}
+15:33:22.902 18EEFF05 42 50 60 05 00 05 02 10
+Shift Console - Primary (5) reported as: {
+  Industry Group: On-Highway Equipment
+  Vehicle System: Unknown System (1), System Instance: 0
+  Function: Unknown Function (5), Functional Instance: 0, ECU Instance: 0
+  Manufactured by: *** Redacted ***, Vehicle Electronics, Identity Number: 20546
+  Is not arbitrary address capable.
+}
+15:33:22.902 18EEFFFE 80 06 60 05 00 81 00 10
+Null Address (254) reported as: {
+  Industry Group: On-Highway Equipment
+  Vehicle System: Non-specific System, System Instance: 0
+  Function: Door Controller, Functional Instance: 0, ECU Instance: 0
+  Manufactured by: *** Redacted ***, Vehicle Electronics, Identity Number: 1664
+  Is not arbitrary address capable.
+}
+15:33:22.902 18EEFFFE 19 01 60 05 08 81 00 10
+Null Address (254) reported as: {
+  Industry Group: On-Highway Equipment
+  Vehicle System: Non-specific System, System Instance: 0
+  Function: Door Controller, Functional Instance: 1, ECU Instance: 0
+  Manufactured by: *** Redacted ***, Vehicle Electronics, Identity Number: 281
+  Is not arbitrary address capable.
+}
+15:33:22.902 18EEFF17 43 47 60 05 00 13 00 00
+Instrument Cluster #1 (23) reported as: {
+  Industry Group: Global
+  Vehicle System: Non-specific System, System Instance: 0
+  Function: Instrument Cluster, Functional Instance: 0, ECU Instance: 0
+  Manufactured by: *** Redacted ***, Vehicle Electronics, Identity Number: 18243
+  Is not arbitrary address capable.
+}
+15:33:22.902 18EEFFFE 80 06 60 05 00 81 00 10
+Null Address (254) reported as: {
+  Industry Group: On-Highway Equipment
+  Vehicle System: Non-specific System, System Instance: 0
+  Function: Door Controller, Functional Instance: 0, ECU Instance: 0
+  Manufactured by: *** Redacted ***, Vehicle Electronics, Identity Number: 1664
+  Is not arbitrary address capable.
+}
+15:33:22.902 18EEFFFE 19 01 60 05 08 81 00 10
+Null Address (254) reported as: {
+  Industry Group: On-Highway Equipment
+  Vehicle System: Non-specific System, System Instance: 0
+  Function: Door Controller, Functional Instance: 1, ECU Instance: 0
+  Manufactured by: *** Redacted ***, Vehicle Electronics, Identity Number: 281
+  Is not arbitrary address capable.
+}
+15:33:22.902 18EEFF4C 38 32 A0 01 00 38 00 00
+Communications Unit, Radio (76) reported as: {
+  Industry Group: Global
+  Vehicle System: Non-specific System, System Instance: 0
+  Function: Communications Unit, Radio, Functional Instance: 0, ECU Instance: 0
+  Manufactured by: *** Redacted ***,  Identity Number: 12856
+  Is not arbitrary address capable.
+}
+
+2017-09-20T15:33:22.907 Global VIN Request
+15:33:22.907 18EAFFF9 EC FE 00 (TX)
+15:33:25.407 18FEEC00 33 48 43 44 5A 54 5A 52 33 4A 4C 34 34 32 37 32 35 2A
+Vehicle Identification from Engine #1 (0): **REDACTED*442725
+
+2017-09-20T15:33:25.407 Global DM19 (Calibration Information) Request
+15:33:25.408 18EAFFF9 00 D3 00 (TX)
+15:33:27.908 18D30000 66 E7 B4 62 52 41 44 58 53 46 41 42 00 00 00 00 00 00 00 00 A8 73 89 13 4E 4F 78 2D 53 41 45 31 34 61 20 41 54 49 31 00 8C 4B F9 C9 4E 4F 78 2D 53 41 45 31 34 61 20 41 54 4F 31 00 DE E5 00 00 31 32 44 42 42 32 30 30 30 32 00 00 00 00 00 00 D2 BF 0F A9 50 4D 53 31 32 33 34 31 41 31 30 31 00 00 00 00
+DM19 from Engine #1 (0): [
+  CAL ID of RADXSFAB and CVN of 0x62B4E766
+  CAL ID of NOx-SAE14a ATI1 and CVN of 0x138973A8
+  CAL ID of NOx-SAE14a ATO1 and CVN of 0xC9F94B8C
+  CAL ID of 12DBB20002 and CVN of 0x0000E5DE
+  CAL ID of PMS12341A101 and CVN of 0xA90FBFD2
+]
+
+2017-09-20T15:33:27.908 Global DM21 Request
+15:33:27.908 18EAFFF9 00 C1 00 (TX)
+15:33:30.410 18C10000 00 00 00 00 00 00 2F 00
+DM21 from Engine #1 (0): [
+  Distance Traveled While MIL is Activated:     0 km (0 mi)
+  Time Run by Engine While MIL is Activated:    0 minutes
+  Distance Since DTCs Cleared:                  0 km (0 mi)
+  Time Since DTCs Cleared:                      47 minutes
+]
+Time Since Code Cleared Gap of 12 minutes
+
+2017-09-20T15:33:30.413 Global DM5 Request
+15:33:30.413 18EAFFF9 CE FE 00 (TX)
+15:33:32.913 18FECE00 00 00 14 27 E0 1E A0 1E
+15:33:32.913 18FECE03 00 05 05 00 00 00 00 00
+15:33:32.914 18FECE19 00 00 05 00 00 00 00 00
+Engine #1 (0) reported as an HD-OBD Module.
+
+2017-09-20T15:33:32.915 Global Component Identification Request
+15:33:32.915 18EAFFF9 EB FE 00 (TX)
+15:33:35.415 1CFEEB0B 42 4E 44 57 53 2A 45 43 38 30 41 54 43 20 2A 32 57 33 31 31 36 30 31 30 35 2A 2A
+Found Brakes - System Controller (11): Make: *****, Model: EC80ATC, Serial: 2W31160105, Unit: 
+15:33:35.415 1CFEEB03 45 41 54 4F 4E 2A 46 41 4F 4D 2D 78 78 38 31 30 43 2D 45 41 33 2A 50 31 30 31 38 32 35 36 2A 2A
+Found Transmission #1 (3): Make: *****, Model: FAOM-xx810C-EA3, Serial: P1018256, Unit: 
+15:33:35.415 18FEEB17 49 4E 54 2A 34 30 36 32 38 37 37 43 31 2A 39 38 38 38 34 36 30 30 30 35 43 36 36 37 33 2A 2A
+Found Instrument Cluster #1 (23): Make: ***, Model: 4062877C1, Serial: 9888460005C6673, Unit: 
+15:33:35.415 1CFEEB05 49 4E 54 20 20 2A 52 4E 44 4D 4C 3B 20 4D 6F 64 65 50 65 72 73 69 73 74 3D 74 72 75 65 2A 2A 2A
+Found Shift Console - Primary (5): Make: ***, Model: RNDML; ModePersist=true, Serial: , Unit: 
+15:33:35.415 1CFEEB19 49 4E 54 20 20 2A 34 30 36 35 33 33 31 43 33 2A 30 30 30 30 30 30 30 30 30 30 30 30 37 33 37 38 2A 2A
+Found Passenger-Operator Climate Control #1 (25): Make: ***, Model: 4065331C3, Serial: 0000000000007378, Unit: 
+15:33:35.416 18FEEB37 49 4E 54 20 20 2A 20 34 30 38 30 39 34 31 43 31 2A 4C 31 36 33 34 30 34 34 32 37 32 35 30 30 30 32 30 32 2A 2A
+Found Lighting - Operator Controls (55): Make: ***, Model: 4080941C1, Serial: L16340442725000202, Unit: 
+15:33:35.417 18FEEB98 49 4E 54 20 20 2A 20 34 30 35 37 36 38 39 43 31 2A 4D 31 36 33 34 30 34 34 32 37 32 35 30 32 30 33 36 35 2A 2A
+Found Reserved for future assignment 152 (152): Make: ***, Model: 4057689C1, Serial: M16340442725020365, Unit: 
+15:33:35.418 18FEEB97 49 4E 54 20 20 2A 20 34 30 35 37 36 38 39 43 31 2A 4D 31 36 33 34 31 34 34 32 37 32 35 30 31 30 30 33 39 2A 2A
+Found Reserved for future assignment 151 (151): Make: ***, Model: 4057689C1, Serial: M16341442725010039, Unit: 
+15:33:35.418 18FEEB00 49 4E 54 20 20 2A 37 35 37 31 30 33 31 37 31 37 2A 31 32 34 4B 4D 32 59 34 35 30 30 30 31 39 00 00 00 2A 30 00 00 00 00 00 00 00 00 00 2A 19 19 19 19 19 19 19 19 19 19 19 19 19 19 19 19 00
+Found Engine #1 (0): Make: ***, Model: 7571031717, Serial: 124KM2Y4500019, Unit: 0
+
+Existing file; Codes Not Cleared
+
+2017-09-20T15:33:35.420 Global DM5 Request
+15:33:35.420 18EAFFF9 CE FE 00 (TX)
+15:33:37.920 18FECE03 00 05 05 00 00 00 00 00
+DM5 from Transmission #1 (3): OBD Compliance: Not intended to meet OBD II requirements (5), Active Codes: 0, Previously Active Codes: 5
+15:33:37.920 18FECE00 00 00 14 27 E0 1E A0 1E
+DM5 from Engine #1 (0): OBD Compliance: HD OBD (20), Active Codes: 0, Previously Active Codes: 0
+15:33:37.920 18FECE19 00 00 05 00 00 00 00 00
+DM5 from Passenger-Operator Climate Control #1 (25): OBD Compliance: Not intended to meet OBD II requirements (5), Active Codes: 0, Previously Active Codes: 0
+
+Vehicle Composite of DM5:
+A/C system refrigerant     not supported,     complete
+Boost pressure control sys     supported, not complete
+Catalyst                   not supported,     complete
+Cold start aid system      not supported,     complete
+Comprehensive component        supported,     complete
+Diesel Particulate Filter      supported, not complete
+EGR/VVT system                 supported, not complete
+Evaporative system         not supported,     complete
+Exhaust Gas Sensor             supported, not complete
+Exhaust Gas Sensor heater      supported,     complete
+Fuel System                    supported, not complete
+Heated catalyst            not supported,     complete
+Misfire                        supported,     complete
+NMHC converting catalyst       supported, not complete
+NOx catalyst/adsorber          supported, not complete
+Secondary air system       not supported,     complete
+
+2017-09-20T15:33:37.928 Global DM26 Request
+15:33:37.928 18EAFFF9 B8 FD 00 (TX)
+15:33:40.428 18FDB800 AC 02 01 27 80 16 E0 1E
+DM26 from Engine #1 (0): Warm-ups: 1, Time Since Engine Start: 684 seconds
+
+Vehicle Composite of DM26:
+A/C system refrigerant     not enabled,     complete
+Boost pressure control sys     enabled, not complete
+Catalyst                   not enabled,     complete
+Cold start aid system      not enabled,     complete
+Comprehensive component        enabled,     complete
+Diesel Particulate Filter      enabled, not complete
+EGR/VVT system                 enabled, not complete
+Evaporative system         not enabled,     complete
+Exhaust Gas Sensor         not enabled, not complete
+Exhaust Gas Sensor heater  not enabled, not complete
+Fuel System                    enabled, not complete
+Heated catalyst            not enabled,     complete
+Misfire                        enabled,     complete
+NMHC converting catalyst       enabled, not complete
+NOx catalyst/adsorber      not enabled, not complete
+Secondary air system       not enabled,     complete
+
+2017-09-20T15:33:40.431 Global DM20 Request
+15:33:40.431 18EAFFF9 00 C2 00 (TX)
+15:33:42.931 18C20000 2F 02 24 00 CA 14 F8 00 00 10 00 B8 12 F8 00 00 24 00 C6 14 F8 00 00 24 00 F2 0B F8 00 00 24 00 F8 0B F8 00 00 24 00 C9 14 F8 00 00 24 00 EF 0B F8 07 00 24 00
+DM20 from Engine #1 (0):  [
+                                                                   Num'r /  Den'r
+Ignition Cycles                                                               559
+OBD Monitoring Conditions Encountered                                          36
+SPN 5322 Aftertreatment NMHC Converting Catalyst System Monitor        0 /     16
+SPN 4792 Aftertreatment 1 Selective Catalytic Reduction System         0 /     36
+SPN 5318 Aftertreatment Exhaust Gas Sensor System Monitor              0 /     36
+SPN 3058 Engine Exhaust Gas Recirculation System Monitor               0 /     36
+SPN 3064 Aftertreatment Diesel Particulate Filter System Monitor       0 /     36
+SPN 5321 Engine Intake Manifold Pressure System Monitor                0 /     36
+SPN 3055 Engine Fuel System Monitor                                    7 /     36
+]
+
+2017-09-20T15:33:42.935 Global DM6 Request
+15:33:42.935 18EAFFF9 CF FE 00 (TX)
+15:33:45.436 18FECF17 00 FF 00 00 00 00 FF FF
+DM6 from Instrument Cluster #1 (23): MIL: Off, RSL: Off, AWL: Off, PL: Off
+No DTCs
+15:33:45.437 18E8FF17 00 FF FF FF F9 CF FE 00
+DM6 from Instrument Cluster #1 (23): MIL: Off, RSL: Off, AWL: Off, PL: Off
+No DTCs
+15:33:45.437 18FECF00 00 FF 00 00 00 00 FF FF
+DM6 from Engine #1 (0): MIL: Off, RSL: Off, AWL: Off, PL: Off
+No DTCs
+
+2017-09-20T15:33:45.439 Global DM12 Request
+15:33:45.439 18EAFFF9 D4 FE 00 (TX)
+15:33:47.939 18FED417 00 FF 00 00 00 00 FF FF
+DM12 from Instrument Cluster #1 (23): MIL: Off, RSL: Off, AWL: Off, PL: Off
+No DTCs
+15:33:47.939 18E8FF17 00 FF FF FF F9 D4 FE 00
+DM12 from Instrument Cluster #1 (23): MIL: Off, RSL: Off, AWL: Off, PL: Off
+No DTCs
+15:33:47.939 18FED400 00 FF 00 00 00 00 FF FF
+DM12 from Engine #1 (0): MIL: Off, RSL: Off, AWL: Off, PL: Off
+No DTCs
+
+2017-09-20T15:33:47.940 Global DM23 Request
+15:33:47.940 18EAFFF9 B5 FD 00 (TX)
+15:33:50.441 18FDB500 00 FF 00 00 00 00 FF FF
+DM23 from Engine #1 (0): MIL: Off, RSL: Off, AWL: Off, PL: Off
+No DTCs
+
+2017-09-20T15:33:50.441 Global DM28 Request
+15:33:50.442 18EAFFF9 80 FD 00 (TX)
+15:33:52.942 18FD8000 00 FF 4A 0A 05 01 AB 00 02 00
+DM28 from Engine #1 (0): MIL: Off, RSL: Off, AWL: Off, PL: Off
+DTC: Power Relay (2634) Current Below Normal Or Open Circuit (5) 1 times
+DTC: Ambient Air Temperature (171) Data Erratic, Intermittent Or Incorrect (2) 0 times
+
+2017-09-20T15:33:52.946 Global DM21 Request
+15:33:52.946 18EAFFF9 00 C1 00 (TX)
+15:33:55.446 18C10000 00 00 00 00 00 00 2F 00
+DM21 from Engine #1 (0): [
+  Distance Traveled While MIL is Activated:     0 km (0 mi)
+  Time Run by Engine While MIL is Activated:    0 minutes
+  Distance Since DTCs Cleared:                  0 km (0 mi)
+  Time Since DTCs Cleared:                      47 minutes
+]
+Time Since Code Cleared Gap of 0 minutes
+
+2017-09-20T15:33:55.447 Vehicle Distance
+15:33:57.947 18FEC117 DD 84 01 00 FF FF FF FF
+High Resolution Vehicle Distance from Instrument Cluster #1 (23): 497.745 km (309.284 mi)
+
+2017-09-20T15:33:57.948 Engine Hours Request
+15:33:57.948 18EAFFF9 E5 FE 00 (TX)
+15:34:00.448 18FEE500 35 07 00 00 9B 15 00 00
+Engine Hours from Engine #1 (0): 92.25 hours
+
+2017-09-20T15:34:00.449 Total Queries: 16
+2017-09-20T15:34:00.449 Total Time Out Errors: 0
+
+2017-09-20T15:34:00.449 IUMPR Data Collection Tool Data Plate Report END OF REPORT
+
+2017-09-20T15:34:12.904 IUMPR Data Collection Tool for 13 CCR 1971.1(l)(2) and (h)(1.7)
+2017-09-20T15:34:12.904 IUMPR Data Collection Tool version 1.0.0 - 2017/09/18 09:14
+
+IIIIIIIII  UUU     UUU  MMM       MMM  PPPPPPPP     RRRRRRRR     DATA MONITOR LOG
+IIIIIIIII  UUU     UUU  MMMM     MMMM  PPPPPPPPP    RRRRRRRRR    DATA MONITOR LOG
+   III     UUU     UUU  MMMMM   MMMMM  PPP    PPP   RRR    RRR   DATA MONITOR LOG
+   III     UUU     UUU  MMMMMMMMMMMMM  PPP     PPP  RRR     RRR  DATA MONITOR LOG
+   III     UUU     UUU  MMM  MMM  MMM  PPP     PPP  RRR     RRR  DATA MONITOR LOG
+   III     UUU     UUU  MMM   M   MMM  PPP    PPP   RRR    RRR   DATA MONITOR LOG
+   III     UUU     UUU  MMM       MMM  PPPPPPPPP    RRRRRRRRR    DATA MONITOR LOG
+   III     UUU     UUU  MMM       MMM  PPPPPPPP     RRRRRRRR     DATA MONITOR LOG
+   III     UUU     UUU  MMM       MMM  PPP          RRR RRR      DATA MONITOR LOG
+   III     UUU     UUU  MMM       MMM  PPP          RRR  RRR     DATA MONITOR LOG
+   III     UUU     UUU  MMM       MMM  PPP          RRR   RRR    DATA MONITOR LOG
+IIIIIIIII  UUUUUUUUUUU  MMM       MMM  PPP          RRR    RRR   DATA MONITOR LOG
+IIIIIIIII   UUUUUUUUU   MMM       MMM  PPP          RRR     RRR  DATA MONITOR LOG
+
+2017-09-20T15:34:12.906 IUMPR Data Collection Tool Data Monitor Log
+
+2017-09-20T15:34:12.906 Global VIN Request
+15:34:12.906 18EAFFF9 EC FE 00 (TX)
+15:34:15.406 18FEEC00 33 48 43 44 5A 54 5A 52 33 4A 4C 34 34 32 37 32 35 2A
+Vehicle Identification from Engine #1 (0): **REDACTED*442725
+
+2017-09-20T15:34:15.407 Global DM19 (Calibration Information) Request
+15:34:15.407 18EAFFF9 00 D3 00 (TX)
+15:34:17.907 18D30000 66 E7 B4 62 52 41 44 58 53 46 41 42 00 00 00 00 00 00 00 00 A8 73 89 13 4E 4F 78 2D 53 41 45 31 34 61 20 41 54 49 31 00 8C 4B F9 C9 4E 4F 78 2D 53 41 45 31 34 61 20 41 54 4F 31 00 DE E5 00 00 31 32 44 42 42 32 30 30 30 32 00 00 00 00 00 00 D2 BF 0F A9 50 4D 53 31 32 33 34 31 41 31 30 31 00 00 00 00
+DM19 from Engine #1 (0): [
+  CAL ID of RADXSFAB and CVN of 0x62B4E766
+  CAL ID of NOx-SAE14a ATI1 and CVN of 0x138973A8
+  CAL ID of NOx-SAE14a ATO1 and CVN of 0xC9F94B8C
+  CAL ID of 12DBB20002 and CVN of 0x0000E5DE
+  CAL ID of PMS12341A101 and CVN of 0xA90FBFD2
+]
+
+2017-09-20T15:34:17.909 Global DM21 Request
+15:34:17.909 18EAFFF9 00 C1 00 (TX)
+15:34:20.410 18C10000 00 00 00 00 00 00 30 00
+DM21 from Engine #1 (0): [
+  Distance Traveled While MIL is Activated:     0 km (0 mi)
+  Time Run by Engine While MIL is Activated:    0 minutes
+  Distance Since DTCs Cleared:                  0 km (0 mi)
+  Time Since DTCs Cleared:                      48 minutes
+]
+Time Since Code Cleared Gap of 1 minutes
+
+2017-09-20T15:34:20.411 Begin Tracking Monitor Completion Status
+
+15:37:20.539 DM5 Packet(s) Received
+15:37:20.540 18FECE00 00 00 14 27 E0 1E A0 1E
+15:37:20.541 18FECE03 00 05 05 00 00 00 00 00
+15:37:20.541 18FECE19 00 00 05 00 00 00 00 00
+
+15:37:20.541 DM20 Packet(s) Received
+15:37:20.541 18C20000 2F 02 24 00 CA 14 F8 00 00 10 00 B8 12 F8 00 00 24 00 C6 14 F8 00 00 24 00 F2 0B F8 00 00 24 00 F8 0B F8 00 00 24 00 C9 14 F8 00 00 24 00 EF 0B F8 07 00 24 00
+
+15:37:20.542 DM26 Packet(s) Received
+15:37:20.542 18FDB800 86 03 01 27 80 16 E0 1E
+
+15:40:20.663 DM5 Packet(s) Received
+15:40:20.663 18FECE03 00 05 05 00 00 00 00 00
+15:40:20.664 18FECE00 00 00 14 27 E0 1E A0 1E
+15:40:20.664 18FECE19 00 00 05 00 00 00 00 00
+
+15:40:20.664 DM20 Packet(s) Received
+15:40:20.664 18C20000 2F 02 24 00 CA 14 F8 00 00 10 00 B8 12 F8 00 00 24 00 C6 14 F8 00 00 24 00 F2 0B F8 00 00 24 00 F8 0B F8 00 00 24 00 C9 14 F8 00 00 24 00 EF 0B F8 07 00 24 00
+
+15:40:20.664 DM26 Packet(s) Received
+15:40:20.665 18FDB800 3A 04 01 27 80 16 E0 1E
+
+15:41:45.710 Ratios Updated
+
+15:41:50.710 DM5 Packet(s) Received
+15:41:50.710 18FECE00 00 00 14 27 E0 1E A0 1E
+15:41:50.710 18FECE03 00 05 05 00 00 00 00 00
+15:41:50.710 18FECE19 00 00 05 00 00 00 00 00
+
+15:41:50.711 DM20 Packet(s) Received
+15:41:50.711 18C20000 2F 02 25 00 CA 14 F8 00 00 11 00 B8 12 F8 00 00 25 00 C6 14 F8 00 00 25 00 F2 0B F8 00 00 25 00 F8 0B F8 00 00 25 00 C9 14 F8 00 00 25 00 EF 0B F8 07 00 25 00
+
+15:41:50.711 DM26 Packet(s) Received
+15:41:50.711 18FDB800 94 04 01 27 80 16 E0 1E
+
+2017-09-20T15:43:23.269 End Tracking Monitor Completion Status. 55 Total Cycles.
+
+2017-09-20T15:43:23.271 Vehicle Composite Results of DM5:
++----------------------------+----------------+----------------+
+|           Monitor          | Initial Status |  Last Status   |
+|                            |   2017-09-20   |   2017-09-20   |
+|                            |  14:53:08.078  |  15:43:23.269  |
++----------------------------+----------------+----------------+
+| A/C system refrigerant     |  Unsupported   |  Unsupported   |
+| Boost pressure control sys |  Not Complete  |  Not Complete  |
+| Catalyst                   |  Unsupported   |  Unsupported   |
+| Cold start aid system      |  Unsupported   |  Unsupported   |
+| Comprehensive component    |      Complete  |      Complete  |
+| Diesel Particulate Filter  |  Not Complete  |  Not Complete  |
+| EGR/VVT system             |  Not Complete  |  Not Complete  |
+| Evaporative system         |  Unsupported   |  Unsupported   |
+| Exhaust Gas Sensor         |  Not Complete  |  Not Complete  |
+|*Exhaust Gas Sensor heater  |  Not Complete  |      Complete *|
+| Fuel System                |  Not Complete  |  Not Complete  |
+| Heated catalyst            |  Unsupported   |  Unsupported   |
+| Misfire                    |      Complete  |      Complete  |
+| NMHC converting catalyst   |  Not Complete  |  Not Complete  |
+| NOx catalyst/adsorber      |  Not Complete  |  Not Complete  |
+| Secondary air system       |  Unsupported   |  Unsupported   |
++----------------------------+----------------+----------------+
+
+2017-09-20T15:43:23.283 Vehicle Composite Results of DM20:
++-----+----------------------------------+-----------------+-----------------+
+|     |                                  |  Initial Status |   Last Status   |
+|     |                                  |    2017-09-20   |    2017-09-20   |
+|     |                                  |   14:53:13.098  |   15:43:15.760  |
++-----+----------------------------------+-----------------+-----------------+
+|*    | Ignition Cycles                  |             557 |            559 *|
+|*    | OBD Monitoring Conditions Count  |              35 |             37 *|
++-----+----------------------------------+--------+--------+--------+--------+
+| Src | Monitor                          |  Num'r |  Den'r |  Num'r |  Den'r |
++-----+----------------------------------+--------+--------+--------+--------+
+|*  0 | 3055 Fuel Sys Mon                |      7 |     35 |     7  |    37 *|
+|*  0 | 3058 EGR Sys Mon                 |      0 |     35 |     0  |    37 *|
+|*  0 | 3064 AFT DPF Sys Mon             |      0 |     35 |     0  |    37 *|
+|*  0 | 4792 AFT 1 SCR Sys               |      0 |     35 |     0  |    37 *|
+|*  0 | 5318 AFT Exh Gas Snsr Sys Mon    |      0 |     35 |     0  |    37 *|
+|*  0 | 5321 Intake Manifold Press Sys ..|      0 |     35 |     0  |    37 *|
+|*  0 | 5322 AFT NMHC Converting Cataly..|      0 |     16 |     0  |    17 *|
++-----+----------------------------------+--------+--------+--------+--------+
+
+2017-09-20T15:43:23.290 Global DM21 Request
+15:43:23.290 18EAFFF9 00 C1 00 (TX)
+15:43:25.793 18C10000 00 00 00 00 00 00 39 00
+DM21 from Engine #1 (0): [
+  Distance Traveled While MIL is Activated:     0 km (0 mi)
+  Time Run by Engine While MIL is Activated:    0 minutes
+  Distance Since DTCs Cleared:                  0 km (0 mi)
+  Time Since DTCs Cleared:                      57 minutes
+]
+
+2017-09-20T15:43:25.794 Vehicle Distance
+15:43:28.295 18FEC117 6F 86 01 00 FF FF FF FF
+High Resolution Vehicle Distance from Instrument Cluster #1 (23): 499.755 km (310.533 mi)
+
+2017-09-20T15:43:28.295 Engine Hours Request
+15:43:28.296 18EAFFF9 E5 FE 00 (TX)
+15:43:30.796 18FEE500 39 07 00 00 A8 15 00 00
+Engine Hours from Engine #1 (0): 92.45 hours
+
+2017-09-20T15:43:30.796 Total Queries: 222
+2017-09-20T15:43:30.796 Total Time Out Errors: 0
+
+2017-09-20T15:43:30.797 IUMPR Data Collection Tool Data Monitor Log END OF REPORT
+
+2017-09-20T15:44:11.744 IUMPR Data Collection Tool for 13 CCR 1971.1(l)(2) and (h)(1.7)
+2017-09-20T15:44:11.745 IUMPR Data Collection Tool version 1.0.0 - 2017/09/18 09:14
+
+IIIIIIIII  UUU     UUU  MMM       MMM  PPPPPPPP     RRRRRRRR     DATA COLLECTION LOG
+IIIIIIIII  UUU     UUU  MMMM     MMMM  PPPPPPPPP    RRRRRRRRR    DATA COLLECTION LOG
+   III     UUU     UUU  MMMMM   MMMMM  PPP    PPP   RRR    RRR   DATA COLLECTION LOG
+   III     UUU     UUU  MMMMMMMMMMMMM  PPP     PPP  RRR     RRR  DATA COLLECTION LOG
+   III     UUU     UUU  MMM  MMM  MMM  PPP     PPP  RRR     RRR  DATA COLLECTION LOG
+   III     UUU     UUU  MMM   M   MMM  PPP    PPP   RRR    RRR   DATA COLLECTION LOG
+   III     UUU     UUU  MMM       MMM  PPPPPPPPP    RRRRRRRRR    DATA COLLECTION LOG
+   III     UUU     UUU  MMM       MMM  PPPPPPPP     RRRRRRRR     DATA COLLECTION LOG
+   III     UUU     UUU  MMM       MMM  PPP          RRR RRR      DATA COLLECTION LOG
+   III     UUU     UUU  MMM       MMM  PPP          RRR  RRR     DATA COLLECTION LOG
+   III     UUU     UUU  MMM       MMM  PPP          RRR   RRR    DATA COLLECTION LOG
+IIIIIIIII  UUUUUUUUUUU  MMM       MMM  PPP          RRR    RRR   DATA COLLECTION LOG
+IIIIIIIII   UUUUUUUUU   MMM       MMM  PPP          RRR     RRR  DATA COLLECTION LOG
+
+2017-09-20T15:44:11.748 IUMPR Data Collection Tool Data Collection Log
+
+2017-09-20T15:44:11.748 Global VIN Request
+15:44:11.748 18EAFFF9 EC FE 00 (TX)
+15:44:14.249 18FEEC00 33 48 43 44 5A 54 5A 52 33 4A 4C 34 34 32 37 32 35 2A
+Vehicle Identification from Engine #1 (0): **REDACTED*442725
+
+2017-09-20T15:44:14.250 Global DM19 (Calibration Information) Request
+15:44:14.250 18EAFFF9 00 D3 00 (TX)
+15:44:16.750 18D30000 66 E7 B4 62 52 41 44 58 53 46 41 42 00 00 00 00 00 00 00 00 A8 73 89 13 4E 4F 78 2D 53 41 45 31 34 61 20 41 54 49 31 00 8C 4B F9 C9 4E 4F 78 2D 53 41 45 31 34 61 20 41 54 4F 31 00 DE E5 00 00 31 32 44 42 42 32 30 30 30 32 00 00 00 00 00 00 D2 BF 0F A9 50 4D 53 31 32 33 34 31 41 31 30 31 00 00 00 00
+DM19 from Engine #1 (0): [
+  CAL ID of RADXSFAB and CVN of 0x62B4E766
+  CAL ID of NOx-SAE14a ATI1 and CVN of 0x138973A8
+  CAL ID of NOx-SAE14a ATO1 and CVN of 0xC9F94B8C
+  CAL ID of 12DBB20002 and CVN of 0x0000E5DE
+  CAL ID of PMS12341A101 and CVN of 0xA90FBFD2
+]
+
+2017-09-20T15:44:16.751 Global DM21 Request
+15:44:16.751 18EAFFF9 00 C1 00 (TX)
+15:44:19.251 18C10000 00 00 00 00 00 00 3A 00
+DM21 from Engine #1 (0): [
+  Distance Traveled While MIL is Activated:     0 km (0 mi)
+  Time Run by Engine While MIL is Activated:    0 minutes
+  Distance Since DTCs Cleared:                  0 km (0 mi)
+  Time Since DTCs Cleared:                      58 minutes
+]
+Time Since Code Cleared Gap of 1 minutes
+
+2017-09-20T15:44:19.252 Global DM5 Request
+15:44:19.252 18EAFFF9 CE FE 00 (TX)
+15:44:21.752 18FECE00 00 00 14 27 E0 1E A0 1E
+15:44:21.752 18FECE03 00 05 05 00 00 00 00 00
+15:44:21.753 18FECE19 00 00 05 00 00 00 00 00
+Engine #1 (0) reported as an HD-OBD Module.
+
+2017-09-20T15:44:21.753 Direct DM24 Request to Engine #1 (0)
+15:44:21.754 18EA00F9 B6 FD 00 (TX)
+15:44:26.633 18FDB600 5C 00 1C 01 00 02 1C 01 01 02 1C 01 20 02 1C 02 1B 02 1C 01 1C 02 1C 01 1D 02 1C 01 1E 02 1C 01 1F 02 1C 01 6E 00 18 01 AF 00 1C 02 BE 00 1C 02 E5 0C 1C 02 54 00 1C 02 6C 00 1C 01 9E 00 1C 02 5A 15 1C 02 74 0E 1C 01 CB 14 1C 01 85 05 1C 02 86 05 1C 02 87 05 1C 02 88 05 1C 02 89 05 1C 02 8A 05 1C 02 AC 00 1C 01 69 00 1C 01 EB 0D 1C 01 84 00 1C 02 AB 00 1C 02 E7 0A 1C 02 1B 00 1C 02 D0 03 1C 01 5B 00 1C 01 3F 0A 1C 01 B7 00 1C 02 66 00 18 01 9D 00 18 02 C1 14 1C 02 AA 0C 1C 02 1A 0E 1C 02 AE 0C 1C 02 B3 0C 1C 02 F0 18 1C 02 AD 00 1C 02 EB 0A 1C 01 81 02 1C 01 39 04 1C 01 9C 01 1C 02 51 15 1C 01 E1 06 1C 01 90 0C 18 02 91 0C 1C 02 9A 0C 18 02 64 00 1E 01 F7 00 1C 04 10 02 1E 02 11 02 1E 02 12 02 1E 02 13 02 1E 02 2E 02 1E 01 54 02 1E 01 55 02 1E 01 56 02 1E 01 83 03 1E 01 95 03 1E 04 BF 03 1E 01 C0 03 1E 01 C1 03 1E 01 C2 03 1E 01 C3 03 1E 01 C4 03 1E 01 D2 03 1E 01 D3 03 1E 01 D5 04 1E 01 41 06 1E 01 42 06 1E 01 D7 0B 1E 01 98 0D 1A 02 A2 0D 1E 01 08 11 1E 02 0B 11 1E 02 9D 12 1E 02 0A 10 1D 01 CD 16 1D 01 E7 0C 1D 02 FD 0B 1D 02 DE 0C 1D 02 E6 0C 1D 01 C4 04 1D 02 BD 04 1D 01 1F 10 1D 01 22 10 1D 02 4E 15 1D 04 A5 1C 1D 02 02 02 1D 01 EF 1A 1D 03 E1 1C 19 01 57 15 1D 02 BC 0D 19 01 B7 1C 1D 01 B9 1C 1D 01 8B 02 1B 01 8C 02 1B 01 8D 02 1B 01 8E 02 1B 01 8F 02 1B 01 90 02 1B 01 D4 02 1B 01 2B 05 1B 01 2C 05 1B 01 2D 05 1B 01 2E 05 1B 01 2F 05 1B 01 30 05 1B 01 63 0A 1B 01 90 12 1B 01 2A 05 1B 01 B2 14 1B 01 0C 11 1B 01 15 15 1B 01 C7 14 1B 01 A7 13 1B 01 F5 0B 1B 01 22 0D 1B 01 E4 0D 1B 01 60 0F 1B 01 EB 10 1B 01 EE 10 1B 01 A0 13 1B 01 A5 14 1B 01 73 16 1B 01 CB 16 1B 01 76 1A 1B 01 7C 1A 1B 01 A2 1C 1B 01 92 0C 1B 01 9C 0C 1B 01 BB 12 1B 01 EB 00 1D 04 F8 00 1D 04 C5 16 1D 02
+DM24 from Engine #1 (0): (Supporting Scaled Test Results) [
+  SPN 110 - Engine Coolant Temperature
+  SPN 102 - Engine Intake Manifold #1 Pressure
+  SPN 157 - Engine Fuel 1 Injector Metering Rail 1 Pressure
+  SPN 3216 - Aftertreatment 1 SCR Intake NOx 1
+  SPN 3226 - Aftertreatment 1 Outlet NOx 1
+  SPN 3480 - Aftertreatment 1 Fuel Pressure 1
+  SPN 7393 - Aftertreatment 1 Particulate Sensor Current
+  SPN 3516 - Aftertreatment 1 Diesel Exhaust Fluid Concentration
+  SPN 651 - Engine Fuel 1 Injector Cylinder 1
+  SPN 652 - Engine Fuel 1 Injector Cylinder 2
+  SPN 653 - Engine Fuel 1 Injector Cylinder 3
+  SPN 654 - Engine Fuel 1 Injector Cylinder 4
+  SPN 655 - Engine Fuel 1 Injector Cylinder 5
+  SPN 656 - Engine Fuel 1 Injector Cylinder 6
+  SPN 724 - O2 Sensor
+  SPN 1323 - Engine Misfire Cylinder #1
+  SPN 1324 - Engine Misfire Cylinder #2
+  SPN 1325 - Engine Misfire Cylinder #3
+  SPN 1326 - Engine Misfire Cylinder #4
+  SPN 1327 - Engine Misfire Cylinder #5
+  SPN 1328 - Engine Misfire Cylinder #6
+  SPN 2659 - Engine Exhaust Gas Recirculation 1 Mass Flow Rate
+  SPN 4752 - Engine Exhaust Gas Recirculation 1 Cooler Efficiency
+  SPN 1322 - Engine Misfire for Multiple Cylinders
+  SPN 5298 - Aftertreatment 1 Diesel Oxidation Catalyst Conversion Efficiency
+  SPN 4364 - Aftertreatment 1 SCR Conversion Efficiency
+  SPN 5397 - Aftertreatment 1 Diesel Particulate Filter Regeneration too Frequent
+  SPN 5319 - Aftertreatment 1 Diesel Particulate Filter Incomplete Regeneration
+  SPN 5031 - Aftertreatment 1 Outlet NOx Sensor Heater Ratio
+  SPN 3061 - Engine Cold Start Emission Reduction Strategy System Monitor
+  SPN 3362 - Aftertreatment 1 Diesel Exhaust Fluid Dosing Unit 1 Input Lines
+  SPN 3556 - Aftertreatment 1 Hydrocarbon Doser 1
+  SPN 3936 - Aftertreatment Diesel Particulate Filter System
+  SPN 4331 - Aftertreatment 1 Diesel Exhaust Fluid Actual Dosing Quantity
+  SPN 4334 - Aftertreatment 1 Diesel Exhaust Fluid Doser 1 Absolute Pressure
+  SPN 5024 - Aftertreatment 1 Intake NOx Sensor Heater Ratio
+  SPN 5285 - Engine Charge Air Cooler 1 Efficiency
+  SPN 5747 - Aftertreatment 1 Outlet Soot Sensor Heater
+  SPN 5835 - Aftertreatment 1 Particulate Sensor
+  SPN 6774 - Aftertreatment 1 Particulate Sensor Regeneration State
+  SPN 6780 - Aftertreatment 1 Particulate Sensor Temperature
+  SPN 7330 - Aftertreatment 1 Particulate Sensor Heater Power Supply Diagnostic Status
+  SPN 3218 - Aftertreatment 1 Intake Gas Sensor 1 Power In Range
+  SPN 3228 - Aftertreatment 1 Outlet Gas Sensor 1 Power In Range
+  SPN 4795 - Aftertreatment 1 Diesel Particulate Filter Missing
+]
+
+2017-09-20T15:44:26.643 Direct DM30 Requests to Engine #1 (0)
+15:44:26.643 18E300F9 F7 66 00 1F FF FF FF FF (TX)
+15:44:26.961 18A40000 F7 66 00 10 34 00 1D 7E 00 96 FF FF F7 66 00 0A 0C 00 00 FB FF FF FF FF F7 66 00 12 34 00 1D 7E FF FF F3 73
+15:44:26.963 18E300F9 F7 6E 00 1F FF FF FF FF (TX)
+15:44:27.292 18A40000 F7 6E 00 10 44 00 33 2C 80 30 FF FF F7 6E 00 0A 44 00 33 2C FF FF 60 28 F7 6E 00 12 44 00 33 2C FF FF 60 23
+15:44:27.293 18E300F9 F7 9D 00 1F FF FF FF FF (TX)
+15:44:27.492 18A40000 F7 9D 00 12 89 01 61 71 7D 87 FF FF F7 9D 00 10 89 01 61 71 FF FF 12 5B
+15:44:27.493 18E300F9 F7 8B 02 1F FF FF FF FF (TX)
+15:44:27.692 18A40000 F7 8B 02 10 3F 01 00 FB FF FF FF FF F7 8B 02 12 3F 01 00 FB FF FF FF FF
+15:44:27.693 18E300F9 F7 8C 02 1F FF FF FF FF (TX)
+15:44:27.893 18A40000 F7 8C 02 10 3F 01 00 FB FF FF FF FF F7 8C 02 12 3F 01 00 FB FF FF FF FF
+15:44:27.894 18E300F9 F7 8D 02 1F FF FF FF FF (TX)
+15:44:28.092 18A40000 F7 8D 02 10 3F 01 00 FB FF FF FF FF F7 8D 02 12 3F 01 00 FB FF FF FF FF
+15:44:28.093 18E300F9 F7 8E 02 1F FF FF FF FF (TX)
+15:44:28.293 18A40000 F7 8E 02 10 3F 01 00 FB FF FF FF FF F7 8E 02 12 3F 01 00 FB FF FF FF FF
+15:44:28.293 18E300F9 F7 8F 02 1F FF FF FF FF (TX)
+15:44:28.493 18A40000 F7 8F 02 10 3F 01 00 FB FF FF FF FF F7 8F 02 12 3F 01 00 FB FF FF FF FF
+15:44:28.493 18E300F9 F7 90 02 1F FF FF FF FF (TX)
+15:44:28.693 18A40000 F7 90 02 10 3F 01 00 FB FF FF FF FF F7 90 02 12 3F 01 00 FB FF FF FF FF
+15:44:28.694 18E300F9 F7 D4 02 1F FF FF FF FF (TX)
+15:44:29.193 18A40000 F7 D4 02 10 20 00 0C 04 7D 04 FF FF F7 D4 02 12 20 00 0C 04 FF FF 83 03 F7 D4 02 02 84 00 5D 01 BB 02 FF FF F7 D4 02 02 84 00 81 00 DB 05 FF FF F7 D4 02 02 84 00 DF 01 CF 07 FF FF
+15:44:29.193 18E300F9 F7 2A 05 1F FF FF FF FF (TX)
+15:44:29.393 18A40000 F7 2A 05 1F 0C 00 00 00 01 00 FF FF F7 2A 05 0E 0C 00 00 00 03 00 FF FF
+15:44:29.393 18E300F9 F7 2B 05 1F FF FF FF FF (TX)
+15:44:29.472 18A40000 F7 2B 05 1F 0C 00 00 00 B4 00 00 00
+15:44:29.472 18E300F9 F7 2C 05 1F FF FF FF FF (TX)
+15:44:29.552 18A40000 F7 2C 05 1F 0C 00 00 00 B4 00 00 00
+15:44:29.552 18E300F9 F7 2D 05 1F FF FF FF FF (TX)
+15:44:29.633 18A40000 F7 2D 05 1F 0C 00 00 00 B4 00 00 00
+15:44:29.633 18E300F9 F7 2E 05 1F FF FF FF FF (TX)
+15:44:29.712 18A40000 F7 2E 05 1F 0C 00 00 00 B4 00 00 00
+15:44:29.712 18E300F9 F7 2F 05 1F FF FF FF FF (TX)
+15:44:29.792 18A40000 F7 2F 05 1F 0C 00 00 00 B4 00 00 00
+15:44:29.793 18E300F9 F7 30 05 1F FF FF FF FF (TX)
+15:44:29.872 18A40000 F7 30 05 1F 0C 00 00 00 B4 00 00 00
+15:44:29.873 18E300F9 F7 63 0A 1F FF FF FF FF (TX)
+15:44:30.192 18A40000 F7 63 0A 10 68 01 8A 7D 51 81 FF FF F7 63 0A 12 68 01 00 FB FF FF FF FF F7 63 0A 0A 0C 00 13 00 32 01 FF FF
+15:44:30.193 18E300F9 F7 F5 0B 1F FF FF FF FF (TX)
+15:44:30.272 18A40000 F7 F5 0B 1F 40 00 00 FB FF FF FF FF
+15:44:30.273 18E300F9 F7 90 0C 1F FF FF FF FF (TX)
+15:44:30.652 18A40000 F7 90 0C 12 5D 01 00 FB FF FF FF FF F7 90 0C 10 5D 01 00 FB FF FF FF FF F7 90 0C 02 0C 00 00 FB FF FF FF FF F7 90 0C 0A 00 01 00 FB FF FF FF FF
+15:44:30.654 18E300F9 F7 92 0C 1F FF FF FF FF (TX)
+15:44:30.733 18A40000 F7 92 0C 02 0C 00 00 00 05 00 FF FF
+15:44:30.733 18E300F9 F7 9A 0C 1F FF FF FF FF (TX)
+15:44:31.112 18A40000 F7 9A 0C 02 5D 01 00 FB FF FF FF FF F7 9A 0C 10 5D 01 00 FB FF FF FF FF F7 9A 0C 12 5D 01 00 FB FF FF FF FF F7 9A 0C 0A 00 01 00 FB FF FF FF FF
+15:44:31.112 18E300F9 F7 9C 0C 1F FF FF FF FF (TX)
+15:44:31.192 18A40000 F7 9C 0C 02 0C 00 00 00 05 00 FF FF
+15:44:31.192 18E300F9 F7 22 0D 1F FF FF FF FF (TX)
+15:44:31.275 18A40000 F7 22 0D 1F 0C 00 51 03 98 03 0C 03
+15:44:31.275 18E300F9 F7 98 0D 1F FF FF FF FF (TX)
+15:44:31.352 18A40000 F7 98 0D 11 63 01 B4 A3 FF FF 37 89
+15:44:31.353 18E300F9 F7 BC 0D 1F FF FF FF FF (TX)
+15:44:31.433 18A40000 F7 BC 0D 12 00 01 80 7D 80 AA FF FF
+15:44:31.434 18E300F9 F7 E4 0D 1F FF FF FF FF (TX)
+15:44:31.634 18A40000 F7 E4 0D 12 20 00 00 FB FF FF FF FF F7 E4 0D 02 63 01 E1 7C 37 89 FF FF
+15:44:31.634 18E300F9 F7 60 0F 1F FF FF FF FF (TX)
+15:44:31.833 18A40000 F7 60 0F 12 20 00 00 FB FF FF FF FF F7 60 0F 10 93 01 00 FB FF FF FF FF
+15:44:31.834 18E300F9 F7 EB 10 1F FF FF FF FF (TX)
+15:44:31.913 18A40000 F7 EB 10 10 20 00 5C 0A 4D 0C FF FF
+15:44:31.913 18E300F9 F7 EE 10 1F FF FF FF FF (TX)
+15:44:31.992 18A40000 F7 EE 10 12 63 01 F4 9E FF FF D7 98
+15:44:31.992 18E300F9 F7 0C 11 1F FF FF FF FF (TX)
+15:44:32.072 18A40000 F7 0C 11 12 00 01 00 FB FF FF FF FF
+15:44:32.072 18E300F9 F7 90 12 1F FF FF FF FF (TX)
+15:44:32.152 18A40000 F7 90 12 12 44 00 00 FB FF FF FF FF
+15:44:32.152 18E300F9 F7 BB 12 1F FF FF FF FF (TX)
+15:44:32.233 18A40000 F7 BB 12 1F 65 01 70 01 FF FF 20 00
+15:44:32.234 18E300F9 F7 A0 13 1F FF FF FF FF (TX)
+15:44:32.552 18A40000 F7 A0 13 0A 00 01 80 7D 86 7D FF FF F7 A0 13 0A 0C 00 00 00 01 00 FF FF F7 A0 13 0A 4D 01 E0 1A 30 75 FF FF
+15:44:32.552 18E300F9 F7 A7 13 1F FF FF FF FF (TX)
+15:44:32.872 18A40000 F7 A7 13 0A 4D 01 6B 1B E0 2E FF FF F7 A7 13 0A 00 01 80 7D 00 80 FF FF F7 A7 13 0A 0C 00 00 00 05 00 FF FF
+15:44:32.873 18E300F9 F7 A5 14 1F FF FF FF FF (TX)
+15:44:32.952 18A40000 F7 A5 14 12 00 01 00 FB FF FF FF FF
+15:44:32.953 18E300F9 F7 B2 14 1F FF FF FF FF (TX)
+15:44:33.034 18A40000 F7 B2 14 12 20 00 00 FB FF FF FF FF
+15:44:33.034 18E300F9 F7 C7 14 1F FF FF FF FF (TX)
+15:44:33.112 18A40000 F7 C7 14 1F 2E 01 00 FB FF FF FF FF
+15:44:33.112 18E300F9 F7 15 15 1F FF FF FF FF (TX)
+15:44:33.192 18A40000 F7 15 15 1F 0C 00 00 FB FF FF FF FF
+15:44:33.193 18E300F9 F7 73 16 1F FF FF FF FF (TX)
+15:44:33.273 18A40000 F7 73 16 0A 93 01 00 00 00 05 00 00
+15:44:33.273 18E300F9 F7 CB 16 1F FF FF FF FF (TX)
+15:44:33.354 18A40000 F7 CB 16 15 20 00 00 FB FF FF FF FF
+15:44:33.354 18E300F9 F7 76 1A 1F FF FF FF FF (TX)
+15:44:33.436 18A40000 F7 76 1A 07 0C 00 01 00 01 00 FF FF
+15:44:33.436 18E300F9 F7 7C 1A 1F FF FF FF FF (TX)
+15:44:33.512 18A40000 F7 7C 1A 02 44 00 31 1F 1E 27 1E 13
+15:44:33.514 18E300F9 F7 A2 1C 1F FF FF FF FF (TX)
+15:44:33.713 18A40000 F7 A2 1C 02 0C 00 00 00 01 00 FF FF F7 A2 1C 02 22 01 19 00 28 00 11 00
+15:44:33.714 18E300F9 F7 E1 1C 1F FF FF FF FF (TX)
+15:44:33.793 18A40000 F7 E1 1C 0A 00 01 80 7D 80 96 FF FF
+
+Scaled Tests Results from Engine #1 (0): [
+  SPN 102 FMI 16 Result: Test Passed. Min: N/A, Value: 2.227, Max: 50 kPa
+  SPN 102 FMI 10 Result: Test Not Complete.
+  SPN 102 FMI 18 Result: Test Passed. Min: -18.102, Value: 2.227, Max: N/A kPa
+  SPN 110 FMI 16 Result: Test Passed. Min: N/A, Value: 80.594, Max: 115 C
+  SPN 110 FMI 10 Result: Test Passed. Min: 50, Value: 80.594, Max: N/A C
+  SPN 110 FMI 18 Result: Test Passed. Min: 10, Value: 80.594, Max: N/A C
+  SPN 157 FMI 18 Result: Test Passed. Min: N/A, Value: 0.088, Max: 19.998 MPa
+  SPN 157 FMI 16 Result: Test Passed. Min: -20.001, Value: 0.088, Max: N/A MPa
+  SPN 651 FMI 16 Result: Test Not Complete.
+  SPN 651 FMI 18 Result: Test Not Complete.
+  SPN 652 FMI 16 Result: Test Not Complete.
+  SPN 652 FMI 18 Result: Test Not Complete.
+  SPN 653 FMI 16 Result: Test Not Complete.
+  SPN 653 FMI 18 Result: Test Not Complete.
+  SPN 654 FMI 16 Result: Test Not Complete.
+  SPN 654 FMI 18 Result: Test Not Complete.
+  SPN 655 FMI 16 Result: Test Not Complete.
+  SPN 655 FMI 18 Result: Test Not Complete.
+  SPN 656 FMI 16 Result: Test Not Complete.
+  SPN 656 FMI 18 Result: Test Not Complete.
+  SPN 724 FMI 16 Result: Test Passed. Min: N/A, Value: 1.036, Max: 1.149
+  SPN 724 FMI 18 Result: Test Passed. Min: 0.899, Value: 1.036, Max: N/A
+  SPN 724 FMI 2 Result: Test Passed. Min: N/A, Value: 349, Max: 699 ms
+  SPN 724 FMI 2 Result: Test Passed. Min: N/A, Value: 129, Max: 1,499 ms
+  SPN 724 FMI 2 Result: Test Passed. Min: N/A, Value: 479, Max: 1,999 ms
+  SPN 1322 FMI 31 Result: Test Passed. Min: N/A, Value: 0, Max: 1
+  SPN 1322 FMI 14 Result: Test Passed. Min: N/A, Value: 0, Max: 3
+  SPN 1323 FMI 31 Result: Test Passed. Min: 0, Value: 0, Max: 180
+  SPN 1324 FMI 31 Result: Test Passed. Min: 0, Value: 0, Max: 180
+  SPN 1325 FMI 31 Result: Test Passed. Min: 0, Value: 0, Max: 180
+  SPN 1326 FMI 31 Result: Test Passed. Min: 0, Value: 0, Max: 180
+  SPN 1327 FMI 31 Result: Test Passed. Min: 0, Value: 0, Max: 180
+  SPN 1328 FMI 31 Result: Test Passed. Min: 0, Value: 0, Max: 180
+  SPN 2659 FMI 16 Result: Test Passed. Min: N/A, Value: 1.1, Max: 97.8 kg/h
+  SPN 2659 FMI 18 Result: Test Not Complete.
+  SPN 2659 FMI 10 Result: Test Passed. Min: N/A, Value: 19, Max: 306
+  SPN 3061 FMI 31 Result: Test Not Complete.
+  SPN 3216 FMI 18 Result: Test Not Complete.
+  SPN 3216 FMI 16 Result: Test Not Complete.
+  SPN 3216 FMI 2 Result: Test Not Complete.
+  SPN 3216 FMI 10 Result: Test Not Complete.
+  SPN 3218 FMI 2 Result: Test Passed. Min: N/A, Value: 0, Max: 5
+  SPN 3226 FMI 2 Result: Test Not Complete.
+  SPN 3226 FMI 16 Result: Test Not Complete.
+  SPN 3226 FMI 18 Result: Test Not Complete.
+  SPN 3226 FMI 10 Result: Test Not Complete.
+  SPN 3228 FMI 2 Result: Test Passed. Min: N/A, Value: 0, Max: 5
+  SPN 3362 FMI 31 Result: Test Passed. Min: 780, Value: 849, Max: 920
+  SPN 3480 FMI 17 Result: Test Passed. Min: 300, Value: 978.1, Max: N/A kPa
+  SPN 3516 FMI 18 Result: Test Passed. Min: N/A, Value: 0, Max: 90 %
+  SPN 3556 FMI 18 Result: Test Not Complete.
+  SPN 3556 FMI 2 Result: Test Passed. Min: N/A, Value: -15.8, Max: 300 kPa
+  SPN 3936 FMI 18 Result: Test Not Complete.
+  SPN 3936 FMI 16 Result: Test Not Complete.
+  SPN 4331 FMI 16 Result: Test Passed. Min: N/A, Value: 2.652, Max: 3.149
+  SPN 4334 FMI 18 Result: Test Passed. Min: 700, Value: 856.5, Max: N/A kPa
+  SPN 4364 FMI 18 Result: Test Not Complete.
+  SPN 4752 FMI 18 Result: Test Not Complete.
+  SPN 4795 FMI 31 Result: Test Passed. Min: 0.25, Value: 2.875, Max: N/A kPa
+  SPN 5024 FMI 10 Result: Test Passed. Min: N/A, Value: 0, Max: 0.047 %
+  SPN 5024 FMI 10 Result: Test Passed. Min: N/A, Value: 0, Max: 1
+  SPN 5024 FMI 10 Result: Test Passed. Min: N/A, Value: 68.8, Max: 300 s
+  SPN 5031 FMI 10 Result: Test Passed. Min: N/A, Value: 70.19, Max: 120 s
+  SPN 5031 FMI 10 Result: Test Passed. Min: N/A, Value: 0, Max: 5 %
+  SPN 5031 FMI 10 Result: Test Passed. Min: N/A, Value: 0, Max: 5
+  SPN 5285 FMI 18 Result: Test Not Complete.
+  SPN 5298 FMI 18 Result: Test Not Complete.
+  SPN 5319 FMI 31 Result: Test Not Complete.
+  SPN 5397 FMI 31 Result: Test Not Complete.
+  SPN 5747 FMI 10 Result: Test Passed. Min: 0, Value: 0, Max: 5 ÂµA
+  SPN 5835 FMI 21 Result: Test Not Complete.
+  SPN 6774 FMI 7 Result: Test Passed. Min: N/A, Value: 1, Max: 1
+  SPN 6780 FMI 2 Result: Test Passed. Min: -120.062, Value: -23.469, Max: 39.938 C
+  SPN 7330 FMI 2 Result: Test Passed. Min: N/A, Value: 0, Max: 1
+  SPN 7330 FMI 2 Result: Test Passed. Min: 1.7, Value: 2.5, Max: 4 ohm
+  SPN 7393 FMI 10 Result: Test Passed. Min: N/A, Value: 0, Max: 50 %
+]
+
+Incomplete Tests: [
+  Engine #1 (0): SPN 102 FMI 10 Result: Test Not Complete.
+  Engine #1 (0): SPN 2659 FMI 18 Result: Test Not Complete.
+  Engine #1 (0): SPN 3061 FMI 31 Result: Test Not Complete.
+  Engine #1 (0): SPN 3216 FMI 10 Result: Test Not Complete.
+  Engine #1 (0): SPN 3216 FMI 16 Result: Test Not Complete.
+  Engine #1 (0): SPN 3216 FMI 18 Result: Test Not Complete.
+  Engine #1 (0): SPN 3216 FMI 2 Result: Test Not Complete.
+  Engine #1 (0): SPN 3226 FMI 10 Result: Test Not Complete.
+  Engine #1 (0): SPN 3226 FMI 16 Result: Test Not Complete.
+  Engine #1 (0): SPN 3226 FMI 18 Result: Test Not Complete.
+  Engine #1 (0): SPN 3226 FMI 2 Result: Test Not Complete.
+  Engine #1 (0): SPN 3556 FMI 18 Result: Test Not Complete.
+  Engine #1 (0): SPN 3936 FMI 16 Result: Test Not Complete.
+  Engine #1 (0): SPN 3936 FMI 18 Result: Test Not Complete.
+  Engine #1 (0): SPN 4364 FMI 18 Result: Test Not Complete.
+  Engine #1 (0): SPN 4752 FMI 18 Result: Test Not Complete.
+  Engine #1 (0): SPN 5285 FMI 18 Result: Test Not Complete.
+  Engine #1 (0): SPN 5298 FMI 18 Result: Test Not Complete.
+  Engine #1 (0): SPN 5319 FMI 31 Result: Test Not Complete.
+  Engine #1 (0): SPN 5397 FMI 31 Result: Test Not Complete.
+  Engine #1 (0): SPN 5835 FMI 21 Result: Test Not Complete.
+  Engine #1 (0): SPN 651 FMI 16 Result: Test Not Complete.
+  Engine #1 (0): SPN 651 FMI 18 Result: Test Not Complete.
+  Engine #1 (0): SPN 652 FMI 16 Result: Test Not Complete.
+  Engine #1 (0): SPN 652 FMI 18 Result: Test Not Complete.
+  Engine #1 (0): SPN 653 FMI 16 Result: Test Not Complete.
+  Engine #1 (0): SPN 653 FMI 18 Result: Test Not Complete.
+  Engine #1 (0): SPN 654 FMI 16 Result: Test Not Complete.
+  Engine #1 (0): SPN 654 FMI 18 Result: Test Not Complete.
+  Engine #1 (0): SPN 655 FMI 16 Result: Test Not Complete.
+  Engine #1 (0): SPN 655 FMI 18 Result: Test Not Complete.
+  Engine #1 (0): SPN 656 FMI 16 Result: Test Not Complete.
+  Engine #1 (0): SPN 656 FMI 18 Result: Test Not Complete.
+]
+33 Incomplete Tests
+
+2017-09-20T15:44:33.832 Global DM5 Request
+15:44:33.832 18EAFFF9 CE FE 00 (TX)
+15:44:36.332 18FECE03 00 05 05 00 00 00 00 00
+15:44:36.332 18FECE00 00 00 14 27 E0 1E A0 1E
+15:44:36.332 18FECE19 00 00 05 00 00 00 00 00
+
+2017-09-20T15:44:36.335 Vehicle Composite Results of DM5:
++----------------------------+----------------+----------------+
+|           Monitor          | Initial Status |  Last Status   |
+|                            |   2017-09-20   |   2017-09-20   |
+|                            |  14:53:08.078  |  15:44:36.334  |
++----------------------------+----------------+----------------+
+| A/C system refrigerant     |  Unsupported   |  Unsupported   |
+| Boost pressure control sys |  Not Complete  |  Not Complete  |
+| Catalyst                   |  Unsupported   |  Unsupported   |
+| Cold start aid system      |  Unsupported   |  Unsupported   |
+| Comprehensive component    |      Complete  |      Complete  |
+| Diesel Particulate Filter  |  Not Complete  |  Not Complete  |
+| EGR/VVT system             |  Not Complete  |  Not Complete  |
+| Evaporative system         |  Unsupported   |  Unsupported   |
+| Exhaust Gas Sensor         |  Not Complete  |  Not Complete  |
+|*Exhaust Gas Sensor heater  |  Not Complete  |      Complete *|
+| Fuel System                |  Not Complete  |  Not Complete  |
+| Heated catalyst            |  Unsupported   |  Unsupported   |
+| Misfire                    |      Complete  |      Complete  |
+| NMHC converting catalyst   |  Not Complete  |  Not Complete  |
+| NOx catalyst/adsorber      |  Not Complete  |  Not Complete  |
+| Secondary air system       |  Unsupported   |  Unsupported   |
++----------------------------+----------------+----------------+
+
+2017-09-20T15:44:36.339 Global DM26 Request
+15:44:36.340 18EAFFF9 B8 FD 00 (TX)
+15:44:38.840 18FDB800 3E 05 01 27 80 16 E0 1E
+DM26 from Engine #1 (0): Warm-ups: 1, Time Since Engine Start: 1,342 seconds
+
+Vehicle Composite of DM26:
+A/C system refrigerant     not enabled,     complete
+Boost pressure control sys     enabled, not complete
+Catalyst                   not enabled,     complete
+Cold start aid system      not enabled,     complete
+Comprehensive component        enabled,     complete
+Diesel Particulate Filter      enabled, not complete
+EGR/VVT system                 enabled, not complete
+Evaporative system         not enabled,     complete
+Exhaust Gas Sensor         not enabled, not complete
+Exhaust Gas Sensor heater  not enabled, not complete
+Fuel System                    enabled, not complete
+Heated catalyst            not enabled,     complete
+Misfire                        enabled,     complete
+NMHC converting catalyst       enabled, not complete
+NOx catalyst/adsorber      not enabled, not complete
+Secondary air system       not enabled,     complete
+
+2017-09-20T15:44:38.844 Global DM20 Request
+15:44:38.844 18EAFFF9 00 C2 00 (TX)
+15:44:41.344 18C20000 2F 02 25 00 CA 14 F8 00 00 11 00 B8 12 F8 00 00 25 00 C6 14 F8 00 00 25 00 F2 0B F8 00 00 25 00 F8 0B F8 00 00 25 00 C9 14 F8 00 00 25 00 EF 0B F8 07 00 25 00
+
+2017-09-20T15:44:41.345 Vehicle Composite Results of DM20:
++-----+----------------------------------+-----------------+-----------------+
+|     |                                  |  Initial Status |   Last Status   |
+|     |                                  |    2017-09-20   |    2017-09-20   |
+|     |                                  |   14:53:13.098  |   15:44:41.345  |
++-----+----------------------------------+-----------------+-----------------+
+|*    | Ignition Cycles                  |             557 |            559 *|
+|*    | OBD Monitoring Conditions Count  |              35 |             37 *|
++-----+----------------------------------+--------+--------+--------+--------+
+| Src | Monitor                          |  Num'r |  Den'r |  Num'r |  Den'r |
++-----+----------------------------------+--------+--------+--------+--------+
+|*  0 | 3055 Fuel Sys Mon                |      7 |     35 |     7  |    37 *|
+|*  0 | 3058 EGR Sys Mon                 |      0 |     35 |     0  |    37 *|
+|*  0 | 3064 AFT DPF Sys Mon             |      0 |     35 |     0  |    37 *|
+|*  0 | 4792 AFT 1 SCR Sys               |      0 |     35 |     0  |    37 *|
+|*  0 | 5318 AFT Exh Gas Snsr Sys Mon    |      0 |     35 |     0  |    37 *|
+|*  0 | 5321 Intake Manifold Press Sys ..|      0 |     35 |     0  |    37 *|
+|*  0 | 5322 AFT NMHC Converting Cataly..|      0 |     16 |     0  |    17 *|
++-----+----------------------------------+--------+--------+--------+--------+
+
+2017-09-20T15:44:41.354 Global DM21 Request
+15:44:41.355 18EAFFF9 00 C1 00 (TX)
+15:44:43.855 18C10000 00 00 00 00 00 00 3A 00
+DM21 from Engine #1 (0): [
+  Distance Traveled While MIL is Activated:     0 km (0 mi)
+  Time Run by Engine While MIL is Activated:    0 minutes
+  Distance Since DTCs Cleared:                  0 km (0 mi)
+  Time Since DTCs Cleared:                      58 minutes
+]
+Time Since Code Cleared Gap of 0 minutes
+
+2017-09-20T15:44:43.856 Vehicle Distance
+15:44:46.356 18FEC117 6F 86 01 00 FF FF FF FF
+High Resolution Vehicle Distance from Instrument Cluster #1 (23): 499.755 km (310.533 mi)
+
+2017-09-20T15:44:46.356 Engine Hours Request
+15:44:46.357 18EAFFF9 E5 FE 00 (TX)
+15:44:48.857 18FEE500 39 07 00 00 A8 15 00 00
+Engine Hours from Engine #1 (0): 92.45 hours
+
+2017-09-20T15:44:48.857 Global VIN Request
+15:44:48.858 18EAFFF9 EC FE 00 (TX)
+15:44:51.358 18FEEC00 33 48 43 44 5A 54 5A 52 33 4A 4C 34 34 32 37 32 35 2A
+Vehicle Identification from Engine #1 (0): **REDACTED*442725
+
+2017-09-20T15:44:51.359 Global DM19 (Calibration Information) Request
+15:44:51.359 18EAFFF9 00 D3 00 (TX)
+15:44:53.860 18D30000 66 E7 B4 62 52 41 44 58 53 46 41 42 00 00 00 00 00 00 00 00 A8 73 89 13 4E 4F 78 2D 53 41 45 31 34 61 20 41 54 49 31 00 8C 4B F9 C9 4E 4F 78 2D 53 41 45 31 34 61 20 41 54 4F 31 00 DE E5 00 00 31 32 44 42 42 32 30 30 30 32 00 00 00 00 00 00 D2 BF 0F A9 50 4D 53 31 32 33 34 31 41 31 30 31 00 00 00 00
+DM19 from Engine #1 (0): [
+  CAL ID of RADXSFAB and CVN of 0x62B4E766
+  CAL ID of NOx-SAE14a ATI1 and CVN of 0x138973A8
+  CAL ID of NOx-SAE14a ATO1 and CVN of 0xC9F94B8C
+  CAL ID of 12DBB20002 and CVN of 0x0000E5DE
+  CAL ID of PMS12341A101 and CVN of 0xA90FBFD2
+]
+
+2017-09-20T15:44:53.860 Total Queries: 57
+2017-09-20T15:44:53.861 Total Time Out Errors: 0
+2017-09-20T15:44:53.861 Total Data Collection Log Reports: 2
+2017-09-20T15:44:53.861 Total Excessive Time Since Code Clear Gaps: 0
+
+2017-09-20T15:44:53.861 IUMPR Data Collection Tool Data Collection Log END OF REPORT
+
+2017-09-20T15:45:20.839 End of IUMPR Data Collection Tool Execution
+

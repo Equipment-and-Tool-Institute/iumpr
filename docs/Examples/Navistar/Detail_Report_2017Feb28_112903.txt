@@ -1,0 +1,366 @@
+Test Detail Report: SAE J1939-84 HD OBD Scan Tool Test 2.2 Beta 3
+
+Date: 02/28/2017 Time: 11:29:03
+
+Vehicle Identification
+
+VIN 3HCDJSNR2HL648684
+
+Baud Rate: 500 kbps
+
+HD OBD Devices
+
+SA: 0, Engine #1
+CAL ID: M133XXM_B282NE06 
+CVN: 0xCB465A72 
+ESN: 00000000000000000 MAKE INT   MODEL 7571031515
+
+SA: 85, Diesel Particulate Filter Controller
+CAL ID: OUBNDXA          
+CVN: 0x02B134EB 
+ESN: 00000000 MAKE  MODEL 6X2u07D1500000000
+
+SA: 85, Diesel Particulate Filter Controller
+CAL ID: NOx-SAE14a ATI1  
+CVN: 0x138973A8 
+ESN: 00000000 MAKE  MODEL 6X2u07D1500000000
+
+SA: 85, Diesel Particulate Filter Controller
+CAL ID: NOx-SAE14a ATO1  
+CVN: 0xC9F94B8C 
+ESN: 00000000 MAKE  MODEL 6X2u07D1500000000
+
+SA: 85, Diesel Particulate Filter Controller
+CAL ID: 12DBB20001       
+CVN: 0x00009F4A 
+ESN: 00000000 MAKE  MODEL 6X2u07D1500000000
+
+SA: 85, Diesel Particulate Filter Controller
+CAL ID: PMS12330A100     
+CVN: 0xD7169BE8 
+ESN: 00000000 MAKE  MODEL 6X2u07D1500000000
+
+Non HD OBD Devices
+
+None 
+
+Address Claim 
+
+
+Part 1: KOEO Data Collection                                                                                              Result: Fail        Timing: Fail      
+
+Step Test Title                                                                                
+4    Direct DM24 (request 59904 for PGN 64950 (SPNs 3297, 4100-4103))                           Result: Fail      
+      FAIL: (N.2) SPN 514 not supported in DM24 for datastream access
+      FAIL: (N.2) SPN 2978 not supported in DM24 for datastream access
+      WARNING: (N.4) Alternative(s) for SPN 4076 supported in DM24 data stream
+      WARNING: (N.3) Preferred SPN #5827 wasn't supported in the data stream
+      FAIL: (N.2) SPN 235 not supported in DM24 for datastream access
+      FAIL: (N.2) SPN 248 not supported in DM24 for datastream access
+      FAIL: (N.2) SPN 5829 not supported in DM24 for datastream access
+      FAIL: (N.2) SPN 6895 not supported in DM24 for datastream access
+      WARNING: (N.3) Preferred SPN #96 wasn't supported in the data stream
+      FAIL: (N.2) Shared SPN 3515 not supported in DM24 for data stream access
+      FAIL: SPN #38 wasn't supported in DM24 data stream
+
+11   Global DM21 (request 59904 for PGN 49408 (SPNs 3069, 3294-3296))                           Result: Fail      
+      FAIL: DM21 from SA 0 reported a time since codes clear of 4 (which is > 1)
+
+11   DS DM21 to OBD ECUs                                                                        Result: Fail      
+      FAIL: DM21 from SA 0 reported a time since codes clear of 4 (which is > 1)
+
+12   Direct DM7 w/TID 247 + each DM24 SPN + FMI 31                                              Result: Fail      
+      FAIL: Uninitialized test results received from SPN #110 and FMI 17 from SA 0
+      FAIL: Uninitialized test results received from SPN #110 and FMI 16 from SA 0
+      WARNING: Duplicate test results received from SPN #724 and FMI 2 from SA 0
+      WARNING: Duplicate test results received from SPN #724 and FMI 2 from SA 0
+      FAIL: Uninitialized test results received from SPN #1323 and FMI 31 from SA 0
+      FAIL: Uninitialized test results received from SPN #1324 and FMI 31 from SA 0
+      FAIL: Uninitialized test results received from SPN #1325 and FMI 31 from SA 0
+      FAIL: Uninitialized test results received from SPN #1326 and FMI 31 from SA 0
+      FAIL: Uninitialized test results received from SPN #1327 and FMI 31 from SA 0
+      FAIL: Uninitialized test results received from SPN #1328 and FMI 31 from SA 0
+      FAIL: Uninitialized test results received from SPN #3223 and FMI 0 from SA 0
+      FAIL: Uninitialized test results received from SPN #3223 and FMI 1 from SA 0
+      FAIL: Uninitialized test results received from SPN #3055 and FMI 16 from SA 0
+      FAIL: Uninitialized test results received from SPN #3055 and FMI 18 from SA 0
+      WARNING: Duplicate test results received from SPN #5031 and FMI 10 from SA 85
+      WARNING: Duplicate test results received from SPN #5031 and FMI 10 from SA 85
+      FAIL: Invalid slot identifier of 287 received with SPN #5319 and FMI 31 from SA 85
+      WARNING: Duplicate test results received from SPN #5024 and FMI 10 from SA 85
+      WARNING: Duplicate test results received from SPN #5024 and FMI 10 from SA 85
+      WARNING: Duplicate test results received from SPN #5741 and FMI 7 from SA 85
+      FAIL: Uninitialized test results received from SPN #7330 and FMI 2 from SA 85
+      WARNING: Duplicate test results received from SPN #7330 and FMI 2 from SA 85
+
+13   Global DM5 (request 59904 for PGN 65230 (SPNs 1218-1223))                                  Result: Fail      
+      FAIL: Received DM5 from SA 85 with 255 Active Trouble Codes, was expecting 0
+      FAIL: Received DM5 from SA 85 with 255 Previously Active Trouble Codes, was expecting 0
+      FAIL: Global DM5 has improper comprehensive components support and status
+
+14   Global DM26 (request 59904 for PGN 64952 (SPNs 3302-3305))                                 Result: Fail      
+      FAIL: Global DM26 for SA 0 has exhaust gas sensor monitoring supported in DM5 but not supported/complete in DM26
+      FAIL: Global DM26 for SA 0 has EGR system monitoring supported in DM5 but not supported/complete in DM26
+      FAIL: Global DM26 for SA 0 has Boost pressure control supported in DM5 but not supported/complete in DM26
+      FAIL: Global DM26 for SA 0 has NOx converting catalyst and/or NOx adsorber supported in DM5 but not supported/complete in DM26
+
+16   DS DM2 to all OBD ECUs                                                                     Result: Fail      
+      FAIL: Direct Message received from SA 0 without corresponding Global.  Should be a NACK
+
+26   Gather broadcast data for all DM24 supported datastream                                    Result: Fail      
+      FAIL: (N.7) Direct DM24 Data Stream has data received for SPN 514 from SA 0 instead of not available (0xFF) SPN 514 is not supported in DM24 and received 80.
+      FAIL: (N.7) Direct DM24 Data Stream has data received for SPN 2978 from SA 0 instead of not available (0xFF) SPN 2978 is not supported in DM24 and received 7E.
+      WARNING: (N.5) More than one ECU has provided SPN 84 in the datastream
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 3563 from SA 0 instead of not available (0xFF) SPN 3563 is not supported in DM24 and received 31.
+      WARNING: (N.5) More than one ECU has provided SPN 84 in the datastream
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 235 from SA 0 instead of not available (0xFF) SPN 235 is not supported in DM24 and received 00.
+      FAIL: DM24 Data Stream has received data for SPN 108 from non-OBD module with SA 23
+      WARNING: (N.8) Global DM24 Data Stream has invalid data received for SPN 3609 from SA 0 is supported and has received invalid data of 987.700000
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 106 from SA 0 instead of not available (0xFF) SPN 106 is not supported in DM24 and received 31.
+      FAIL: DM24 Data Stream has received data for SPN 512 from non-OBD module with SA 33
+      FAIL: (N.5) More than one ECU has provided SPN 512 in the datastream
+      FAIL: DM24 Data Stream has received data for SPN 513 from non-OBD module with SA 33
+      FAIL: (N.5) More than one ECU has provided SPN 513 in the datastream
+      FAIL: DM24 Data Stream has received data for SPN 190 from non-OBD module with SA 33
+      FAIL: (N.5) More than one ECU has provided SPN 190 in the datastream
+      INFO: DM24 Data Stream has received data for SPN 158 from non-OBD module with SA 33
+      INFO: DM24 Data Stream has received data for SPN 168 from non-OBD module with SA 33
+      FAIL: (N.7) Direct DM24 Data Stream has data received for SPN 514 from SA 0 instead of not available (0xFF) SPN 514 is not supported in DM24 and received 80.
+      FAIL: (N.7) Direct DM24 Data Stream has data received for SPN 2978 from SA 0 instead of not available (0xFF) SPN 2978 is not supported in DM24 and received 7E.
+      FAIL: (N.5) More than one ECU has provided SPN 108 in the datastream
+      FAIL: (N.5) More than one ECU has provided SPN 3251 in the datastream
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 3719 from SA 85 instead of not available (0xFF) SPN 3719 is not supported in DM24 and received 1F.
+      FAIL: (N.7) Direct DM24 Data Stream has data received for SPN 514 from SA 0 instead of not available (0xFF) SPN 514 is not supported in DM24 and received 80.
+      FAIL: (N.7) Direct DM24 Data Stream has data received for SPN 2978 from SA 0 instead of not available (0xFF) SPN 2978 is not supported in DM24 and received 7E.
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 3563 from SA 0 instead of not available (0xFF) SPN 3563 is not supported in DM24 and received 31.
+      WARNING: (N.8) Global DM24 Data Stream has invalid data received for SPN 3609 from SA 0 is supported and has received invalid data of 986.800000
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 106 from SA 0 instead of not available (0xFF) SPN 106 is not supported in DM24 and received 31.
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 3563 from SA 0 instead of not available (0xFF) SPN 3563 is not supported in DM24 and received 31.
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 235 from SA 0 instead of not available (0xFF) SPN 235 is not supported in DM24 and received 00.
+      FAIL: DM24 Data Stream has received data for SPN 108 from non-OBD module with SA 23
+      WARNING: (N.8) Global DM24 Data Stream has invalid data received for SPN 3609 from SA 0 is supported and has received invalid data of 986.800000
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 106 from SA 0 instead of not available (0xFF) SPN 106 is not supported in DM24 and received 31.
+      FAIL: DM24 Data Stream has received data for SPN 512 from non-OBD module with SA 33
+      FAIL: DM24 Data Stream has received data for SPN 513 from non-OBD module with SA 33
+      FAIL: DM24 Data Stream has received data for SPN 190 from non-OBD module with SA 33
+      INFO: DM24 Data Stream has received data for SPN 158 from non-OBD module with SA 33
+      INFO: DM24 Data Stream has received data for SPN 168 from non-OBD module with SA 33
+      FAIL: (N.7) Direct DM24 Data Stream has data received for SPN 188 from SA 0 instead of not available (0xFF) SPN 188 is not supported in DM24 and received 14.
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 3719 from SA 85 instead of not available (0xFF) SPN 3719 is not supported in DM24 and received 1F.
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 235 from SA 0 instead of not available (0xFF) SPN 235 is not supported in DM24 and received 00.
+      FAIL: DM24 Data Stream has received data for SPN 108 from non-OBD module with SA 23
+      FAIL: DM24 Data Stream has received data for SPN 512 from non-OBD module with SA 33
+      FAIL: DM24 Data Stream has received data for SPN 513 from non-OBD module with SA 33
+      FAIL: DM24 Data Stream has received data for SPN 190 from non-OBD module with SA 33
+      INFO: DM24 Data Stream has received data for SPN 158 from non-OBD module with SA 33
+      INFO: DM24 Data Stream has received data for SPN 168 from non-OBD module with SA 33
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 3719 from SA 85 instead of not available (0xFF) SPN 3719 is not supported in DM24 and received 1F.
+      FAIL: (N.7) Direct DM24 Data Stream has data received for SPN 188 from SA 0 instead of not available (0xFF) SPN 188 is not supported in DM24 and received 14.
+      FAIL: (N.7) Direct DM24 Data Stream has data received for SPN 188 from SA 0 instead of not available (0xFF) SPN 188 is not supported in DM24 and received 14.
+      WARNING: DM24 Data Stream: Did not receive 3 messages from SA 0 at the average rate of 20 ms for SPN 512.  May be RPM Dependent.
+      WARNING: DM24 Data Stream: Did not receive 3 messages from SA 0 at the average rate of 20 ms for SPN 513.  May be RPM Dependent.
+      WARNING: DM24 Data Stream: Did not receive 3 messages from SA 0 at the average rate of 20 ms for SPN 190.  May be RPM Dependent.
+      WARNING: DM24 Data Stream: Did not receive 3 messages from SA 33 at the average rate of 20 ms for SPN 512.  May be RPM Dependent.
+      WARNING: DM24 Data Stream: Did not receive 3 messages from SA 33 at the average rate of 20 ms for SPN 513.  May be RPM Dependent.
+      WARNING: DM24 Data Stream: Did not receive 3 messages from SA 33 at the average rate of 20 ms for SPN 190.  May be RPM Dependent.
+
+     Message Timing Failures:                                                                   Timing: Fail      
+       (SA 55) = 1173 ms ( > 220 ms)
+       (SA 55) = 1173 ms ( > 220 ms)
+       (SA 55) = 2171 ms ( > 220 ms)
+       (SA 55) = 2171 ms ( > 220 ms)
+       (SA 55) = 3169 ms ( > 220 ms)
+       (SA 55) = 3169 ms ( > 220 ms)
+       (SA 55) = 4168 ms ( > 220 ms)
+       (SA 55) = 4168 ms ( > 220 ms)
+       (SA 00) = 570 ms ( > 220 ms)
+       (SA 00) = 570 ms ( > 220 ms)
+
+26   If no response/no valid data for any upon request SPN indicated as supported in DM24, send global message to request that SPN(s) Result: Fail      
+      FAIL: Direct and Global DM24s for PGN 64891 and SPN 5466 did not have valid data received
+
+
+
+Part 2: Key On Engine Running Data Collection                                                                             Result: Fail        Timing: Fail      
+
+Step Test Title                                                                                
+2    Global DM5 (request 59904 for PGN 65230 (SPNs 1218-1223))                                  Result: Fail      
+      FAIL: Received DM5 from SA 85 with 255 Active Trouble Codes, was expecting 0
+      FAIL: Received DM5 from SA 85 with 255 Previously Active Trouble Codes, was expecting 0
+      FAIL: Global DM5 has improper comprehensive components support and status
+
+7    Destination Specific (DS) Component ID request (PGN 59904) for PGN 65259 (SPNs 586, 587, and 588) Result: Fail      
+      FAIL: SA 11 failed to respond to a Direct ESN Message when the engine was one.  Responded when the engine was off
+      FAIL: SA 23 failed to respond to a Direct ESN Message when the engine was one.  Responded when the engine was off
+
+10   DS DM7 to OBD ECUs w/TID 247+ each DM24 SPN +FMI 31                                        Result: Fail      
+      FAIL: Direct DM7 message to source address #0 timed out for SPN 1322
+      FAIL: Direct DM7 message to source address #85 timed out for SPN 1659
+
+17   Gather broadcast data for all DM24 supported datastream                                    Result: Fail      
+      INFO: DM24 Data Stream has received data for SPN 158 from non-OBD module with SA 33
+      INFO: DM24 Data Stream has received data for SPN 168 from non-OBD module with SA 33
+      WARNING: (N.5) More than one ECU has provided SPN 84 in the datastream
+      FAIL: DM24 Data Stream has received data for SPN 108 from non-OBD module with SA 23
+      FAIL: (N.5) More than one ECU has provided SPN 108 in the datastream
+      WARNING: (N.5) More than one ECU has provided SPN 84 in the datastream
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 3719 from SA 85 instead of not available (0xFF) SPN 3719 is not supported in DM24 and received 1F.
+      FAIL: (N.7) Direct DM24 Data Stream has data received for SPN 514 from SA 0 instead of not available (0xFF) SPN 514 is not supported in DM24 and received 81.
+      FAIL: (N.7) Direct DM24 Data Stream has data received for SPN 2978 from SA 0 instead of not available (0xFF) SPN 2978 is not supported in DM24 and received 7D.
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 3563 from SA 0 instead of not available (0xFF) SPN 3563 is not supported in DM24 and received 30.
+      FAIL: (N.7) Direct DM24 Data Stream has data received for SPN 188 from SA 0 instead of not available (0xFF) SPN 188 is not supported in DM24 and received 14.
+      FAIL: (N.5) More than one ECU has provided SPN 3251 in the datastream
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 106 from SA 0 instead of not available (0xFF) SPN 106 is not supported in DM24 and received 30.
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 235 from SA 0 instead of not available (0xFF) SPN 235 is not supported in DM24 and received 00.
+      FAIL: DM24 Data Stream has received data for SPN 512 from non-OBD module with SA 33
+      FAIL: (N.5) More than one ECU has provided SPN 512 in the datastream
+      FAIL: DM24 Data Stream has received data for SPN 513 from non-OBD module with SA 33
+      FAIL: (N.5) More than one ECU has provided SPN 513 in the datastream
+      FAIL: DM24 Data Stream has received data for SPN 190 from non-OBD module with SA 33
+      FAIL: (N.5) More than one ECU has provided SPN 190 in the datastream
+      INFO: DM24 Data Stream has received data for SPN 158 from non-OBD module with SA 33
+      INFO: DM24 Data Stream has received data for SPN 168 from non-OBD module with SA 33
+      FAIL: DM24 Data Stream has received data for SPN 108 from non-OBD module with SA 23
+      FAIL: DM24 Data Stream has received data for SPN 512 from non-OBD module with SA 33
+      FAIL: DM24 Data Stream has received data for SPN 513 from non-OBD module with SA 33
+      FAIL: DM24 Data Stream has received data for SPN 190 from non-OBD module with SA 33
+      INFO: DM24 Data Stream has received data for SPN 158 from non-OBD module with SA 33
+      INFO: DM24 Data Stream has received data for SPN 168 from non-OBD module with SA 33
+      FAIL: DM24 Data Stream has received data for SPN 108 from non-OBD module with SA 23
+      FAIL: DM24 Data Stream has received data for SPN 512 from non-OBD module with SA 33
+      FAIL: DM24 Data Stream has received data for SPN 513 from non-OBD module with SA 33
+      FAIL: DM24 Data Stream has received data for SPN 190 from non-OBD module with SA 33
+      WARNING: (N.7) Direct DM24 Data Stream has data received for SPN 248 from SA 0 instead of not available (0xFF) SPN 248 is not supported in DM24 and received 00.
+
+     Message Timing Failures:                                                                   Timing: Fail      
+       (SA 55) = 1218 ms ( > 220 ms)
+       (SA 55) = 1218 ms ( > 220 ms)
+       (SA 55) = 2216 ms ( > 220 ms)
+       (SA 55) = 2216 ms ( > 220 ms)
+       (SA 55) = 3214 ms ( > 220 ms)
+       (SA 55) = 3214 ms ( > 220 ms)
+       (SA 55) = 4213 ms ( > 220 ms)
+       (SA 55) = 4213 ms ( > 220 ms)
+       (SA 00) = 557 ms ( > 220 ms)
+       (SA 00) = 557 ms ( > 220 ms)
+
+17   If no response/no valid data for any upon request SPN indicated as supported in DM24, send global message to request that SPN(s) Result: Fail      
+      FAIL: Direct and Global DM24s for PGN 64891 and SPN 5466 did not have valid data received
+
+
+
+Part 3: Test Pending Fault A                                                                                              Result: Fail        Timing: Pass      
+
+Step Test Title                                                                                
+8    Global DM5 (request 59904 for PGN 65230 (SPNs 1218-1219))                                  Result: Fail      
+      FAIL: Received DM5 from SA 85 with 255 Active Trouble Codes, was expecting 0
+      FAIL: Received DM5 from SA 85 with 255 Previously Active Trouble Codes, was expecting 0
+
+13   Direct DM25 (request 59904 for PGN 64951 (SPNs 3300, 1214-1215))                           Result: Fail      
+      FAIL: Direct DM25 from SA 0 has a length byte of 168 at position 4 and DM24 said to expect 138
+      WARNING: Direct DM25 has Invalid Freeze Frame Data reported in SA 0 for SPN 110 at byte 14 with a length 1
+      WARNING: Direct DM25 has Invalid Freeze Frame Data reported in SA 0 for SPN 4076 at byte 102 with a length 1
+
+
+
+Part 4: Test Confirmed Fault A                                                                                            Result: Fail        Timing: Pass      
+
+Step Test Title                                                                                
+6    Global DM5 (request 59904 for PGN 65230 (SPNs 1218-1219))                                  Result: Fail      
+      FAIL: Received DM5 from SA 85 with 255 Active Trouble Codes, was expecting 0 to match DM1
+      FAIL: Received DM5 from SA 85 with 255 Previously Active Trouble Codes, was expecting 0
+
+12   Direct DM7 w/TID 246 + SPN 5846 +FMI 31. (If TID 246 method not supported, use DS DM7 w/ TID 247 + each DM24 SPN+ FMI 31) Result: Fail      
+      FAIL: Direct DM7 message to source address #0 timed out for SPN 1322
+      FAIL: Direct DM7 message to source address #85 timed out for SPN 1659
+
+
+
+Part 5: Correct Fault A First Cycle                                                                                       Result: Pass        Timing: Pass      
+
+
+Part 6: Complete Fault A Three Cycle Countdown                                                                            Result: Fail        Timing: Pass      
+
+Step Test Title                                                                                
+2    Global DM5 (request 59904 for PGN 65230 (SPNs 1218-1219))                                  Result: Fail      
+      FAIL: Received DM5 from SA 0 with 1 Previously Active Trouble Codes, was expecting 0
+      WARNING: Received DM5 from SA 85 with 255 Active Trouble Codes, was expecting 0 or 1
+      FAIL: Received DM5 from SA 85 with 255 Previously Active Trouble Codes, was expecting 0
+      FAIL: Global DM5 has improper comprehensive components support and status
+
+4    Receive broadcast DM1 (PGN 65226 (SPNs 1213-1215, 3038, 1706))                             Result: Fail      
+      FAIL: DM1 Message from SA 0 has 1 DTCs while DM5 had 0 DTCs
+      FAIL: DM1 Message from SA 0 has 1 DTCs while DM5 had 0 DTCs
+
+
+
+Part 7: Verify DM23 Transition                                                                                            Result: Fail        Timing: Fail      
+
+Step Test Title                                                                                
+6    Global DM5 (request 59904 for PGN 65230 (SPNs 1218-1219                                    Result: Fail      
+      FAIL: Global DM5 from SA 85 has a different number of previously active DTCs (255) than DM23 (0)
+      FAIL: Received DM5 from SA 85 with 255 Active Trouble Codes, was expecting 0
+
+     Message Timing Failures:                                                                   Timing: Fail      
+       (DM5) - Timing Error: Response Time (SA 00) = 651 ms ( > 220 ms)
+       (DM5) - Timing Error: Response Time (SA 00) = 651 ms ( > 220 ms)
+       (DM5) - Timing Error: Response Time (SA 00) = 1260 ms ( > 220 ms)
+       (DM5) - Timing Error: Response Time (SA 00) = 1260 ms ( > 220 ms)
+       (DM5) - Timing Error: Response Time (SA 00) = 1859 ms ( > 220 ms)
+       (DM5) - Timing Error: Response Time (SA 00) = 1859 ms ( > 220 ms)
+
+15   Direct DM7 w/TID 246 + SPN 5846 +FMI 31. (If TID 246 method not supported, use DS DM7 w/ TID 247 + each DM24 SPN+ FMI 31) Result: Fail      
+      FAIL: Direct DM7 message to source address #0 timed out for SPN 1322
+      FAIL: Direct DM7 message to source address #85 timed out for SPN 1659
+
+
+
+Part 8: Verify Fault B for General Denominator Demonstration                                                              Result: Fail        Timing: Pass      
+
+Step Test Title                                                                                
+6    Global DM5 (request 59904 for PGN 65230 (SPNs 1218-1223))                                  Result: Fail      
+      FAIL: Global DM5 from SA 85 has a different number of active DTCs (255) than DM1 (0)
+
+11   DS DM7 w/TID 247 + each DM24 SPN + FMI 31                                                  Result: Fail      
+      FAIL: Direct DM7 message to source address #0 timed out for SPN 1322
+      FAIL: Direct DM7 message to source address #85 timed out for SPN 1659
+
+
+
+Part 9: Verify Deletion of Fault B with DM11                                                                              Result: Fail        Timing: Pass      
+
+Step Test Title                                                                                
+6    DS DM7 w/TID 247 and specific SPN with non-initialized test results from list created in Step 8.11.1.1 + FMI 31 Result: Fail      
+      FAIL: DM30 from SA 0 has initialized test results 0/0/0 for SPN 110 FMI 18 TID 247
+      FAIL: DM30 from SA 0 has initialized test results 0/0/0 for SPN 110 FMI 18 TID 247
+
+8    Get Diag Info From ECUs                                                                    Result: Fail      
+      FAIL: Found not erased data
+
+10   DS DM7 w/TID 250 and each SPN+FMI from list in Step 1                                      Result: Fail      
+      FAIL: Uninitialized test results received from SPN #7330 and FMI 2 from SA 85
+
+21   Global DM5 (request 59904 for PGN 65230 (SPNs 1218-1219))                                  Result: Fail      
+      FAIL: Received DM5 from SA 85 with 255 Active Trouble Codes, was expecting 0
+      FAIL: Received DM5 from SA 85 with 255 Previously Active Trouble Codes, was expecting 0
+
+
+
+Part 10: Prime Diagnostic Executive for General Denominator Demonstration                                                 Result: Pass        Timing: Pass      
+
+
+Part 11: Exercise General Denominator                                                                                     Result: Pass        Timing: Pass      
+
+
+Part 12: Verify Deletion of Fault B from DM28                                                                             Result: Fail        Timing: Fail      
+
+Step Test Title                                                                                
+9    DS DM11 (request 59904 for PGN 65235) to OBD ECUs                                          Result: Fail      
+      FAIL: Direct DM11 from SA 0 did not respond with a NACK
+      FAIL: Direct DM11 from SA 85 did not respond with a NACK
+
+9    Get Diag Info From ECUs                                                                   
+     Message Timing Failures:                                                                   Timing: Fail      
+       (SA 00) = 646 ms ( > 220 ms)
+
+
