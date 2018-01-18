@@ -85,8 +85,18 @@
 		<antcall target="dist.exe" />
 	</target>
 
+
 	<target name="dist.exe" if="isWindows">
 		<property environment="env"/>
+		<echo message="Using JRE from JRE_HOME env variable ${env.JRE_HOME}"/>
+		<fail message="The directory '${env.JRE_HOME}' was expected to be available but is not.  Verify that the environment variable JRE_HOME is set to correctly point to the 32 bit JRE.">
+			<condition>
+				<not>
+					<available file="${env.JRE_HOME}" type="dir" />
+				</not>
+			</condition>
+		</fail>
+ 
 		<copy todir="jre">
 			<fileset dir="${env.JRE_HOME}" />
 		</copy>
