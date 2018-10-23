@@ -131,6 +131,11 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
     private int collectionLogs;
 
     /**
+     * Flag used to ignore date checking of the file
+     */
+    private boolean dateCheckingOn = true;
+
+    /**
      * The number of Excessive Time Gaps found in the file
      */
     private int excessiveTimeGaps;
@@ -266,15 +271,23 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
         LocalDateTime lineInstant = parseDateTime(line);
 
         if (lineInstant != null) {
-            if (lastInstant != null) {
-                if (lineInstant.isBefore(lastInstant)) {
-                    throw new ReportFileException(Problem.DATE_INCONSISTENT);
-                }
-                if (lineInstant.isAfter(LocalDateTime.now())) {
-                    throw new ReportFileException(Problem.DATE_RESET);
-                }
+            if (lineInstant.isAfter(LocalDateTime.now())) {
+                throw new ReportFileException(Problem.DATE_RESET);
             }
-            lastInstant = lineInstant;
+
+            if (line.contains("Begin Tracking Monitor Completion Status")) {
+                dateCheckingOn = false;
+            } else if (line.contains("End Tracking Monitor Completion Status")) {
+                dateCheckingOn = true;
+            }
+
+            if (lastInstant != null && lineInstant.isBefore(lastInstant) && dateCheckingOn) {
+                throw new ReportFileException(Problem.DATE_INCONSISTENT);
+            }
+
+            if (dateCheckingOn) {
+                lastInstant = lineInstant;
+            }
         }
     }
 

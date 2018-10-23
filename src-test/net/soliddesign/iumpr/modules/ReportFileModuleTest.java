@@ -628,7 +628,13 @@ public class ReportFileModuleTest {
         writer.write("2017-03-05T12:21:45.090 18FECE00 00 00 14 37 E0 1E E0 1E" + NL);
         writer.write("  Time Since DTCs Cleared:                      14 minutes" + NL);
         writer.write("2017-03-05T12:21:47.610 18C20000 0C 00 01 00 CA 14 F8 00 00 01 00" + NL);
-        writer.write("2017-03-05T12:21:56.495 IUMPR Data Collection Tool Data Plate Report END OF REPORT");
+        // The following lines tests an out of order date sequence from packets
+        // capture during monitor completion.
+        writer.write("2017-03-05T12:43:53.076 Begin Tracking Monitor Completion Status" + NL);
+        writer.write("12:46:55.854 DM5 Packet(s) Received" + NL);
+        writer.write("12:46:45.933 18FECE00 00 00 14 37 E0 1E E0 1E" + NL);
+        writer.write("2017-03-05T12:54:38.658 End Tracking Monitor Completion Status. 65 Total Cycles." + NL);
+        writer.write("2017-03-05T13:21:56.495 IUMPR Data Collection Tool Data Plate Report END OF REPORT");
         writer.close();
 
         instance.setReportFile(listener, file, false);
