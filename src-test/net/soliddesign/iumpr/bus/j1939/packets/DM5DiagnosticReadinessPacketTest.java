@@ -8,9 +8,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Objects;
 
 import org.junit.Test;
 
@@ -22,44 +22,50 @@ import net.soliddesign.iumpr.bus.Packet;
  * @author Matt Gumbel (matt@soliddesign.net)
  *
  */
-public class DM5DiagnosticReadinessPacketTest {
-    @Test
-    public void testEqualsAndHashCode() {
-        Packet packet = Packet.create(65230, 0, 11, 22, 33, 44, 55, 66, 77, 88);
-        DM5DiagnosticReadinessPacket instance1 = new DM5DiagnosticReadinessPacket(packet);
-        DM5DiagnosticReadinessPacket instance2 = new DM5DiagnosticReadinessPacket(packet);
+public class DM5DiagnosticReadinessPacketTest extends DiagnosticReadinessPacketTest {
 
-        assertTrue(instance1.equals(instance2));
-        assertTrue(instance2.equals(instance1));
-        assertTrue(instance1.hashCode() == instance2.hashCode());
+    @Override
+    protected DiagnosticReadinessPacket createInstance(Packet packet) {
+        return new DM5DiagnosticReadinessPacket(packet);
+    }
+
+    @Override
+    protected MonitoredSystemStatus findStatus(boolean enabled, boolean complete) {
+        return MonitoredSystemStatus.findStatus(true, enabled, complete);
     }
 
     @Test
-    public void testEqualsAndHashCodeSelf() {
-        Packet packet = Packet.create(65230, 0, 11, 22, 33, 44, 55, 66, 77, 88);
-        DM5DiagnosticReadinessPacket instance = new DM5DiagnosticReadinessPacket(packet);
-        assertTrue(instance.equals(instance));
-        assertTrue(instance.hashCode() == instance.hashCode());
-    }
-
-    @Test
-    public void testEqualsContinouslyMonitoredSystems() {
-        Packet packet1 = Packet.create(65230, 0, 0x11, 0x22, 0x33, 0x00, 0x55, 0x66, 0x77, 0x88);
-        DM5DiagnosticReadinessPacket instance1 = new DM5DiagnosticReadinessPacket(packet1);
-        for (int i = 1; i < 255; i++) {
-            Packet packet2 = Packet.create(0, 0, 0x11, 0x22, 0x33, i, 0x55, 0x66, 0x77, 0x88);
-            DM5DiagnosticReadinessPacket instance2 = new DM5DiagnosticReadinessPacket(packet2);
-            boolean equal = Objects.equals(instance1.getContinuouslyMonitoredSystems(),
-                    instance2.getContinuouslyMonitoredSystems());
-            assertEquals("Failed with packet " + packet2, equal, instance1.equals(instance2));
+    public void test0xFF() {
+        DiagnosticReadinessPacket instance = createInstance(0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF);
+        {
+            List<MonitoredSystem> systems = instance.getContinuouslyMonitoredSystems();
+            for (MonitoredSystem system : systems) {
+                assertEquals(system.getName() + " is wrong", findStatus(false, false), system.getStatus());
+            }
+        }
+        {
+            List<MonitoredSystem> systems = instance.getNonContinuouslyMonitoredSystems();
+            for (MonitoredSystem system : systems) {
+                assertEquals(system.getName() + " is wrong", findStatus(false, false), system.getStatus());
+            }
         }
     }
 
     @Test
-    public void testEqualsWithObject() {
-        Packet packet = Packet.create(65230, 0, 11, 22, 33, 44, 55, 66, 77, 88);
-        DM5DiagnosticReadinessPacket instance = new DM5DiagnosticReadinessPacket(packet);
-        assertFalse(instance.equals(new Object()));
+    public void test0xFFWithNoOBD() {
+        DiagnosticReadinessPacket instance = createInstance(0xFF, 0xFF, 0x05, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF);
+        {
+            List<MonitoredSystem> systems = instance.getContinuouslyMonitoredSystems();
+            for (MonitoredSystem system : systems) {
+                assertEquals(system.getName() + " is wrong", findStatus(false, false), system.getStatus());
+            }
+        }
+        {
+            List<MonitoredSystem> systems = instance.getNonContinuouslyMonitoredSystems();
+            for (MonitoredSystem system : systems) {
+                assertEquals(system.getName() + " is wrong", findStatus(false, false), system.getStatus());
+            }
+        }
     }
 
     @Test
@@ -140,28 +146,6 @@ public class DM5DiagnosticReadinessPacketTest {
         DM5DiagnosticReadinessPacket instance2 = new DM5DiagnosticReadinessPacket(packet2);
 
         assertFalse(instance1.equals(instance2));
-    }
-
-    @Test
-    public void testNotEqualsNonContinouslyMonitoredSystemsCompleted() {
-        Packet packet1 = Packet.create(0, 0, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88);
-        DM5DiagnosticReadinessPacket instance1 = new DM5DiagnosticReadinessPacket(packet1);
-        for (int i = 1; i < 255; i++) {
-            Packet packet2 = Packet.create(0, 0, 0x11, 0x22, 0x33, 0x44, 0xFF, 0xFF, i, i);
-            DM5DiagnosticReadinessPacket instance2 = new DM5DiagnosticReadinessPacket(packet2);
-            assertFalse("Failed with packet " + packet2, instance1.equals(instance2));
-        }
-    }
-
-    @Test
-    public void testNotEqualsNonContinouslyMonitoredSystemsSupported() {
-        Packet packet1 = Packet.create(0, 0, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88);
-        DM5DiagnosticReadinessPacket instance1 = new DM5DiagnosticReadinessPacket(packet1);
-        for (int i = 1; i < 255; i++) {
-            Packet packet2 = Packet.create(0, 0, 0x11, 0x22, 0x33, 0x44, i, i, 0x77, 0x88);
-            DM5DiagnosticReadinessPacket instance2 = new DM5DiagnosticReadinessPacket(packet2);
-            assertFalse("Failed with packet " + packet2, instance1.equals(instance2));
-        }
     }
 
     @Test
