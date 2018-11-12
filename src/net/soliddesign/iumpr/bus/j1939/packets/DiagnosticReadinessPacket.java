@@ -17,9 +17,9 @@ import net.soliddesign.iumpr.bus.Packet;
  * @author Matt Gumbel (matt@soliddesign.net)
  *
  */
-public class DiagnosticReadinessPacket extends ParsedPacket {
+public abstract class DiagnosticReadinessPacket extends ParsedPacket {
 
-    public DiagnosticReadinessPacket(Packet packet) {
+    protected DiagnosticReadinessPacket(Packet packet) {
         super(packet);
     }
 
@@ -123,6 +123,15 @@ public class DiagnosticReadinessPacket extends ParsedPacket {
     }
 
     /**
+     * Helper method to indicate if this is a DM26 packet
+     *
+     * @return true if this is a DM26 packet
+     */
+    private boolean isDM26() {
+        return this instanceof DM26TripDiagnosticReadinessPacket;
+    }
+
+    /**
      * Helper method to indicate if this is a DM5 packet
      *
      * @return true if this is a DM5 packet
@@ -137,6 +146,6 @@ public class DiagnosticReadinessPacket extends ParsedPacket {
      * @return boolean
      */
     private boolean isOBDModule() {
-        return getByte(2) != (byte) 0x05 && getByte(2) != (byte) 0xFF;
+        return isDM26() || (isDM5() && getByte(2) != (byte) 0x05 && getByte(2) != (byte) 0xFF);
     }
 }
