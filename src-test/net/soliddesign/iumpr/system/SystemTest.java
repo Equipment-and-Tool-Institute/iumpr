@@ -6,6 +6,7 @@ package net.soliddesign.iumpr.system;
 import static net.soliddesign.iumpr.IUMPR.NL;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -20,7 +21,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -552,16 +552,20 @@ public class SystemTest {
 
         while (view.getEnabled() == startingValue) {
             if (System.currentTimeMillis() - start > maxTime) {
-                Assert.assertEquals("transition: " + startingValue + " -> " + endingValue, startingValue,
-                        view.getEnabled());
+                assertEquals("transition: " + startingValue + " -> " + endingValue, startingValue, view.getEnabled());
+                if (System.currentTimeMillis() - start > maxTime * 2) {
+                    fail("Timeout waiting for starting value to change");
+                }
             }
             Thread.sleep(100);
         }
 
         while (view.getEnabled() != endingValue) {
             if (System.currentTimeMillis() - start > maxTime) {
-                Assert.assertEquals("transition: " + startingValue + " -> " + endingValue, endingValue,
-                        view.getEnabled());
+                assertEquals("transition: " + startingValue + " -> " + endingValue, endingValue, view.getEnabled());
+                if (System.currentTimeMillis() - start > maxTime * 2) {
+                    fail("Timeout waiting for ending value to change");
+                }
             }
             Thread.sleep(100);
         }

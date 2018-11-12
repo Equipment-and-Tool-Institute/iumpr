@@ -238,7 +238,7 @@ public class MonitorCompletionControllerTest {
                 .thenReturn(true);
         when(reportFileModule.getMinutesSinceCodeClear()).thenReturn((double) 1234);
 
-        LocalDateTime monitorTime = LocalDateTime.now();
+        LocalDateTime monitorTime = LocalDateTime.now().minusSeconds(2);
         when(reportFileModule.getInitialMonitorsTime()).thenReturn(monitorTime);
         when(dateTimeModule.format(monitorTime)).thenReturn("MonitorTime");
 
@@ -248,7 +248,7 @@ public class MonitorCompletionControllerTest {
         Set<MonitoredSystem> lastSystems = new HashSet<>();
         when(monitorTrackingModule.getLastSystems()).thenReturn(lastSystems);
 
-        LocalDateTime ratioTime = LocalDateTime.now();
+        LocalDateTime ratioTime = LocalDateTime.now().plusSeconds(2);
         when(reportFileModule.getInitialRatiosTime()).thenReturn(ratioTime);
         when(dateTimeModule.format(ratioTime)).thenReturn("RatioTime");
 
