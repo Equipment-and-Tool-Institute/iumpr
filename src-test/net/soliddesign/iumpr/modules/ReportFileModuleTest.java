@@ -8,6 +8,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import java.io.File;
@@ -18,6 +20,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.junit.After;
 import org.junit.Before;
@@ -40,6 +44,7 @@ public class ReportFileModuleTest {
 
     private ReportFileModule instance;
     private TestResultsListener listener;
+    private Logger logger;
 
     @Before
     public void setUp() throws Exception {
@@ -47,12 +52,15 @@ public class ReportFileModuleTest {
         file.deleteOnExit();
         listener = new TestResultsListener();
 
-        instance = new ReportFileModule(new TestDateTimeModule() {
+        TestDateTimeModule dateTimeModule = new TestDateTimeModule() {
             @Override
             public DateTimeFormatter getTimeFormatter() {
                 return getSuperTimeFormatter();
             }
-        });
+        };
+
+        logger = mock(Logger.class);
+        instance = new ReportFileModule(dateTimeModule, logger);
     }
 
     @After
@@ -653,6 +661,9 @@ public class ReportFileModuleTest {
         assertEquals(1, instance.getInitialRatios().size());
         assertEquals(12, instance.getInitialIgnitionCycles());
         assertEquals(1, instance.getInitialOBDCounts());
+
+        verify(logger).log(Level.WARNING, "The dates in the file are inconsistent.");
+        verifyNoMoreInteractions(logger);
     }
 
     @Test

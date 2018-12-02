@@ -172,6 +172,8 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
 
     private LocalDateTime lastInstant;
 
+    private Logger logger;
+
     /**
      * Flag indicating if the file is new or existing
      */
@@ -219,7 +221,7 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
      * Constructor
      */
     public ReportFileModule() {
-        this(new DateTimeModule());
+        this(new DateTimeModule(), IUMPR.getLogger());
     }
 
     /**
@@ -227,9 +229,12 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
      *
      * @param dateTimeModule
      *            The {@link DateTimeModule}
+     * @param logger
+     *            The {@link Logger} to use for logging
      */
-    public ReportFileModule(DateTimeModule dateTimeModule) {
+    public ReportFileModule(DateTimeModule dateTimeModule, Logger logger) {
         super(dateTimeModule);
+        this.logger = logger;
     }
 
     /**
@@ -281,13 +286,15 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
                 dateCheckingOn = true;
             }
 
-            if (lastInstant != null && lineInstant.isBefore(lastInstant) && dateCheckingOn) {
-                throw new ReportFileException(Problem.DATE_INCONSISTENT);
+            if (lastInstant != null && lineInstant.isBefore(lastInstant)) {
+                if (dateCheckingOn) {
+                    throw new ReportFileException(Problem.DATE_INCONSISTENT);
+                } else {
+                    getLogger().log(Level.WARNING, Problem.DATE_INCONSISTENT.string);
+                }
             }
 
-            if (dateCheckingOn) {
-                lastInstant = lineInstant;
-            }
+            lastInstant = lineInstant;
         }
     }
 
@@ -505,7 +512,7 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
     }
 
     private Logger getLogger() {
-        return IUMPR.getLogger();
+        return logger;
     }
 
     /**
@@ -579,6 +586,7 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
     @Override
     public void onResult(String result) {
         try {
+            checkDate(result);
             write(result);
             writer.flush();
 

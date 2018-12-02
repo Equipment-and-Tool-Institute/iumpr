@@ -397,22 +397,22 @@ public class MonitorTrackingModuleTest {
         expectedResults += "2007-12-03T10:15:30.000 Begin Tracking Monitor Completion Status" + NL;
         expectedResults += "" + NL;
         expectedResults += "10:15:30.000 DM5 Packet(s) Received" + NL;
-        expectedResults += "10:15:30.000 18FECE00 01 02 03 04 05 06 07 08" + NL;
+        expectedResults += "18FECE00 01 02 03 04 05 06 07 08" + NL;
         expectedResults += "" + NL;
         expectedResults += "10:15:30.000 DM20 Packet(s) Received" + NL;
-        expectedResults += "10:15:30.000 18C20000 01 02 03 04 05 06 07 08 09 0A 0B" + NL;
+        expectedResults += "18C20000 01 02 03 04 05 06 07 08 09 0A 0B" + NL;
         expectedResults += "" + NL;
         expectedResults += "10:15:30.000 DM26 Packet(s) Received" + NL;
-        expectedResults += "10:15:30.000 18FDB800 01 02 03 04 05 06 07 08" + NL;
+        expectedResults += "18FDB800 01 02 03 04 05 06 07 08" + NL;
         expectedResults += "" + NL;
         expectedResults += "10:15:30.000 DM5 Packet(s) Received" + NL;
-        expectedResults += "10:15:30.000 18FECE00 01 02 03 04 05 06 07 08" + NL;
+        expectedResults += "18FECE00 01 02 03 04 05 06 07 08" + NL;
         expectedResults += "" + NL;
         expectedResults += "10:15:30.000 DM20 Packet(s) Received" + NL;
-        expectedResults += "10:15:30.000 18C20000 01 02 03 04 05 06 07 08 09 0A 0B" + NL;
+        expectedResults += "18C20000 01 02 03 04 05 06 07 08 09 0A 0B" + NL;
         expectedResults += "" + NL;
         expectedResults += "10:15:30.000 DM26 Packet(s) Received" + NL;
-        expectedResults += "10:15:30.000 18FDB800 01 02 03 04 05 06 07 08" + NL;
+        expectedResults += "18FDB800 01 02 03 04 05 06 07 08" + NL;
         expectedResults += "" + NL;
         expectedResults += "2007-12-03T10:15:30.000 End Tracking Monitor Completion Status. 36 Total Cycles." + NL;
 
@@ -673,13 +673,13 @@ public class MonitorTrackingModuleTest {
         expectedResults += "10:15:30.000 Ratios Updated" + NL;
         expectedResults += "" + NL;
         expectedResults += "10:15:30.000 DM5 Packet(s) Received" + NL;
-        expectedResults += "10:15:30.000 18FECE00 01 02 03 04 05 06 07 08" + NL;
+        expectedResults += "18FECE00 01 02 03 04 05 06 07 08" + NL;
         expectedResults += "" + NL;
         expectedResults += "10:15:30.000 DM20 Packet(s) Received" + NL;
-        expectedResults += "10:15:30.000 18C20000 0B 0A 09 08 07 06 05 04 03 02 01" + NL;
+        expectedResults += "18C20000 0B 0A 09 08 07 06 05 04 03 02 01" + NL;
         expectedResults += "" + NL;
         expectedResults += "10:15:30.000 DM26 Packet(s) Received" + NL;
-        expectedResults += "10:15:30.000 18FDB800 01 02 03 04 05 06 07 08" + NL;
+        expectedResults += "18FDB800 01 02 03 04 05 06 07 08" + NL;
         expectedResults += "" + NL;
         expectedResults += "2007-12-03T10:15:30.000 End Tracking Monitor Completion Status. 2 Total Cycles." + NL;
 
@@ -759,13 +759,13 @@ public class MonitorTrackingModuleTest {
         expectedResults += "10:15:30.000 Monitors Updated" + NL;
         expectedResults += "" + NL;
         expectedResults += "10:15:30.000 DM5 Packet(s) Received" + NL;
-        expectedResults += "10:15:30.000 18FECE00 08 07 06 05 04 03 02 01" + NL;
+        expectedResults += "18FECE00 08 07 06 05 04 03 02 01" + NL;
         expectedResults += "" + NL;
         expectedResults += "10:15:30.000 DM20 Packet(s) Received" + NL;
-        expectedResults += "10:15:30.000 18C20000 01 02 03 04 05 06 07 08 09 0A 0B" + NL;
+        expectedResults += "18C20000 01 02 03 04 05 06 07 08 09 0A 0B" + NL;
         expectedResults += "" + NL;
         expectedResults += "10:15:30.000 DM26 Packet(s) Received" + NL;
-        expectedResults += "10:15:30.000 18FDB800 01 02 03 04 05 06 07 08" + NL;
+        expectedResults += "18FDB800 01 02 03 04 05 06 07 08" + NL;
         expectedResults += "" + NL;
         expectedResults += "2007-12-03T10:15:30.000 End Tracking Monitor Completion Status. 2 Total Cycles." + NL;
 
