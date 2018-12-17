@@ -91,22 +91,40 @@ public class SystemTest {
         DiagnosticReadinessModule diagnosticReadinessModule = new DiagnosticReadinessModule(dateTimeModule);
         EngineSpeedModule engineSpeedModule = new EngineSpeedModule();
         MonitorCompletionController monitorCompletionController = new MonitorCompletionController(scheduledThreadPool,
-                engineSpeedModule, new BannerModule(Type.MONITOR_LOG, dateTimeModule, buildNumber), dateTimeModule,
-                new VehicleInformationModule(dateTimeModule), diagnosticReadinessModule, new ComparisonModule(),
-                new MonitorTrackingModule(dateTimeModule, diagnosticReadinessModule, engineSpeedModule,
+                engineSpeedModule,
+                new BannerModule(Type.MONITOR_LOG, dateTimeModule, buildNumber),
+                dateTimeModule,
+                new VehicleInformationModule(dateTimeModule),
+                diagnosticReadinessModule,
+                new ComparisonModule(),
+                new MonitorTrackingModule(dateTimeModule,
+                        diagnosticReadinessModule,
+                        engineSpeedModule,
                         scheduledThreadPool));
 
         controller = new UserInterfaceController(view,
-                new DataPlateController(Executors.newSingleThreadScheduledExecutor(), new EngineSpeedModule(),
-                        new BannerModule(Type.DATA_PLATE, dateTimeModule, buildNumber), dateTimeModule,
-                        new VehicleInformationModule(dateTimeModule), new DiagnosticReadinessModule(dateTimeModule),
+                new DataPlateController(Executors.newSingleThreadScheduledExecutor(),
+                        new EngineSpeedModule(),
+                        new BannerModule(Type.DATA_PLATE, dateTimeModule, buildNumber),
+                        dateTimeModule,
+                        new VehicleInformationModule(dateTimeModule),
+                        new DiagnosticReadinessModule(dateTimeModule),
                         new DTCModule(dateTimeModule), new ComparisonModule()),
-                new CollectResultsController(Executors.newSingleThreadScheduledExecutor(), new EngineSpeedModule(),
-                        new BannerModule(Type.COLLECTION_LOG, dateTimeModule, buildNumber), dateTimeModule,
-                        new VehicleInformationModule(dateTimeModule), new DiagnosticReadinessModule(dateTimeModule),
-                        new OBDTestsModule(dateTimeModule), new ComparisonModule()),
-                monitorCompletionController, new ComparisonModule(), new RP1210(), new ReportFileModule(dateTimeModule),
-                Runtime.getRuntime(), Executors.newSingleThreadExecutor(), new HelpView());
+                new CollectResultsController(Executors.newSingleThreadScheduledExecutor(),
+                        new EngineSpeedModule(),
+                        new BannerModule(Type.COLLECTION_LOG, dateTimeModule, buildNumber),
+                        dateTimeModule,
+                        new VehicleInformationModule(dateTimeModule),
+                        new DiagnosticReadinessModule(dateTimeModule),
+                        new OBDTestsModule(dateTimeModule),
+                        new ComparisonModule()),
+                monitorCompletionController,
+                new ComparisonModule(),
+                new RP1210(),
+                new ReportFileModule(dateTimeModule, IUMPR.getLogger()),
+                Runtime.getRuntime(),
+                Executors.newSingleThreadExecutor(),
+                new HelpView());
     }
 
     @After

@@ -427,7 +427,6 @@ public class MonitorTrackingModule extends FunctionalModule {
      *            the packets to write to the report
      */
     private void writePackets(ResultsListener listener, List<? extends ParsedPacket> packets) {
-        packets.stream().forEach(t -> listener
-                .onResult(t.getPacket().toString(getDateTimeModule().getTimeFormatter())));
+        packets.stream().forEach(t -> listener.onResult(t.getPacket().toString()));
     }
 }
