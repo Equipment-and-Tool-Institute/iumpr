@@ -822,7 +822,7 @@ public class ReportFileModuleTest {
         assertEquals("PBT5MPR3", calInfo.getCalibrationIdentification());
         assertEquals("0x40DCBF96", calInfo.getCalibrationVerificationNumber());
 
-        instance.onResult("2017-02-11T16:43:18.770 18C10000 00 00 00 00 00 00 1E 00");
+        instance.onResult("2017-03-05T12:43:18.770 18C10000 00 00 00 00 00 00 1E 00");
         assertEquals(30, instance.getMinutesSinceCodeClear(), 0.0001);
 
         instance.onResult("  Time Since DTCs Cleared:                      100 minutes");
