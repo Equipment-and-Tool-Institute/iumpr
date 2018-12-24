@@ -35,6 +35,12 @@ public class DM5DiagnosticReadinessPacketTest extends DiagnosticReadinessPacketT
     }
 
     @Test
+    @Override
+    public void test0x00() {
+        super.test0x00();
+    }
+
+    @Test
     public void test0xFF() {
         DiagnosticReadinessPacket instance = createInstance(0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF);
         {
@@ -69,6 +75,30 @@ public class DM5DiagnosticReadinessPacketTest extends DiagnosticReadinessPacketT
     }
 
     @Test
+    @Override
+    public void testEqualsAndHashCode() {
+        super.testEqualsAndHashCode();
+    }
+
+    @Test
+    @Override
+    public void testEqualsAndHashCodeSelf() {
+        super.testEqualsAndHashCodeSelf();
+    }
+
+    @Test
+    @Override
+    public void testEqualsContinouslyMonitoredSystems() {
+        super.testEqualsContinouslyMonitoredSystems();
+    }
+
+    @Test
+    @Override
+    public void testEqualsWithObject() {
+        super.testEqualsWithObject();
+    }
+
+    @Test
     public void testGetActiveCodeCount() {
         Packet packet = Packet.create(65230, 0, 11, 22, 33, 44, 55, 66, 77, 88);
         DM5DiagnosticReadinessPacket instance = new DM5DiagnosticReadinessPacket(packet);
@@ -87,6 +117,36 @@ public class DM5DiagnosticReadinessPacketTest extends DiagnosticReadinessPacketT
         Packet packet = Packet.create(65230, 0, 0xFF, 22, 33, 44, 55, 66, 77, 88);
         DM5DiagnosticReadinessPacket instance = new DM5DiagnosticReadinessPacket(packet);
         assertEquals((byte) 0xFF, instance.getActiveCodeCount());
+    }
+
+    @Test
+    @Override
+    public void testGetContinouslyMonitoredSystemsComprehensiveComponentMonitoring() {
+        super.testGetContinouslyMonitoredSystemsComprehensiveComponentMonitoring();
+    }
+
+    @Test
+    @Override
+    public void testGetContinouslyMonitoredSystemsFuelSystemMonitoring() {
+        super.testGetContinouslyMonitoredSystemsFuelSystemMonitoring();
+    }
+
+    @Test
+    @Override
+    public void testGetContinouslyMonitoredSystemsMisfireMonitoring() {
+        super.testGetContinouslyMonitoredSystemsMisfireMonitoring();
+    }
+
+    @Test
+    @Override
+    public void testGetMonitoredSystems() {
+        super.testGetMonitoredSystems();
+    }
+
+    @Test
+    @Override
+    public void testGetNonContinouslyMonitoredSystems() {
+        super.testGetNonContinouslyMonitoredSystems();
     }
 
     @Test
@@ -149,6 +209,18 @@ public class DM5DiagnosticReadinessPacketTest extends DiagnosticReadinessPacketT
     }
 
     @Test
+    @Override
+    public void testNotEqualsNonContinouslyMonitoredSystemsCompleted() {
+        super.testNotEqualsNonContinouslyMonitoredSystemsCompleted();
+    }
+
+    @Test
+    @Override
+    public void testNotEqualsNonContinouslyMonitoredSystemsSupported() {
+        super.testNotEqualsNonContinouslyMonitoredSystemsSupported();
+    }
+
+    @Test
     public void testNotEqualsOBDCompliance() {
         Packet packet1 = Packet.create(65230, 0, 11, 22, 33, 44, 55, 66, 77, 88);
         DM5DiagnosticReadinessPacket instance1 = new DM5DiagnosticReadinessPacket(packet1);
@@ -166,6 +238,12 @@ public class DM5DiagnosticReadinessPacketTest extends DiagnosticReadinessPacketT
         DM5DiagnosticReadinessPacket instance2 = new DM5DiagnosticReadinessPacket(packet2);
 
         assertFalse(instance1.equals(instance2));
+    }
+
+    @Test
+    @Override
+    public void testNotEqualsSourceAddress() {
+        super.testNotEqualsSourceAddress();
     }
 
     @Test

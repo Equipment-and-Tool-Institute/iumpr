@@ -31,6 +31,12 @@ public class DM26TripDiagnosticReadinessPacketTest extends DiagnosticReadinessPa
     }
 
     @Test
+    @Override
+    public void test0x00() {
+        super.test0x00();
+    }
+
+    @Test
     public void test0xFF() {
         DiagnosticReadinessPacket instance = createInstance(0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF);
         {
@@ -62,6 +68,60 @@ public class DM26TripDiagnosticReadinessPacketTest extends DiagnosticReadinessPa
                 assertEquals(system.getName() + " is wrong", findStatus(true, false), system.getStatus());
             }
         }
+    }
+
+    @Test
+    @Override
+    public void testEqualsAndHashCode() {
+        super.testEqualsAndHashCode();
+    }
+
+    @Test
+    @Override
+    public void testEqualsAndHashCodeSelf() {
+        super.testEqualsAndHashCodeSelf();
+    }
+
+    @Test
+    @Override
+    public void testEqualsContinouslyMonitoredSystems() {
+        super.testEqualsContinouslyMonitoredSystems();
+    }
+
+    @Test
+    @Override
+    public void testEqualsWithObject() {
+        super.testEqualsWithObject();
+    }
+
+    @Test
+    @Override
+    public void testGetContinouslyMonitoredSystemsComprehensiveComponentMonitoring() {
+        super.testGetContinouslyMonitoredSystemsComprehensiveComponentMonitoring();
+    }
+
+    @Test
+    @Override
+    public void testGetContinouslyMonitoredSystemsFuelSystemMonitoring() {
+        super.testGetContinouslyMonitoredSystemsFuelSystemMonitoring();
+    }
+
+    @Test
+    @Override
+    public void testGetContinouslyMonitoredSystemsMisfireMonitoring() {
+        super.testGetContinouslyMonitoredSystemsMisfireMonitoring();
+    }
+
+    @Test
+    @Override
+    public void testGetMonitoredSystems() {
+        super.testGetMonitoredSystems();
+    }
+
+    @Test
+    @Override
+    public void testGetNonContinouslyMonitoredSystems() {
+        super.testGetNonContinouslyMonitoredSystems();
     }
 
     @Test
@@ -104,6 +164,24 @@ public class DM26TripDiagnosticReadinessPacketTest extends DiagnosticReadinessPa
         Packet packet = Packet.create(0, 0, 11, 22, 0xFF, 44, 55, 66, 77, 88);
         DM26TripDiagnosticReadinessPacket instance = new DM26TripDiagnosticReadinessPacket(packet);
         assertEquals((byte) 0xFF, instance.getWarmUpsSinceClear());
+    }
+
+    @Test
+    @Override
+    public void testNotEqualsNonContinouslyMonitoredSystemsCompleted() {
+        super.testNotEqualsNonContinouslyMonitoredSystemsCompleted();
+    }
+
+    @Test
+    @Override
+    public void testNotEqualsNonContinouslyMonitoredSystemsSupported() {
+        super.testNotEqualsNonContinouslyMonitoredSystemsSupported();
+    }
+
+    @Test
+    @Override
+    public void testNotEqualsSourceAddress() {
+        super.testNotEqualsSourceAddress();
     }
 
     @Test

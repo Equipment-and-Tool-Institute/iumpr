@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import org.junit.Test;
+import org.junit.Ignore;
 
 import net.soliddesign.iumpr.bus.Packet;
 
@@ -21,6 +21,7 @@ import net.soliddesign.iumpr.bus.Packet;
  * @author Matt Gumbel (matt@soliddesign.net)
  *
  */
+@Ignore // abstract tests called from subclasses
 public abstract class DiagnosticReadinessPacketTest {
 
     protected DiagnosticReadinessPacket createInstance(int... data) {
@@ -31,7 +32,6 @@ public abstract class DiagnosticReadinessPacketTest {
 
     protected abstract MonitoredSystemStatus findStatus(boolean enabled, boolean complete);
 
-    @Test
     public void test0x00() {
         DiagnosticReadinessPacket instance = createInstance(0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
         {
@@ -48,7 +48,6 @@ public abstract class DiagnosticReadinessPacketTest {
         }
     }
 
-    @Test
     public void testEqualsAndHashCode() {
         DiagnosticReadinessPacket instance1 = createInstance(0x11, 0x22, 0x33, 0x00, 0x55, 0x66, 0x77, 0x88);
         DiagnosticReadinessPacket instance2 = createInstance(0x11, 0x22, 0x33, 0x00, 0x55, 0x66, 0x77, 0x88);
@@ -58,7 +57,6 @@ public abstract class DiagnosticReadinessPacketTest {
         assertTrue(instance1.hashCode() == instance2.hashCode());
     }
 
-    @Test
     public void testEqualsAndHashCodeSelf() {
         DiagnosticReadinessPacket instance = createInstance(
                 new int[] { 0x11, 0x22, 0x33, 0x00, 0x55, 0x66, 0x77, 0x88 });
@@ -66,7 +64,6 @@ public abstract class DiagnosticReadinessPacketTest {
         assertTrue(instance.hashCode() == instance.hashCode());
     }
 
-    @Test
     public void testEqualsContinouslyMonitoredSystems() {
         DiagnosticReadinessPacket instance1 = createInstance(0x11, 0x22, 0x33, 0x00, 0x55, 0x66, 0x77, 0x88);
         for (int i = 1; i < 255; i++) {
@@ -77,13 +74,11 @@ public abstract class DiagnosticReadinessPacketTest {
         }
     }
 
-    @Test
     public void testEqualsWithObject() {
         DiagnosticReadinessPacket instance = createInstance(0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88);
         assertFalse(instance.equals(new Object()));
     }
 
-    @Test
     public void testGetContinouslyMonitoredSystemsComprehensiveComponentMonitoring() {
         final String name = "Comprehensive component   ";
         validateContinouslyMonitoredSystems(name, 0, 0x00, findStatus(false, true));
@@ -92,7 +87,6 @@ public abstract class DiagnosticReadinessPacketTest {
         validateContinouslyMonitoredSystems(name, 0, 0x44, findStatus(true, false));
     }
 
-    @Test
     public void testGetContinouslyMonitoredSystemsFuelSystemMonitoring() {
         final String name = "Fuel System               ";
         validateContinouslyMonitoredSystems(name, 1, 0x00, findStatus(false, true));
@@ -101,7 +95,6 @@ public abstract class DiagnosticReadinessPacketTest {
         validateContinouslyMonitoredSystems(name, 1, 0x22, findStatus(true, false));
     }
 
-    @Test
     public void testGetContinouslyMonitoredSystemsMisfireMonitoring() {
         final String name = "Misfire                   ";
         validateContinouslyMonitoredSystems(name, 2, 0x00, findStatus(false, true));
@@ -110,7 +103,6 @@ public abstract class DiagnosticReadinessPacketTest {
         validateContinouslyMonitoredSystems(name, 2, 0x11, findStatus(true, false));
     }
 
-    @Test
     public void testGetMonitoredSystems() {
         DiagnosticReadinessPacket instance = createInstance(new int[] { 0, 0, 0, 0, 0, 0, 0, 0 });
 
@@ -122,7 +114,6 @@ public abstract class DiagnosticReadinessPacketTest {
         assertEquals(nonContSystems.size() + contSystems.size(), allSystems.size());
     }
 
-    @Test
     public void testGetNonContinouslyMonitoredSystems() {
         validateNonContinouslyMonitoredSystem1("EGR/VVT system            ", 0, 0x80);
         validateNonContinouslyMonitoredSystem1("Exhaust Gas Sensor heater ", 1, 0x40);
@@ -139,7 +130,6 @@ public abstract class DiagnosticReadinessPacketTest {
         validateNonContinouslyMonitoredSystem2("Cold start aid system     ", 12, 0x01);
     }
 
-    @Test
     public void testNotEqualsNonContinouslyMonitoredSystemsCompleted() {
         DiagnosticReadinessPacket instance1 = createInstance(0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88);
         for (int i = 1; i < 255; i++) {
@@ -148,7 +138,6 @@ public abstract class DiagnosticReadinessPacketTest {
         }
     }
 
-    @Test
     public void testNotEqualsNonContinouslyMonitoredSystemsSupported() {
         DiagnosticReadinessPacket instance1 = createInstance(0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88);
         for (int i = 1; i < 255; i++) {
@@ -157,7 +146,6 @@ public abstract class DiagnosticReadinessPacketTest {
         }
     }
 
-    @Test
     public void testNotEqualsSourceAddress() {
         DiagnosticReadinessPacket instance1 = createInstance(Packet.create(0, 0, 11, 22, 33, 44, 55, 66, 77, 88));
         DiagnosticReadinessPacket instance2 = createInstance(Packet.create(0, 99, 11, 22, 33, 44, 55, 66, 77, 88));
@@ -216,5 +204,4 @@ public abstract class DiagnosticReadinessPacketTest {
         assertEquals(status, system.getStatus());
         assertEquals(instance.getSourceAddress(), system.getSourceAddress());
     }
-
 }
