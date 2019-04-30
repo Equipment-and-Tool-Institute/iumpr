@@ -20,7 +20,7 @@ The HD-OBD regulations require manufacturers to test production vehicles every m
 ## Installation
 In order to use the IUMPR Data Collection Tool, a Windows 7 (or greater) computer is required with TMC RP1210 Adapters installed.
 
-Download the IUMPR-installer.exe file from releases and execute.  The default installation location works the best, however alternative locations may be used.
+Download the IUMPR-installer.exe file from releases (https://github.com/Equipment-and-Tool-Institute/iumpr/releases) and execute.  The default installation location works the best, however alternative locations may be used.
 
 Additional information about using the application can be found in the Help file.
 
