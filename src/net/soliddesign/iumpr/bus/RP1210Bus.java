@@ -141,7 +141,7 @@ public class RP1210Bus implements Bus {
         int pgn = ((data[7] & 0xFF) << 16) | ((data[6] & 0xFF) << 8) | (data[5] & 0xFF);
         int priority = data[8] & 0x07;
         int source = data[9] & 0xFF;
-        if (pgn < 0xF000 && pgn >= 0xE000) {
+        if (pgn < 0xF000) {
             int destination = data[10];
             pgn = pgn | (destination & 0xFF);
         }

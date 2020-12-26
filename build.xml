@@ -119,7 +119,7 @@
 	</target>
 
 	<target name="compile" depends="init" description="Compiles the source code">
-		<javac destdir="${build}" includeantruntime="false" debug="true">
+		<javac destdir="${build}" includeantruntime="false" debug="true" target="1.8"  >
 			<src path="${src}" />
 			<classpath refid="compile.path" />
 		</javac>
