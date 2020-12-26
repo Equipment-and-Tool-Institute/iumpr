@@ -90,7 +90,7 @@ public class HelpView extends JFrame {
 
     private URL getHelpURL() {
         if (helpURL == null) {
-            helpURL = Resources.class.getResource("Help2.html");
+            helpURL = Resources.class.getResource("Help.html");
         }
         return helpURL;
     }
