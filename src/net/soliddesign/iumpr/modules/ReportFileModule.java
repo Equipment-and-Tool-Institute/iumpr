@@ -634,11 +634,17 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
     }
 
     private Packet parsePacket(int pgn, String line) {
-        if (line.contains(String.format("%04X", pgn))) {
+        String pattern = pgn >= 0xF000 ? String.format(".*%04X.*", pgn)
+                : String.format(".*(%04X|%04X|%04X).*", pgn | 0xFF, pgn & 0xFF00, (pgn & 0xFF00) | 0xF9);
+        if (line.matches(pattern)) {
             int index = line.indexOf(" ");
             String trimmedLine = line.substring(index + 1);
             Packet packet = Packet.parse(trimmedLine);
-            if (packet != null && packet.getId() == pgn) {
+            int id = packet.getId();
+            if (id < 0xF000) {
+                id &= 0xFF00;
+            }
+            if (packet != null && id == pgn) {
                 return packet;
             }
         }
