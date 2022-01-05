@@ -71,6 +71,25 @@ public class ReportFileModuleTest {
     }
 
     @Test
+    public void testCalInfoBroadcast() throws Exception {
+        Writer writer = Files.newBufferedWriter(file.toPath(), StandardOpenOption.WRITE);
+        writer.write(
+                "2017-02-11T16:42:21.889 1CD3FF00 57 FD CF 54 35 52 32 30 33 31 30 30 41 30 30 30 30 30 30 30"
+                        + NL);
+        writer.write(
+                "2017-02-11T16:42:21.890 1CD3FF00 57 FD CF 54 35 52 32 30 33 31 30 30 41 30 30 30 30 30 30 30"
+                        + NL);
+        writer.write("  Time Since DTCs Cleared:                      14 minutes" + NL);
+        writer.write("2017-02-11T16:44:12.164 Vehicle Identification from Engine #1 (0): ASDFGHJKLASDFGHJKL" + NL);
+        writer.close();
+        try {
+            instance.setReportFile(listener, file, false);
+        } catch (ReportFileException e) {
+            assertEquals(Problem.MONITORS_NOT_PRESENT, e.getProblem());
+        }
+    }
+
+    @Test
     public void testCalInfoCanNotBeParsed() throws Exception {
         Writer writer = Files.newBufferedWriter(file.toPath(), StandardOpenOption.WRITE);
         writer.write(
