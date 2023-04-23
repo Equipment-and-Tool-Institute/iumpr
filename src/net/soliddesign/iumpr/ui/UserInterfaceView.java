@@ -35,9 +35,10 @@ import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.DefaultCaret;
 
+import org.etools.j1939tools.bus.Adapter;
+
 import net.soliddesign.iumpr.BuildNumber;
 import net.soliddesign.iumpr.IUMPR;
-import net.soliddesign.iumpr.bus.Adapter;
 import net.soliddesign.iumpr.resources.Resources;
 import net.soliddesign.iumpr.ui.status.StatusView;
 

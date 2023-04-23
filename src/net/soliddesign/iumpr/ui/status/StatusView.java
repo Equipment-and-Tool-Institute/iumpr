@@ -28,15 +28,16 @@ import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import org.etools.j1939tools.bus.j1939.J1939;
+import org.etools.j1939tools.bus.j1939.packets.DM20MonitorPerformanceRatioPacket;
+import org.etools.j1939tools.bus.j1939.packets.DM21DiagnosticReadinessPacket;
+import org.etools.j1939tools.bus.j1939.packets.DM26TripDiagnosticReadinessPacket;
+import org.etools.j1939tools.bus.j1939.packets.DM5DiagnosticReadinessPacket;
+import org.etools.j1939tools.bus.j1939.packets.MonitoredSystem;
+import org.etools.j1939tools.bus.j1939.packets.ParsedPacket;
+import org.etools.j1939tools.bus.j1939.packets.PerformanceRatio;
+
 import net.soliddesign.iumpr.IUMPR;
-import net.soliddesign.iumpr.bus.j1939.J1939;
-import net.soliddesign.iumpr.bus.j1939.packets.DM20MonitorPerformanceRatioPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.DM21DiagnosticReadinessPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.DM26TripDiagnosticReadinessPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.DM5DiagnosticReadinessPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.MonitoredSystem;
-import net.soliddesign.iumpr.bus.j1939.packets.ParsedPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.PerformanceRatio;
 import net.soliddesign.iumpr.modules.ReportFileModule;
 import net.soliddesign.iumpr.resources.Resources;
 import net.soliddesign.iumpr.ui.IUserInterfaceController;

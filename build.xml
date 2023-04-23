@@ -149,7 +149,7 @@
 
 				<formatter type="xml" />
 
-				<batchtest fork="true" todir="${build}/tests">
+				<batchtest fork="true" todir="${build}/tests" skipNonTests="true">
 					<fileset dir="${build}">
 						<include name="**/*Test.class" />
 					</fileset>

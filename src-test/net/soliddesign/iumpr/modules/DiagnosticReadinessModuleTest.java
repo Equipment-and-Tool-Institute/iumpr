@@ -4,7 +4,7 @@
 package net.soliddesign.iumpr.modules;
 
 import static net.soliddesign.iumpr.IUMPR.NL;
-import static net.soliddesign.iumpr.bus.j1939.packets.MonitoredSystemStatus.findStatus;
+import static org.etools.j1939tools.bus.j1939.packets.MonitoredSystemStatus.findStatus;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -20,6 +20,15 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.stream.Stream;
 
+import org.etools.j1939tools.bus.Packet;
+import org.etools.j1939tools.bus.j1939.J1939;
+import org.etools.j1939tools.bus.j1939.packets.CompositeMonitoredSystem;
+import org.etools.j1939tools.bus.j1939.packets.DM20MonitorPerformanceRatioPacket;
+import org.etools.j1939tools.bus.j1939.packets.DM21DiagnosticReadinessPacket;
+import org.etools.j1939tools.bus.j1939.packets.DM26TripDiagnosticReadinessPacket;
+import org.etools.j1939tools.bus.j1939.packets.DM5DiagnosticReadinessPacket;
+import org.etools.j1939tools.bus.j1939.packets.MonitoredSystem;
+import org.etools.j1939tools.bus.j1939.packets.PerformanceRatio;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,15 +37,6 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import net.soliddesign.iumpr.bus.Packet;
-import net.soliddesign.iumpr.bus.j1939.J1939;
-import net.soliddesign.iumpr.bus.j1939.packets.CompositeMonitoredSystem;
-import net.soliddesign.iumpr.bus.j1939.packets.DM20MonitorPerformanceRatioPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.DM21DiagnosticReadinessPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.DM26TripDiagnosticReadinessPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.DM5DiagnosticReadinessPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.MonitoredSystem;
-import net.soliddesign.iumpr.bus.j1939.packets.PerformanceRatio;
 import net.soliddesign.iumpr.controllers.TestResultsListener;
 
 /**

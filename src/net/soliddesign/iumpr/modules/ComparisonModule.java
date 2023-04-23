@@ -13,10 +13,11 @@ import java.util.stream.Collectors;
 
 import javax.swing.JOptionPane;
 
-import net.soliddesign.iumpr.bus.j1939.packets.DM19CalibrationInformationPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.DM19CalibrationInformationPacket.CalibrationInformation;
-import net.soliddesign.iumpr.bus.j1939.packets.DM21DiagnosticReadinessPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.VehicleIdentificationPacket;
+import org.etools.j1939tools.bus.j1939.packets.DM19CalibrationInformationPacket;
+import org.etools.j1939tools.bus.j1939.packets.DM21DiagnosticReadinessPacket;
+import org.etools.j1939tools.bus.j1939.packets.VehicleIdentificationPacket;
+import org.etools.j1939tools.bus.j1939.packets.DM19CalibrationInformationPacket.CalibrationInformation;
+
 import net.soliddesign.iumpr.controllers.ResultsListener;
 
 /**

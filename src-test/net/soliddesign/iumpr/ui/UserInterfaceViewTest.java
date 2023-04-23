@@ -23,6 +23,7 @@ import javax.swing.JTextArea;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import org.etools.j1939tools.bus.Adapter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,7 +33,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import net.soliddesign.iumpr.BuildNumber;
-import net.soliddesign.iumpr.bus.Adapter;
 import net.soliddesign.iumpr.modules.ReportFileModule;
 import net.soliddesign.iumpr.ui.status.StatusView;
 

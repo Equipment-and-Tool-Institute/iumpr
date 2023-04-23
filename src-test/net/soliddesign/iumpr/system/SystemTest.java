@@ -20,14 +20,14 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+import org.etools.j1939tools.bus.RP1210;
+import org.etools.j1939tools.bus.j1939.J1939;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import net.soliddesign.iumpr.BuildNumber;
 import net.soliddesign.iumpr.IUMPR;
-import net.soliddesign.iumpr.bus.RP1210;
-import net.soliddesign.iumpr.bus.j1939.J1939;
 import net.soliddesign.iumpr.controllers.CollectResultsController;
 import net.soliddesign.iumpr.controllers.DataPlateController;
 import net.soliddesign.iumpr.controllers.MonitorCompletionController;

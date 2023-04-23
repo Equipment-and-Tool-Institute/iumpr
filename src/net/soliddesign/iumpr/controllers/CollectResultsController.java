@@ -10,10 +10,11 @@ import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
-import net.soliddesign.iumpr.bus.j1939.packets.DM20MonitorPerformanceRatioPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.DM5DiagnosticReadinessPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.MonitoredSystem;
-import net.soliddesign.iumpr.bus.j1939.packets.PerformanceRatio;
+import org.etools.j1939tools.bus.j1939.packets.DM20MonitorPerformanceRatioPacket;
+import org.etools.j1939tools.bus.j1939.packets.DM5DiagnosticReadinessPacket;
+import org.etools.j1939tools.bus.j1939.packets.MonitoredSystem;
+import org.etools.j1939tools.bus.j1939.packets.PerformanceRatio;
+
 import net.soliddesign.iumpr.modules.BannerModule;
 import net.soliddesign.iumpr.modules.BannerModule.Type;
 import net.soliddesign.iumpr.modules.ComparisonModule;

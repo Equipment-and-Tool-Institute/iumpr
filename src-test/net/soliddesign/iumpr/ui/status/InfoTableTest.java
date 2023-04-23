@@ -17,12 +17,11 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableCellRenderer;
 
+import org.etools.j1939tools.bus.j1939.packets.DM20MonitorPerformanceRatioPacket;
+import org.etools.j1939tools.bus.j1939.packets.DM21DiagnosticReadinessPacket;
+import org.etools.j1939tools.bus.j1939.packets.ParsedPacket;
 import org.junit.Before;
 import org.junit.Test;
-
-import net.soliddesign.iumpr.bus.j1939.packets.DM20MonitorPerformanceRatioPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.DM21DiagnosticReadinessPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.ParsedPacket;
 
 /**
  * Unit tests for the {@link InfoTable} class

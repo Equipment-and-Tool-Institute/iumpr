@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -23,11 +24,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.etools.j1939tools.bus.j1939.packets.DM19CalibrationInformationPacket.CalibrationInformation;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.soliddesign.iumpr.bus.j1939.packets.DM19CalibrationInformationPacket.CalibrationInformation;
 import net.soliddesign.iumpr.controllers.TestResultsListener;
 import net.soliddesign.iumpr.modules.ReportFileModule.Problem;
 import net.soliddesign.iumpr.modules.ReportFileModule.ReportFileException;
@@ -1082,7 +1083,7 @@ public class ReportFileModuleTest {
                         + NL);
         writer.write("  Time Since DTCs Cleared:                      14 minutes" + NL);
         writer.write("2017-02-11T16:44:12.164 Vehicle Identification from Engine #1 (0): ASDFGHJKLASDFGHJKL" + NL);
-        final String string = LocalDateTime.now().plusDays(2).toString();
+        final String string = instance.getDateTimeModule().format(LocalDateTime.now().plusDays(2));
         writer.write(string + " Information" + NL);
         writer.close();
 

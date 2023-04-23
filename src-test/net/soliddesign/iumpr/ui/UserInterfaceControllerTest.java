@@ -31,6 +31,11 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import org.etools.j1939tools.bus.Adapter;
+import org.etools.j1939tools.bus.BusException;
+import org.etools.j1939tools.bus.RP1210;
+import org.etools.j1939tools.bus.RP1210Bus;
+import org.etools.j1939tools.bus.j1939.J1939;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,11 +48,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import net.soliddesign.iumpr.TestExecutor;
-import net.soliddesign.iumpr.bus.Adapter;
-import net.soliddesign.iumpr.bus.BusException;
-import net.soliddesign.iumpr.bus.RP1210;
-import net.soliddesign.iumpr.bus.RP1210Bus;
-import net.soliddesign.iumpr.bus.j1939.J1939;
 import net.soliddesign.iumpr.controllers.CollectResultsController;
 import net.soliddesign.iumpr.controllers.Controller;
 import net.soliddesign.iumpr.controllers.DataPlateController;

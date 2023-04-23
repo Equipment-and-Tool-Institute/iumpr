@@ -16,13 +16,14 @@ import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
+import org.etools.j1939tools.bus.Adapter;
+import org.etools.j1939tools.bus.Bus;
+import org.etools.j1939tools.bus.BusException;
+import org.etools.j1939tools.bus.RP1210;
+import org.etools.j1939tools.bus.RP1210Bus;
+import org.etools.j1939tools.bus.j1939.J1939;
+
 import net.soliddesign.iumpr.IUMPR;
-import net.soliddesign.iumpr.bus.Adapter;
-import net.soliddesign.iumpr.bus.Bus;
-import net.soliddesign.iumpr.bus.BusException;
-import net.soliddesign.iumpr.bus.RP1210;
-import net.soliddesign.iumpr.bus.RP1210Bus;
-import net.soliddesign.iumpr.bus.j1939.J1939;
 import net.soliddesign.iumpr.controllers.CollectResultsController;
 import net.soliddesign.iumpr.controllers.Controller;
 import net.soliddesign.iumpr.controllers.DataPlateController;

@@ -5,8 +5,8 @@ package net.soliddesign.iumpr.modules;
 
 import java.util.concurrent.TimeUnit;
 
-import net.soliddesign.iumpr.bus.j1939.J1939;
-import net.soliddesign.iumpr.bus.j1939.packets.EngineSpeedPacket;
+import org.etools.j1939tools.bus.j1939.J1939;
+import org.etools.j1939tools.bus.j1939.packets.EngineSpeedPacket;
 
 /**
  * {@link FunctionalModule} used to determine if the Engine is communicating

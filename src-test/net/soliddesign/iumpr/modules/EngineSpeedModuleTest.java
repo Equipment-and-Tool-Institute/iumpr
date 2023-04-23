@@ -12,16 +12,15 @@ import static org.mockito.Mockito.when;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
+import org.etools.j1939tools.bus.Packet;
+import org.etools.j1939tools.bus.j1939.J1939;
+import org.etools.j1939tools.bus.j1939.packets.EngineSpeedPacket;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-
-import net.soliddesign.iumpr.bus.Packet;
-import net.soliddesign.iumpr.bus.j1939.J1939;
-import net.soliddesign.iumpr.bus.j1939.packets.EngineSpeedPacket;
 
 /**
  * The Unit tests for the {@link EngineSpeedModule} class

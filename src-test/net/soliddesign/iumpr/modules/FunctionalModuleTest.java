@@ -6,10 +6,9 @@ package net.soliddesign.iumpr.modules;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
+import org.etools.j1939tools.bus.j1939.J1939;
 import org.junit.Before;
 import org.junit.Test;
-
-import net.soliddesign.iumpr.bus.j1939.J1939;
 
 /**
  * Unit tests for the {@link FunctionalModule} class

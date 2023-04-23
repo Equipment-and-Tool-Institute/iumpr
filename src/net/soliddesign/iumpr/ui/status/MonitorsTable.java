@@ -9,13 +9,13 @@ import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
 
-import net.soliddesign.iumpr.bus.j1939.packets.CompositeMonitoredSystem;
-import net.soliddesign.iumpr.bus.j1939.packets.DM26TripDiagnosticReadinessPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.DM5DiagnosticReadinessPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.DiagnosticReadinessPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.MonitoredSystem;
-import net.soliddesign.iumpr.bus.j1939.packets.MonitoredSystemStatus;
-import net.soliddesign.iumpr.bus.j1939.packets.ParsedPacket;
+import org.etools.j1939tools.bus.j1939.packets.CompositeMonitoredSystem;
+import org.etools.j1939tools.bus.j1939.packets.DM26TripDiagnosticReadinessPacket;
+import org.etools.j1939tools.bus.j1939.packets.DM5DiagnosticReadinessPacket;
+import org.etools.j1939tools.bus.j1939.packets.DiagnosticReadinessPacket;
+import org.etools.j1939tools.bus.j1939.packets.MonitoredSystem;
+import org.etools.j1939tools.bus.j1939.packets.MonitoredSystemStatus;
+import org.etools.j1939tools.bus.j1939.packets.ParsedPacket;
 
 /**
  * Table that displays the {@link MonitoredSystem}s from

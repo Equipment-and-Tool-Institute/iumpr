@@ -17,6 +17,7 @@ import java.util.concurrent.ScheduledExecutorService;
 
 import javax.swing.JOptionPane;
 
+import org.etools.j1939tools.bus.j1939.J1939;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +28,6 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import net.soliddesign.iumpr.bus.j1939.J1939;
 import net.soliddesign.iumpr.modules.BannerModule;
 import net.soliddesign.iumpr.modules.ComparisonModule;
 import net.soliddesign.iumpr.modules.DTCModule;

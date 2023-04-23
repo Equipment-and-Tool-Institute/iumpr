@@ -21,6 +21,12 @@ import java.util.concurrent.ScheduledExecutorService;
 
 import javax.swing.JOptionPane;
 
+import org.etools.j1939tools.bus.Packet;
+import org.etools.j1939tools.bus.j1939.J1939;
+import org.etools.j1939tools.bus.j1939.packets.DM20MonitorPerformanceRatioPacket;
+import org.etools.j1939tools.bus.j1939.packets.DM5DiagnosticReadinessPacket;
+import org.etools.j1939tools.bus.j1939.packets.MonitoredSystem;
+import org.etools.j1939tools.bus.j1939.packets.PerformanceRatio;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,12 +37,6 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import net.soliddesign.iumpr.bus.Packet;
-import net.soliddesign.iumpr.bus.j1939.J1939;
-import net.soliddesign.iumpr.bus.j1939.packets.DM20MonitorPerformanceRatioPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.DM5DiagnosticReadinessPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.MonitoredSystem;
-import net.soliddesign.iumpr.bus.j1939.packets.PerformanceRatio;
 import net.soliddesign.iumpr.modules.BannerModule;
 import net.soliddesign.iumpr.modules.ComparisonModule;
 import net.soliddesign.iumpr.modules.DateTimeModule;

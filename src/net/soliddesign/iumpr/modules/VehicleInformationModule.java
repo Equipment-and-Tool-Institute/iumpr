@@ -3,7 +3,7 @@
  */
 package net.soliddesign.iumpr.modules;
 
-import static net.soliddesign.iumpr.bus.j1939.J1939.GLOBAL_ADDR;
+import static org.etools.j1939tools.bus.j1939.J1939.GLOBAL_ADDR;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -11,16 +11,17 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
-import net.soliddesign.iumpr.bus.BusException;
-import net.soliddesign.iumpr.bus.Packet;
-import net.soliddesign.iumpr.bus.j1939.packets.AddressClaimPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.ComponentIdentificationPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.DM19CalibrationInformationPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.EngineHoursPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.HighResVehicleDistancePacket;
-import net.soliddesign.iumpr.bus.j1939.packets.ParsedPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.TotalVehicleDistancePacket;
-import net.soliddesign.iumpr.bus.j1939.packets.VehicleIdentificationPacket;
+import org.etools.j1939tools.bus.BusException;
+import org.etools.j1939tools.bus.Packet;
+import org.etools.j1939tools.bus.j1939.packets.AddressClaimPacket;
+import org.etools.j1939tools.bus.j1939.packets.ComponentIdentificationPacket;
+import org.etools.j1939tools.bus.j1939.packets.DM19CalibrationInformationPacket;
+import org.etools.j1939tools.bus.j1939.packets.EngineHoursPacket;
+import org.etools.j1939tools.bus.j1939.packets.HighResVehicleDistancePacket;
+import org.etools.j1939tools.bus.j1939.packets.ParsedPacket;
+import org.etools.j1939tools.bus.j1939.packets.TotalVehicleDistancePacket;
+import org.etools.j1939tools.bus.j1939.packets.VehicleIdentificationPacket;
+
 import net.soliddesign.iumpr.controllers.ResultsListener;
 
 /**

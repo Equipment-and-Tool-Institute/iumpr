@@ -6,8 +6,9 @@ package net.soliddesign.iumpr.ui;
 import java.io.File;
 import java.util.List;
 
-import net.soliddesign.iumpr.bus.Adapter;
-import net.soliddesign.iumpr.bus.j1939.J1939;
+import org.etools.j1939tools.bus.Adapter;
+import org.etools.j1939tools.bus.j1939.J1939;
+
 import net.soliddesign.iumpr.modules.ReportFileModule;
 
 /**

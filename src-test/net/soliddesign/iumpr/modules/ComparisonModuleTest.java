@@ -21,6 +21,11 @@ import java.util.stream.Stream;
 
 import javax.swing.JOptionPane;
 
+import org.etools.j1939tools.bus.j1939.J1939;
+import org.etools.j1939tools.bus.j1939.packets.DM19CalibrationInformationPacket;
+import org.etools.j1939tools.bus.j1939.packets.DM21DiagnosticReadinessPacket;
+import org.etools.j1939tools.bus.j1939.packets.VehicleIdentificationPacket;
+import org.etools.j1939tools.bus.j1939.packets.DM19CalibrationInformationPacket.CalibrationInformation;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,11 +35,6 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import net.soliddesign.iumpr.bus.j1939.J1939;
-import net.soliddesign.iumpr.bus.j1939.packets.DM19CalibrationInformationPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.DM19CalibrationInformationPacket.CalibrationInformation;
-import net.soliddesign.iumpr.bus.j1939.packets.DM21DiagnosticReadinessPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.VehicleIdentificationPacket;
 import net.soliddesign.iumpr.controllers.ResultsListener;
 
 /**

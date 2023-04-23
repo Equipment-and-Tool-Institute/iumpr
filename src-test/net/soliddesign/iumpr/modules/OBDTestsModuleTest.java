@@ -16,6 +16,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import org.etools.j1939tools.bus.Packet;
+import org.etools.j1939tools.bus.j1939.J1939;
+import org.etools.j1939tools.bus.j1939.packets.DM24SPNSupportPacket;
+import org.etools.j1939tools.bus.j1939.packets.DM30ScaledTestResultsPacket;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,10 +28,6 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import net.soliddesign.iumpr.bus.Packet;
-import net.soliddesign.iumpr.bus.j1939.J1939;
-import net.soliddesign.iumpr.bus.j1939.packets.DM24SPNSupportPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.DM30ScaledTestResultsPacket;
 import net.soliddesign.iumpr.controllers.TestResultsListener;
 
 /**

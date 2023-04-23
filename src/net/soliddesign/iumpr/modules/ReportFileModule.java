@@ -4,7 +4,7 @@
 package net.soliddesign.iumpr.modules;
 
 import static net.soliddesign.iumpr.IUMPR.NL;
-import static net.soliddesign.iumpr.bus.Packet.TX;
+import static org.etools.j1939tools.bus.Packet.TX;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -25,16 +25,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import org.etools.j1939tools.bus.Packet;
+import org.etools.j1939tools.bus.j1939.packets.DM19CalibrationInformationPacket;
+import org.etools.j1939tools.bus.j1939.packets.DM19CalibrationInformationPacket.CalibrationInformation;
+import org.etools.j1939tools.bus.j1939.packets.DM20MonitorPerformanceRatioPacket;
+import org.etools.j1939tools.bus.j1939.packets.DM21DiagnosticReadinessPacket;
+import org.etools.j1939tools.bus.j1939.packets.DM5DiagnosticReadinessPacket;
+import org.etools.j1939tools.bus.j1939.packets.MonitoredSystem;
+import org.etools.j1939tools.bus.j1939.packets.PerformanceRatio;
+import org.etools.j1939tools.bus.j1939.packets.VehicleIdentificationPacket;
+
 import net.soliddesign.iumpr.IUMPR;
-import net.soliddesign.iumpr.bus.Packet;
-import net.soliddesign.iumpr.bus.j1939.packets.DM19CalibrationInformationPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.DM19CalibrationInformationPacket.CalibrationInformation;
-import net.soliddesign.iumpr.bus.j1939.packets.DM20MonitorPerformanceRatioPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.DM21DiagnosticReadinessPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.DM5DiagnosticReadinessPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.MonitoredSystem;
-import net.soliddesign.iumpr.bus.j1939.packets.PerformanceRatio;
-import net.soliddesign.iumpr.bus.j1939.packets.VehicleIdentificationPacket;
 import net.soliddesign.iumpr.controllers.ResultsListener;
 
 /**
@@ -273,6 +274,8 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
      *             if the date went backwards or is in the future
      */
     private void checkDate(String line) throws ReportFileException {
+        // 2023-04-25T17:16:40.704747200
+        // 2017-02-11T16:44:12.164
         LocalDateTime lineInstant = parseDateTime(line);
 
         if (lineInstant != null) {

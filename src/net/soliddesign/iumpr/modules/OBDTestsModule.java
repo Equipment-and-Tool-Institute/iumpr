@@ -13,13 +13,14 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-import net.soliddesign.iumpr.bus.Packet;
-import net.soliddesign.iumpr.bus.j1939.Lookup;
-import net.soliddesign.iumpr.bus.j1939.packets.DM24SPNSupportPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.DM30ScaledTestResultsPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.DM7CommandTestsPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.ScaledTestResult;
-import net.soliddesign.iumpr.bus.j1939.packets.ScaledTestResult.TestResult;
+import org.etools.j1939tools.bus.Packet;
+import org.etools.j1939tools.bus.j1939.Lookup;
+import org.etools.j1939tools.bus.j1939.packets.DM24SPNSupportPacket;
+import org.etools.j1939tools.bus.j1939.packets.DM30ScaledTestResultsPacket;
+import org.etools.j1939tools.bus.j1939.packets.DM7CommandTestsPacket;
+import org.etools.j1939tools.bus.j1939.packets.ScaledTestResult;
+import org.etools.j1939tools.bus.j1939.packets.ScaledTestResult.TestResult;
+
 import net.soliddesign.iumpr.controllers.ResultsListener;
 
 /**

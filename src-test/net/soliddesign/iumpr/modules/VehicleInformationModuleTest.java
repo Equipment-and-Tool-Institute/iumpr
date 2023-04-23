@@ -15,6 +15,17 @@ import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
+import org.etools.j1939tools.bus.Bus;
+import org.etools.j1939tools.bus.BusException;
+import org.etools.j1939tools.bus.Packet;
+import org.etools.j1939tools.bus.j1939.J1939;
+import org.etools.j1939tools.bus.j1939.packets.AddressClaimPacket;
+import org.etools.j1939tools.bus.j1939.packets.ComponentIdentificationPacket;
+import org.etools.j1939tools.bus.j1939.packets.DM19CalibrationInformationPacket;
+import org.etools.j1939tools.bus.j1939.packets.EngineHoursPacket;
+import org.etools.j1939tools.bus.j1939.packets.HighResVehicleDistancePacket;
+import org.etools.j1939tools.bus.j1939.packets.TotalVehicleDistancePacket;
+import org.etools.j1939tools.bus.j1939.packets.VehicleIdentificationPacket;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,17 +34,6 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import net.soliddesign.iumpr.bus.Bus;
-import net.soliddesign.iumpr.bus.BusException;
-import net.soliddesign.iumpr.bus.Packet;
-import net.soliddesign.iumpr.bus.j1939.J1939;
-import net.soliddesign.iumpr.bus.j1939.packets.AddressClaimPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.ComponentIdentificationPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.DM19CalibrationInformationPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.EngineHoursPacket;
-import net.soliddesign.iumpr.bus.j1939.packets.HighResVehicleDistancePacket;
-import net.soliddesign.iumpr.bus.j1939.packets.TotalVehicleDistancePacket;
-import net.soliddesign.iumpr.bus.j1939.packets.VehicleIdentificationPacket;
 import net.soliddesign.iumpr.controllers.TestResultsListener;
 
 /**
