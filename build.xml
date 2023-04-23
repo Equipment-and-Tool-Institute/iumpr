@@ -20,13 +20,12 @@
 		<classpath path="${launch4j.dir}/launch4j.jar:${launch4j.dir}/lib/xstream.jar" />
 	</taskdef>
 
-	<property name="findbugs.home" value="${lib-test}/findbugs-3.0.1" />
-	<taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask">
-		<classpath path="${lib-test}/findbugs-3.0.1/lib/findbugs-ant.jar" />
+    <property name="spotbugs.home" value="${lib-test}/spotbugs-4.0.2"/>
+    <taskdef resource="edu/umd/cs/findbugs/anttask/tasks.properties">
+        <classpath path="${lib-test}/spotbugs-4.0.2/lib/spotbugs-ant.jar"/>
 	</taskdef>
-
 	<taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
-		<classpath path="${lib-test}/jacoco-0.7.9/lib/jacocoant.jar" />
+        <classpath path="${lib-test}/jacoco-0.8.9/lib/jacocoant.jar"/>
 	</taskdef>
 
 	<condition property="isWindows" value="true">
@@ -54,6 +53,9 @@
 	</path>
 
 	<target name="init">
+		<echo message="java_home:${java.home}} version:${java.runtime.version}">
+		</echo>
+
 		<!-- Create the time stamp -->
 		<tstamp />
 
@@ -87,8 +89,8 @@
 
 
 	<target name="dist.exe" if="isWindows">
-		<property environment="env"/>
-		<echo message="Using JRE from JRE_HOME env variable ${env.JRE_HOME}"/>
+		<property environment="env" />
+		<echo message="Using JRE from JRE_HOME env variable ${env.JRE_HOME}" />
 		<fail message="The directory '${env.JRE_HOME}' was expected to be available but is not.  Verify that the environment variable JRE_HOME is set to correctly point to the 32 bit JRE.">
 			<condition>
 				<not>
@@ -96,7 +98,7 @@
 				</not>
 			</condition>
 		</fail>
- 
+
 		<copy todir="jre">
 			<fileset dir="${env.JRE_HOME}" />
 		</copy>
@@ -119,7 +121,7 @@
 	</target>
 
 	<target name="compile" depends="init" description="Compiles the source code">
-		<javac destdir="${build}" includeantruntime="false" debug="true" target="1.8"  >
+		<javac destdir="${build}" includeantruntime="false" debug="true">
 			<src path="${src}" />
 			<classpath refid="compile.path" />
 		</javac>
@@ -181,12 +183,13 @@
 		</junitreport>
 	</target>
 
-	<target name="findBugs" depends="clean, compile.tests" description="Generate the FindBugs Report">
-		<findbugs home="${findbugs.home}" output="html" outputFile="${build}/findBugsReport.html">
-			<auxclasspath refid="unit.test.path" />
-			<sourcePath path="${src}" />
-			<class location="${build}" />
-		</findbugs>
+    <target name="spotbugs" depends="clean, compile.tests" description="Generate the spotbugs Report">
+        <spotbugs home="${spotbugs.home}" output="html" outputFile="${build}/spotbugsReport.html">
+            <auxclasspath refid="unit.test.path"/>
+            <sourcePath path="${src}"/>
+            <class location="${build}"/>
+        </spotbugs>
+        <open file="${build}/spotbugsReport.html"/>
 	</target>
 
 	<target name="echo.current.build.number">
