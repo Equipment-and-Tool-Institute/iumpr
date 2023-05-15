@@ -1,7 +1,9 @@
-/**
- * Copyright 2017 Equipment & Tool Institute
+/*
+ * Copyright 2019 Equipment & Tool Institute
  */
 package org.etools.j1939tools.bus;
+
+import java.util.List;
 
 /**
  * Represents a vehicle communications adapter
@@ -26,20 +28,44 @@ public class Adapter {
      */
     private final String name;
 
+    private final List<String> connectionStrings;
+
+    private final long timestampWeight;
+
+    /**
+     * Constructor used in tests.
+     *
+     * @param name
+     *                     the display name for the adapter
+     * @param dllName
+     *                     the DLL/INI file for the adapter
+     * @param deviceId
+     *                     the device ID
+     */
+    public Adapter(String name, String dllName, short deviceId) {
+        this(name, dllName, deviceId, 1, List.of("J1939:Baud=Auto", "J1939:Baud=500", "J1939:Baud=250"));
+    }
+
     /**
      * Constructor
      *
      * @param name
-     *            the display name for the adapter
+     *                     the display name for the adapter
      * @param dllName
-     *            the DLL/INI file for the adapter
+     *                     the DLL/INI file for the adapter
      * @param deviceId
-     *            the device ID
+     *                     the device ID
      */
-    public Adapter(String name, String dllName, short deviceId) {
+    public Adapter(String name, String dllName, short deviceId, long timestampWeight, List<String> connectionStrings) {
         this.name = name;
         this.dllName = dllName;
         this.deviceId = deviceId;
+        this.timestampWeight = timestampWeight;
+        this.connectionStrings = connectionStrings;
+    }
+
+    public List<String> getConnectionStrings() {
+        return connectionStrings;
     }
 
     /**
@@ -69,4 +95,11 @@ public class Adapter {
         return name;
     }
 
+    public long getTimestampWeight() {
+        return timestampWeight;
+    }
+
+    @Override public String toString() {
+        return getName();
+    }
 }

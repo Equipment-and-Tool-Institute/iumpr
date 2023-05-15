@@ -1,5 +1,5 @@
-/**
- * Copyright 2017 Equipment & Tool Institute
+/*
+ * Copyright 2021 Equipment & Tool Institute
  */
 package org.etools.j1939tools.bus;
 
@@ -8,10 +8,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.etools.j1939tools.bus.Packet;
+import org.etools.j1939tools.modules.DateTimeModule;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
-import net.soliddesign.iumpr.modules.DateTimeModule;
 import net.soliddesign.iumpr.modules.TestDateTimeModule;
 
 /**
@@ -22,11 +23,21 @@ import net.soliddesign.iumpr.modules.TestDateTimeModule;
  */
 public class PacketTest {
 
+    @Before
+    public void setUp() {
+        DateTimeModule.setInstance(DateTimeModule.getInstance());
+    }
+
+    @After
+    public void tearDown() {
+        DateTimeModule.setInstance(null);
+    }
+
     @Test
     public void testCreateWithBytes() {
-        Packet instance = Packet.create(1234, 56, new byte[] { 11, 22, 33 });
+        Packet instance = Packet.create(0x1234, 56, new byte[] { 11, 22, 33 });
         assertEquals(6, instance.getPriority());
-        assertEquals(1234, instance.getId());
+        assertEquals(0x1234, instance.getId(0xFFFF));
         assertEquals(56, instance.getSource());
         assertEquals(false, instance.isTransmitted());
         assertEquals(3, instance.getBytes().length);
@@ -37,9 +48,9 @@ public class PacketTest {
 
     @Test
     public void testCreateWithInts() {
-        Packet instance = Packet.create(1234, 56, new int[] { 11, 22, 33 });
+        Packet instance = Packet.create(0x1234, 56, new int[] { 11, 22, 33 });
         assertEquals(6, instance.getPriority());
-        assertEquals(1234, instance.getId());
+        assertEquals(0x1234, instance.getId(0xFFFF));
         assertEquals(56, instance.getSource());
         assertEquals(false, instance.isTransmitted());
         assertEquals(3, instance.getBytes().length);
@@ -50,9 +61,9 @@ public class PacketTest {
 
     @Test
     public void testCreateWithPriority() {
-        Packet instance = Packet.create(18, 1234, 56, true, new byte[] { 11, 22, 33 });
+        Packet instance = Packet.create(18, 0x1234, 56, true, new byte[] { 11, 22, 33 });
         assertEquals(18, instance.getPriority());
-        assertEquals(1234, instance.getId());
+        assertEquals(0x1234, instance.getId(0xFFFF));
         assertEquals(56, instance.getSource());
         assertEquals(true, instance.isTransmitted());
         assertEquals(3, instance.getBytes().length);
@@ -88,8 +99,8 @@ public class PacketTest {
     @Test
     public void testGettersAndToString() {
         byte[] bytes = new byte[] { 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, (byte) 0x88 };
-        Packet instance = Packet.create(6, 1234, 56, true, bytes);
-        assertEquals(1234, instance.getId());
+        Packet instance = Packet.create(6, 0x1234, 56, true, bytes);
+        assertEquals(0x1234, instance.getId(0xFFFF));
         assertEquals(6, instance.getPriority());
         assertEquals(56, instance.getSource());
         assertEquals(true, instance.isTransmitted());
@@ -109,7 +120,7 @@ public class PacketTest {
         assertEquals(0x44332211, instance.get32(0));
         assertEquals(0x11223344, instance.get32Big(0));
 
-        String expected = "1804D238 11 22 33 44 55 66 77 88 (TX)";
+        String expected = "18123438 [8] 11 22 33 44 55 66 77 88 (TX)";
         assertEquals(expected, instance.toString());
     }
 
@@ -153,8 +164,8 @@ public class PacketTest {
 
     @Test
     public void testNotEqualsPriority() {
-        Packet instance1 = Packet.create(6, 1234, 56, true);
-        Packet instance2 = Packet.create(9, 1234, 56, true);
+        Packet instance1 = Packet.create(6, 1234, 56, true, new byte[8]);
+        Packet instance2 = Packet.create(9, 1234, 56, true, new byte[8]);
         assertFalse(instance1.equals(instance2));
         assertFalse(instance2.equals(instance1));
     }
@@ -169,8 +180,8 @@ public class PacketTest {
 
     @Test
     public void testNotEqualsTransmitted() {
-        Packet instance1 = Packet.create(6, 1234, 56, true);
-        Packet instance2 = Packet.create(6, 1234, 56, false);
+        Packet instance1 = Packet.create(6, 1234, 56, true, new byte[8]);
+        Packet instance2 = Packet.create(6, 1234, 56, false, new byte[8]);
         assertFalse(instance1.equals(instance2));
         assertFalse(instance2.equals(instance1));
     }
@@ -211,12 +222,12 @@ public class PacketTest {
 
     @Test
     public void testToStringWithFormatter() {
-        DateTimeModule dateTimeModule = new TestDateTimeModule();
+        new TestDateTimeModule();
         Packet instance = Packet
                 .parse("18FEEC00 33 48 41 4D 4B 53 54 4E 30 46 4C 35 37 35 30 31 32 2A");
 
-        String expected = "10:15:30.000 18FEEC00 33 48 41 4D 4B 53 54 4E 30 46 4C 35 37 35 30 31 32 2A";
-        String actual = instance.toString(dateTimeModule.getTimeFormatter());
+        String expected = "10:15:30.0000 18FEEC00 [18] 33 48 41 4D 4B 53 54 4E 30 46 4C 35 37 35 30 31 32 2A";
+        String actual = instance.toTimeString();
         assertEquals(expected, actual);
     }
 

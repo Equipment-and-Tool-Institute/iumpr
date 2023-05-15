@@ -331,7 +331,7 @@ public class DiagnosticReadinessModule extends FunctionalModule {
                 listener.onResult(TIMEOUT_MESSAGE);
             } else {
                 for (ParsedPacket packet : packets) {
-                    listener.onResult(packet.getPacket().toString(getDateTimeModule().getTimeFormatter()));
+                    listener.onResult(packet.getPacket().toString());
                     if (fullString) {
                         listener.onResult(packet.toString());
                     }

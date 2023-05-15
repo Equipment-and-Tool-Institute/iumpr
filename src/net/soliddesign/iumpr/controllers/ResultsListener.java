@@ -5,6 +5,8 @@ package net.soliddesign.iumpr.controllers;
 
 import java.util.List;
 
+import org.etools.j1939tools.CommunicationsListener;
+
 /**
  * The Interface for an listener that is notified when a {@link Controller} has
  * something to report
@@ -12,7 +14,7 @@ import java.util.List;
  * @author Matt Gumbel (matt@soliddesign.net)
  *
  */
-public interface ResultsListener {
+public interface ResultsListener extends CommunicationsListener {
 
     /**
      * Called when the {@link Controller} has completed
@@ -70,6 +72,7 @@ public interface ResultsListener {
      * @param result
      *            the result
      */
+    @Override
     void onResult(String result);
 
     /**

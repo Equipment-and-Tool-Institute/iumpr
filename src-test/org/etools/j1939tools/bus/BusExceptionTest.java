@@ -1,12 +1,11 @@
 /**
- * Copyright 2017 Equipment & Tool Institute
+ * Copyright 2019 Equipment & Tool Institute
  */
 package org.etools.j1939tools.bus;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-import org.etools.j1939tools.bus.BusException;
 import org.junit.Test;
 
 /**

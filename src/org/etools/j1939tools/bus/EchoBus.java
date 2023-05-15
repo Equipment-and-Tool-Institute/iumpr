@@ -1,5 +1,5 @@
-/**
- * Copyright 2017 Equipment & Tool Institute
+/*
+ * Copyright (c) 2021. Equipment & Tool Institute
  */
 package org.etools.j1939tools.bus;
 
@@ -22,7 +22,7 @@ public class EchoBus implements Bus {
      * Constructor
      *
      * @param address
-     *            the address for this connector on the bus
+     *                    the address for this connector on the bus
      */
     public EchoBus(int address) {
         this(address, new MultiQueue<>());
@@ -32,13 +32,23 @@ public class EchoBus implements Bus {
      * Constructor exposed for testing
      *
      * @param address
-     *            the address for this connector on the bus
+     *                    the address for this connector on the bus
      * @param queue
-     *            the {@link MultiQueue} to use to back the bus
+     *                    the {@link MultiQueue} to use to back the bus
      */
     public EchoBus(int address, MultiQueue<Packet> queue) {
         this.address = address;
         this.queue = queue;
+    }
+
+    @Override
+    public void close() {
+        queue.close();
+    }
+
+    @Override
+    public Stream<Packet> duplicate(Stream<Packet> stream, int time, TimeUnit unit) {
+        return queue.duplicate(stream, time, unit);
     }
 
     @Override
@@ -56,8 +66,23 @@ public class EchoBus implements Bus {
         return queue.stream(timeout, unit);
     }
 
+    /**
+     * Reset stream timeout for stream created with bus.read(). To be used in a
+     * stream call like peek, map or forEach.
+     */
     @Override
-    public void send(Packet p) {
+    public void resetTimeout(Stream<Packet> stream, int time, TimeUnit unit) {
+        queue.resetTimeout(stream, time, unit);
+    }
+
+    @Override
+    public Packet send(Packet p) {
         queue.add(p);
+        return p;
+    }
+
+    @Override
+    public boolean imposterDetected() {
+        return false;
     }
 }

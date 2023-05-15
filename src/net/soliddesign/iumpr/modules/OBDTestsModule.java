@@ -146,7 +146,7 @@ public class OBDTestsModule extends FunctionalModule {
             listener.onResult("");
             return Collections.emptyList();
         } else {
-            listener.onResult(packet.getPacket().toString(getDateTimeModule().getTimeFormatter()));
+            listener.onResult(packet.getPacket().toString());
             listener.onResult(packet.toString());
             listener.onResult("");
             return packet.getTestResults();
@@ -198,7 +198,7 @@ public class OBDTestsModule extends FunctionalModule {
                 listener.onResult(TIMEOUT_MESSAGE);
             } else {
                 DM24SPNSupportPacket packet = results.get();
-                listener.onResult(packet.getPacket().toString(getDateTimeModule().getTimeFormatter()));
+                listener.onResult(packet.getPacket().toString());
                 listener.onResult(packet.toString());
                 packets.add(packet);
             }

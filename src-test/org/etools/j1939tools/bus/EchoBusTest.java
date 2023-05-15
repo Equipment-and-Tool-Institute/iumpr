@@ -1,5 +1,5 @@
 /**
- * Copyright 2017 Equipment & Tool Institute
+ * Copyright 2019 Equipment & Tool Institute
  */
 package org.etools.j1939tools.bus;
 
@@ -14,11 +14,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.etools.j1939tools.bus.Bus;
-import org.etools.j1939tools.bus.BusException;
-import org.etools.j1939tools.bus.EchoBus;
-import org.etools.j1939tools.bus.MultiQueue;
-import org.etools.j1939tools.bus.Packet;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,22 +38,26 @@ public class EchoBusTest {
 
     @Test
     public void echoTest() throws BusException {
-        Bus bus = new EchoBus(0xF9);
-        Stream<Packet> stream1 = bus.read(1250, TimeUnit.MILLISECONDS);
-        Stream<Packet> stream2 = bus.read(1250, TimeUnit.MILLISECONDS);
-        final int count = 20;
-        for (int id = 0; id < count; id++) {
-            bus.send(Packet.create(0xFF00 | id, 0xF9, 1, 2, 3, id));
-        }
+        try (Bus bus = new EchoBus(0xF9)) {
+            Stream<Packet> stream1 = bus.read(1250, TimeUnit.MILLISECONDS);
+            Stream<Packet> stream2 = bus.read(1250, TimeUnit.MILLISECONDS);
+            final int count = 20;
+            for (int id = 0; id < count; id++) {
+                bus.send(Packet.create(0xFF00 | id, 0xF9, 1, 2, 3, id));
+            }
 
-        Packet r = stream1
-                // .peek(p -> System.err.println("filter:"+p))
-                .filter(x -> x.getId() == 0xFF07).findFirst().get();
-        assertEquals(0xFF07, r.getId());
-        assertEquals(count,
-                stream2.limit(count) // otherwise, stream will end with timeout
-                        // .peek(p -> System.err.println("count:" + p))
-                        .count());
+            Packet r = stream1
+                              // .peek(p -> System.err.println("filter:"+p))
+                              .filter(x -> x.getId(0xFFFF) == 0xFF07)
+                              .findFirst()
+                              .get();
+            assertEquals(0xFF07, r.getId(0xFFFF));
+            assertEquals(count,
+                         stream2.limit(count) // otherwise, stream will end with
+                                              // timeout
+                                // .peek(p -> System.err.println("count:" + p))
+                                .count());
+        }
     }
 
     @Before

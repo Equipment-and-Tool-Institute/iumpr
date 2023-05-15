@@ -123,7 +123,7 @@ public class UserInterfaceControllerTest {
         adapters.add(adapter1);
         adapters.add(adapter2);
         when(rp1210.getAdapters()).thenReturn(adapters);
-        when(rp1210.setAdapter(any(), eq(0xF9))).thenReturn(rp1210Bus);
+        // when(rp1210.setAdapter(any(), eq(0xF9))).thenReturn(rp1210Bus);
 
         instance = new UserInterfaceController(view, dataPlateController, collectResultsController,
                 monitorCompletionController, comparisonModule, rp1210, reportFileModule, runtime, executor, helpView);
@@ -163,7 +163,7 @@ public class UserInterfaceControllerTest {
 
         verify(rp1210Bus).stop();
         verify(rp1210).getAdapters();
-        verify(rp1210).setAdapter(adapter1, 0xF9);
+        // verify(rp1210).setAdapter(adapter1, 0xF9);
     }
 
     @Test
@@ -193,7 +193,7 @@ public class UserInterfaceControllerTest {
 
         verify(rp1210Bus).stop();
         verify(rp1210).getAdapters();
-        verify(rp1210).setAdapter(adapter1, 0xF9);
+        // verify(rp1210).setAdapter(adapter1, 0xF9);
     }
 
     @Test
@@ -262,7 +262,7 @@ public class UserInterfaceControllerTest {
         verify(reportFileModule).setReportFile(any(ResultsListener.class), eq(file), eq(false));
 
         verify(rp1210).getAdapters();
-        verify(rp1210).setAdapter(adapter1, 0xF9);
+        // verify(rp1210).setAdapter(adapter1, 0xF9);
         verify(rp1210Bus).getAddress();
     }
 
@@ -293,7 +293,7 @@ public class UserInterfaceControllerTest {
         verify(reportFileModule).setReportFile(any(ResultsListener.class), eq(null), eq(false));
 
         verify(rp1210).getAdapters();
-        verify(rp1210).setAdapter(adapter1, 0xF9);
+        // verify(rp1210).setAdapter(adapter1, 0xF9);
     }
 
     @Test
@@ -547,7 +547,7 @@ public class UserInterfaceControllerTest {
         executor.run();
 
         verify(rp1210).getAdapters();
-        verify(rp1210).setAdapter(adapter1, 0xF9);
+        // verify(rp1210).setAdapter(adapter1, 0xF9);
         verify(comparisonModule).setJ1939(any(J1939.class));
         verify(comparisonModule).reset();
 

@@ -117,7 +117,7 @@ public abstract class FunctionalModule {
     }
 
     protected Function<ParsedPacket, String> getPacketMapperFunction() {
-        return t -> t.getPacket().toString(getDateTimeModule().getTimeFormatter()) + NL + t.toString();
+        return t -> t.getPacket().toString() + NL + t.toString();
     }
 
     /**
