@@ -11,8 +11,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.etools.j1939tools.bus.Packet;
-import org.etools.j1939tools.bus.j1939.J1939;
-import org.etools.j1939tools.bus.j1939.packets.ParsedPacket;
+import org.etools.j1939tools.j1939.J1939;
+import org.etools.j1939tools.j1939.packets.GenericPacket;
+import org.etools.j1939tools.j1939.packets.ParsedPacket;
+import org.etools.j1939tools.modules.DateTimeModule;
 
 import net.soliddesign.iumpr.controllers.ResultsListener;
 
@@ -81,7 +83,7 @@ public abstract class FunctionalModule {
      *
      * @return the List of Packets that were received
      */
-    protected <T extends ParsedPacket> List<T> generateReport(ResultsListener listener, String title, Class<T> clazz,
+    protected <T extends GenericPacket> List<T> generateReport(ResultsListener listener, String title, Class<T> clazz,
             Packet request) {
         listener.onResult(getDateTime() + " " + title);
         listener.onResult(getTime() + " " + request.toString());
@@ -117,7 +119,7 @@ public abstract class FunctionalModule {
     }
 
     protected Function<ParsedPacket, String> getPacketMapperFunction() {
-        return t -> t.getPacket().toString() + NL + t.toString();
+        return t -> t.getPacket().toTimeString() + NL + t.toString();
     }
 
     /**

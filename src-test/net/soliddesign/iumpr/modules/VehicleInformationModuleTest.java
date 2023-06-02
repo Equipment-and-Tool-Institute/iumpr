@@ -17,15 +17,17 @@ import java.util.stream.Stream;
 
 import org.etools.j1939tools.bus.Bus;
 import org.etools.j1939tools.bus.BusException;
+import org.etools.j1939tools.bus.Either;
 import org.etools.j1939tools.bus.Packet;
-import org.etools.j1939tools.bus.j1939.J1939;
-import org.etools.j1939tools.bus.j1939.packets.AddressClaimPacket;
-import org.etools.j1939tools.bus.j1939.packets.ComponentIdentificationPacket;
-import org.etools.j1939tools.bus.j1939.packets.DM19CalibrationInformationPacket;
-import org.etools.j1939tools.bus.j1939.packets.EngineHoursPacket;
-import org.etools.j1939tools.bus.j1939.packets.HighResVehicleDistancePacket;
-import org.etools.j1939tools.bus.j1939.packets.TotalVehicleDistancePacket;
-import org.etools.j1939tools.bus.j1939.packets.VehicleIdentificationPacket;
+import org.etools.j1939tools.j1939.J1939;
+import org.etools.j1939tools.j1939.packets.AddressClaimPacket;
+import org.etools.j1939tools.j1939.packets.ComponentIdentificationPacket;
+import org.etools.j1939tools.j1939.packets.DM19CalibrationInformationPacket;
+import org.etools.j1939tools.j1939.packets.EngineHoursPacket;
+import org.etools.j1939tools.j1939.packets.HighResVehicleDistancePacket;
+import org.etools.j1939tools.j1939.packets.TotalVehicleDistancePacket;
+import org.etools.j1939tools.j1939.packets.VehicleIdentificationPacket;
+import org.etools.j1939tools.modules.DateTimeModule;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -83,8 +85,8 @@ public class VehicleInformationModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global Request for Address Claim" + NL;
-        expected += "10:15:30.000 18EAFFA5 00 EE 00 (TX)" + NL;
-        expected += "10:15:30.000 18EEFF55 10 F7 45 01 00 45 00 01" + NL;
+        expected += "10:15:30.000 18EAFFA5 [3] 00 EE 00 (TX)" + NL;
+        expected += "10:15:30.000 18EEFF55 [8] 10 F7 45 01 00 45 00 01" + NL;
         expected += "Diesel Particulate Filter Controller (85) reported as: {" + NL;
         expected += "  Industry Group: Global" + NL;
         expected += "  Vehicle System: Non-specific System, System Instance: 1" + NL;
@@ -92,7 +94,7 @@ public class VehicleInformationModuleTest {
         expected += "  Manufactured by: Cummins Inc, Identity Number: 390928" + NL;
         expected += "  Is not arbitrary address capable." + NL;
         expected += "}" + NL;
-        expected += "10:15:30.000 18EEFF3D 00 00 00 00 00 00 00 00" + NL;
+        expected += "10:15:30.000 18EEFF3D [8] 00 00 00 00 00 00 00 00" + NL;
         expected += "Exhaust Emission Controller (61) reported as: {" + NL;
         expected += "  Industry Group: Global" + NL;
         expected += "  Vehicle System: Non-specific System, System Instance: 0" + NL;
@@ -100,7 +102,7 @@ public class VehicleInformationModuleTest {
         expected += "  Manufactured by: Reserved, Identity Number: 0" + NL;
         expected += "  Is not arbitrary address capable." + NL;
         expected += "}" + NL;
-        expected += "10:15:30.000 18EEFF00 00 00 40 05 00 00 65 14" + NL;
+        expected += "10:15:30.000 18EEFF00 [8] 00 00 40 05 00 00 65 14" + NL;
         expected += "Engine #1 (0) reported as: {" + NL;
         expected += "  Industry Group: On-Highway Equipment" + NL;
         expected += "  Vehicle System: Unknown System (50), System Instance: 4" + NL;
@@ -129,8 +131,8 @@ public class VehicleInformationModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global Request for Address Claim" + NL;
-        expected += "10:15:30.000 18EAFFA5 00 EE 00 (TX)" + NL;
-        expected += "10:15:30.000 18EEFF55 10 F7 45 01 00 45 00 01" + NL;
+        expected += "10:15:30.000 18EAFFA5 [3] 00 EE 00 (TX)" + NL;
+        expected += "10:15:30.000 18EEFF55 [8] 10 F7 45 01 00 45 00 01" + NL;
         expected += "Diesel Particulate Filter Controller (85) reported as: {" + NL;
         expected += "  Industry Group: Global" + NL;
         expected += "  Vehicle System: Non-specific System, System Instance: 1" + NL;
@@ -158,7 +160,7 @@ public class VehicleInformationModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global Request for Address Claim" + NL;
-        expected += "10:15:30.000 18EAFFA5 00 EE 00 (TX)" + NL;
+        expected += "10:15:30.000 18EAFFA5 [3] 00 EE 00 (TX)" + NL;
         expected += "Error: Timeout - No Response." + NL;
         TestResultsListener listener = new TestResultsListener();
         instance.reportAddressClaim(listener);
@@ -188,14 +190,14 @@ public class VehicleInformationModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global DM19 (Calibration Information) Request" + NL;
-        expected += "10:15:30.000 18EAFFA5 00 D3 00 (TX)" + NL;
-        expected += "10:15:30.000 18D30000 41 42 43 44 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35 36"
+        expected += "10:15:30.000 18EAFFA5 [3] 00 D3 00 (TX)" + NL;
+        expected += "10:15:30.000 18D30000 [20] 41 42 43 44 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35 36"
                 + NL;
         expected += "DM19 from Engine #1 (0): CAL ID of 1234567890123456 and CVN of 0x44434241" + NL;
-        expected += "10:15:30.000 18D30017 45 46 47 48 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35 36"
+        expected += "10:15:30.000 18D30017 [20] 45 46 47 48 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35 36"
                 + NL;
         expected += "DM19 from Instrument Cluster #1 (23): CAL ID of 1234567890123456 and CVN of 0x48474645" + NL;
-        expected += "10:15:30.000 18D30021 49 4A 4B 4C 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35 36"
+        expected += "10:15:30.000 18D30021 [20] 49 4A 4B 4C 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35 36"
                 + NL;
         expected += "DM19 from Body Controller (33): CAL ID of 1234567890123456 and CVN of 0x4C4B4A49" + NL;
         TestResultsListener listener = new TestResultsListener();
@@ -216,7 +218,7 @@ public class VehicleInformationModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global DM19 (Calibration Information) Request" + NL;
-        expected += "10:15:30.000 18EAFFA5 00 D3 00 (TX)" + NL;
+        expected += "10:15:30.000 18EAFFA5 [3] 00 D3 00 (TX)" + NL;
         expected += "Error: Timeout - No Response." + NL;
         TestResultsListener listener = new TestResultsListener();
         instance.reportCalibrationInformation(listener);
@@ -244,15 +246,15 @@ public class VehicleInformationModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global Component Identification Request" + NL;
-        expected += "10:15:30.000 18EAFFA5 EB FE 00 (TX)" + NL;
-        expected += "10:15:30.000 18FEEB00 4D 61 6B 65 31 2A 4D 6F 64 65 6C 31 2A 53 65 72 69 61 6C 4E 75 6D 62 65 72 31 2A 2A"
+        expected += "10:15:30.000 18EAFFA5 [3] EB FE 00 (TX)" + NL;
+        expected += "10:15:30.000 18FEEB00 [28] 4D 61 6B 65 31 2A 4D 6F 64 65 6C 31 2A 53 65 72 69 61 6C 4E 75 6D 62 65 72 31 2A 2A"
                 + NL;
         expected += "Found Engine #1 (0): Make: Make1, Model: Model1, Serial: SerialNumber1, Unit: "
                 + NL;
-        expected += "10:15:30.000 18FEEB17 2A 2A 2A 2A" + NL;
+        expected += "10:15:30.000 18FEEB17 [4] 2A 2A 2A 2A" + NL;
         expected += "Found Instrument Cluster #1 (23): Make: , Model: , Serial: , Unit: "
                 + NL;
-        expected += "10:15:30.000 18FEEB21 4D 61 6B 65 33 2A 4D 6F 64 65 6C 33 2A 2A 2A"
+        expected += "10:15:30.000 18FEEB21 [15] 4D 61 6B 65 33 2A 4D 6F 64 65 6C 33 2A 2A 2A"
                 + NL;
         expected += "Found Body Controller (33): Make: Make3, Model: Model3, Serial: , Unit: "
                 + NL;
@@ -276,7 +278,7 @@ public class VehicleInformationModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global Component Identification Request" + NL;
-        expected += "10:15:30.000 18EAFFA5 EB FE 00 (TX)" + NL;
+        expected += "10:15:30.000 18EAFFA5 [3] EB FE 00 (TX)" + NL;
         expected += "Error: Timeout - No Response." + NL;
 
         TestResultsListener listener = new TestResultsListener();
@@ -328,10 +330,10 @@ public class VehicleInformationModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Engine Hours Request" + NL;
-        expected += "10:15:30.000 18EAFFA5 E5 FE 00 (TX)" + NL;
-        expected += "10:15:30.000 18FEE500 01 02 03 04 05 06 07 08" + NL;
+        expected += "10:15:30.000 18EAFFA5 [3] E5 FE 00 (TX)" + NL;
+        expected += "10:15:30.000 18FEE500 [8] 01 02 03 04 05 06 07 08" + NL;
         expected += "Engine Hours from Engine #1 (0): 3,365,299.25 hours" + NL;
-        expected += "10:15:30.000 18FEE501 08 07 06 05 04 03 02 01" + NL;
+        expected += "10:15:30.000 18FEE501 [8] 08 07 06 05 04 03 02 01" + NL;
         expected += "Engine Hours from Engine #2 (1): 4,214,054.8 hours" + NL;
 
         TestResultsListener listener = new TestResultsListener();
@@ -353,7 +355,7 @@ public class VehicleInformationModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Engine Hours Request" + NL;
-        expected += "10:15:30.000 18EAFFA5 E5 FE 00 (TX)" + NL;
+        expected += "10:15:30.000 18EAFFA5 [3] E5 FE 00 (TX)" + NL;
         expected += "Error: Timeout - No Response." + NL;
 
         TestResultsListener listener = new TestResultsListener();
@@ -377,11 +379,11 @@ public class VehicleInformationModuleTest {
                 Packet.create(pgn, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF));
 
         when(j1939.read(HighResVehicleDistancePacket.class, 3, TimeUnit.SECONDS))
-                .thenReturn(Stream.of(packet0, packet1, packet2, packetFF));
+                .thenReturn(Stream.of(packet0, packet1, packet2, packetFF).map(p -> Either.nullable(p, null)));
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Vehicle Distance" + NL;
-        expected += "10:15:30.000 18FEC102 02 02 02 02 02 02 02 02" + NL;
+        expected += "10:15:30.000 18FEC102 [8] 02 02 02 02 02 02 02 02" + NL;
         expected += "High Resolution Vehicle Distance from Turbocharger (2): 168,430.09 km (104,657.605 mi)" + NL;
 
         TestResultsListener listener = new TestResultsListener();
@@ -405,11 +407,11 @@ public class VehicleInformationModuleTest {
                 Packet.create(pgn, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF));
 
         when(j1939.read(TotalVehicleDistancePacket.class, 300, TimeUnit.MILLISECONDS))
-                .thenReturn(Stream.of(packet2, packet1, packet0, packetFF));
+                .thenReturn(Stream.of(packet2, packet1, packet0, packetFF).map(p -> Either.nullable(p, null)));
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Vehicle Distance" + NL;
-        expected += "10:15:30.000 18FEE002 02 02 02 02 02 02 02 02" + NL;
+        expected += "10:15:30.000 18FEE002 [8] 02 02 02 02 02 02 02 02" + NL;
         expected += "Total Vehicle Distance from Turbocharger (2): 4,210,752.25 km (2,616,440.136 mi)" + NL;
 
         TestResultsListener listener = new TestResultsListener();
@@ -453,14 +455,14 @@ public class VehicleInformationModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global VIN Request" + NL;
-        expected += "10:15:30.000 18EAFFA5 EC FE 00 (TX)" + NL;
-        expected += "10:15:30.000 18FEEC00 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39 30 2A"
+        expected += "10:15:30.000 18EAFFA5 [3] EC FE 00 (TX)" + NL;
+        expected += "10:15:30.000 18FEEC00 [21] 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39 30 2A"
                 + NL;
         expected += "Vehicle Identification from Engine #1 (0): 12345678901234567890" + NL;
-        expected += "10:15:30.000 18FEEC17 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39 30 2A"
+        expected += "10:15:30.000 18FEEC17 [21] 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39 30 2A"
                 + NL;
         expected += "Vehicle Identification from Instrument Cluster #1 (23): 12345678901234567890" + NL;
-        expected += "10:15:30.000 18FEEC21 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39 30 2A"
+        expected += "10:15:30.000 18FEEC21 [21] 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39 30 2A"
                 + NL;
         expected += "Vehicle Identification from Body Controller (33): 12345678901234567890" + NL;
 
@@ -483,7 +485,7 @@ public class VehicleInformationModuleTest {
 
         String expected = "";
         expected += "2007-12-03T10:15:30.000 Global VIN Request" + NL;
-        expected += "10:15:30.000 18EAFFA5 EC FE 00 (TX)" + NL;
+        expected += "10:15:30.000 18EAFFA5 [3] EC FE 00 (TX)" + NL;
         expected += "Error: Timeout - No Response." + NL;
 
         TestResultsListener listener = new TestResultsListener();

@@ -18,11 +18,12 @@ import java.util.stream.Stream;
 
 import javax.swing.WindowConstants;
 
-import org.etools.j1939tools.bus.j1939.J1939;
-import org.etools.j1939tools.bus.j1939.packets.DM20MonitorPerformanceRatioPacket;
-import org.etools.j1939tools.bus.j1939.packets.DM21DiagnosticReadinessPacket;
-import org.etools.j1939tools.bus.j1939.packets.DM26TripDiagnosticReadinessPacket;
-import org.etools.j1939tools.bus.j1939.packets.DM5DiagnosticReadinessPacket;
+import org.etools.j1939tools.bus.Either;
+import org.etools.j1939tools.j1939.J1939;
+import org.etools.j1939tools.j1939.packets.DM20MonitorPerformanceRatioPacket;
+import org.etools.j1939tools.j1939.packets.DM21DiagnosticReadinessPacket;
+import org.etools.j1939tools.j1939.packets.DM26TripDiagnosticReadinessPacket;
+import org.etools.j1939tools.j1939.packets.DM5DiagnosticReadinessPacket;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -146,7 +147,8 @@ public class StatusViewTest {
         DM26TripDiagnosticReadinessPacket dm26Packet = mock(DM26TripDiagnosticReadinessPacket.class);
         DM21DiagnosticReadinessPacket dm21Packet = mock(DM21DiagnosticReadinessPacket.class);
 
-        when(j1939.read()).thenReturn(Stream.of(dm5Packet, dm20Packet, dm26Packet, dm21Packet));
+        when(j1939.read()).thenReturn(
+                Stream.of(dm5Packet, dm20Packet, dm26Packet, dm21Packet).map(p -> Either.nullable(p, null)));
         monitorRunnable.run();
 
         // Check for reset

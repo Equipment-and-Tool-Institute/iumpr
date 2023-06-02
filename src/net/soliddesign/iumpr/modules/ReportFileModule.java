@@ -26,14 +26,15 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import org.etools.j1939tools.bus.Packet;
-import org.etools.j1939tools.bus.j1939.packets.DM19CalibrationInformationPacket;
-import org.etools.j1939tools.bus.j1939.packets.DM19CalibrationInformationPacket.CalibrationInformation;
-import org.etools.j1939tools.bus.j1939.packets.DM20MonitorPerformanceRatioPacket;
-import org.etools.j1939tools.bus.j1939.packets.DM21DiagnosticReadinessPacket;
-import org.etools.j1939tools.bus.j1939.packets.DM5DiagnosticReadinessPacket;
-import org.etools.j1939tools.bus.j1939.packets.MonitoredSystem;
-import org.etools.j1939tools.bus.j1939.packets.PerformanceRatio;
-import org.etools.j1939tools.bus.j1939.packets.VehicleIdentificationPacket;
+import org.etools.j1939tools.j1939.packets.DM19CalibrationInformationPacket;
+import org.etools.j1939tools.j1939.packets.DM19CalibrationInformationPacket.CalibrationInformation;
+import org.etools.j1939tools.j1939.packets.DM20MonitorPerformanceRatioPacket;
+import org.etools.j1939tools.j1939.packets.DM21DiagnosticReadinessPacket;
+import org.etools.j1939tools.j1939.packets.DM5DiagnosticReadinessPacket;
+import org.etools.j1939tools.j1939.packets.MonitoredSystem;
+import org.etools.j1939tools.j1939.packets.PerformanceRatio;
+import org.etools.j1939tools.j1939.packets.VehicleIdentificationPacket;
+import org.etools.j1939tools.modules.DateTimeModule;
 
 import net.soliddesign.iumpr.IUMPR;
 import net.soliddesign.iumpr.controllers.ResultsListener;
@@ -667,7 +668,10 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
             lineTscc = (int) dm21.getMinutesSinceDTCsCleared();
         }
 
-        int fromIndex = line.indexOf(DM21DiagnosticReadinessPacket.TSCC_LINE);
+        if (true) {
+            throw new RuntimeException("Whatis this?");
+        }
+        int fromIndex = line.indexOf(0);// DM21DiagnosticReadinessPacket.TSCC_LINE);
         if (fromIndex != -1) {
             try {
                 // Get the Time Since Code Clear from the line

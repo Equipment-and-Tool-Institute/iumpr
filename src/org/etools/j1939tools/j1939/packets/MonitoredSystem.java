@@ -15,18 +15,25 @@ import java.util.Objects;
 public class MonitoredSystem implements Comparable<MonitoredSystem> {
 
     private final CompositeSystem id;
+    private final boolean isDM5;
     private final int sourceAddress;
     private final MonitoredSystemStatus status;
-    private final boolean isDM5;
 
     public MonitoredSystem(CompositeSystem id,
-                           MonitoredSystemStatus status,
-                           int sourceAddress,
-                           boolean isDM5) {
+            MonitoredSystemStatus status,
+            int sourceAddress,
+            boolean isDM5) {
         this.status = status;
         this.sourceAddress = sourceAddress;
         this.id = id;
         this.isDM5 = isDM5;
+    }
+
+    public MonitoredSystem(String id,
+            MonitoredSystemStatus status,
+            int sourceAddress,
+            int unused) { // FIXME verify
+        this(CompositeSystem.valueOf(id), status, sourceAddress, status instanceof DM5MonitoredSystemStatus);
     }
 
     @Override
@@ -39,6 +46,22 @@ public class MonitoredSystem implements Comparable<MonitoredSystem> {
             result = getStatus().toString().compareTo(o.getStatus().toString());
         }
         return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof MonitoredSystem)) {
+            return false;
+        }
+
+        MonitoredSystem that = (MonitoredSystem) obj;
+        return Objects.equals(getStatus(), that.getStatus())
+                && Objects.equals(getSourceAddress(), that.getSourceAddress())
+                && Objects.equals(getId(), that.getId());
     }
 
     /**
@@ -79,30 +102,19 @@ public class MonitoredSystem implements Comparable<MonitoredSystem> {
         return status;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getName(), getStatus(), getSourceAddress(), getId());
-    }
+    public Value getStatusValue() {
+        return new Value() {
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
+            @Override
+            public String getLabel() {
+                return getName().trim() + " Status";
+            }
 
-        if (!(obj instanceof MonitoredSystem)) {
-            return false;
-        }
-
-        MonitoredSystem that = (MonitoredSystem) obj;
-        return Objects.equals(getStatus(), that.getStatus())
-                && Objects.equals(getSourceAddress(), that.getSourceAddress())
-                && Objects.equals(getId(), that.getId());
-    }
-
-    @Override
-    public String toString() {
-        return "    " + getName() + " " + findStatus(isDM5, getStatus().isEnabled(), getStatus().isComplete());
+            @Override
+            public String getValue() {
+                return getStatus().getCompleteString().trim();
+            }
+        };
     }
 
     public Value getSupportValue() {
@@ -120,18 +132,13 @@ public class MonitoredSystem implements Comparable<MonitoredSystem> {
         };
     }
 
-    public Value getStatusValue() {
-        return new Value() {
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getStatus(), getSourceAddress(), getId());
+    }
 
-            @Override
-            public String getLabel() {
-                return getName().trim() + " Status";
-            }
-
-            @Override
-            public String getValue() {
-                return getStatus().getCompleteString().trim();
-            }
-        };
+    @Override
+    public String toString() {
+        return "    " + getName() + " " + findStatus(isDM5, getStatus().isEnabled(), getStatus().isComplete());
     }
 }

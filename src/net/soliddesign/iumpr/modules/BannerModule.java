@@ -5,6 +5,8 @@ package net.soliddesign.iumpr.modules;
 
 import java.util.Locale;
 
+import org.etools.j1939tools.modules.DateTimeModule;
+
 import net.soliddesign.iumpr.BuildNumber;
 import net.soliddesign.iumpr.controllers.ResultsListener;
 

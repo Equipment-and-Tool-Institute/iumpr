@@ -21,7 +21,8 @@ import org.etools.j1939tools.bus.Bus;
 import org.etools.j1939tools.bus.BusException;
 import org.etools.j1939tools.bus.RP1210;
 import org.etools.j1939tools.bus.RP1210Bus;
-import org.etools.j1939tools.bus.j1939.J1939;
+import org.etools.j1939tools.bus.RP1210Bus.ErrorType;
+import org.etools.j1939tools.j1939.J1939;
 
 import net.soliddesign.iumpr.IUMPR;
 import net.soliddesign.iumpr.controllers.CollectResultsController;
@@ -68,6 +69,8 @@ public class UserInterfaceController implements IUserInterfaceController {
     private final Executor executor;
 
     private final HelpView helpView;
+
+    private boolean imposterReported;
 
     private MonitorCompletionController monitorCompletionController;
 
@@ -574,7 +577,20 @@ public class UserInterfaceController implements IUserInterfaceController {
         try {
             Bus bus;
             if (selectedAdapter != null) {
-                bus = rp1210.setAdapter(selectedAdapter, 0xF9);
+                // bus = rp1210.setAdapter(selectedAdapter, 0xF9);
+                bus = RP1210.createBus(selectedAdapter,
+                        "J1939",
+                        0xF9,
+                        (type, msg) -> {
+                            getResultsListener().onResult("RP1210 ERROR: " + msg);
+                            getReportFileModule().onResult("RP1210 ERROR: " + msg);
+                            if (!imposterReported && type == ErrorType.IMPOSTER) {
+                                imposterReported = true;
+                                getResultsListener().onUrgentMessage(msg,
+                                        "RP1210 ERROR",
+                                        0/* ? */);
+                            }
+                        });
             } else {
                 bus = null;
             }

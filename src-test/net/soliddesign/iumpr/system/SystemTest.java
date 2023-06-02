@@ -21,7 +21,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import org.etools.j1939tools.bus.RP1210;
-import org.etools.j1939tools.bus.j1939.J1939;
+import org.etools.j1939tools.j1939.J1939;
+import org.etools.j1939tools.modules.DateTimeModule;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,7 +36,6 @@ import net.soliddesign.iumpr.modules.BannerModule;
 import net.soliddesign.iumpr.modules.BannerModule.Type;
 import net.soliddesign.iumpr.modules.ComparisonModule;
 import net.soliddesign.iumpr.modules.DTCModule;
-import net.soliddesign.iumpr.modules.DateTimeModule;
 import net.soliddesign.iumpr.modules.DiagnosticReadinessModule;
 import net.soliddesign.iumpr.modules.EngineSpeedModule;
 import net.soliddesign.iumpr.modules.MonitorTrackingModule;

@@ -12,12 +12,12 @@ import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
-import org.etools.j1939tools.bus.j1939.J1939;
+import org.etools.j1939tools.j1939.J1939;
+import org.etools.j1939tools.modules.DateTimeModule;
 
 import net.soliddesign.iumpr.IUMPR;
 import net.soliddesign.iumpr.modules.BannerModule;
 import net.soliddesign.iumpr.modules.ComparisonModule;
-import net.soliddesign.iumpr.modules.DateTimeModule;
 import net.soliddesign.iumpr.modules.DiagnosticReadinessModule;
 import net.soliddesign.iumpr.modules.EngineSpeedModule;
 import net.soliddesign.iumpr.modules.ReportFileModule;

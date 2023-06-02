@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 import org.etools.j1939tools.bus.Bus;
 import org.etools.j1939tools.bus.BusException;
 import org.etools.j1939tools.bus.Packet;
-import org.etools.j1939tools.bus.simulated.Sim;
+import org.etools.j1939tools.engine.simulated.Sim;
 
 /**
  * Simulated Engine used for System Testing
@@ -96,9 +96,9 @@ public class Engine implements AutoCloseable {
         sim = new Sim(bus);
 
         // xmsn rate is actually engine speed dependent
-        sim.schedule(100, 100, TimeUnit.MILLISECONDS,
+        sim.schedule(100, TimeUnit.MILLISECONDS,
                 () -> Packet.create(61444, ADDR, combine(NA3, ENGINE_SPEED, NA3)));
-        sim.schedule(100, 100, TimeUnit.MILLISECONDS, () -> Packet.create(65248, ADDR, combine(NA4, DISTANCE)));
+        sim.schedule(100, TimeUnit.MILLISECONDS, () -> Packet.create(65248, ADDR, combine(NA4, DISTANCE)));
         sim.response(p -> isRequestFor(65259, p), () -> Packet.create(65259, ADDR, COMPONENT_ID));
         sim.response(p -> isRequestFor(65253, p), () -> Packet.create(65253, ADDR, combine(ENGINE_HOURS, NA4)));
         sim.response(p -> isRequestFor(65260, p), () -> Packet.create(65260, ADDR, VIN));

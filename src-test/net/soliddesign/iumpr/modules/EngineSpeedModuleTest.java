@@ -12,9 +12,10 @@ import static org.mockito.Mockito.when;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
+import org.etools.j1939tools.bus.Either;
 import org.etools.j1939tools.bus.Packet;
-import org.etools.j1939tools.bus.j1939.J1939;
-import org.etools.j1939tools.bus.j1939.packets.EngineSpeedPacket;
+import org.etools.j1939tools.j1939.J1939;
+import org.etools.j1939tools.j1939.packets.EngineSpeedPacket;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -64,7 +65,8 @@ public class EngineSpeedModuleTest {
     @Test
     public void testEngineCommunicating() {
         EngineSpeedPacket packet = getEngineSpeedPacket(0);
-        when(j1939.read(EngineSpeedPacket.class, 0x00, 300, TimeUnit.MILLISECONDS)).thenReturn(Optional.of(packet));
+        when(j1939.read(EngineSpeedPacket.class, 0x00, 300, TimeUnit.MILLISECONDS))
+                .thenReturn(Optional.of(Either.nullable(packet, null)));
         assertTrue(instance.isEngineCommunicating());
     }
 
@@ -77,21 +79,24 @@ public class EngineSpeedModuleTest {
     @Test
     public void testIsEngineNotRunningEngineOff() {
         EngineSpeedPacket packet = getEngineSpeedPacket(0);
-        when(j1939.read(EngineSpeedPacket.class, 0x00, 300, TimeUnit.MILLISECONDS)).thenReturn(Optional.of(packet));
+        when(j1939.read(EngineSpeedPacket.class, 0x00, 300, TimeUnit.MILLISECONDS))
+                .thenReturn(Optional.of(Either.nullable(packet, null)));
         assertTrue(instance.isEngineNotRunning());
     }
 
     @Test
     public void testIsEngineNotRunningEngineOn() {
         EngineSpeedPacket packet = getEngineSpeedPacket(2500);
-        when(j1939.read(EngineSpeedPacket.class, 0x00, 300, TimeUnit.MILLISECONDS)).thenReturn(Optional.of(packet));
+        when(j1939.read(EngineSpeedPacket.class, 0x00, 300, TimeUnit.MILLISECONDS))
+                .thenReturn(Optional.of(Either.nullable(packet, null)));
         assertFalse(instance.isEngineNotRunning());
     }
 
     @Test
     public void testIsEngineNotRunningError() {
         EngineSpeedPacket packet = getEngineSpeedPacket(0xFE00);
-        when(j1939.read(EngineSpeedPacket.class, 0x00, 300, TimeUnit.MILLISECONDS)).thenReturn(Optional.of(packet));
+        when(j1939.read(EngineSpeedPacket.class, 0x00, 300, TimeUnit.MILLISECONDS))
+                .thenReturn(Optional.of(Either.nullable(packet, null)));
         assertFalse(instance.isEngineNotRunning());
     }
 
@@ -104,7 +109,8 @@ public class EngineSpeedModuleTest {
     @Test
     public void testIsEngineNotRunningNotAvailable() {
         EngineSpeedPacket packet = getEngineSpeedPacket(0xFFFF);
-        when(j1939.read(EngineSpeedPacket.class, 0x00, 300, TimeUnit.MILLISECONDS)).thenReturn(Optional.of(packet));
+        when(j1939.read(EngineSpeedPacket.class, 0x00, 300, TimeUnit.MILLISECONDS))
+                .thenReturn(Optional.of(Either.nullable(packet, null)));
         assertFalse(instance.isEngineNotRunning());
     }
 

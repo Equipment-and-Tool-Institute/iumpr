@@ -21,11 +21,11 @@ import java.util.stream.Stream;
 
 import javax.swing.JOptionPane;
 
-import org.etools.j1939tools.bus.j1939.J1939;
-import org.etools.j1939tools.bus.j1939.packets.DM19CalibrationInformationPacket;
-import org.etools.j1939tools.bus.j1939.packets.DM21DiagnosticReadinessPacket;
-import org.etools.j1939tools.bus.j1939.packets.VehicleIdentificationPacket;
-import org.etools.j1939tools.bus.j1939.packets.DM19CalibrationInformationPacket.CalibrationInformation;
+import org.etools.j1939tools.j1939.J1939;
+import org.etools.j1939tools.j1939.packets.DM19CalibrationInformationPacket;
+import org.etools.j1939tools.j1939.packets.DM19CalibrationInformationPacket.CalibrationInformation;
+import org.etools.j1939tools.j1939.packets.DM21DiagnosticReadinessPacket;
+import org.etools.j1939tools.j1939.packets.VehicleIdentificationPacket;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

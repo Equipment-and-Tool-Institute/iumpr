@@ -35,7 +35,7 @@ import org.etools.j1939tools.bus.Adapter;
 import org.etools.j1939tools.bus.BusException;
 import org.etools.j1939tools.bus.RP1210;
 import org.etools.j1939tools.bus.RP1210Bus;
-import org.etools.j1939tools.bus.j1939.J1939;
+import org.etools.j1939tools.j1939.J1939;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

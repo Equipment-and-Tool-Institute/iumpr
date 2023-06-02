@@ -17,7 +17,8 @@ import java.util.concurrent.ScheduledExecutorService;
 
 import javax.swing.JOptionPane;
 
-import org.etools.j1939tools.bus.j1939.J1939;
+import org.etools.j1939tools.j1939.J1939;
+import org.etools.j1939tools.modules.DateTimeModule;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,7 +32,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import net.soliddesign.iumpr.modules.BannerModule;
 import net.soliddesign.iumpr.modules.ComparisonModule;
 import net.soliddesign.iumpr.modules.DTCModule;
-import net.soliddesign.iumpr.modules.DateTimeModule;
 import net.soliddesign.iumpr.modules.DiagnosticReadinessModule;
 import net.soliddesign.iumpr.modules.EngineSpeedModule;
 import net.soliddesign.iumpr.modules.ReportFileModule;

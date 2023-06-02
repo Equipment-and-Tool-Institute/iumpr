@@ -10,16 +10,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import org.etools.j1939tools.bus.Packet;
-import org.etools.j1939tools.bus.j1939.Lookup;
-import org.etools.j1939tools.bus.j1939.packets.DM24SPNSupportPacket;
-import org.etools.j1939tools.bus.j1939.packets.DM30ScaledTestResultsPacket;
-import org.etools.j1939tools.bus.j1939.packets.DM7CommandTestsPacket;
-import org.etools.j1939tools.bus.j1939.packets.ScaledTestResult;
-import org.etools.j1939tools.bus.j1939.packets.ScaledTestResult.TestResult;
+import org.etools.j1939tools.j1939.Lookup;
+import org.etools.j1939tools.j1939.packets.DM24SPNSupportPacket;
+import org.etools.j1939tools.j1939.packets.DM30ScaledTestResultsPacket;
+import org.etools.j1939tools.j1939.packets.DM7CommandTestsPacket;
+import org.etools.j1939tools.j1939.packets.ScaledTestResult;
+import org.etools.j1939tools.j1939.packets.ScaledTestResult.TestResult;
+import org.etools.j1939tools.modules.DateTimeModule;
 
 import net.soliddesign.iumpr.controllers.ResultsListener;
 
@@ -146,7 +146,7 @@ public class OBDTestsModule extends FunctionalModule {
             listener.onResult("");
             return Collections.emptyList();
         } else {
-            listener.onResult(packet.getPacket().toString());
+            listener.onResult(packet.getPacket().toTimeString());
             listener.onResult(packet.toString());
             listener.onResult("");
             return packet.getTestResults();
@@ -193,12 +193,12 @@ public class OBDTestsModule extends FunctionalModule {
             listener.onResult(getDateTime() + " Direct DM24 Request to " + Lookup.getAddressName(address));
             listener.onResult(getTime() + " " + request.toString());
             Optional<DM24SPNSupportPacket> results = getJ1939().requestPacket(request, DM24SPNSupportPacket.class,
-                    address, 3, TimeUnit.SECONDS.toMillis(15));
+                    address, 3, 15000);
             if (!results.isPresent()) {
                 listener.onResult(TIMEOUT_MESSAGE);
             } else {
                 DM24SPNSupportPacket packet = results.get();
-                listener.onResult(packet.getPacket().toString());
+                listener.onResult(packet.getPacket().toTimeString());
                 listener.onResult(packet.toString());
                 packets.add(packet);
             }

@@ -15,7 +15,7 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
-import org.etools.j1939tools.bus.j1939.packets.ParsedPacket;
+import org.etools.j1939tools.j1939.packets.ParsedPacket;
 
 /**
  * Abstract JTable that contains common code for display of status information

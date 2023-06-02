@@ -11,11 +11,12 @@ import java.util.concurrent.ScheduledExecutorService;
 
 import javax.swing.JOptionPane;
 
+import org.etools.j1939tools.modules.DateTimeModule;
+
 import net.soliddesign.iumpr.modules.BannerModule;
 import net.soliddesign.iumpr.modules.BannerModule.Type;
 import net.soliddesign.iumpr.modules.ComparisonModule;
 import net.soliddesign.iumpr.modules.DTCModule;
-import net.soliddesign.iumpr.modules.DateTimeModule;
 import net.soliddesign.iumpr.modules.DiagnosticReadinessModule;
 import net.soliddesign.iumpr.modules.EngineSpeedModule;
 import net.soliddesign.iumpr.modules.VehicleInformationModule;

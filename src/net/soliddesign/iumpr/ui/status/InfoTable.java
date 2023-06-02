@@ -11,9 +11,9 @@ import java.util.Map;
 
 import javax.swing.table.DefaultTableModel;
 
-import org.etools.j1939tools.bus.j1939.packets.DM20MonitorPerformanceRatioPacket;
-import org.etools.j1939tools.bus.j1939.packets.DM21DiagnosticReadinessPacket;
-import org.etools.j1939tools.bus.j1939.packets.ParsedPacket;
+import org.etools.j1939tools.j1939.packets.DM20MonitorPerformanceRatioPacket;
+import org.etools.j1939tools.j1939.packets.DM21DiagnosticReadinessPacket;
+import org.etools.j1939tools.j1939.packets.ParsedPacket;
 
 import net.soliddesign.iumpr.modules.DiagnosticReadinessModule;
 

@@ -5,8 +5,9 @@ package net.soliddesign.iumpr.modules;
 
 import java.util.concurrent.TimeUnit;
 
-import org.etools.j1939tools.bus.j1939.J1939;
-import org.etools.j1939tools.bus.j1939.packets.EngineSpeedPacket;
+import org.etools.j1939tools.j1939.J1939;
+import org.etools.j1939tools.j1939.packets.EngineSpeedPacket;
+import org.etools.j1939tools.modules.DateTimeModule;
 
 /**
  * {@link FunctionalModule} used to determine if the Engine is communicating
@@ -24,7 +25,8 @@ public class EngineSpeedModule extends FunctionalModule {
     private EngineSpeedPacket getEngineSpeedPacket() {
         // The transmission rate changes based upon the engine speed. 100 ms is
         // the longest period between messages when the engine is off
-        return getJ1939().read(EngineSpeedPacket.class, J1939.ENGINE_ADDR, 300, TimeUnit.MILLISECONDS).orElse(null);
+        return getJ1939().read(EngineSpeedPacket.class, J1939.ENGINE_ADDR, 300, TimeUnit.MILLISECONDS)
+                .flatMap(p -> p.left).orElse(null);
     }
 
     /**

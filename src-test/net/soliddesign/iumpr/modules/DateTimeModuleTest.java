@@ -9,6 +9,7 @@ import static org.junit.Assert.assertTrue;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import org.etools.j1939tools.modules.DateTimeModule;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -33,14 +34,14 @@ public class DateTimeModuleTest {
         assertEquals("2007-12-03T10:15:30.000", instance.format(dateTime));
 
         LocalTime time = LocalTime.parse("10:15:30.000");
-        assertEquals("10:15:30.000", instance.format(time));
+        assertEquals("10:15:30.0000", instance.format(time));
     }
 
     @Test
     public void testGetDateTime() {
         DateTimeModule instance = new DateTimeModule() {
             @Override
-            protected LocalDateTime now() {
+            public LocalDateTime now() {
                 return LocalDateTime.parse("2007-12-03T10:15:30.000");
             }
         };
@@ -49,7 +50,7 @@ public class DateTimeModuleTest {
 
     @Test
     public void testGetDateTimeFormatter() throws Exception {
-        String expected = "10:15:30.000";
+        String expected = "10:15:30.0000";
         LocalTime time = LocalTime.parse(expected);
         String actual = instance.getTimeFormatter().format(time);
         assertEquals(expected, actual);

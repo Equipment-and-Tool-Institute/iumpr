@@ -3,7 +3,7 @@
  */
 package net.soliddesign.iumpr.modules;
 
-import static org.etools.j1939tools.bus.j1939.J1939.GLOBAL_ADDR;
+import static org.etools.j1939tools.j1939.J1939.GLOBAL_ADDR;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -13,14 +13,15 @@ import java.util.concurrent.TimeUnit;
 
 import org.etools.j1939tools.bus.BusException;
 import org.etools.j1939tools.bus.Packet;
-import org.etools.j1939tools.bus.j1939.packets.AddressClaimPacket;
-import org.etools.j1939tools.bus.j1939.packets.ComponentIdentificationPacket;
-import org.etools.j1939tools.bus.j1939.packets.DM19CalibrationInformationPacket;
-import org.etools.j1939tools.bus.j1939.packets.EngineHoursPacket;
-import org.etools.j1939tools.bus.j1939.packets.HighResVehicleDistancePacket;
-import org.etools.j1939tools.bus.j1939.packets.ParsedPacket;
-import org.etools.j1939tools.bus.j1939.packets.TotalVehicleDistancePacket;
-import org.etools.j1939tools.bus.j1939.packets.VehicleIdentificationPacket;
+import org.etools.j1939tools.j1939.packets.AddressClaimPacket;
+import org.etools.j1939tools.j1939.packets.ComponentIdentificationPacket;
+import org.etools.j1939tools.j1939.packets.DM19CalibrationInformationPacket;
+import org.etools.j1939tools.j1939.packets.EngineHoursPacket;
+import org.etools.j1939tools.j1939.packets.HighResVehicleDistancePacket;
+import org.etools.j1939tools.j1939.packets.ParsedPacket;
+import org.etools.j1939tools.j1939.packets.TotalVehicleDistancePacket;
+import org.etools.j1939tools.j1939.packets.VehicleIdentificationPacket;
+import org.etools.j1939tools.modules.DateTimeModule;
 
 import net.soliddesign.iumpr.controllers.ResultsListener;
 
@@ -132,6 +133,7 @@ public class VehicleInformationModule extends FunctionalModule {
         listener.onResult(getDateTime() + " Vehicle Distance");
         Optional<HighResVehicleDistancePacket> hiResPacket = getJ1939()
                 .read(HighResVehicleDistancePacket.class, 3, TimeUnit.SECONDS)
+                .filter(p -> p.left.isPresent()).map(p -> p.left.get())
                 .filter(p -> p.getTotalVehicleDistance() != ParsedPacket.NOT_AVAILABLE
                         && p.getTotalVehicleDistance() != ParsedPacket.ERROR)
                 .max((p1, p2) -> Double.compare(p1.getTotalVehicleDistance(), p2.getTotalVehicleDistance()));
@@ -141,6 +143,7 @@ public class VehicleInformationModule extends FunctionalModule {
             packet = hiResPacket;
         } else {
             packet = getJ1939().read(TotalVehicleDistancePacket.class, 300, TimeUnit.MILLISECONDS)
+                    .filter(p -> p.left.isPresent()).map(p -> p.left.get())
                     .filter(p -> p.getTotalVehicleDistance() != ParsedPacket.NOT_AVAILABLE
                             && p.getTotalVehicleDistance() != ParsedPacket.ERROR)
                     .max((p1, p2) -> Double.compare(p1.getTotalVehicleDistance(), p2.getTotalVehicleDistance()));

@@ -9,13 +9,14 @@ import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
 
-import org.etools.j1939tools.bus.j1939.packets.CompositeMonitoredSystem;
-import org.etools.j1939tools.bus.j1939.packets.DM26TripDiagnosticReadinessPacket;
-import org.etools.j1939tools.bus.j1939.packets.DM5DiagnosticReadinessPacket;
-import org.etools.j1939tools.bus.j1939.packets.DiagnosticReadinessPacket;
-import org.etools.j1939tools.bus.j1939.packets.MonitoredSystem;
-import org.etools.j1939tools.bus.j1939.packets.MonitoredSystemStatus;
-import org.etools.j1939tools.bus.j1939.packets.ParsedPacket;
+import org.etools.j1939tools.j1939.packets.CompositeMonitoredSystem;
+import org.etools.j1939tools.j1939.packets.CompositeSystem;
+import org.etools.j1939tools.j1939.packets.DM26TripDiagnosticReadinessPacket;
+import org.etools.j1939tools.j1939.packets.DM5DiagnosticReadinessPacket;
+import org.etools.j1939tools.j1939.packets.DiagnosticReadinessPacket;
+import org.etools.j1939tools.j1939.packets.MonitoredSystem;
+import org.etools.j1939tools.j1939.packets.MonitoredSystemStatus;
+import org.etools.j1939tools.j1939.packets.ParsedPacket;
 
 /**
  * Table that displays the {@link MonitoredSystem}s from
@@ -32,7 +33,7 @@ public class MonitorsTable extends StatusTable {
      */
     private static class Row {
         private Color color;
-        private final int id;
+        private final CompositeSystem id;
         private final String name;
         private final CompositeMonitoredSystem overallSystem;
         private final CompositeMonitoredSystem tripSystem;
@@ -88,7 +89,7 @@ public class MonitorsTable extends StatusTable {
             return color;
         }
 
-        public int getId() {
+        public CompositeSystem getId() {
             return id;
         }
 

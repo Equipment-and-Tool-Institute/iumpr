@@ -3,21 +3,21 @@
  */
 package net.soliddesign.iumpr.modules;
 
-import static org.etools.j1939tools.bus.j1939.J1939.GLOBAL_ADDR;
+import static org.etools.j1939tools.j1939.J1939.GLOBAL_ADDR;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.etools.j1939tools.bus.Packet;
-import org.etools.j1939tools.bus.j1939.packets.DM11ClearActiveDTCsPacket;
-import org.etools.j1939tools.bus.j1939.packets.DM12MILOnEmissionDTCPacket;
-import org.etools.j1939tools.bus.j1939.packets.DM23PreviouslyMILOnEmissionDTCPacket;
-import org.etools.j1939tools.bus.j1939.packets.DM28PermanentEmissionDTCPacket;
-import org.etools.j1939tools.bus.j1939.packets.DM6PendingEmissionDTCPacket;
-import org.etools.j1939tools.bus.j1939.packets.DiagnosticTroubleCodePacket;
-import org.etools.j1939tools.bus.j1939.packets.DM11ClearActiveDTCsPacket.Response;
+import org.etools.j1939tools.j1939.packets.AcknowledgmentPacket.Response;
+import org.etools.j1939tools.j1939.packets.DM11ClearActiveDTCsPacket;
+import org.etools.j1939tools.j1939.packets.DM12MILOnEmissionDTCPacket;
+import org.etools.j1939tools.j1939.packets.DM23PreviouslyMILOnEmissionDTCPacket;
+import org.etools.j1939tools.j1939.packets.DM28PermanentEmissionDTCPacket;
+import org.etools.j1939tools.j1939.packets.DM6PendingEmissionDTCPacket;
+import org.etools.j1939tools.j1939.packets.DiagnosticTroubleCodePacket;
+import org.etools.j1939tools.modules.DateTimeModule;
 
 import net.soliddesign.iumpr.controllers.ResultsListener;
 
@@ -72,7 +72,9 @@ public class DTCModule extends FunctionalModule {
         listener.onResult(getTime() + " " + requestPacket);
 
         Stream<DM11ClearActiveDTCsPacket> results = getJ1939()
-                .requestRaw(DM11ClearActiveDTCsPacket.class, requestPacket, 5500, TimeUnit.MILLISECONDS);
+                // .requestRaw(DM11ClearActiveDTCsPacket.class, requestPacket,
+                // 5500, TimeUnit.MILLISECONDS);
+                .requestMultiple(DM11ClearActiveDTCsPacket.class, requestPacket);
 
         List<String> responses = results.peek(t -> {
             if (obdModules.contains(t.getSourceAddress()) && t.getResponse() != Response.ACK) {

@@ -8,6 +8,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
 
+import org.etools.j1939tools.modules.DateTimeModule;
+
 /**
  * {@link DateTimeModule} that reports a fixed point in time for testing
  *
@@ -15,7 +17,6 @@ import java.time.temporal.ChronoField;
  *
  */
 public class TestDateTimeModule extends DateTimeModule {
-
     /**
      * The {@link DateTimeFormatter} used for testing that will return a static
      * value.
@@ -28,6 +29,10 @@ public class TestDateTimeModule extends DateTimeModule {
             .parseDefaulting(ChronoField.YEAR_OF_ERA, 2016)
             .parseDefaulting(ChronoField.DAY_OF_YEAR, 1)
             .toFormatter();
+
+    public TestDateTimeModule() {
+        setInstance(this);
+    }
 
     /**
      * Method returns the actual {@link DateTimeFormatter} used in production
@@ -45,7 +50,7 @@ public class TestDateTimeModule extends DateTimeModule {
     }
 
     @Override
-    protected LocalDateTime now() {
+    public LocalDateTime now() {
         return LocalDateTime.parse("2007-12-03T10:15:30.000");
     }
 }

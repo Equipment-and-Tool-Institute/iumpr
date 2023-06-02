@@ -3,14 +3,14 @@
  */
 package net.soliddesign.iumpr.ui.status;
 
-import static org.etools.j1939tools.bus.j1939.packets.DM26MonitoredSystemStatus.ENABLED_COMPLETE;
-import static org.etools.j1939tools.bus.j1939.packets.DM26MonitoredSystemStatus.ENABLED_NOT_COMPLETE;
-import static org.etools.j1939tools.bus.j1939.packets.DM26MonitoredSystemStatus.NOT_ENABLED_COMPLETE;
-import static org.etools.j1939tools.bus.j1939.packets.DM26MonitoredSystemStatus.NOT_ENABLED_NOT_COMPLETE;
-import static org.etools.j1939tools.bus.j1939.packets.DM5MonitoredSystemStatus.NOT_SUPPORTED_COMPLETE;
-import static org.etools.j1939tools.bus.j1939.packets.DM5MonitoredSystemStatus.NOT_SUPPORTED_NOT_COMPLETE;
-import static org.etools.j1939tools.bus.j1939.packets.DM5MonitoredSystemStatus.SUPPORTED_COMPLETE;
-import static org.etools.j1939tools.bus.j1939.packets.DM5MonitoredSystemStatus.SUPPORTED_NOT_COMPLETE;
+import static org.etools.j1939tools.j1939.packets.DM26MonitoredSystemStatus.ENABLED_COMPLETE;
+import static org.etools.j1939tools.j1939.packets.DM26MonitoredSystemStatus.ENABLED_NOT_COMPLETE;
+import static org.etools.j1939tools.j1939.packets.DM26MonitoredSystemStatus.NOT_ENABLED_COMPLETE;
+import static org.etools.j1939tools.j1939.packets.DM26MonitoredSystemStatus.NOT_ENABLED_NOT_COMPLETE;
+import static org.etools.j1939tools.j1939.packets.DM5MonitoredSystemStatus.NOT_SUPPORTED_COMPLETE;
+import static org.etools.j1939tools.j1939.packets.DM5MonitoredSystemStatus.NOT_SUPPORTED_NOT_COMPLETE;
+import static org.etools.j1939tools.j1939.packets.DM5MonitoredSystemStatus.SUPPORTED_COMPLETE;
+import static org.etools.j1939tools.j1939.packets.DM5MonitoredSystemStatus.SUPPORTED_NOT_COMPLETE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -27,10 +27,10 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableCellRenderer;
 
-import org.etools.j1939tools.bus.j1939.packets.DM26TripDiagnosticReadinessPacket;
-import org.etools.j1939tools.bus.j1939.packets.DM5DiagnosticReadinessPacket;
-import org.etools.j1939tools.bus.j1939.packets.MonitoredSystem;
-import org.etools.j1939tools.bus.j1939.packets.ParsedPacket;
+import org.etools.j1939tools.j1939.packets.DM26TripDiagnosticReadinessPacket;
+import org.etools.j1939tools.j1939.packets.DM5DiagnosticReadinessPacket;
+import org.etools.j1939tools.j1939.packets.MonitoredSystem;
+import org.etools.j1939tools.j1939.packets.ParsedPacket;
 import org.junit.Before;
 import org.junit.Test;
 

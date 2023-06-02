@@ -20,21 +20,21 @@ public class CompositeMonitoredSystem extends MonitoredSystem {
      */
     private final boolean isDm5;
     /**
-     * The Map of source address to {@link MonitoredSystem}
-     */
-    private final Map<Integer, MonitoredSystemStatus> systems = new ConcurrentHashMap<>();
-    /**
      * The composite {@link MonitoredSystemStatus}
      */
     private MonitoredSystemStatus status;
+    /**
+     * The Map of source address to {@link MonitoredSystem}
+     */
+    private final Map<Integer, MonitoredSystemStatus> systems = new ConcurrentHashMap<>();
 
     /**
      * Creates a {@link CompositeMonitoredSystem} with a name and id
      *
      * @param id
-     *                  the id
+     *            the id
      * @param isDm5
-     *                  true to indicate this system is for a DM5 message
+     *            true to indicate this system is for a DM5 message
      */
     public CompositeMonitoredSystem(CompositeSystem id, boolean isDm5) {
         super(id, null, -1, isDm5);
@@ -46,9 +46,9 @@ public class CompositeMonitoredSystem extends MonitoredSystem {
      * {@link MonitoredSystem}
      *
      * @param system
-     *                   the {@link MonitoredSystem} to start with
+     *            the {@link MonitoredSystem} to start with
      * @param isDm5
-     *                   true to indicate this system is from a DM5 message
+     *            true to indicate this system is from a DM5 message
      */
     public CompositeMonitoredSystem(MonitoredSystem system, boolean isDm5) {
         super(system.getId(), system.getStatus(), -1, isDm5);
@@ -56,13 +56,18 @@ public class CompositeMonitoredSystem extends MonitoredSystem {
         addMonitoredSystems(system);
     }
 
+    public CompositeMonitoredSystem(String name, int sourceAddress, CompositeSystem id, boolean isDm5) {
+        super(id, null, sourceAddress, isDm5);
+        this.isDm5 = isDm5;
+    }
+
     /**
      * Adds a {@link MonitoredSystem} to the collection
      *
-     * @param  system
-     *                    the {@link MonitoredSystem} to add
-     * @return        true if the {@link MonitoredSystem} changed; false if it didn't
-     *                change
+     * @param system
+     *            the {@link MonitoredSystem} to add
+     * @return true if the {@link MonitoredSystem} changed; false if it didn't
+     *         change
      */
     public boolean addMonitoredSystems(MonitoredSystem system) {
         systems.put(system.getSourceAddress(), system.getStatus());
@@ -71,6 +76,14 @@ public class CompositeMonitoredSystem extends MonitoredSystem {
         boolean result = !newStatus.equals(status);
         status = newStatus;
         return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof CompositeMonitoredSystem)) {
+            return false;
+        }
+        return super.equals(obj);
     }
 
     /**
@@ -98,13 +111,5 @@ public class CompositeMonitoredSystem extends MonitoredSystem {
     @Override
     public MonitoredSystemStatus getStatus() {
         return status;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof CompositeMonitoredSystem)) {
-            return false;
-        }
-        return super.equals(obj);
     }
 }

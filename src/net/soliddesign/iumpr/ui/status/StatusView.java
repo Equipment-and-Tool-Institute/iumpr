@@ -28,14 +28,14 @@ import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-import org.etools.j1939tools.bus.j1939.J1939;
-import org.etools.j1939tools.bus.j1939.packets.DM20MonitorPerformanceRatioPacket;
-import org.etools.j1939tools.bus.j1939.packets.DM21DiagnosticReadinessPacket;
-import org.etools.j1939tools.bus.j1939.packets.DM26TripDiagnosticReadinessPacket;
-import org.etools.j1939tools.bus.j1939.packets.DM5DiagnosticReadinessPacket;
-import org.etools.j1939tools.bus.j1939.packets.MonitoredSystem;
-import org.etools.j1939tools.bus.j1939.packets.ParsedPacket;
-import org.etools.j1939tools.bus.j1939.packets.PerformanceRatio;
+import org.etools.j1939tools.j1939.J1939;
+import org.etools.j1939tools.j1939.packets.DM20MonitorPerformanceRatioPacket;
+import org.etools.j1939tools.j1939.packets.DM21DiagnosticReadinessPacket;
+import org.etools.j1939tools.j1939.packets.DM26TripDiagnosticReadinessPacket;
+import org.etools.j1939tools.j1939.packets.DM5DiagnosticReadinessPacket;
+import org.etools.j1939tools.j1939.packets.MonitoredSystem;
+import org.etools.j1939tools.j1939.packets.ParsedPacket;
+import org.etools.j1939tools.j1939.packets.PerformanceRatio;
 
 import net.soliddesign.iumpr.IUMPR;
 import net.soliddesign.iumpr.modules.ReportFileModule;
@@ -562,9 +562,10 @@ public class StatusView extends JFrame {
     private void startBusMonitor() {
         monitorFuture = executor.schedule(() -> {
             try {
-                j1939.read().filter(t -> !monitorFuture.isCancelled()).forEach(packet -> {
-                    processPacket(packet);
-                });
+                j1939.read()
+                        .filter(t -> !monitorFuture.isCancelled())
+                        .flatMap(p -> p.left.stream())
+                        .forEach(this::processPacket);
             } catch (Exception e) {
                 getLogger().log(Level.SEVERE, "Error Reading Packets", e);
             }

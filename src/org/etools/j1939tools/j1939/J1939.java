@@ -97,6 +97,7 @@ public class J1939 {
      * The source address of the engine
      */
     public static final int ENGINE_ADDR = 0x00;
+    public static final int ENGINE_ADDR_1 = 0x01;
     private static final String FAILED_TO_SEND = "Failed to send - ";
     /**
      * The global source address for broadcast
@@ -409,7 +410,7 @@ public class J1939 {
      *
      * @return the address of the tool
      */
-    private int getBusAddress() {
+    public int getBusAddress() {
         return bus.getAddress();
     }
 
@@ -431,6 +432,10 @@ public class J1939 {
                         || p.getDestination() == GLOBAL_ADDR
                         // A TP message to global will have a destination of 0
                         || (p.getDestination() == 0 && p.getLength() > 8)));
+    }
+
+    public void interrupt() {
+        // legacy. does nothing now, but aavoids changing tests.
     }
 
     public boolean isLogDeltaTime() {
@@ -913,6 +918,40 @@ public class J1939 {
             result = Collections.emptyList();
         }
         return result;
+    }
+
+    // JUNK
+    public <T extends GenericPacket> Stream<T> requestMultiple(Class<T> class1) {
+        return requestGlobal(null, class1, x -> {
+        }).getPackets().stream();
+    }
+
+    // JUNK
+    public <T extends GenericPacket> Stream<T> requestMultiple(Class<T> class1, Packet requestPacket) {
+        RequestResult<T> requestGlobal = requestGlobal(null, J1939.getPgn(class1), requestPacket, x -> {
+        });
+        return requestGlobal.getPackets().stream();
+    }
+
+    // JUNK -
+    public <T extends GenericPacket> Optional<T> requestPacket(Packet packet, Class<T> class1, int addr,
+            int times) {
+        BusResult<T> requestDS = requestDS(class1.getName(), J1939.getPgn(class1), packet, null);
+        return requestDS.getPacket().flatMap(p -> p.left);
+    }
+
+    // JUNK -
+    public <T extends GenericPacket> Optional<T> requestPacket(Packet request, Class<T> class1,
+            int addr, int times, long timeout) {
+        BusResult<T> requestDS = requestDS(null, J1939.getPgn(class1), request, x -> {
+        });
+        return requestDS.getPacket().flatMap(e -> e.left);
+    }
+
+    public <T extends GenericPacket> Optional<T> requestPacket(Packet packet, Class<T> class1, int addr, int time,
+            TimeUnit tu) {
+        BusResult<T> requestDS = requestDS(class1.getName(), J1939.getPgn(class1), packet, null);
+        return requestDS.getPacket().flatMap(p -> p.left);
     }
 
     public BusResult<DM58RationalityFaultSpData> requestRationalityTestResults(CommunicationsListener listener,

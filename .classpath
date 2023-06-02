@@ -19,5 +19,6 @@
 	<classpathentry kind="lib" path="lib-test/objenesis-2.5.jar"/>
 	<classpathentry kind="lib" path="lib/jna-5.5.0.jar"/>
 	<classpathentry kind="lib" path="lib/jna-platform-5.5.0.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang3-3.10.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -14,17 +14,20 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.etools.j1939tools.bus.Packet;
-import org.etools.j1939tools.bus.j1939.J1939;
-import org.etools.j1939tools.bus.j1939.Lookup;
-import org.etools.j1939tools.bus.j1939.packets.CompositeMonitoredSystem;
-import org.etools.j1939tools.bus.j1939.packets.DM20MonitorPerformanceRatioPacket;
-import org.etools.j1939tools.bus.j1939.packets.DM21DiagnosticReadinessPacket;
-import org.etools.j1939tools.bus.j1939.packets.DM26TripDiagnosticReadinessPacket;
-import org.etools.j1939tools.bus.j1939.packets.DM5DiagnosticReadinessPacket;
-import org.etools.j1939tools.bus.j1939.packets.DiagnosticReadinessPacket;
-import org.etools.j1939tools.bus.j1939.packets.MonitoredSystem;
-import org.etools.j1939tools.bus.j1939.packets.ParsedPacket;
-import org.etools.j1939tools.bus.j1939.packets.PerformanceRatio;
+import org.etools.j1939tools.j1939.J1939;
+import org.etools.j1939tools.j1939.Lookup;
+import org.etools.j1939tools.j1939.packets.CompositeMonitoredSystem;
+import org.etools.j1939tools.j1939.packets.CompositeSystem;
+import org.etools.j1939tools.j1939.packets.DM20MonitorPerformanceRatioPacket;
+import org.etools.j1939tools.j1939.packets.DM21DiagnosticReadinessPacket;
+import org.etools.j1939tools.j1939.packets.DM26TripDiagnosticReadinessPacket;
+import org.etools.j1939tools.j1939.packets.DM5DiagnosticReadinessPacket;
+import org.etools.j1939tools.j1939.packets.DiagnosticReadinessPacket;
+import org.etools.j1939tools.j1939.packets.GenericPacket;
+import org.etools.j1939tools.j1939.packets.MonitoredSystem;
+import org.etools.j1939tools.j1939.packets.ParsedPacket;
+import org.etools.j1939tools.j1939.packets.PerformanceRatio;
+import org.etools.j1939tools.modules.DateTimeModule;
 
 import net.soliddesign.iumpr.NumberFormatter;
 import net.soliddesign.iumpr.controllers.ResultsListener;
@@ -86,9 +89,9 @@ public class DiagnosticReadinessModule extends FunctionalModule {
      */
     public static List<CompositeMonitoredSystem> getCompositeSystems(Collection<MonitoredSystem> monitoredSystems,
             boolean isDM5) {
-        Map<Integer, CompositeMonitoredSystem> map = new HashMap<>();
+        Map<CompositeSystem, CompositeMonitoredSystem> map = new HashMap<>();
         for (MonitoredSystem system : monitoredSystems) {
-            int id = system.getId();
+            CompositeSystem id = system.getId();
             CompositeMonitoredSystem existingSystem = map.get(id);
             if (existingSystem == null) {
                 map.put(id, new CompositeMonitoredSystem(system, isDM5));
@@ -303,7 +306,8 @@ public class DiagnosticReadinessModule extends FunctionalModule {
      *            the addresses that must respond to the request
      * @return the List of packets returned
      */
-    private <T extends ParsedPacket> List<T> getPackets(String title, int pgn, Class<T> clazz, ResultsListener listener,
+    private <T extends GenericPacket> List<T> getPackets(String title, int pgn, Class<T> clazz,
+            ResultsListener listener,
             boolean fullString, Collection<Integer> dmModuleAddresses) {
         Packet request = getJ1939().createRequestPacket(pgn, J1939.GLOBAL_ADDR);
         if (listener != null) {
@@ -331,7 +335,7 @@ public class DiagnosticReadinessModule extends FunctionalModule {
                 listener.onResult(TIMEOUT_MESSAGE);
             } else {
                 for (ParsedPacket packet : packets) {
-                    listener.onResult(packet.getPacket().toString());
+                    listener.onResult(packet.getPacket().toTimeString());
                     if (fullString) {
                         listener.onResult(packet.toString());
                     }
