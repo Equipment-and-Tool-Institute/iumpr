@@ -1,5 +1,5 @@
 /**
- * Copyright 2017 Equipment & Tool Institute
+ * Copyright 2017 Equipme].nt & Tool Institute
  */
 package net.soliddesign.iumpr.ui.status;
 
@@ -27,6 +27,7 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableCellRenderer;
 
+import org.etools.j1939tools.j1939.packets.CompositeSystem;
 import org.etools.j1939tools.j1939.packets.DM26TripDiagnosticReadinessPacket;
 import org.etools.j1939tools.j1939.packets.DM5DiagnosticReadinessPacket;
 import org.etools.j1939tools.j1939.packets.MonitoredSystem;
@@ -42,10 +43,12 @@ import org.junit.Test;
  */
 public class MonitorsTableTest {
 
-    private MonitorsTable instance;
+    private static final CompositeSystem[] systems = CompositeSystem.values();
 
+    private MonitorsTable instance;
     private TableModelListener listener;
     private boolean rowsAdded;
+
     private boolean tableUpdated;
 
     private Color getBackgroundColor(int row, int col) {
@@ -86,25 +89,24 @@ public class MonitorsTableTest {
     public void testProcessDM26() {
         DM26TripDiagnosticReadinessPacket packet = mock(DM26TripDiagnosticReadinessPacket.class);
         when(packet.getSourceAddress()).thenReturn(0);
-
         List<MonitoredSystem> contSystems = new ArrayList<>();
-        contSystems.add(new MonitoredSystem("System1", ENABLED_COMPLETE, 0, 1));
-        contSystems.add(new MonitoredSystem("System2", ENABLED_NOT_COMPLETE, 0, 2));
-        contSystems.add(new MonitoredSystem("System3", NOT_ENABLED_COMPLETE, 0, 3));
-        contSystems.add(new MonitoredSystem("System4", NOT_ENABLED_NOT_COMPLETE, 0, 4));
+        contSystems.add(new MonitoredSystem(systems[1], ENABLED_COMPLETE, 0, false));
+        contSystems.add(new MonitoredSystem(systems[2], ENABLED_NOT_COMPLETE, 0, false));
+        contSystems.add(new MonitoredSystem(systems[3], NOT_ENABLED_COMPLETE, 0, false));
+        contSystems.add(new MonitoredSystem(systems[4], NOT_ENABLED_NOT_COMPLETE, 0, false));
         when(packet.getContinuouslyMonitoredSystems()).thenReturn(contSystems);
 
         List<MonitoredSystem> nonContSystems = new ArrayList<>();
-        nonContSystems.add(new MonitoredSystem("System5", ENABLED_COMPLETE, 0, 5));
-        nonContSystems.add(new MonitoredSystem("System6", ENABLED_NOT_COMPLETE, 0, 6));
-        nonContSystems.add(new MonitoredSystem("System7", NOT_ENABLED_COMPLETE, 0, 7));
-        nonContSystems.add(new MonitoredSystem("System8", NOT_ENABLED_NOT_COMPLETE, 0, 8));
+        nonContSystems.add(new MonitoredSystem(systems[5], ENABLED_COMPLETE, 0, false));
+        nonContSystems.add(new MonitoredSystem(systems[6], ENABLED_NOT_COMPLETE, 0, false));
+        nonContSystems.add(new MonitoredSystem(systems[7], NOT_ENABLED_COMPLETE, 0, false));
+        nonContSystems.add(new MonitoredSystem(systems[8], NOT_ENABLED_NOT_COMPLETE, 0, false));
         when(packet.getNonContinuouslyMonitoredSystems()).thenReturn(nonContSystems);
 
         instance.process(packet);
 
         assertEquals(8, instance.getRowCount());
-        assertEquals("System1", instance.getValueAt(0, 0));
+        assertEquals(systems[1].getName().trim(), instance.getValueAt(0, 0));
         assertEquals(true, instance.getValueAt(0, 1));
         assertEquals(instance.getBackground(), getBackgroundColor(0, 1));
         assertEquals(true, instance.getValueAt(0, 2));
@@ -114,7 +116,7 @@ public class MonitorsTableTest {
         assertEquals(null, instance.getValueAt(0, 4));
         assertEquals(instance.getBackground(), getBackgroundColor(0, 4));
 
-        assertEquals("System2", instance.getValueAt(1, 0));
+        assertEquals(systems[2].getName().trim(), instance.getValueAt(1, 0));
         assertEquals(true, instance.getValueAt(1, 1));
         assertEquals(instance.getBackground(), getBackgroundColor(1, 1));
         assertEquals(false, instance.getValueAt(1, 2));
@@ -124,7 +126,7 @@ public class MonitorsTableTest {
         assertEquals(null, instance.getValueAt(1, 4));
         assertEquals(instance.getBackground(), getBackgroundColor(1, 4));
 
-        assertEquals("System3", instance.getValueAt(2, 0));
+        assertEquals(systems[3].getName().trim(), instance.getValueAt(2, 0));
         assertEquals(false, instance.getValueAt(2, 1));
         assertEquals(instance.getBackground(), getBackgroundColor(2, 1));
         assertEquals(true, instance.getValueAt(2, 2));
@@ -134,17 +136,17 @@ public class MonitorsTableTest {
         assertEquals(null, instance.getValueAt(2, 4));
         assertEquals(instance.getBackground(), getBackgroundColor(2, 4));
 
-        assertEquals("System4", instance.getValueAt(3, 0));
+        assertEquals(systems[4].getName().trim(), instance.getValueAt(3, 0));
         assertEquals(false, instance.getValueAt(3, 1));
         assertEquals(instance.getBackground(), getBackgroundColor(3, 1));
-        assertEquals(false, instance.getValueAt(3, 2));
+        assertEquals(true, instance.getValueAt(3, 2));
         assertEquals(instance.getBackground(), getBackgroundColor(3, 2));
         assertEquals(null, instance.getValueAt(3, 3));
         assertEquals(instance.getBackground(), getBackgroundColor(3, 3));
         assertEquals(null, instance.getValueAt(3, 4));
         assertEquals(instance.getBackground(), getBackgroundColor(3, 4));
 
-        assertEquals("System5", instance.getValueAt(4, 0));
+        assertEquals(systems[5].getName().trim(), instance.getValueAt(4, 0));
         assertEquals(true, instance.getValueAt(4, 1));
         assertEquals(instance.getBackground(), getBackgroundColor(4, 1));
         assertEquals(true, instance.getValueAt(4, 2));
@@ -154,7 +156,7 @@ public class MonitorsTableTest {
         assertEquals(null, instance.getValueAt(4, 4));
         assertEquals(instance.getBackground(), getBackgroundColor(4, 4));
 
-        assertEquals("System6", instance.getValueAt(5, 0));
+        assertEquals(systems[6].getName().trim(), instance.getValueAt(5, 0));
         assertEquals(true, instance.getValueAt(5, 1));
         assertEquals(instance.getBackground(), getBackgroundColor(5, 1));
         assertEquals(false, instance.getValueAt(5, 2));
@@ -164,7 +166,7 @@ public class MonitorsTableTest {
         assertEquals(null, instance.getValueAt(5, 4));
         assertEquals(instance.getBackground(), getBackgroundColor(5, 4));
 
-        assertEquals("System7", instance.getValueAt(6, 0));
+        assertEquals(systems[7].getName().trim(), instance.getValueAt(6, 0));
         assertEquals(false, instance.getValueAt(6, 1));
         assertEquals(instance.getBackground(), getBackgroundColor(6, 1));
         assertEquals(true, instance.getValueAt(6, 2));
@@ -174,10 +176,10 @@ public class MonitorsTableTest {
         assertEquals(null, instance.getValueAt(6, 4));
         assertEquals(instance.getBackground(), getBackgroundColor(6, 4));
 
-        assertEquals("System8", instance.getValueAt(7, 0));
+        assertEquals(systems[8].getName().trim(), instance.getValueAt(7, 0));
         assertEquals(false, instance.getValueAt(7, 1));
         assertEquals(instance.getBackground(), getBackgroundColor(7, 1));
-        assertEquals(false, instance.getValueAt(7, 2));
+        assertEquals(true, instance.getValueAt(7, 2));
         assertEquals(instance.getBackground(), getBackgroundColor(7, 2));
         assertEquals(null, instance.getValueAt(7, 3));
         assertEquals(instance.getBackground(), getBackgroundColor(7, 3));
@@ -194,25 +196,25 @@ public class MonitorsTableTest {
             when(dm26Packet.getSourceAddress()).thenReturn(0);
 
             List<MonitoredSystem> contSystems = new ArrayList<>();
-            contSystems.add(new MonitoredSystem("System01", NOT_ENABLED_NOT_COMPLETE, 0, 1));
-            contSystems.add(new MonitoredSystem("System02", NOT_ENABLED_NOT_COMPLETE, 0, 2));
-            contSystems.add(new MonitoredSystem("System03", NOT_ENABLED_NOT_COMPLETE, 0, 3));
-            contSystems.add(new MonitoredSystem("System04", NOT_ENABLED_NOT_COMPLETE, 0, 4));
-            contSystems.add(new MonitoredSystem("System05", NOT_ENABLED_COMPLETE, 0, 5));
-            contSystems.add(new MonitoredSystem("System06", NOT_ENABLED_COMPLETE, 0, 6));
-            contSystems.add(new MonitoredSystem("System07", NOT_ENABLED_COMPLETE, 0, 7));
-            contSystems.add(new MonitoredSystem("System08", NOT_ENABLED_COMPLETE, 0, 8));
+            contSystems.add(new MonitoredSystem(systems[1], NOT_ENABLED_NOT_COMPLETE, 0, false));
+            contSystems.add(new MonitoredSystem(systems[2], NOT_ENABLED_NOT_COMPLETE, 0, false));
+            contSystems.add(new MonitoredSystem(systems[3], NOT_ENABLED_NOT_COMPLETE, 0, false));
+            contSystems.add(new MonitoredSystem(systems[4], NOT_ENABLED_NOT_COMPLETE, 0, false));
+            contSystems.add(new MonitoredSystem(systems[5], NOT_ENABLED_COMPLETE, 0, false));
+            contSystems.add(new MonitoredSystem(systems[6], NOT_ENABLED_COMPLETE, 0, false));
+            contSystems.add(new MonitoredSystem(systems[7], NOT_ENABLED_COMPLETE, 0, false));
+            contSystems.add(new MonitoredSystem(systems[8], NOT_ENABLED_COMPLETE, 0, false));
             when(dm26Packet.getContinuouslyMonitoredSystems()).thenReturn(contSystems);
 
             List<MonitoredSystem> nonContSystems = new ArrayList<>();
-            nonContSystems.add(new MonitoredSystem("System09", ENABLED_NOT_COMPLETE, 0, 9));
-            nonContSystems.add(new MonitoredSystem("System10", ENABLED_NOT_COMPLETE, 0, 10));
-            nonContSystems.add(new MonitoredSystem("System11", ENABLED_NOT_COMPLETE, 0, 11));
-            nonContSystems.add(new MonitoredSystem("System12", ENABLED_NOT_COMPLETE, 0, 12));
-            nonContSystems.add(new MonitoredSystem("System13", ENABLED_COMPLETE, 0, 13));
-            nonContSystems.add(new MonitoredSystem("System14", ENABLED_COMPLETE, 0, 14));
-            nonContSystems.add(new MonitoredSystem("System15", ENABLED_COMPLETE, 0, 15));
-            nonContSystems.add(new MonitoredSystem("System16", ENABLED_COMPLETE, 0, 16));
+            nonContSystems.add(new MonitoredSystem(systems[9], ENABLED_NOT_COMPLETE, 0, false));
+            nonContSystems.add(new MonitoredSystem(systems[10], ENABLED_NOT_COMPLETE, 0, false));
+            nonContSystems.add(new MonitoredSystem(systems[11], ENABLED_NOT_COMPLETE, 0, false));
+            nonContSystems.add(new MonitoredSystem(systems[12], ENABLED_NOT_COMPLETE, 0, false));
+            nonContSystems.add(new MonitoredSystem(systems[13], ENABLED_COMPLETE, 0, false));
+            nonContSystems.add(new MonitoredSystem(systems[14], ENABLED_COMPLETE, 0, false));
+            nonContSystems.add(new MonitoredSystem(systems[15], ENABLED_COMPLETE, 0, false));
+            nonContSystems.add(new MonitoredSystem(systems[16], ENABLED_COMPLETE, 0, false));
             when(dm26Packet.getNonContinuouslyMonitoredSystems()).thenReturn(nonContSystems);
         }
         instance.process(dm26Packet);
@@ -222,82 +224,82 @@ public class MonitorsTableTest {
             when(dm5Packet.getSourceAddress()).thenReturn(0);
 
             List<MonitoredSystem> contSystems = new ArrayList<>();
-            contSystems.add(new MonitoredSystem("System01", NOT_SUPPORTED_NOT_COMPLETE, 0, 1));
-            contSystems.add(new MonitoredSystem("System02", NOT_SUPPORTED_COMPLETE, 0, 2));
-            contSystems.add(new MonitoredSystem("System03", SUPPORTED_NOT_COMPLETE, 0, 3));
-            contSystems.add(new MonitoredSystem("System04", SUPPORTED_COMPLETE, 0, 4));
-            contSystems.add(new MonitoredSystem("System05", NOT_SUPPORTED_NOT_COMPLETE, 0, 5));
-            contSystems.add(new MonitoredSystem("System06", NOT_SUPPORTED_COMPLETE, 0, 6));
-            contSystems.add(new MonitoredSystem("System07", SUPPORTED_NOT_COMPLETE, 0, 7));
-            contSystems.add(new MonitoredSystem("System08", SUPPORTED_COMPLETE, 0, 8));
+            contSystems.add(new MonitoredSystem(systems[1], NOT_SUPPORTED_NOT_COMPLETE, 0, true));
+            contSystems.add(new MonitoredSystem(systems[2], NOT_SUPPORTED_COMPLETE, 0, true));
+            contSystems.add(new MonitoredSystem(systems[3], SUPPORTED_NOT_COMPLETE, 0, true));
+            contSystems.add(new MonitoredSystem(systems[4], SUPPORTED_COMPLETE, 0, true));
+            contSystems.add(new MonitoredSystem(systems[5], NOT_SUPPORTED_NOT_COMPLETE, 0, true));
+            contSystems.add(new MonitoredSystem(systems[6], NOT_SUPPORTED_COMPLETE, 0, true));
+            contSystems.add(new MonitoredSystem(systems[7], SUPPORTED_NOT_COMPLETE, 0, true));
+            contSystems.add(new MonitoredSystem(systems[8], SUPPORTED_COMPLETE, 0, true));
             when(dm5Packet.getContinuouslyMonitoredSystems()).thenReturn(contSystems);
 
             List<MonitoredSystem> nonContSystems = new ArrayList<>();
-            nonContSystems.add(new MonitoredSystem("System09", NOT_SUPPORTED_NOT_COMPLETE, 0, 9));
-            nonContSystems.add(new MonitoredSystem("System10", NOT_SUPPORTED_COMPLETE, 0, 10));
-            nonContSystems.add(new MonitoredSystem("System11", SUPPORTED_NOT_COMPLETE, 0, 11));
-            nonContSystems.add(new MonitoredSystem("System12", SUPPORTED_COMPLETE, 0, 12));
-            nonContSystems.add(new MonitoredSystem("System13", NOT_SUPPORTED_NOT_COMPLETE, 0, 13));
-            nonContSystems.add(new MonitoredSystem("System14", NOT_SUPPORTED_COMPLETE, 0, 14));
-            nonContSystems.add(new MonitoredSystem("System15", SUPPORTED_NOT_COMPLETE, 0, 15));
-            nonContSystems.add(new MonitoredSystem("System16", SUPPORTED_COMPLETE, 0, 16));
+            nonContSystems.add(new MonitoredSystem(systems[9], NOT_SUPPORTED_NOT_COMPLETE, 0, true));
+            nonContSystems.add(new MonitoredSystem(systems[10], NOT_SUPPORTED_COMPLETE, 0, true));
+            nonContSystems.add(new MonitoredSystem(systems[11], SUPPORTED_NOT_COMPLETE, 0, true));
+            nonContSystems.add(new MonitoredSystem(systems[12], SUPPORTED_COMPLETE, 0, true));
+            nonContSystems.add(new MonitoredSystem(systems[13], NOT_SUPPORTED_NOT_COMPLETE, 0, true));
+            nonContSystems.add(new MonitoredSystem(systems[14], NOT_SUPPORTED_COMPLETE, 0, true));
+            nonContSystems.add(new MonitoredSystem(systems[15], SUPPORTED_NOT_COMPLETE, 0, true));
+            nonContSystems.add(new MonitoredSystem(systems[16], SUPPORTED_COMPLETE, 0, true));
             when(dm5Packet.getNonContinuouslyMonitoredSystems()).thenReturn(nonContSystems);
         }
         instance.process(dm5Packet);
 
         assertEquals(16, instance.getRowCount());
 
-        assertEquals("System01", instance.getValueAt(0, 0));
+        assertEquals(systems[1].getName().trim(), instance.getValueAt(0, 0));
         assertEquals(false, instance.getValueAt(0, 1));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(0, 1));
-        assertEquals(false, instance.getValueAt(0, 2));
+        assertEquals(true, instance.getValueAt(0, 2));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(0, 2));
         assertEquals(false, instance.getValueAt(0, 3));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(0, 3));
-        assertEquals(false, instance.getValueAt(0, 4));
+        assertEquals(true, instance.getValueAt(0, 4));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(0, 4));
 
-        assertEquals("System02", instance.getValueAt(1, 0));
+        assertEquals(systems[2].getName().trim(), instance.getValueAt(1, 0));
         assertEquals(false, instance.getValueAt(1, 1));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(1, 1));
-        assertEquals(false, instance.getValueAt(1, 2));
+        assertEquals(true, instance.getValueAt(1, 2));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(1, 2));
         assertEquals(false, instance.getValueAt(1, 3));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(1, 3));
         assertEquals(true, instance.getValueAt(1, 4));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(1, 4));
 
-        assertEquals("System03", instance.getValueAt(2, 0));
+        assertEquals(systems[3].getName().trim(), instance.getValueAt(2, 0));
         assertEquals(false, instance.getValueAt(2, 1));
         assertEquals(Color.RED, getBackgroundColor(2, 1));
-        assertEquals(false, instance.getValueAt(2, 2));
+        assertEquals(true, instance.getValueAt(2, 2));
         assertEquals(Color.RED, getBackgroundColor(2, 2));
         assertEquals(true, instance.getValueAt(2, 3));
         assertEquals(Color.RED, getBackgroundColor(2, 3));
         assertEquals(false, instance.getValueAt(2, 4));
         assertEquals(Color.RED, getBackgroundColor(2, 4));
 
-        assertEquals("System04", instance.getValueAt(3, 0));
+        assertEquals(systems[4].getName().trim(), instance.getValueAt(3, 0));
         assertEquals(false, instance.getValueAt(3, 1));
         assertEquals(Color.GREEN, getBackgroundColor(3, 1));
-        assertEquals(false, instance.getValueAt(3, 2));
+        assertEquals(true, instance.getValueAt(3, 2));
         assertEquals(Color.GREEN, getBackgroundColor(3, 2));
         assertEquals(true, instance.getValueAt(3, 3));
         assertEquals(Color.GREEN, getBackgroundColor(3, 3));
         assertEquals(true, instance.getValueAt(3, 4));
         assertEquals(Color.GREEN, getBackgroundColor(3, 4));
 
-        assertEquals("System05", instance.getValueAt(4, 0));
+        assertEquals(systems[5].getName().trim(), instance.getValueAt(4, 0));
         assertEquals(false, instance.getValueAt(4, 1));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(4, 1));
         assertEquals(true, instance.getValueAt(4, 2));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(4, 2));
         assertEquals(false, instance.getValueAt(4, 3));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(4, 3));
-        assertEquals(false, instance.getValueAt(4, 4));
+        assertEquals(true, instance.getValueAt(4, 4));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(4, 4));
 
-        assertEquals("System06", instance.getValueAt(5, 0));
+        assertEquals(systems[6].getName().trim(), instance.getValueAt(5, 0));
         assertEquals(false, instance.getValueAt(5, 1));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(5, 1));
         assertEquals(true, instance.getValueAt(5, 2));
@@ -307,7 +309,7 @@ public class MonitorsTableTest {
         assertEquals(true, instance.getValueAt(5, 4));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(5, 4));
 
-        assertEquals("System07", instance.getValueAt(6, 0));
+        assertEquals(systems[7].getName().trim(), instance.getValueAt(6, 0));
         assertEquals(false, instance.getValueAt(6, 1));
         assertEquals(Color.RED, getBackgroundColor(6, 1));
         assertEquals(true, instance.getValueAt(6, 2));
@@ -317,7 +319,7 @@ public class MonitorsTableTest {
         assertEquals(false, instance.getValueAt(6, 4));
         assertEquals(Color.RED, getBackgroundColor(6, 4));
 
-        assertEquals("System08", instance.getValueAt(7, 0));
+        assertEquals(systems[8].getName().trim(), instance.getValueAt(7, 0));
         assertEquals(false, instance.getValueAt(7, 1));
         assertEquals(Color.GREEN, getBackgroundColor(7, 1));
         assertEquals(true, instance.getValueAt(7, 2));
@@ -327,17 +329,17 @@ public class MonitorsTableTest {
         assertEquals(true, instance.getValueAt(7, 4));
         assertEquals(Color.GREEN, getBackgroundColor(7, 4));
 
-        assertEquals("System09", instance.getValueAt(8, 0));
+        assertEquals(systems[9].getName().trim(), instance.getValueAt(8, 0));
         assertEquals(true, instance.getValueAt(8, 1));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(8, 1));
         assertEquals(false, instance.getValueAt(8, 2));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(8, 2));
         assertEquals(false, instance.getValueAt(8, 3));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(8, 3));
-        assertEquals(false, instance.getValueAt(8, 4));
+        assertEquals(true, instance.getValueAt(8, 4));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(8, 4));
 
-        assertEquals("System10", instance.getValueAt(9, 0));
+        assertEquals(systems[10].getName().trim(), instance.getValueAt(9, 0));
         assertEquals(true, instance.getValueAt(9, 1));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(9, 1));
         assertEquals(false, instance.getValueAt(9, 2));
@@ -347,7 +349,7 @@ public class MonitorsTableTest {
         assertEquals(true, instance.getValueAt(9, 4));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(9, 4));
 
-        assertEquals("System11", instance.getValueAt(10, 0));
+        assertEquals(systems[11].getName().trim(), instance.getValueAt(10, 0));
         assertEquals(true, instance.getValueAt(10, 1));
         assertEquals(instance.getBackground(), getBackgroundColor(10, 1));
         assertEquals(false, instance.getValueAt(10, 2));
@@ -357,7 +359,7 @@ public class MonitorsTableTest {
         assertEquals(false, instance.getValueAt(10, 4));
         assertEquals(instance.getBackground(), getBackgroundColor(10, 4));
 
-        assertEquals("System12", instance.getValueAt(11, 0));
+        assertEquals(systems[12].getName().trim(), instance.getValueAt(11, 0));
         assertEquals(true, instance.getValueAt(11, 1));
         assertEquals(Color.GREEN, getBackgroundColor(11, 1));
         assertEquals(false, instance.getValueAt(11, 2));
@@ -367,17 +369,17 @@ public class MonitorsTableTest {
         assertEquals(true, instance.getValueAt(11, 4));
         assertEquals(Color.GREEN, getBackgroundColor(11, 4));
 
-        assertEquals("System13", instance.getValueAt(12, 0));
+        assertEquals(systems[13].getName().trim(), instance.getValueAt(12, 0));
         assertEquals(true, instance.getValueAt(12, 1));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(12, 1));
         assertEquals(true, instance.getValueAt(12, 2));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(12, 2));
         assertEquals(false, instance.getValueAt(12, 3));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(12, 3));
-        assertEquals(false, instance.getValueAt(12, 4));
+        assertEquals(true, instance.getValueAt(12, 4));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(12, 4));
 
-        assertEquals("System14", instance.getValueAt(13, 0));
+        assertEquals(systems[14].getName().trim(), instance.getValueAt(13, 0));
         assertEquals(true, instance.getValueAt(13, 1));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(13, 1));
         assertEquals(true, instance.getValueAt(13, 2));
@@ -387,7 +389,7 @@ public class MonitorsTableTest {
         assertEquals(true, instance.getValueAt(13, 4));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(13, 4));
 
-        assertEquals("System15", instance.getValueAt(14, 0));
+        assertEquals(systems[15].getName().trim(), instance.getValueAt(14, 0));
         assertEquals(true, instance.getValueAt(14, 1));
         assertEquals(instance.getBackground(), getBackgroundColor(14, 1));
         assertEquals(true, instance.getValueAt(14, 2));
@@ -397,7 +399,7 @@ public class MonitorsTableTest {
         assertEquals(false, instance.getValueAt(14, 4));
         assertEquals(instance.getBackground(), getBackgroundColor(14, 4));
 
-        assertEquals("System16", instance.getValueAt(15, 0));
+        assertEquals(systems[16].getName().trim(), instance.getValueAt(15, 0));
         assertEquals(true, instance.getValueAt(15, 1));
         assertEquals(Color.GREEN, getBackgroundColor(15, 1));
         assertEquals(true, instance.getValueAt(15, 2));
@@ -423,24 +425,24 @@ public class MonitorsTableTest {
         when(packet.getSourceAddress()).thenReturn(0);
 
         List<MonitoredSystem> contSystems = new ArrayList<>();
-        contSystems.add(new MonitoredSystem("System1", SUPPORTED_COMPLETE, 0, 1));
-        contSystems.add(new MonitoredSystem("System2", SUPPORTED_NOT_COMPLETE, 0, 2));
-        contSystems.add(new MonitoredSystem("System3", NOT_SUPPORTED_COMPLETE, 0, 3));
-        contSystems.add(new MonitoredSystem("System4", NOT_SUPPORTED_NOT_COMPLETE, 0, 4));
+        contSystems.add(new MonitoredSystem(systems[1], SUPPORTED_COMPLETE, 0, true));
+        contSystems.add(new MonitoredSystem(systems[2], SUPPORTED_NOT_COMPLETE, 0, true));
+        contSystems.add(new MonitoredSystem(systems[3], NOT_SUPPORTED_COMPLETE, 0, true));
+        contSystems.add(new MonitoredSystem(systems[4], NOT_SUPPORTED_NOT_COMPLETE, 0, true));
         when(packet.getContinuouslyMonitoredSystems()).thenReturn(contSystems);
 
         List<MonitoredSystem> nonContSystems = new ArrayList<>();
-        nonContSystems.add(new MonitoredSystem("System5", SUPPORTED_COMPLETE, 0, 5));
-        nonContSystems.add(new MonitoredSystem("System6", SUPPORTED_NOT_COMPLETE, 0, 6));
-        nonContSystems.add(new MonitoredSystem("System7", NOT_SUPPORTED_COMPLETE, 0, 7));
-        nonContSystems.add(new MonitoredSystem("System8", NOT_SUPPORTED_NOT_COMPLETE, 0, 8));
+        nonContSystems.add(new MonitoredSystem(systems[5], SUPPORTED_COMPLETE, 0, true));
+        nonContSystems.add(new MonitoredSystem(systems[6], SUPPORTED_NOT_COMPLETE, 0, true));
+        nonContSystems.add(new MonitoredSystem(systems[7], NOT_SUPPORTED_COMPLETE, 0, true));
+        nonContSystems.add(new MonitoredSystem(systems[8], NOT_SUPPORTED_NOT_COMPLETE, 0, true));
         when(packet.getNonContinuouslyMonitoredSystems()).thenReturn(nonContSystems);
 
         instance.process(packet);
 
         assertEquals(8, instance.getRowCount());
 
-        assertEquals("System1", instance.getValueAt(0, 0));
+        assertEquals(systems[1].getName().trim(), instance.getValueAt(0, 0));
         assertEquals(null, instance.getValueAt(0, 1));
         assertEquals(instance.getBackground(), getBackgroundColor(0, 1));
         assertEquals(null, instance.getValueAt(0, 2));
@@ -450,7 +452,7 @@ public class MonitorsTableTest {
         assertEquals(true, instance.getValueAt(0, 4));
         assertEquals(instance.getBackground(), getBackgroundColor(0, 4));
 
-        assertEquals("System2", instance.getValueAt(1, 0));
+        assertEquals(systems[2].getName().trim(), instance.getValueAt(1, 0));
         assertEquals(null, instance.getValueAt(1, 1));
         assertEquals(instance.getBackground(), getBackgroundColor(1, 1));
         assertEquals(null, instance.getValueAt(1, 2));
@@ -460,7 +462,7 @@ public class MonitorsTableTest {
         assertEquals(false, instance.getValueAt(1, 4));
         assertEquals(instance.getBackground(), getBackgroundColor(1, 4));
 
-        assertEquals("System3", instance.getValueAt(2, 0));
+        assertEquals(systems[3].getName().trim(), instance.getValueAt(2, 0));
         assertEquals(null, instance.getValueAt(2, 1));
         assertEquals(instance.getBackground(), getBackgroundColor(2, 1));
         assertEquals(null, instance.getValueAt(2, 2));
@@ -470,17 +472,17 @@ public class MonitorsTableTest {
         assertEquals(true, instance.getValueAt(2, 4));
         assertEquals(instance.getBackground(), getBackgroundColor(2, 4));
 
-        assertEquals("System4", instance.getValueAt(3, 0));
+        assertEquals(systems[4].getName().trim(), instance.getValueAt(3, 0));
         assertEquals(null, instance.getValueAt(3, 1));
         assertEquals(instance.getBackground(), getBackgroundColor(3, 1));
         assertEquals(null, instance.getValueAt(3, 2));
         assertEquals(instance.getBackground(), getBackgroundColor(3, 2));
         assertEquals(false, instance.getValueAt(3, 3));
         assertEquals(instance.getBackground(), getBackgroundColor(3, 3));
-        assertEquals(false, instance.getValueAt(3, 4));
+        assertEquals(true, instance.getValueAt(3, 4));
         assertEquals(instance.getBackground(), getBackgroundColor(3, 4));
 
-        assertEquals("System5", instance.getValueAt(4, 0));
+        assertEquals(systems[5].getName().trim(), instance.getValueAt(4, 0));
         assertEquals(null, instance.getValueAt(4, 1));
         assertEquals(instance.getBackground(), getBackgroundColor(4, 1));
         assertEquals(null, instance.getValueAt(4, 2));
@@ -490,7 +492,7 @@ public class MonitorsTableTest {
         assertEquals(true, instance.getValueAt(4, 4));
         assertEquals(instance.getBackground(), getBackgroundColor(4, 4));
 
-        assertEquals("System6", instance.getValueAt(5, 0));
+        assertEquals(systems[6].getName().trim(), instance.getValueAt(5, 0));
         assertEquals(null, instance.getValueAt(5, 1));
         assertEquals(instance.getBackground(), getBackgroundColor(5, 1));
         assertEquals(null, instance.getValueAt(5, 2));
@@ -500,7 +502,7 @@ public class MonitorsTableTest {
         assertEquals(false, instance.getValueAt(5, 4));
         assertEquals(instance.getBackground(), getBackgroundColor(5, 4));
 
-        assertEquals("System7", instance.getValueAt(6, 0));
+        assertEquals(systems[7].getName().trim(), instance.getValueAt(6, 0));
         assertEquals(null, instance.getValueAt(6, 1));
         assertEquals(instance.getBackground(), getBackgroundColor(6, 1));
         assertEquals(null, instance.getValueAt(6, 2));
@@ -510,14 +512,14 @@ public class MonitorsTableTest {
         assertEquals(true, instance.getValueAt(6, 4));
         assertEquals(instance.getBackground(), getBackgroundColor(6, 4));
 
-        assertEquals("System8", instance.getValueAt(7, 0));
+        assertEquals(systems[8].getName().trim(), instance.getValueAt(7, 0));
         assertEquals(null, instance.getValueAt(7, 1));
         assertEquals(instance.getBackground(), getBackgroundColor(7, 1));
         assertEquals(null, instance.getValueAt(7, 2));
         assertEquals(instance.getBackground(), getBackgroundColor(7, 2));
         assertEquals(false, instance.getValueAt(7, 3));
         assertEquals(instance.getBackground(), getBackgroundColor(7, 3));
-        assertEquals(false, instance.getValueAt(7, 4));
+        assertEquals(true, instance.getValueAt(7, 4));
         assertEquals(instance.getBackground(), getBackgroundColor(7, 4));
 
         assertTrue(tableUpdated);
@@ -531,25 +533,25 @@ public class MonitorsTableTest {
             when(dm5Packet.getSourceAddress()).thenReturn(0);
 
             List<MonitoredSystem> contSystems = new ArrayList<>();
-            contSystems.add(new MonitoredSystem("System01", NOT_SUPPORTED_NOT_COMPLETE, 0, 1));
-            contSystems.add(new MonitoredSystem("System02", NOT_SUPPORTED_COMPLETE, 0, 2));
-            contSystems.add(new MonitoredSystem("System03", SUPPORTED_NOT_COMPLETE, 0, 3));
-            contSystems.add(new MonitoredSystem("System04", SUPPORTED_COMPLETE, 0, 4));
-            contSystems.add(new MonitoredSystem("System05", NOT_SUPPORTED_NOT_COMPLETE, 0, 5));
-            contSystems.add(new MonitoredSystem("System06", NOT_SUPPORTED_COMPLETE, 0, 6));
-            contSystems.add(new MonitoredSystem("System07", SUPPORTED_NOT_COMPLETE, 0, 7));
-            contSystems.add(new MonitoredSystem("System08", SUPPORTED_COMPLETE, 0, 8));
+            contSystems.add(new MonitoredSystem(systems[1], NOT_SUPPORTED_NOT_COMPLETE, 0, true));
+            contSystems.add(new MonitoredSystem(systems[2], NOT_SUPPORTED_COMPLETE, 0, true));
+            contSystems.add(new MonitoredSystem(systems[3], SUPPORTED_NOT_COMPLETE, 0, true));
+            contSystems.add(new MonitoredSystem(systems[4], SUPPORTED_COMPLETE, 0, true));
+            contSystems.add(new MonitoredSystem(systems[5], NOT_SUPPORTED_NOT_COMPLETE, 0, true));
+            contSystems.add(new MonitoredSystem(systems[6], NOT_SUPPORTED_COMPLETE, 0, true));
+            contSystems.add(new MonitoredSystem(systems[7], SUPPORTED_NOT_COMPLETE, 0, true));
+            contSystems.add(new MonitoredSystem(systems[8], SUPPORTED_COMPLETE, 0, false));
             when(dm5Packet.getContinuouslyMonitoredSystems()).thenReturn(contSystems);
 
             List<MonitoredSystem> nonContSystems = new ArrayList<>();
-            nonContSystems.add(new MonitoredSystem("System09", NOT_SUPPORTED_NOT_COMPLETE, 0, 9));
-            nonContSystems.add(new MonitoredSystem("System10", NOT_SUPPORTED_COMPLETE, 0, 10));
-            nonContSystems.add(new MonitoredSystem("System11", SUPPORTED_NOT_COMPLETE, 0, 11));
-            nonContSystems.add(new MonitoredSystem("System12", SUPPORTED_COMPLETE, 0, 12));
-            nonContSystems.add(new MonitoredSystem("System13", NOT_SUPPORTED_NOT_COMPLETE, 0, 13));
-            nonContSystems.add(new MonitoredSystem("System14", NOT_SUPPORTED_COMPLETE, 0, 14));
-            nonContSystems.add(new MonitoredSystem("System15", SUPPORTED_NOT_COMPLETE, 0, 15));
-            nonContSystems.add(new MonitoredSystem("System16", SUPPORTED_COMPLETE, 0, 16));
+            nonContSystems.add(new MonitoredSystem(systems[9], NOT_SUPPORTED_NOT_COMPLETE, 0, true));
+            nonContSystems.add(new MonitoredSystem(systems[10], NOT_SUPPORTED_COMPLETE, 0, true));
+            nonContSystems.add(new MonitoredSystem(systems[11], SUPPORTED_NOT_COMPLETE, 0, true));
+            nonContSystems.add(new MonitoredSystem(systems[12], SUPPORTED_COMPLETE, 0, true));
+            nonContSystems.add(new MonitoredSystem(systems[13], NOT_SUPPORTED_NOT_COMPLETE, 0, true));
+            nonContSystems.add(new MonitoredSystem(systems[14], NOT_SUPPORTED_COMPLETE, 0, true));
+            nonContSystems.add(new MonitoredSystem(systems[15], SUPPORTED_NOT_COMPLETE, 0, true));
+            nonContSystems.add(new MonitoredSystem(systems[16], SUPPORTED_COMPLETE, 0, true));
             when(dm5Packet.getNonContinuouslyMonitoredSystems()).thenReturn(nonContSystems);
         }
         instance.process(dm5Packet);
@@ -559,82 +561,82 @@ public class MonitorsTableTest {
             when(dm26Packet.getSourceAddress()).thenReturn(0);
 
             List<MonitoredSystem> contSystems = new ArrayList<>();
-            contSystems.add(new MonitoredSystem("System01", NOT_ENABLED_NOT_COMPLETE, 0, 1));
-            contSystems.add(new MonitoredSystem("System02", NOT_ENABLED_NOT_COMPLETE, 0, 2));
-            contSystems.add(new MonitoredSystem("System03", NOT_ENABLED_NOT_COMPLETE, 0, 3));
-            contSystems.add(new MonitoredSystem("System04", NOT_ENABLED_NOT_COMPLETE, 0, 4));
-            contSystems.add(new MonitoredSystem("System05", NOT_ENABLED_COMPLETE, 0, 5));
-            contSystems.add(new MonitoredSystem("System06", NOT_ENABLED_COMPLETE, 0, 6));
-            contSystems.add(new MonitoredSystem("System07", NOT_ENABLED_COMPLETE, 0, 7));
-            contSystems.add(new MonitoredSystem("System08", NOT_ENABLED_COMPLETE, 0, 8));
+            contSystems.add(new MonitoredSystem(systems[1], NOT_ENABLED_NOT_COMPLETE, 0, false));
+            contSystems.add(new MonitoredSystem(systems[2], NOT_ENABLED_NOT_COMPLETE, 0, false));
+            contSystems.add(new MonitoredSystem(systems[3], NOT_ENABLED_NOT_COMPLETE, 0, false));
+            contSystems.add(new MonitoredSystem(systems[4], NOT_ENABLED_NOT_COMPLETE, 0, false));
+            contSystems.add(new MonitoredSystem(systems[5], NOT_ENABLED_COMPLETE, 0, false));
+            contSystems.add(new MonitoredSystem(systems[6], NOT_ENABLED_COMPLETE, 0, false));
+            contSystems.add(new MonitoredSystem(systems[7], NOT_ENABLED_COMPLETE, 0, false));
+            contSystems.add(new MonitoredSystem(systems[8], NOT_ENABLED_COMPLETE, 0, false));
             when(dm26Packet.getContinuouslyMonitoredSystems()).thenReturn(contSystems);
 
             List<MonitoredSystem> nonContSystems = new ArrayList<>();
-            nonContSystems.add(new MonitoredSystem("System09", ENABLED_NOT_COMPLETE, 0, 9));
-            nonContSystems.add(new MonitoredSystem("System10", ENABLED_NOT_COMPLETE, 0, 10));
-            nonContSystems.add(new MonitoredSystem("System11", ENABLED_NOT_COMPLETE, 0, 11));
-            nonContSystems.add(new MonitoredSystem("System12", ENABLED_NOT_COMPLETE, 0, 12));
-            nonContSystems.add(new MonitoredSystem("System13", ENABLED_COMPLETE, 0, 13));
-            nonContSystems.add(new MonitoredSystem("System14", ENABLED_COMPLETE, 0, 14));
-            nonContSystems.add(new MonitoredSystem("System15", ENABLED_COMPLETE, 0, 15));
-            nonContSystems.add(new MonitoredSystem("System16", ENABLED_COMPLETE, 0, 16));
+            nonContSystems.add(new MonitoredSystem(systems[9], ENABLED_NOT_COMPLETE, 0, false));
+            nonContSystems.add(new MonitoredSystem(systems[10], ENABLED_NOT_COMPLETE, 0, false));
+            nonContSystems.add(new MonitoredSystem(systems[11], ENABLED_NOT_COMPLETE, 0, false));
+            nonContSystems.add(new MonitoredSystem(systems[12], ENABLED_NOT_COMPLETE, 0, false));
+            nonContSystems.add(new MonitoredSystem(systems[13], ENABLED_COMPLETE, 0, false));
+            nonContSystems.add(new MonitoredSystem(systems[14], ENABLED_COMPLETE, 0, false));
+            nonContSystems.add(new MonitoredSystem(systems[15], ENABLED_COMPLETE, 0, false));
+            nonContSystems.add(new MonitoredSystem(systems[16], ENABLED_COMPLETE, 0, false));
             when(dm26Packet.getNonContinuouslyMonitoredSystems()).thenReturn(nonContSystems);
         }
         instance.process(dm26Packet);
 
         assertEquals(16, instance.getRowCount());
 
-        assertEquals("System01", instance.getValueAt(0, 0));
+        assertEquals(systems[1].getName().trim(), instance.getValueAt(0, 0));
         assertEquals(false, instance.getValueAt(0, 1));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(0, 1));
-        assertEquals(false, instance.getValueAt(0, 2));
+        assertEquals(true, instance.getValueAt(0, 2));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(0, 2));
         assertEquals(false, instance.getValueAt(0, 3));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(0, 3));
-        assertEquals(false, instance.getValueAt(0, 4));
+        assertEquals(true, instance.getValueAt(0, 4));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(0, 4));
 
-        assertEquals("System02", instance.getValueAt(1, 0));
+        assertEquals(systems[2].getName().trim(), instance.getValueAt(1, 0));
         assertEquals(false, instance.getValueAt(1, 1));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(1, 1));
-        assertEquals(false, instance.getValueAt(1, 2));
+        assertEquals(true, instance.getValueAt(1, 2));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(1, 2));
         assertEquals(false, instance.getValueAt(1, 3));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(1, 3));
         assertEquals(true, instance.getValueAt(1, 4));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(1, 4));
 
-        assertEquals("System03", instance.getValueAt(2, 0));
+        assertEquals(systems[3].getName().trim(), instance.getValueAt(2, 0));
         assertEquals(false, instance.getValueAt(2, 1));
         assertEquals(Color.RED, getBackgroundColor(2, 1));
-        assertEquals(false, instance.getValueAt(2, 2));
+        assertEquals(true, instance.getValueAt(2, 2));
         assertEquals(Color.RED, getBackgroundColor(2, 2));
         assertEquals(true, instance.getValueAt(2, 3));
         assertEquals(Color.RED, getBackgroundColor(2, 3));
         assertEquals(false, instance.getValueAt(2, 4));
         assertEquals(Color.RED, getBackgroundColor(2, 4));
 
-        assertEquals("System04", instance.getValueAt(3, 0));
+        assertEquals(systems[4].getName().trim(), instance.getValueAt(3, 0));
         assertEquals(false, instance.getValueAt(3, 1));
         assertEquals(Color.GREEN, getBackgroundColor(3, 1));
-        assertEquals(false, instance.getValueAt(3, 2));
+        assertEquals(true, instance.getValueAt(3, 2));
         assertEquals(Color.GREEN, getBackgroundColor(3, 2));
         assertEquals(true, instance.getValueAt(3, 3));
         assertEquals(Color.GREEN, getBackgroundColor(3, 3));
         assertEquals(true, instance.getValueAt(3, 4));
         assertEquals(Color.GREEN, getBackgroundColor(3, 4));
 
-        assertEquals("System05", instance.getValueAt(4, 0));
+        assertEquals(systems[5].getName().trim(), instance.getValueAt(4, 0));
         assertEquals(false, instance.getValueAt(4, 1));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(4, 1));
         assertEquals(true, instance.getValueAt(4, 2));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(4, 2));
         assertEquals(false, instance.getValueAt(4, 3));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(4, 3));
-        assertEquals(false, instance.getValueAt(4, 4));
+        assertEquals(true, instance.getValueAt(4, 4));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(4, 4));
 
-        assertEquals("System06", instance.getValueAt(5, 0));
+        assertEquals(systems[6].getName().trim(), instance.getValueAt(5, 0));
         assertEquals(false, instance.getValueAt(5, 1));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(5, 1));
         assertEquals(true, instance.getValueAt(5, 2));
@@ -644,7 +646,7 @@ public class MonitorsTableTest {
         assertEquals(true, instance.getValueAt(5, 4));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(5, 4));
 
-        assertEquals("System07", instance.getValueAt(6, 0));
+        assertEquals(systems[7].getName().trim(), instance.getValueAt(6, 0));
         assertEquals(false, instance.getValueAt(6, 1));
         assertEquals(Color.RED, getBackgroundColor(6, 1));
         assertEquals(true, instance.getValueAt(6, 2));
@@ -654,7 +656,7 @@ public class MonitorsTableTest {
         assertEquals(false, instance.getValueAt(6, 4));
         assertEquals(Color.RED, getBackgroundColor(6, 4));
 
-        assertEquals("System08", instance.getValueAt(7, 0));
+        assertEquals(systems[8].getName().trim(), instance.getValueAt(7, 0));
         assertEquals(false, instance.getValueAt(7, 1));
         assertEquals(Color.GREEN, getBackgroundColor(7, 1));
         assertEquals(true, instance.getValueAt(7, 2));
@@ -664,17 +666,17 @@ public class MonitorsTableTest {
         assertEquals(true, instance.getValueAt(7, 4));
         assertEquals(Color.GREEN, getBackgroundColor(7, 4));
 
-        assertEquals("System09", instance.getValueAt(8, 0));
+        assertEquals(systems[9].getName().trim(), instance.getValueAt(8, 0));
         assertEquals(true, instance.getValueAt(8, 1));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(8, 1));
         assertEquals(false, instance.getValueAt(8, 2));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(8, 2));
         assertEquals(false, instance.getValueAt(8, 3));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(8, 3));
-        assertEquals(false, instance.getValueAt(8, 4));
+        assertEquals(true, instance.getValueAt(8, 4));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(8, 4));
 
-        assertEquals("System10", instance.getValueAt(9, 0));
+        assertEquals(systems[10].getName().trim(), instance.getValueAt(9, 0));
         assertEquals(true, instance.getValueAt(9, 1));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(9, 1));
         assertEquals(false, instance.getValueAt(9, 2));
@@ -684,7 +686,7 @@ public class MonitorsTableTest {
         assertEquals(true, instance.getValueAt(9, 4));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(9, 4));
 
-        assertEquals("System11", instance.getValueAt(10, 0));
+        assertEquals(systems[11].getName().trim(), instance.getValueAt(10, 0));
         assertEquals(true, instance.getValueAt(10, 1));
         assertEquals(instance.getBackground(), getBackgroundColor(10, 1));
         assertEquals(false, instance.getValueAt(10, 2));
@@ -694,7 +696,7 @@ public class MonitorsTableTest {
         assertEquals(false, instance.getValueAt(10, 4));
         assertEquals(instance.getBackground(), getBackgroundColor(10, 4));
 
-        assertEquals("System12", instance.getValueAt(11, 0));
+        assertEquals(systems[12].getName().trim(), instance.getValueAt(11, 0));
         assertEquals(true, instance.getValueAt(11, 1));
         assertEquals(Color.GREEN, getBackgroundColor(11, 1));
         assertEquals(false, instance.getValueAt(11, 2));
@@ -704,17 +706,17 @@ public class MonitorsTableTest {
         assertEquals(true, instance.getValueAt(11, 4));
         assertEquals(Color.GREEN, getBackgroundColor(11, 4));
 
-        assertEquals("System13", instance.getValueAt(12, 0));
+        assertEquals(systems[13].getName().trim(), instance.getValueAt(12, 0));
         assertEquals(true, instance.getValueAt(12, 1));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(12, 1));
         assertEquals(true, instance.getValueAt(12, 2));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(12, 2));
         assertEquals(false, instance.getValueAt(12, 3));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(12, 3));
-        assertEquals(false, instance.getValueAt(12, 4));
+        assertEquals(true, instance.getValueAt(12, 4));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(12, 4));
 
-        assertEquals("System14", instance.getValueAt(13, 0));
+        assertEquals(systems[14].getName().trim(), instance.getValueAt(13, 0));
         assertEquals(true, instance.getValueAt(13, 1));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(13, 1));
         assertEquals(true, instance.getValueAt(13, 2));
@@ -724,7 +726,7 @@ public class MonitorsTableTest {
         assertEquals(true, instance.getValueAt(13, 4));
         assertEquals(Color.LIGHT_GRAY, getBackgroundColor(13, 4));
 
-        assertEquals("System15", instance.getValueAt(14, 0));
+        assertEquals(systems[15].getName().trim(), instance.getValueAt(14, 0));
         assertEquals(true, instance.getValueAt(14, 1));
         assertEquals(instance.getBackground(), getBackgroundColor(14, 1));
         assertEquals(true, instance.getValueAt(14, 2));
@@ -734,7 +736,7 @@ public class MonitorsTableTest {
         assertEquals(false, instance.getValueAt(14, 4));
         assertEquals(instance.getBackground(), getBackgroundColor(14, 4));
 
-        assertEquals("System16", instance.getValueAt(15, 0));
+        assertEquals(systems[16].getName().trim(), instance.getValueAt(15, 0));
         assertEquals(true, instance.getValueAt(15, 1));
         assertEquals(Color.GREEN, getBackgroundColor(15, 1));
         assertEquals(true, instance.getValueAt(15, 2));

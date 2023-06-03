@@ -83,34 +83,32 @@ public class VehicleInformationModuleTest {
         when(j1939.requestMultiple(AddressClaimPacket.class, requestPacket))
                 .thenReturn(Stream.of(packet1, packet2, packet3));
 
-        String expected = "";
-        expected += "2007-12-03T10:15:30.000 Global Request for Address Claim" + NL;
-        expected += "10:15:30.000 18EAFFA5 [3] 00 EE 00 (TX)" + NL;
-        expected += "10:15:30.000 18EEFF55 [8] 10 F7 45 01 00 45 00 01" + NL;
-        expected += "Diesel Particulate Filter Controller (85) reported as: {" + NL;
-        expected += "  Industry Group: Global" + NL;
-        expected += "  Vehicle System: Non-specific System, System Instance: 1" + NL;
-        expected += "  Function: Engine Emission Aftertreatment System, Functional Instance: 0, ECU Instance: 0" + NL;
-        expected += "  Manufactured by: Cummins Inc, Identity Number: 390928" + NL;
-        expected += "  Is not arbitrary address capable." + NL;
-        expected += "}" + NL;
-        expected += "10:15:30.000 18EEFF3D [8] 00 00 00 00 00 00 00 00" + NL;
-        expected += "Exhaust Emission Controller (61) reported as: {" + NL;
-        expected += "  Industry Group: Global" + NL;
-        expected += "  Vehicle System: Non-specific System, System Instance: 0" + NL;
-        expected += "  Function: Engine, Functional Instance: 0, ECU Instance: 0" + NL;
-        expected += "  Manufactured by: Reserved, Identity Number: 0" + NL;
-        expected += "  Is not arbitrary address capable." + NL;
-        expected += "}" + NL;
-        expected += "10:15:30.000 18EEFF00 [8] 00 00 40 05 00 00 65 14" + NL;
-        expected += "Engine #1 (0) reported as: {" + NL;
-        expected += "  Industry Group: On-Highway Equipment" + NL;
-        expected += "  Vehicle System: Unknown System (50), System Instance: 4" + NL;
-        expected += "  Function: Unknown Function (0), Functional Instance: 0, ECU Instance: 0" + NL;
-        expected += "  Manufactured by: International Truck and Engine Corporation - Engine Electronics, Identity Number: 0"
-                + NL;
-        expected += "  Is not arbitrary address capable." + NL;
-        expected += "}" + NL;
+        String expected = "2007-12-03T10:15:30.000 Global Request for Address Claim\r\n"
+                + "10:15:30.000 18EAFFA5 [3] 00 EE 00 (TX)\r\n"
+                + "10:15:30.000 18EEFF55 [8] 10 F7 45 01 00 45 00 01\r\n"
+                + "DPF Controller (85) reported as: {\r\n"
+                + "  Industry Group: Global\r\n"
+                + "  Vehicle System: Non-specific System, System Instance: 1\r\n"
+                + "  Function: Engine Emission Aftertreatment System, Functional Instance: 0, ECU Instance: 0\r\n"
+                + "  Manufactured by: Cummins Inc (formerly Cummins Engine Co), Identity Number: 390928\r\n"
+                + "  Is not arbitrary address capable.\r\n"
+                + "}\r\n"
+                + "10:15:30.000 18EEFF3D [8] 00 00 00 00 00 00 00 00\r\n"
+                + "Exhaust Emission Controller (61) reported as: {\r\n"
+                + "  Industry Group: Global\r\n"
+                + "  Vehicle System: Non-specific System, System Instance: 0\r\n"
+                + "  Function: Engine, Functional Instance: 0, ECU Instance: 0\r\n"
+                + "  Manufactured by: Reserved, Identity Number: 0\r\n"
+                + "  Is not arbitrary address capable.\r\n"
+                + "}\r\n"
+                + "10:15:30.000 18EEFF00 [8] 00 00 40 05 00 00 65 14\r\n"
+                + "Engine #1 (0) reported as: {\r\n"
+                + "  Industry Group: On-Highway Equipment\r\n"
+                + "  Vehicle System: Unknown System (50), System Instance: 4\r\n"
+                + "  Function: Unknown Function (0), Functional Instance: 0, ECU Instance: 0\r\n"
+                + "  Manufactured by: International Truck and Engine Corporation - Engine Electronics  (formerly Navistar Intl Trans Co., Engine Electronics), Identity Number: 0\r\n"
+                + "  Is not arbitrary address capable.\r\n"
+                + "}\r\n";
         TestResultsListener listener = new TestResultsListener();
         instance.reportAddressClaim(listener);
         assertEquals(expected, listener.getResults());
@@ -129,18 +127,17 @@ public class VehicleInformationModuleTest {
         when(j1939.requestMultiple(AddressClaimPacket.class, requestPacket))
                 .thenReturn(Stream.of(packet1));
 
-        String expected = "";
-        expected += "2007-12-03T10:15:30.000 Global Request for Address Claim" + NL;
-        expected += "10:15:30.000 18EAFFA5 [3] 00 EE 00 (TX)" + NL;
-        expected += "10:15:30.000 18EEFF55 [8] 10 F7 45 01 00 45 00 01" + NL;
-        expected += "Diesel Particulate Filter Controller (85) reported as: {" + NL;
-        expected += "  Industry Group: Global" + NL;
-        expected += "  Vehicle System: Non-specific System, System Instance: 1" + NL;
-        expected += "  Function: Engine Emission Aftertreatment System, Functional Instance: 0, ECU Instance: 0" + NL;
-        expected += "  Manufactured by: Cummins Inc, Identity Number: 390928" + NL;
-        expected += "  Is not arbitrary address capable." + NL;
-        expected += "}" + NL;
-        expected += "Error: No module reported Function 0" + NL;
+        String expected = "2007-12-03T10:15:30.000 Global Request for Address Claim\r\n"
+                + "10:15:30.000 18EAFFA5 [3] 00 EE 00 (TX)\r\n"
+                + "10:15:30.000 18EEFF55 [8] 10 F7 45 01 00 45 00 01\r\n"
+                + "DPF Controller (85) reported as: {\r\n"
+                + "  Industry Group: Global\r\n"
+                + "  Vehicle System: Non-specific System, System Instance: 1\r\n"
+                + "  Function: Engine Emission Aftertreatment System, Functional Instance: 0, ECU Instance: 0\r\n"
+                + "  Manufactured by: Cummins Inc (formerly Cummins Engine Co), Identity Number: 390928\r\n"
+                + "  Is not arbitrary address capable.\r\n"
+                + "}\r\n"
+                + "Error: No module reported Function 0\r\n";
         TestResultsListener listener = new TestResultsListener();
         instance.reportAddressClaim(listener);
         assertEquals(expected, listener.getResults());
@@ -244,20 +241,32 @@ public class VehicleInformationModuleTest {
         when(j1939.requestMultiple(ComponentIdentificationPacket.class, requestPacket))
                 .thenReturn(Stream.of(packet1, packet2, packet3));
 
-        String expected = "";
-        expected += "2007-12-03T10:15:30.000 Global Component Identification Request" + NL;
-        expected += "10:15:30.000 18EAFFA5 [3] EB FE 00 (TX)" + NL;
-        expected += "10:15:30.000 18FEEB00 [28] 4D 61 6B 65 31 2A 4D 6F 64 65 6C 31 2A 53 65 72 69 61 6C 4E 75 6D 62 65 72 31 2A 2A"
-                + NL;
-        expected += "Found Engine #1 (0): Make: Make1, Model: Model1, Serial: SerialNumber1, Unit: "
-                + NL;
-        expected += "10:15:30.000 18FEEB17 [4] 2A 2A 2A 2A" + NL;
-        expected += "Found Instrument Cluster #1 (23): Make: , Model: , Serial: , Unit: "
-                + NL;
-        expected += "10:15:30.000 18FEEB21 [15] 4D 61 6B 65 33 2A 4D 6F 64 65 6C 33 2A 2A 2A"
-                + NL;
-        expected += "Found Body Controller (33): Make: Make3, Model: Model3, Serial: , Unit: "
-                + NL;
+        String expected = "2007-12-03T10:15:30.000 Global Component Identification Request\r\n"
+                + "10:15:30.000 18EAFFA5 [3] EB FE 00 (TX)\r\n"
+                + "10:15:30.000 18FEEB00 [28] 4D 61 6B 65 31 2A 4D 6F 64 65 6C 31 2A 53 65 72 69 61 6C 4E 75 6D 62 65 72 31 2A 2A\r\n"
+                + "Component Identification from Engine #1 (0): {\r\n"
+                + "  Make: Make1\r\n"
+                + "  Model: Model1\r\n"
+                + "  Serial: SerialNumber1\r\n"
+                + "  Unit: \r\n"
+                + "}\r\n"
+                + "\r\n"
+                + "10:15:30.000 18FEEB17 [4] 2A 2A 2A 2A\r\n"
+                + "Component Identification from Instrument Cluster #1 (23): {\r\n"
+                + "  Make: \r\n"
+                + "  Model: \r\n"
+                + "  Serial: \r\n"
+                + "  Unit: \r\n"
+                + "}\r\n"
+                + "\r\n"
+                + "10:15:30.000 18FEEB21 [15] 4D 61 6B 65 33 2A 4D 6F 64 65 6C 33 2A 2A 2A\r\n"
+                + "Component Identification from Body Controller (33): {\r\n"
+                + "  Make: Make3\r\n"
+                + "  Model: Model3\r\n"
+                + "  Serial: \r\n"
+                + "  Unit: \r\n"
+                + "}\r\n"
+                + "\r\n";
 
         TestResultsListener listener = new TestResultsListener();
         instance.reportComponentIdentification(listener);
@@ -328,13 +337,18 @@ public class VehicleInformationModuleTest {
         EngineHoursPacket packet2 = new EngineHoursPacket(Packet.create(pgn, 0x01, 8, 7, 6, 5, 4, 3, 2, 1));
         when(j1939.requestMultiple(EngineHoursPacket.class, requestPacket)).thenReturn(Stream.of(packet1, packet2));
 
-        String expected = "";
-        expected += "2007-12-03T10:15:30.000 Engine Hours Request" + NL;
-        expected += "10:15:30.000 18EAFFA5 [3] E5 FE 00 (TX)" + NL;
-        expected += "10:15:30.000 18FEE500 [8] 01 02 03 04 05 06 07 08" + NL;
-        expected += "Engine Hours from Engine #1 (0): 3,365,299.25 hours" + NL;
-        expected += "10:15:30.000 18FEE501 [8] 08 07 06 05 04 03 02 01" + NL;
-        expected += "Engine Hours from Engine #2 (1): 4,214,054.8 hours" + NL;
+        String expected = "2007-12-03T10:15:30.000 Engine Hours Request\r\n"
+                + "10:15:30.000 18EAFFA5 [3] E5 FE 00 (TX)\r\n"
+                + "10:15:30.000 18FEE500 [8] 01 02 03 04 05 06 07 08\r\n"
+                + "Engine Hours, Revolutions from Engine #1 (0): \r\n"
+                + "  SPN   247, Engine Total Hours of Operation: 3365299.250 h\r\n"
+                + "  SPN   249, Engine Total Revolutions: 134678021000.000 r\r\n"
+                + "\r\n"
+                + "10:15:30.000 18FEE501 [8] 08 07 06 05 04 03 02 01\r\n"
+                + "Engine Hours, Revolutions from Engine #2 (1): \r\n"
+                + "  SPN   247, Engine Total Hours of Operation: 4214054.800 h\r\n"
+                + "  SPN   249, Engine Total Revolutions: 16909060000.000 r\r\n"
+                + "\r\n";
 
         TestResultsListener listener = new TestResultsListener();
         instance.reportEngineHours(listener);
@@ -381,10 +395,12 @@ public class VehicleInformationModuleTest {
         when(j1939.read(HighResVehicleDistancePacket.class, 3, TimeUnit.SECONDS))
                 .thenReturn(Stream.of(packet0, packet1, packet2, packetFF).map(p -> Either.nullable(p, null)));
 
-        String expected = "";
-        expected += "2007-12-03T10:15:30.000 Vehicle Distance" + NL;
-        expected += "10:15:30.000 18FEC102 [8] 02 02 02 02 02 02 02 02" + NL;
-        expected += "High Resolution Vehicle Distance from Turbocharger (2): 168,430.09 km (104,657.605 mi)" + NL;
+        String expected = "2007-12-03T10:15:30.000 Vehicle Distance\r\n"
+                + "10:15:30.000 18FEC102 [8] 02 02 02 02 02 02 02 02\r\n"
+                + "High Resolution Vehicle Distance from Turbocharger (2): \r\n"
+                + "  SPN   917, Total Vehicle Distance (High Resolution): 168430090.000 m\r\n"
+                + "  SPN   918, Trip Distance (High Resolution): 168430090.000 m\r\n"
+                + "\r\n";
 
         TestResultsListener listener = new TestResultsListener();
         instance.reportVehicleDistance(listener);
@@ -409,10 +425,12 @@ public class VehicleInformationModuleTest {
         when(j1939.read(TotalVehicleDistancePacket.class, 300, TimeUnit.MILLISECONDS))
                 .thenReturn(Stream.of(packet2, packet1, packet0, packetFF).map(p -> Either.nullable(p, null)));
 
-        String expected = "";
-        expected += "2007-12-03T10:15:30.000 Vehicle Distance" + NL;
-        expected += "10:15:30.000 18FEE002 [8] 02 02 02 02 02 02 02 02" + NL;
-        expected += "Total Vehicle Distance from Turbocharger (2): 4,210,752.25 km (2,616,440.136 mi)" + NL;
+        String expected = "2007-12-03T10:15:30.000 Vehicle Distance\r\n"
+                + "10:15:30.000 18FEE002 [8] 02 02 02 02 02 02 02 02\r\n"
+                + "Total Vehicle Distance from Turbocharger (2): \r\n"
+                + "  SPN   244, Trip Distance: 4210752.250 km\r\n"
+                + "  SPN   245, Total Vehicle Distance: 4210752.250 km\r\n"
+                + "\r\n";
 
         TestResultsListener listener = new TestResultsListener();
         instance.reportVehicleDistance(listener);

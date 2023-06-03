@@ -29,13 +29,6 @@ public class MonitoredSystem implements Comparable<MonitoredSystem> {
         this.isDM5 = isDM5;
     }
 
-    public MonitoredSystem(String id,
-            MonitoredSystemStatus status,
-            int sourceAddress,
-            int unused) { // FIXME verify
-        this(CompositeSystem.valueOf(id), status, sourceAddress, status instanceof DM5MonitoredSystemStatus);
-    }
-
     @Override
     public int compareTo(MonitoredSystem o) {
         int result = getName().compareTo(o.getName());

@@ -3,8 +3,10 @@
  */
 package org.etools.j1939tools.j1939.packets;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 /**
  * This is a {@link MonitoredSystem} that is a composite of all
@@ -97,10 +99,12 @@ public class CompositeMonitoredSystem extends MonitoredSystem {
             return MonitoredSystemStatus.findStatus(isDm5, false, false);
         }
 
-        boolean isEnabled = systems.values().stream().anyMatch(MonitoredSystemStatus::isEnabled);
-        boolean isComplete = systems.values().stream().allMatch(MonitoredSystemStatus::isComplete);
+        List<MonitoredSystemStatus> enabled = systems.values().stream().filter(MonitoredSystemStatus::isEnabled)
+                .collect(Collectors.toList());
+        boolean someAreEnabled = !enabled.isEmpty();
+        boolean enabledAreComplete = enabled.stream().allMatch(MonitoredSystemStatus::isComplete);
 
-        return MonitoredSystemStatus.findStatus(isDm5, isEnabled, isComplete);
+        return MonitoredSystemStatus.findStatus(isDm5, someAreEnabled, enabledAreComplete);
     }
 
     /**

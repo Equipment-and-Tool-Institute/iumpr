@@ -10,6 +10,7 @@ package org.etools.j1939tools.j1939.packets;
  */
 public enum CompositeSystem {
 
+ // @formatter:off
     AC_SYSTEM_REFRIGERANT("A/C system refrigerant", 4, 0x10, false),
     BOOST_PRESSURE_CONTROL_SYS("Boost pressure control sys", 5, 0x02, false),
     CATALYST("Catalyst", 4, 0x01, false),
@@ -25,12 +26,14 @@ public enum CompositeSystem {
     MISFIRE("Misfire", 3, 0x10, true),
     NMHC_CONVERTING_CATALYST("NMHC converting catalyst", 5, 0x10, false),
     NOX_CATALYST_ABSORBER("NOx catalyst/adsorber", 5, 0x08, false),
-    SECONDARY_AIR_SYSTEM("Secondary air system", 4, 0x08, false);
+    SECONDARY_AIR_SYSTEM("Secondary air system", 4, 0x08, false),
+    UNDEFINED1("Undefined1",0,0,false);
+ // @formatter:on
 
+    private final boolean isContinuouslyMonitored;
     private final int lowerByte;
     private final int mask;
     private final String name;
-    private final boolean isContinuouslyMonitored;
 
     CompositeSystem(String name, int lowerByte, int mask, boolean isContinuouslyMonitored) {
         this.name = name;
@@ -47,12 +50,12 @@ public enum CompositeSystem {
         return mask;
     }
 
-    public boolean isContinuouslyMonitored() {
-        return isContinuouslyMonitored;
-    }
-
     public String getName() {
         return String.format("%-26s", name);
+    }
+
+    public boolean isContinuouslyMonitored() {
+        return isContinuouslyMonitored;
     }
 
     @Override

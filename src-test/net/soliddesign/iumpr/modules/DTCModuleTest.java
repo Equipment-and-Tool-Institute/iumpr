@@ -252,18 +252,14 @@ public class DTCModuleTest {
         when(j1939.requestMultiple(DM12MILOnEmissionDTCPacket.class, requestPacket))
                 .thenReturn(Stream.of(packet1, packet2, packet3));
 
-        String expected = "";
-        expected += "2007-12-03T10:15:30.000 Global DM12 Request" + NL;
-        expected += "10:15:30.000 18EAFFA5 [3] D4 FE 00 (TX)" + NL;
-        expected += "10:15:30.000 18FED400 [8] 00 00 00 00 00 00 00 00" + NL;
-        expected += "DM12 from Engine #1 (0): MIL: Off, RSL: Off, AWL: Off, PL: Off" + NL;
-        expected += "No DTCs" + NL;
-        expected += "10:15:30.000 18FED417 [8] 00 00 00 00 00 00 00 00" + NL;
-        expected += "DM12 from Instrument Cluster #1 (23): MIL: Off, RSL: Off, AWL: Off, PL: Off" + NL;
-        expected += "No DTCs" + NL;
-        expected += "10:15:30.000 18FED421 [8] 00 00 00 00 00 00 00 00" + NL;
-        expected += "DM12 from Body Controller (33): MIL: Off, RSL: Off, AWL: Off, PL: Off" + NL;
-        expected += "No DTCs" + NL;
+        String expected = "2007-12-03T10:15:30.000 Global DM12 Request\r\n"
+                + "10:15:30.000 18EAFFA5 [3] D4 FE 00 (TX)\r\n"
+                + "10:15:30.000 18FED400 [8] 00 00 00 00 00 00 00 00\r\n"
+                + "DM12 from Engine #1 (0): MIL: alternate off, RSL: alternate off, AWL: alternate off, PL: alternate off, No DTCs\r\n"
+                + "10:15:30.000 18FED417 [8] 00 00 00 00 00 00 00 00\r\n"
+                + "DM12 from Instrument Cluster #1 (23): MIL: alternate off, RSL: alternate off, AWL: alternate off, PL: alternate off, No DTCs\r\n"
+                + "10:15:30.000 18FED421 [8] 00 00 00 00 00 00 00 00\r\n"
+                + "DM12 from Body Controller (33): MIL: alternate off, RSL: alternate off, AWL: alternate off, PL: alternate off, No DTCs\r\n";
 
         TestResultsListener listener = new TestResultsListener();
         assertEquals(false, instance.reportDM12(listener));
@@ -285,15 +281,13 @@ public class DTCModuleTest {
         when(j1939.requestMultiple(DM12MILOnEmissionDTCPacket.class, requestPacket))
                 .thenReturn(Stream.of(packet1));
 
-        String expected = "";
-        expected += "2007-12-03T10:15:30.000 Global DM12 Request" + NL;
-        expected += "10:15:30.000 18EAFFA5 [3] D4 FE 00 (TX)" + NL;
-        expected += "10:15:30.000 18FED400 [14] 00 FF 61 02 13 00 21 06 1F 00 EE 10 04 00" + NL;
-        expected += "DM12 from Engine #1 (0): MIL: Off, RSL: Off, AWL: Off, PL: Off" + NL;
-        expected += "DTC: Controller #2 (609) Received Network Data In Error (19) 0 times" + NL;
-        expected += "DTC: Engine Protection Torque Derate (1569) Condition Exists (31) 0 times" + NL;
-        expected += "DTC: Aftertreatment 1 Diesel Exhaust Fluid Doser 1 Absolute Pressure (4334) Voltage Below Normal, Or Shorted To Low Source (4) 0 times"
-                + NL;
+        String expected = "2007-12-03T10:15:30.000 Global DM12 Request\r\n"
+                + "10:15:30.000 18EAFFA5 [3] D4 FE 00 (TX)\r\n"
+                + "10:15:30.000 18FED400 [14] 00 FF 61 02 13 00 21 06 1F 00 EE 10 04 00\r\n"
+                + "DM12 from Engine #1 (0): MIL: off, RSL: off, AWL: off, PL: off\r\n"
+                + "DTC 609:19 - Controller #2, Received Network Data In Error - 0 times\r\n"
+                + "DTC 1569:31 - Engine Protection Torque Derate, Condition Exists - 0 times\r\n"
+                + "DTC 4334:4 - AFT 1 DEF Doser 1 Absolute Pressure, Voltage Below Normal, Or Shorted To Low Source - 0 times\r\n";
 
         TestResultsListener listener = new TestResultsListener();
         assertEquals(true, instance.reportDM12(listener));
@@ -341,18 +335,14 @@ public class DTCModuleTest {
         when(j1939.requestMultiple(DM23PreviouslyMILOnEmissionDTCPacket.class, requestPacket))
                 .thenReturn(Stream.of(packet1, packet2, packet3));
 
-        String expected = "";
-        expected += "2007-12-03T10:15:30.000 Global DM23 Request" + NL;
-        expected += "10:15:30.000 18EAFFA5 [3] B5 FD 00 (TX)" + NL;
-        expected += "10:15:30.000 18FDB500 [8] 00 00 00 00 00 00 00 00" + NL;
-        expected += "DM23 from Engine #1 (0): MIL: Off, RSL: Off, AWL: Off, PL: Off" + NL;
-        expected += "No DTCs" + NL;
-        expected += "10:15:30.000 18FDB517 [8] 00 00 00 00 00 00 00 00" + NL;
-        expected += "DM23 from Instrument Cluster #1 (23): MIL: Off, RSL: Off, AWL: Off, PL: Off" + NL;
-        expected += "No DTCs" + NL;
-        expected += "10:15:30.000 18FDB521 [8] 00 00 00 00 00 00 00 00" + NL;
-        expected += "DM23 from Body Controller (33): MIL: Off, RSL: Off, AWL: Off, PL: Off" + NL;
-        expected += "No DTCs" + NL;
+        String expected = "2007-12-03T10:15:30.000 Global DM23 Request\r\n"
+                + "10:15:30.000 18EAFFA5 [3] B5 FD 00 (TX)\r\n"
+                + "10:15:30.000 18FDB500 [8] 00 00 00 00 00 00 00 00\r\n"
+                + "DM23 from Engine #1 (0): MIL: alternate off, RSL: alternate off, AWL: alternate off, PL: alternate off, No DTCs\r\n"
+                + "10:15:30.000 18FDB517 [8] 00 00 00 00 00 00 00 00\r\n"
+                + "DM23 from Instrument Cluster #1 (23): MIL: alternate off, RSL: alternate off, AWL: alternate off, PL: alternate off, No DTCs\r\n"
+                + "10:15:30.000 18FDB521 [8] 00 00 00 00 00 00 00 00\r\n"
+                + "DM23 from Body Controller (33): MIL: alternate off, RSL: alternate off, AWL: alternate off, PL: alternate off, No DTCs\r\n";
 
         TestResultsListener listener = new TestResultsListener();
         assertEquals(false, instance.reportDM23(listener));
@@ -375,14 +365,13 @@ public class DTCModuleTest {
                 .thenReturn(Stream.of(packet1));
 
         String expected = "";
-        expected += "2007-12-03T10:15:30.000 Global DM23 Request" + NL;
-        expected += "10:15:30.000 18EAFFA5 [3] B5 FD 00 (TX)" + NL;
-        expected += "10:15:30.000 18FDB500 [14] 00 FF 61 02 13 00 21 06 1F 00 EE 10 04 00" + NL;
-        expected += "DM23 from Engine #1 (0): MIL: Off, RSL: Off, AWL: Off, PL: Off" + NL;
-        expected += "DTC: Controller #2 (609) Received Network Data In Error (19) 0 times" + NL;
-        expected += "DTC: Engine Protection Torque Derate (1569) Condition Exists (31) 0 times" + NL;
-        expected += "DTC: Aftertreatment 1 Diesel Exhaust Fluid Doser 1 Absolute Pressure (4334) Voltage Below Normal, Or Shorted To Low Source (4) 0 times"
-                + NL;
+        expected += "2007-12-03T10:15:30.000 Global DM23 Request\r\n"
+                + "10:15:30.000 18EAFFA5 [3] B5 FD 00 (TX)\r\n"
+                + "10:15:30.000 18FDB500 [14] 00 FF 61 02 13 00 21 06 1F 00 EE 10 04 00\r\n"
+                + "DM23 from Engine #1 (0): MIL: off, RSL: off, AWL: off, PL: off\r\n"
+                + "DTC 609:19 - Controller #2, Received Network Data In Error - 0 times\r\n"
+                + "DTC 1569:31 - Engine Protection Torque Derate, Condition Exists - 0 times\r\n"
+                + "DTC 4334:4 - AFT 1 DEF Doser 1 Absolute Pressure, Voltage Below Normal, Or Shorted To Low Source - 0 times\r\n";
 
         TestResultsListener listener = new TestResultsListener();
         assertEquals(true, instance.reportDM23(listener));
@@ -428,18 +417,14 @@ public class DTCModuleTest {
         when(j1939.requestMultiple(DM28PermanentEmissionDTCPacket.class, requestPacket))
                 .thenReturn(Stream.of(packet1, packet2, packet3));
 
-        String expected = "";
-        expected += "2007-12-03T10:15:30.000 Global DM28 Request" + NL;
-        expected += "10:15:30.000 18EAFFA5 [3] 80 FD 00 (TX)" + NL;
-        expected += "10:15:30.000 18FD8000 [8] 00 00 00 00 00 00 00 00" + NL;
-        expected += "DM28 from Engine #1 (0): MIL: Off, RSL: Off, AWL: Off, PL: Off" + NL;
-        expected += "No DTCs" + NL;
-        expected += "10:15:30.000 18FD8017 [8] 00 00 00 00 00 00 00 00" + NL;
-        expected += "DM28 from Instrument Cluster #1 (23): MIL: Off, RSL: Off, AWL: Off, PL: Off" + NL;
-        expected += "No DTCs" + NL;
-        expected += "10:15:30.000 18FD8021 [8] 00 00 00 00 00 00 00 00" + NL;
-        expected += "DM28 from Body Controller (33): MIL: Off, RSL: Off, AWL: Off, PL: Off" + NL;
-        expected += "No DTCs" + NL;
+        String expected = "2007-12-03T10:15:30.000 Global DM28 Request\r\n"
+                + "10:15:30.000 18EAFFA5 [3] 80 FD 00 (TX)\r\n"
+                + "10:15:30.000 18FD8000 [8] 00 00 00 00 00 00 00 00\r\n"
+                + "DM28 from Engine #1 (0): MIL: alternate off, RSL: alternate off, AWL: alternate off, PL: alternate off, No DTCs\r\n"
+                + "10:15:30.000 18FD8017 [8] 00 00 00 00 00 00 00 00\r\n"
+                + "DM28 from Instrument Cluster #1 (23): MIL: alternate off, RSL: alternate off, AWL: alternate off, PL: alternate off, No DTCs\r\n"
+                + "10:15:30.000 18FD8021 [8] 00 00 00 00 00 00 00 00\r\n"
+                + "DM28 from Body Controller (33): MIL: alternate off, RSL: alternate off, AWL: alternate off, PL: alternate off, No DTCs\r\n";
 
         TestResultsListener listener = new TestResultsListener();
         assertEquals(false, instance.reportDM28(listener));
@@ -462,16 +447,13 @@ public class DTCModuleTest {
         when(j1939.requestMultiple(DM28PermanentEmissionDTCPacket.class, requestPacket))
                 .thenReturn(Stream.of(packet1));
 
-        String expected = "";
-        expected += "2007-12-03T10:15:30.000 Global DM28 Request" + NL;
-        expected += "10:15:30.000 18EAFFA5 [3] 80 FD 00 (TX)" + NL;
-        expected += "10:15:30.000 18FD8000 [14] 00 FF 61 02 13 00 21 06 1F 00 EE 10 04 00" + NL;
-        expected += "DM28 from Engine #1 (0): MIL: Off, RSL: Off, AWL: Off, PL: Off" + NL;
-        expected += "DTC: Controller #2 (609) Received Network Data In Error (19) 0 times" + NL;
-        expected += "DTC: Engine Protection Torque Derate (1569) Condition Exists (31) 0 times" + NL;
-        expected += "DTC: Aftertreatment 1 Diesel Exhaust Fluid Doser 1 Absolute Pressure (4334) Voltage Below Normal, Or Shorted To Low Source (4) 0 times"
-                + NL;
-
+        String expected = "2007-12-03T10:15:30.000 Global DM28 Request\r\n"
+                + "10:15:30.000 18EAFFA5 [3] 80 FD 00 (TX)\r\n"
+                + "10:15:30.000 18FD8000 [14] 00 FF 61 02 13 00 21 06 1F 00 EE 10 04 00\r\n"
+                + "DM28 from Engine #1 (0): MIL: off, RSL: off, AWL: off, PL: off\r\n"
+                + "DTC 609:19 - Controller #2, Received Network Data In Error - 0 times\r\n"
+                + "DTC 1569:31 - Engine Protection Torque Derate, Condition Exists - 0 times\r\n"
+                + "DTC 4334:4 - AFT 1 DEF Doser 1 Absolute Pressure, Voltage Below Normal, Or Shorted To Low Source - 0 times\r\n";
         TestResultsListener listener = new TestResultsListener();
         assertEquals(true, instance.reportDM28(listener));
         assertEquals(expected, listener.getResults());
@@ -516,18 +498,14 @@ public class DTCModuleTest {
         when(j1939.requestMultiple(DM6PendingEmissionDTCPacket.class, requestPacket))
                 .thenReturn(Stream.of(packet1, packet2, packet3));
 
-        String expected = "";
-        expected += "2007-12-03T10:15:30.000 Global DM6 Request" + NL;
-        expected += "10:15:30.000 18EAFFA5 [3] CF FE 00 (TX)" + NL;
-        expected += "10:15:30.000 18FECF00 [8] 00 00 00 00 00 00 00 00" + NL;
-        expected += "DM6 from Engine #1 (0): MIL: Off, RSL: Off, AWL: Off, PL: Off" + NL;
-        expected += "No DTCs" + NL;
-        expected += "10:15:30.000 18FECF17 [8] 00 00 00 00 00 00 00 00" + NL;
-        expected += "DM6 from Instrument Cluster #1 (23): MIL: Off, RSL: Off, AWL: Off, PL: Off" + NL;
-        expected += "No DTCs" + NL;
-        expected += "10:15:30.000 18FECF21 [8] 00 00 00 00 00 00 00 00" + NL;
-        expected += "DM6 from Body Controller (33): MIL: Off, RSL: Off, AWL: Off, PL: Off" + NL;
-        expected += "No DTCs" + NL;
+        String expected = "2007-12-03T10:15:30.000 Global DM6 Request\r\n"
+                + "10:15:30.000 18EAFFA5 [3] CF FE 00 (TX)\r\n"
+                + "10:15:30.000 18FECF00 [8] 00 00 00 00 00 00 00 00\r\n"
+                + "DM6 from Engine #1 (0): MIL: alternate off, RSL: alternate off, AWL: alternate off, PL: alternate off, No DTCs\r\n"
+                + "10:15:30.000 18FECF17 [8] 00 00 00 00 00 00 00 00\r\n"
+                + "DM6 from Instrument Cluster #1 (23): MIL: alternate off, RSL: alternate off, AWL: alternate off, PL: alternate off, No DTCs\r\n"
+                + "10:15:30.000 18FECF21 [8] 00 00 00 00 00 00 00 00\r\n"
+                + "DM6 from Body Controller (33): MIL: alternate off, RSL: alternate off, AWL: alternate off, PL: alternate off, No DTCs\r\n";
 
         TestResultsListener listener = new TestResultsListener();
         assertEquals(false, instance.reportDM6(listener));
@@ -549,15 +527,13 @@ public class DTCModuleTest {
                         0x00, 0xEE, 0x10, 0x04, 0x00));
         when(j1939.requestMultiple(DM6PendingEmissionDTCPacket.class, requestPacket)).thenReturn(Stream.of(packet1));
 
-        String expected = "";
-        expected += "2007-12-03T10:15:30.000 Global DM6 Request" + NL;
-        expected += "10:15:30.000 18EAFFA5 [3] CF FE 00 (TX)" + NL;
-        expected += "10:15:30.000 18FECF00 [14] 00 FF 61 02 13 00 21 06 1F 00 EE 10 04 00" + NL;
-        expected += "DM6 from Engine #1 (0): MIL: Off, RSL: Off, AWL: Off, PL: Off" + NL;
-        expected += "DTC: Controller #2 (609) Received Network Data In Error (19) 0 times" + NL;
-        expected += "DTC: Engine Protection Torque Derate (1569) Condition Exists (31) 0 times" + NL;
-        expected += "DTC: Aftertreatment 1 Diesel Exhaust Fluid Doser 1 Absolute Pressure (4334) Voltage Below Normal, Or Shorted To Low Source (4) 0 times"
-                + NL;
+        String expected = "2007-12-03T10:15:30.000 Global DM6 Request\r\n"
+                + "10:15:30.000 18EAFFA5 [3] CF FE 00 (TX)\r\n"
+                + "10:15:30.000 18FECF00 [14] 00 FF 61 02 13 00 21 06 1F 00 EE 10 04 00\r\n"
+                + "DM6 from Engine #1 (0): MIL: off, RSL: off, AWL: off, PL: off\r\n"
+                + "DTC 609:19 - Controller #2, Received Network Data In Error - 0 times\r\n"
+                + "DTC 1569:31 - Engine Protection Torque Derate, Condition Exists - 0 times\r\n"
+                + "DTC 4334:4 - AFT 1 DEF Doser 1 Absolute Pressure, Voltage Below Normal, Or Shorted To Low Source - 0 times\r\n";
 
         TestResultsListener listener = new TestResultsListener();
         assertEquals(true, instance.reportDM6(listener));
