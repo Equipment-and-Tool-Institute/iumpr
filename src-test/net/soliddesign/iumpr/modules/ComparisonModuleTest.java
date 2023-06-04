@@ -71,17 +71,17 @@ public class ComparisonModuleTest {
     @Test
     public void testCompareFileToVehicle() throws Exception {
         DM19CalibrationInformationPacket packet1 = mock(DM19CalibrationInformationPacket.class);
-        List<CalibrationInformation> list1 = Collections.singletonList(new CalibrationInformation("id1", "cvn1"));
+        List<CalibrationInformation> list1 = Collections.singletonList(new CalibrationInformation("id1", 0x12345678));
         when(packet1.getCalibrationInformation()).thenReturn(list1);
 
         DM19CalibrationInformationPacket packet2 = mock(DM19CalibrationInformationPacket.class);
-        List<CalibrationInformation> list2 = Collections.singletonList(new CalibrationInformation("id2", "cvn2"));
+        List<CalibrationInformation> list2 = Collections.singletonList(new CalibrationInformation("id2", 0x87654321));
         when(packet2.getCalibrationInformation()).thenReturn(list2);
         when(j1939.requestMultiple(DM19CalibrationInformationPacket.class)).thenReturn(Stream.of(packet1, packet2));
 
         Set<CalibrationInformation> fileCals = new HashSet<>();
-        fileCals.add(new CalibrationInformation("id1", "cvn1"));
-        fileCals.add(new CalibrationInformation("id2", "cvn2"));
+        fileCals.add(new CalibrationInformation("id1", 0x12345678));
+        fileCals.add(new CalibrationInformation("id2", 0x87654321));
         when(reportFileModule.getCalibrations()).thenReturn(fileCals);
 
         DM21DiagnosticReadinessPacket packet = mock(DM21DiagnosticReadinessPacket.class);
@@ -119,18 +119,18 @@ public class ComparisonModuleTest {
     @Test
     public void testCompareFileToVehicleThenResetThenCompareFileToVehicle() throws Exception {
         DM19CalibrationInformationPacket packet1 = mock(DM19CalibrationInformationPacket.class);
-        List<CalibrationInformation> list1 = Collections.singletonList(new CalibrationInformation("id1", "cvn1"));
+        List<CalibrationInformation> list1 = Collections.singletonList(new CalibrationInformation("id1", 0x12345678));
         when(packet1.getCalibrationInformation()).thenReturn(list1).thenReturn(list1);
 
         DM19CalibrationInformationPacket packet2 = mock(DM19CalibrationInformationPacket.class);
-        List<CalibrationInformation> list2 = Collections.singletonList(new CalibrationInformation("id2", "cvn2"));
+        List<CalibrationInformation> list2 = Collections.singletonList(new CalibrationInformation("id2", 0x87654321));
         when(packet2.getCalibrationInformation()).thenReturn(list2).thenReturn(list2);
         when(j1939.requestMultiple(DM19CalibrationInformationPacket.class)).thenReturn(Stream.of(packet1, packet2))
                 .thenReturn(Stream.of(packet1, packet2));
 
         Set<CalibrationInformation> fileCals = new HashSet<>();
-        fileCals.add(new CalibrationInformation("id1", "cvn1"));
-        fileCals.add(new CalibrationInformation("id2", "cvn2"));
+        fileCals.add(new CalibrationInformation("id1", 0x12345678));
+        fileCals.add(new CalibrationInformation("id2", 0x87654321));
         when(reportFileModule.getCalibrations()).thenReturn(fileCals).thenReturn(fileCals);
 
         DM21DiagnosticReadinessPacket packet = mock(DM21DiagnosticReadinessPacket.class);
@@ -175,17 +175,17 @@ public class ComparisonModuleTest {
     @Test
     public void testCompareFileToVehicleWithCalMismatch() throws Exception {
         DM19CalibrationInformationPacket packet1 = mock(DM19CalibrationInformationPacket.class);
-        List<CalibrationInformation> list1 = Collections.singletonList(new CalibrationInformation("id1", "cvn1"));
+        List<CalibrationInformation> list1 = Collections.singletonList(new CalibrationInformation("id1", 0x12345678));
         when(packet1.getCalibrationInformation()).thenReturn(list1);
 
         DM19CalibrationInformationPacket packet2 = mock(DM19CalibrationInformationPacket.class);
-        List<CalibrationInformation> list2 = Collections.singletonList(new CalibrationInformation("id2", "cvn2"));
+        List<CalibrationInformation> list2 = Collections.singletonList(new CalibrationInformation("id2", 0x87654321));
         when(packet2.getCalibrationInformation()).thenReturn(list2);
         when(j1939.requestMultiple(DM19CalibrationInformationPacket.class)).thenReturn(Stream.of(packet1, packet2));
 
         Set<CalibrationInformation> fileCals = new HashSet<>();
-        fileCals.add(new CalibrationInformation("id1", "cvn1"));
-        fileCals.add(new CalibrationInformation("id3", "cvn3"));
+        fileCals.add(new CalibrationInformation("id1", 0x12345678));
+        fileCals.add(new CalibrationInformation("id3", 0x55555555));
         when(reportFileModule.getCalibrations()).thenReturn(fileCals);
 
         VehicleIdentificationPacket vinPacket = mock(VehicleIdentificationPacket.class);
@@ -226,8 +226,8 @@ public class ComparisonModuleTest {
         when(j1939.requestMultiple(DM19CalibrationInformationPacket.class)).thenReturn(Stream.empty());
 
         Set<CalibrationInformation> fileCals = new HashSet<>();
-        fileCals.add(new CalibrationInformation("id1", "cvn1"));
-        fileCals.add(new CalibrationInformation("id3", "cvn3"));
+        fileCals.add(new CalibrationInformation("id1", 0x12345678));
+        fileCals.add(new CalibrationInformation("id3", 0x55555555));
         when(reportFileModule.getCalibrations()).thenReturn(fileCals);
 
         VehicleIdentificationPacket vinPacket = mock(VehicleIdentificationPacket.class);
@@ -267,17 +267,17 @@ public class ComparisonModuleTest {
     @Test
     public void testCompareFileToVehicleWithTSCCGap() throws Exception {
         DM19CalibrationInformationPacket packet1 = mock(DM19CalibrationInformationPacket.class);
-        List<CalibrationInformation> list1 = Collections.singletonList(new CalibrationInformation("id1", "cvn1"));
+        List<CalibrationInformation> list1 = Collections.singletonList(new CalibrationInformation("id1", 0x12345678));
         when(packet1.getCalibrationInformation()).thenReturn(list1);
 
         DM19CalibrationInformationPacket packet2 = mock(DM19CalibrationInformationPacket.class);
-        List<CalibrationInformation> list2 = Collections.singletonList(new CalibrationInformation("id2", "cvn2"));
+        List<CalibrationInformation> list2 = Collections.singletonList(new CalibrationInformation("id2", 0x87654321));
         when(packet2.getCalibrationInformation()).thenReturn(list2);
         when(j1939.requestMultiple(DM19CalibrationInformationPacket.class)).thenReturn(Stream.of(packet1, packet2));
 
         Set<CalibrationInformation> fileCals = new HashSet<>();
-        fileCals.add(new CalibrationInformation("id1", "cvn1"));
-        fileCals.add(new CalibrationInformation("id2", "cvn2"));
+        fileCals.add(new CalibrationInformation("id1", 0x12345678));
+        fileCals.add(new CalibrationInformation("id2", 0x87654321));
         when(reportFileModule.getCalibrations()).thenReturn(fileCals);
 
         DM21DiagnosticReadinessPacket packet21 = mock(DM21DiagnosticReadinessPacket.class);
@@ -319,17 +319,17 @@ public class ComparisonModuleTest {
     @Test
     public void testCompareFileToVehicleWithTSCCReset() throws Exception {
         DM19CalibrationInformationPacket packet1 = mock(DM19CalibrationInformationPacket.class);
-        List<CalibrationInformation> list1 = Collections.singletonList(new CalibrationInformation("id1", "cvn1"));
+        List<CalibrationInformation> list1 = Collections.singletonList(new CalibrationInformation("id1", 0x12345678));
         when(packet1.getCalibrationInformation()).thenReturn(list1);
 
         DM19CalibrationInformationPacket packet2 = mock(DM19CalibrationInformationPacket.class);
-        List<CalibrationInformation> list2 = Collections.singletonList(new CalibrationInformation("id2", "cvn2"));
+        List<CalibrationInformation> list2 = Collections.singletonList(new CalibrationInformation("id2", 0x87654321));
         when(packet2.getCalibrationInformation()).thenReturn(list2);
         when(j1939.requestMultiple(DM19CalibrationInformationPacket.class)).thenReturn(Stream.of(packet1, packet2));
 
         Set<CalibrationInformation> fileCals = new HashSet<>();
-        fileCals.add(new CalibrationInformation("id1", "cvn1"));
-        fileCals.add(new CalibrationInformation("id2", "cvn2"));
+        fileCals.add(new CalibrationInformation("id1", 0x12345678));
+        fileCals.add(new CalibrationInformation("id2", 0x87654321));
         when(reportFileModule.getCalibrations()).thenReturn(fileCals);
 
         DM21DiagnosticReadinessPacket packet = mock(DM21DiagnosticReadinessPacket.class);
@@ -369,17 +369,17 @@ public class ComparisonModuleTest {
     @Test
     public void testCompareFileToVehicleWithTSCCTimeout() throws Exception {
         DM19CalibrationInformationPacket packet1 = mock(DM19CalibrationInformationPacket.class);
-        List<CalibrationInformation> list1 = Collections.singletonList(new CalibrationInformation("id1", "cvn1"));
+        List<CalibrationInformation> list1 = Collections.singletonList(new CalibrationInformation("id1", 0x12345678));
         when(packet1.getCalibrationInformation()).thenReturn(list1);
 
         DM19CalibrationInformationPacket packet2 = mock(DM19CalibrationInformationPacket.class);
-        List<CalibrationInformation> list2 = Collections.singletonList(new CalibrationInformation("id2", "cvn2"));
+        List<CalibrationInformation> list2 = Collections.singletonList(new CalibrationInformation("id2", 0x87654321));
         when(packet2.getCalibrationInformation()).thenReturn(list2);
         when(j1939.requestMultiple(DM19CalibrationInformationPacket.class)).thenReturn(Stream.of(packet1, packet2));
 
         Set<CalibrationInformation> fileCals = new HashSet<>();
-        fileCals.add(new CalibrationInformation("id1", "cvn1"));
-        fileCals.add(new CalibrationInformation("id2", "cvn2"));
+        fileCals.add(new CalibrationInformation("id1", 0x12345678));
+        fileCals.add(new CalibrationInformation("id2", 0x87654321));
         when(reportFileModule.getCalibrations()).thenReturn(fileCals);
 
         when(j1939.requestMultiple(DM21DiagnosticReadinessPacket.class)).thenReturn(Stream.empty());
@@ -460,11 +460,11 @@ public class ComparisonModuleTest {
     @Test
     public void testGetCalibrationsAsString() throws Exception {
         DM19CalibrationInformationPacket packet1 = mock(DM19CalibrationInformationPacket.class);
-        List<CalibrationInformation> list1 = Collections.singletonList(new CalibrationInformation("id1", "cvn1"));
+        List<CalibrationInformation> list1 = Collections.singletonList(new CalibrationInformation("id1", 0x12345678));
         when(packet1.getCalibrationInformation()).thenReturn(list1);
 
         DM19CalibrationInformationPacket packet2 = mock(DM19CalibrationInformationPacket.class);
-        List<CalibrationInformation> list2 = Collections.singletonList(new CalibrationInformation("id2", "cvn2"));
+        List<CalibrationInformation> list2 = Collections.singletonList(new CalibrationInformation("id2", 0x87654321));
         when(packet2.getCalibrationInformation()).thenReturn(list2);
 
         when(j1939.requestMultiple(DM19CalibrationInformationPacket.class)).thenReturn(Stream.of(packet1, packet2));

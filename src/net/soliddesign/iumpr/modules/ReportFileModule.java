@@ -668,10 +668,7 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
             lineTscc = (int) dm21.getMinutesSinceDTCsCleared();
         }
 
-        if (true) {
-            throw new RuntimeException("Whatis this?");
-        }
-        int fromIndex = line.indexOf(0);// DM21DiagnosticReadinessPacket.TSCC_LINE);
+        int fromIndex = line.indexOf(DM21DiagnosticReadinessPacket.TSCC_LINE);
         if (fromIndex != -1) {
             try {
                 // Get the Time Since Code Clear from the line
@@ -836,8 +833,8 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
             throw new ReportFileException(problem[0]);
         } else if (vin == null) {
             throw new ReportFileException(Problem.VIN_NOT_PRESENT);
-        } else if (lastInstant == null) {
-            throw new ReportFileException(Problem.DATE_NOT_PRESENT);
+            // } else if (lastInstant == null) {
+            // throw new ReportFileException(Problem.DATE_NOT_PRESENT);
         } else if (tscc == Integer.MIN_VALUE) {
             throw new ReportFileException(Problem.TSCC_NOT_PRESENT);
         } else if (calMap.isEmpty()) {

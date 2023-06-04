@@ -125,10 +125,13 @@ public class DateTimeModule {
         // We really want this -> DateTimeFormatter.ISO_OFFSET_DATE_TIME but
         // it doesn't have a constant number of milliseconds
         return new DateTimeFormatterBuilder().parseCaseInsensitive()
-                .appendValue(YEAR, 4, 10, SignStyle.EXCEEDS_PAD).appendLiteral('-').appendValue(MONTH_OF_YEAR, 2)
-                .appendLiteral('-').appendValue(DAY_OF_MONTH, 2).appendLiteral('T').appendValue(HOUR_OF_DAY, 2)
-                .appendLiteral(':').appendValue(MINUTE_OF_HOUR, 2).optionalStart().appendLiteral(':')
-                .appendValue(SECOND_OF_MINUTE, 2).optionalStart().appendFraction(NANO_OF_SECOND, 3, 3, true)
+                .appendValue(YEAR, 4, 10, SignStyle.EXCEEDS_PAD)
+                .appendLiteral('-').appendValue(MONTH_OF_YEAR, 2)
+                .appendLiteral('-').appendValue(DAY_OF_MONTH, 2)
+                .appendLiteral('T').appendValue(HOUR_OF_DAY, 2)
+                .appendLiteral(':').appendValue(MINUTE_OF_HOUR, 2)
+                .optionalStart().appendLiteral(':').appendValue(SECOND_OF_MINUTE, 2)
+                .optionalStart().parseLenient().appendFraction(NANO_OF_SECOND, 3, 4, true)
                 .toFormatter();
     }
 
@@ -154,13 +157,9 @@ public class DateTimeModule {
         if (timeFormatter == null) {
             timeFormatter = new DateTimeFormatterBuilder().parseCaseInsensitive()
                     .appendValue(HOUR_OF_DAY, 2)
-                    .appendLiteral(':')
-                    .appendValue(MINUTE_OF_HOUR, 2)
-                    .optionalStart()
-                    .appendLiteral(':')
-                    .appendValue(SECOND_OF_MINUTE, 2)
-                    .optionalStart()
-                    .appendFraction(NANO_OF_SECOND, 4, 4, true)
+                    .appendLiteral(':').appendValue(MINUTE_OF_HOUR, 2)
+                    .optionalStart().appendLiteral(':').appendValue(SECOND_OF_MINUTE, 2)
+                    .optionalStart().parseLenient().appendFraction(NANO_OF_SECOND, 4, 4, true)
                     .toFormatter();
         }
         return timeFormatter;

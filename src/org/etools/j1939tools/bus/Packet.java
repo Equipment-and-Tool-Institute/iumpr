@@ -520,6 +520,16 @@ public class Packet {
         timestamp = timestamp2;
     }
 
+    public String toDateTimeString() {
+        /*
+         * Collect data first, because timestamp is dynamic until the data is
+         * collected. This will block on the data. We want to report the
+         * timestamp of final packet.
+         */
+        String dataString = toString();
+        return DateTimeModule.getInstance().getDateTime() + " " + dataString;
+    }
+
     public String toDeltaTimeString(Packet sent) {
         if (!getFragments().isEmpty() && getFragments().get(0) != this) {
             String thisString;

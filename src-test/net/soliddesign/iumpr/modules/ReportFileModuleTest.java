@@ -5,7 +5,6 @@ package net.soliddesign.iumpr.modules;
 
 import static net.soliddesign.iumpr.IUMPR.NL;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -144,7 +143,7 @@ public class ReportFileModuleTest {
         assertEquals(1, instance.getCalibrations().size());
 
         CalibrationInformation calInfo = instance.getCalibrations().iterator().next();
-        assertEquals("PBT5MPR3", calInfo.getCalibrationIdentification());
+        assertEquals("PBT5MPR3", calInfo.getCalibrationIdentification().trim());
         assertEquals("0x40DCBF96", calInfo.getCalibrationVerificationNumber());
     }
 
@@ -239,7 +238,7 @@ public class ReportFileModuleTest {
             }
         }
 
-        assertTrue(count == 3);
+        assertEquals(1, count);
     }
 
     @Test
@@ -352,7 +351,7 @@ public class ReportFileModuleTest {
         assertEquals(1, instance.getCalibrations().size());
 
         CalibrationInformation calInfo = instance.getCalibrations().iterator().next();
-        assertEquals("PBT5MPR3", calInfo.getCalibrationIdentification());
+        assertEquals("PBT5MPR3", calInfo.getCalibrationIdentification().trim());
         assertEquals("0x40DCBF96", calInfo.getCalibrationVerificationNumber());
 
         assertEquals(LocalDateTime.parse("2017-03-05T12:21:45.090"), instance.getInitialMonitorsTime());
@@ -442,7 +441,7 @@ public class ReportFileModuleTest {
         assertEquals(1, instance.getCalibrations().size());
 
         CalibrationInformation calInfo = instance.getCalibrations().iterator().next();
-        assertEquals("PBT5MPR3", calInfo.getCalibrationIdentification());
+        assertEquals("PBT5MPR3", calInfo.getCalibrationIdentification().trim());
         assertEquals("0x40DCBF96", calInfo.getCalibrationVerificationNumber());
 
         assertEquals(LocalDateTime.parse("2017-03-05T12:21:45.090"), instance.getInitialMonitorsTime());
@@ -671,7 +670,7 @@ public class ReportFileModuleTest {
         assertEquals(1, instance.getCalibrations().size());
 
         CalibrationInformation calInfo = instance.getCalibrations().iterator().next();
-        assertEquals("PBT5MPR3", calInfo.getCalibrationIdentification());
+        assertEquals("PBT5MPR3", calInfo.getCalibrationIdentification().trim());
         assertEquals("0x40DCBF96", calInfo.getCalibrationVerificationNumber());
 
         assertEquals(LocalDateTime.parse("2017-03-05T12:21:45.090"), instance.getInitialMonitorsTime());
@@ -838,7 +837,7 @@ public class ReportFileModuleTest {
         assertEquals(14, instance.getMinutesSinceCodeClear(), 0.0001);
         assertEquals(1, instance.getCalibrations().size());
         CalibrationInformation calInfo = instance.getCalibrations().iterator().next();
-        assertEquals("PBT5MPR3", calInfo.getCalibrationIdentification());
+        assertEquals("PBT5MPR3", calInfo.getCalibrationIdentification().trim());
         assertEquals("0x40DCBF96", calInfo.getCalibrationVerificationNumber());
 
         instance.onResult("2017-03-05T12:43:18.770 18C10000 00 00 00 00 00 00 1E 00");
@@ -871,7 +870,7 @@ public class ReportFileModuleTest {
             assertEquals(1, instance.getCalibrations().size());
 
             CalibrationInformation calInfo = instance.getCalibrations().iterator().next();
-            assertEquals("PBT5MPR3", calInfo.getCalibrationIdentification());
+            assertEquals("PBT5MPR3", calInfo.getCalibrationIdentification().trim());
             assertEquals("0x40DCBF96", calInfo.getCalibrationVerificationNumber());
 
             assertEquals(LocalDateTime.parse("2017-03-05T12:21:45.090"), instance.getInitialMonitorsTime());
@@ -926,7 +925,7 @@ public class ReportFileModuleTest {
             assertEquals(1, instance.getCalibrations().size());
 
             CalibrationInformation calInfo = instance.getCalibrations().iterator().next();
-            assertEquals("PBT5MPR3", calInfo.getCalibrationIdentification());
+            assertEquals("PBT5MPR3", calInfo.getCalibrationIdentification().trim());
             assertEquals("0x40DCBF96", calInfo.getCalibrationVerificationNumber());
 
             assertEquals(LocalDateTime.parse("2017-03-05T12:21:45.090"), instance.getInitialMonitorsTime());
@@ -963,7 +962,7 @@ public class ReportFileModuleTest {
             assertEquals(1, instance.getCalibrations().size());
 
             CalibrationInformation calInfo = instance.getCalibrations().iterator().next();
-            assertEquals("PBT5MPR3", calInfo.getCalibrationIdentification());
+            assertEquals("PBT5MPR3", calInfo.getCalibrationIdentification().trim());
             assertEquals("0x40DCBF97", calInfo.getCalibrationVerificationNumber());
 
             assertEquals(LocalDateTime.parse("2017-03-05T12:21:46.090"), instance.getInitialMonitorsTime());

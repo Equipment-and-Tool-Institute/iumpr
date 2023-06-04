@@ -3,7 +3,6 @@
  */
 package org.etools.j1939tools.j1939.packets;
 
-
 import static org.etools.j1939_84.J1939_84.NL;
 import static org.etools.j1939tools.utils.CollectionUtils.join;
 
@@ -17,22 +16,23 @@ import org.etools.j1939tools.bus.Packet;
 public class DM21DiagnosticReadinessPacket extends GenericPacket {
 
     public static final int PGN = 49408; // 0xC100
+    public static final String TSCC_LINE = "Time Since DTCs Cleared:";
+
+    public static DM21DiagnosticReadinessPacket create(int source,
+            int destination,
+            int kmWithMIL,
+            int kmSinceCodeClear,
+            int minutesWithMIL,
+            int minutesSinceCodeClear) {
+        byte[] bytes = join(to2Bytes(kmWithMIL),
+                to2Bytes(kmSinceCodeClear),
+                to2Bytes(minutesWithMIL),
+                to2Bytes(minutesSinceCodeClear));
+        return new DM21DiagnosticReadinessPacket(Packet.create(PGN | destination, source, bytes));
+    }
 
     public DM21DiagnosticReadinessPacket(Packet packet) {
         super(packet);
-    }
-
-    public static DM21DiagnosticReadinessPacket create(int source,
-                                                       int destination,
-                                                       int kmWithMIL,
-                                                       int kmSinceCodeClear,
-                                                       int minutesWithMIL,
-                                                       int minutesSinceCodeClear) {
-        byte[] bytes = join(to2Bytes(kmWithMIL),
-                            to2Bytes(kmSinceCodeClear),
-                            to2Bytes(minutesWithMIL),
-                            to2Bytes(minutesSinceCodeClear));
-        return new DM21DiagnosticReadinessPacket(Packet.create(PGN | destination, source, bytes));
     }
 
     private String getDistanceSinceDTCsClearedAsString() {
@@ -108,22 +108,22 @@ public class DM21DiagnosticReadinessPacket extends GenericPacket {
         return "DM21";
     }
 
-    @Override
-    public String toString() {
-        String result = getStringPrefix() + "[" + NL;
-        result += "  Distance Traveled While MIL is Activated:     " + getDistanceWithMILActiveAsString() + NL;
-        result += "  Time Run by Engine While MIL is Activated:    " + getTimeWithMILActiveAsString() + NL;
-        result += "  Distance Since DTCs Cleared:                  " + getDistanceSinceDTCsClearedAsString() + NL;
-        result += "  Time Since DTCs Cleared:                      " + getTimeSinceDTCsClearedAsString() + NL;
-        result += "]";
-        return result;
-    }
-
     private String getTimeSinceDTCsClearedAsString() {
         return getValueWithUnits(getMinutesSinceDTCsCleared(), "minutes");
     }
 
     private String getTimeWithMILActiveAsString() {
         return getValueWithUnits(getMinutesWhileMILIsActivated(), "minutes");
+    }
+
+    @Override
+    public String toString() {
+        String result = getStringPrefix() + "[" + NL;
+        result += "  Distance Traveled While MIL is Activated:     " + getDistanceWithMILActiveAsString() + NL;
+        result += "  Time Run by Engine While MIL is Activated:    " + getTimeWithMILActiveAsString() + NL;
+        result += "  Distance Since DTCs Cleared:                  " + getDistanceSinceDTCsClearedAsString() + NL;
+        result += "  " + TSCC_LINE + "                      " + getTimeSinceDTCsClearedAsString() + NL;
+        result += "]";
+        return result;
     }
 }
