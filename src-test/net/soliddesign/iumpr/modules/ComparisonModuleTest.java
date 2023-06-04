@@ -13,10 +13,9 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import javax.swing.JOptionPane;
@@ -79,7 +78,7 @@ public class ComparisonModuleTest {
         when(packet2.getCalibrationInformation()).thenReturn(list2);
         when(j1939.requestMultiple(DM19CalibrationInformationPacket.class)).thenReturn(Stream.of(packet1, packet2));
 
-        Set<CalibrationInformation> fileCals = new HashSet<>();
+        List<CalibrationInformation> fileCals = new ArrayList<>();
         fileCals.add(new CalibrationInformation("id1", 0x12345678));
         fileCals.add(new CalibrationInformation("id2", 0x87654321));
         when(reportFileModule.getCalibrations()).thenReturn(fileCals);
@@ -128,7 +127,7 @@ public class ComparisonModuleTest {
         when(j1939.requestMultiple(DM19CalibrationInformationPacket.class)).thenReturn(Stream.of(packet1, packet2))
                 .thenReturn(Stream.of(packet1, packet2));
 
-        Set<CalibrationInformation> fileCals = new HashSet<>();
+        List<CalibrationInformation> fileCals = new ArrayList<>();
         fileCals.add(new CalibrationInformation("id1", 0x12345678));
         fileCals.add(new CalibrationInformation("id2", 0x87654321));
         when(reportFileModule.getCalibrations()).thenReturn(fileCals).thenReturn(fileCals);
@@ -183,7 +182,7 @@ public class ComparisonModuleTest {
         when(packet2.getCalibrationInformation()).thenReturn(list2);
         when(j1939.requestMultiple(DM19CalibrationInformationPacket.class)).thenReturn(Stream.of(packet1, packet2));
 
-        Set<CalibrationInformation> fileCals = new HashSet<>();
+        List<CalibrationInformation> fileCals = new ArrayList<>();
         fileCals.add(new CalibrationInformation("id1", 0x12345678));
         fileCals.add(new CalibrationInformation("id3", 0x55555555));
         when(reportFileModule.getCalibrations()).thenReturn(fileCals);
@@ -212,12 +211,12 @@ public class ComparisonModuleTest {
         String expected = "";
         expected += "The selected report file calibrations do not match the vehicle calibrations." + NL + NL;
         expected += "The Report Calibrations:" + NL;
-        expected += "CAL ID of id1 and CVN of cvn1" + NL;
-        expected += "CAL ID of id3 and CVN of cvn3" + NL + NL;
+        expected += "CAL ID of id1 and CVN of 12345678" + NL;
+        expected += "CAL ID of id3 and CVN of 55555555" + NL + NL;
 
         expected += "The Vehicle Calibrations:" + NL;
-        expected += "CAL ID of id1 and CVN of cvn1" + NL;
-        expected += "CAL ID of id2 and CVN of cvn2";
+        expected += "CAL ID of id1 and CVN of 12345678" + NL;
+        expected += "CAL ID of id2 and CVN of 87654321";
         verify(listener).onMessage(expected, "Calibrations Mismatch", JOptionPane.ERROR_MESSAGE);
     }
 
@@ -225,7 +224,7 @@ public class ComparisonModuleTest {
     public void testCompareFileToVehicleWithCalTimeout() throws Exception {
         when(j1939.requestMultiple(DM19CalibrationInformationPacket.class)).thenReturn(Stream.empty());
 
-        Set<CalibrationInformation> fileCals = new HashSet<>();
+        List<CalibrationInformation> fileCals = new ArrayList<>();
         fileCals.add(new CalibrationInformation("id1", 0x12345678));
         fileCals.add(new CalibrationInformation("id3", 0x55555555));
         when(reportFileModule.getCalibrations()).thenReturn(fileCals);
@@ -275,7 +274,7 @@ public class ComparisonModuleTest {
         when(packet2.getCalibrationInformation()).thenReturn(list2);
         when(j1939.requestMultiple(DM19CalibrationInformationPacket.class)).thenReturn(Stream.of(packet1, packet2));
 
-        Set<CalibrationInformation> fileCals = new HashSet<>();
+        List<CalibrationInformation> fileCals = new ArrayList<>();
         fileCals.add(new CalibrationInformation("id1", 0x12345678));
         fileCals.add(new CalibrationInformation("id2", 0x87654321));
         when(reportFileModule.getCalibrations()).thenReturn(fileCals);
@@ -327,7 +326,7 @@ public class ComparisonModuleTest {
         when(packet2.getCalibrationInformation()).thenReturn(list2);
         when(j1939.requestMultiple(DM19CalibrationInformationPacket.class)).thenReturn(Stream.of(packet1, packet2));
 
-        Set<CalibrationInformation> fileCals = new HashSet<>();
+        List<CalibrationInformation> fileCals = new ArrayList<>();
         fileCals.add(new CalibrationInformation("id1", 0x12345678));
         fileCals.add(new CalibrationInformation("id2", 0x87654321));
         when(reportFileModule.getCalibrations()).thenReturn(fileCals);
@@ -377,7 +376,7 @@ public class ComparisonModuleTest {
         when(packet2.getCalibrationInformation()).thenReturn(list2);
         when(j1939.requestMultiple(DM19CalibrationInformationPacket.class)).thenReturn(Stream.of(packet1, packet2));
 
-        Set<CalibrationInformation> fileCals = new HashSet<>();
+        List<CalibrationInformation> fileCals = new ArrayList<>();
         fileCals.add(new CalibrationInformation("id1", 0x12345678));
         fileCals.add(new CalibrationInformation("id2", 0x87654321));
         when(reportFileModule.getCalibrations()).thenReturn(fileCals);
@@ -469,7 +468,7 @@ public class ComparisonModuleTest {
 
         when(j1939.requestMultiple(DM19CalibrationInformationPacket.class)).thenReturn(Stream.of(packet1, packet2));
 
-        String expected = "CAL ID of id1 and CVN of cvn1" + NL + "CAL ID of id2 and CVN of cvn2";
+        String expected = "CAL ID of id1 and CVN of 12345678" + NL + "CAL ID of id2 and CVN of 87654321";
 
         assertEquals(expected, instance.getCalibrationsAsString());
         verify(j1939).requestMultiple(DM19CalibrationInformationPacket.class);

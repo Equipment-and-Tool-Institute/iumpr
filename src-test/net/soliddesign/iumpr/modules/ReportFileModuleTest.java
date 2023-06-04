@@ -228,17 +228,17 @@ public class ReportFileModuleTest {
 
         int count = 0;
         for (CalibrationInformation info : instance.getCalibrations()) {
-            if ("PBT5MPR3".equals(info.getCalibrationIdentification())
+            if ("PBT5MPR3".equals(info.getCalibrationIdentification().trim())
                     && "0x40DCBF96".equals(info.getCalibrationVerificationNumber())) {
                 count |= 1;
             }
-            if ("NOx-SAE14a ATI1".equals(info.getCalibrationIdentification())
+            if ("NOx-SAE14a ATI1".equals(info.getCalibrationIdentification().trim())
                     && "0x138973A8".equals(info.getCalibrationVerificationNumber())) {
                 count |= 2;
             }
         }
 
-        assertEquals(1, count);
+        assertEquals(3, count);
     }
 
     @Test

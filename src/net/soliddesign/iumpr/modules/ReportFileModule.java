@@ -441,9 +441,9 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
      *
      * @return {@link Set} of {@link CalibrationInformation}
      */
-    public Set<CalibrationInformation> getCalibrations() {
+    public List<CalibrationInformation> getCalibrations() {
         return calMap.values().stream().flatMap(p -> p.getCalibrationInformation().stream())
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
 
     /**
@@ -833,8 +833,8 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
             throw new ReportFileException(problem[0]);
         } else if (vin == null) {
             throw new ReportFileException(Problem.VIN_NOT_PRESENT);
-            // } else if (lastInstant == null) {
-            // throw new ReportFileException(Problem.DATE_NOT_PRESENT);
+        } else if (lastInstant == null) {
+            throw new ReportFileException(Problem.DATE_NOT_PRESENT);
         } else if (tscc == Integer.MIN_VALUE) {
             throw new ReportFileException(Problem.TSCC_NOT_PRESENT);
         } else if (calMap.isEmpty()) {

@@ -6,6 +6,7 @@ package net.soliddesign.iumpr.modules;
 import static net.soliddesign.iumpr.IUMPR.NL;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Set;
@@ -38,14 +39,14 @@ public class ComparisonModule extends FunctionalModule {
      *            the {@link Set} of {@link CalibrationInformation}
      * @return {@link String}
      */
-    private static String calibrationAsString(Set<CalibrationInformation> cals) {
+    private static String calibrationAsString(List<CalibrationInformation> cals) {
         return cals.stream().map(t -> t.toString()).collect(Collectors.joining(NL));
     }
 
     /**
      * The calibrations read from the vehicle
      */
-    private Set<CalibrationInformation> calibrations;
+    private List<CalibrationInformation> calibrations;
 
     /**
      * The Time Since Code Cleared read from the vehicle
@@ -126,10 +127,10 @@ public class ComparisonModule extends FunctionalModule {
      * @throws IOException
      *             if there are no {@link CalibrationInformation} returned
      */
-    private Set<CalibrationInformation> getCalibrations() throws IOException {
+    private List<CalibrationInformation> getCalibrations() throws IOException {
         if (calibrations == null) {
             calibrations = getJ1939().requestMultiple(DM19CalibrationInformationPacket.class)
-                    .flatMap(t -> t.getCalibrationInformation().stream()).collect(Collectors.toSet());
+                    .flatMap(t -> t.getCalibrationInformation().stream()).collect(Collectors.toList());
             if (calibrations.isEmpty()) {
                 throw new IOException("Timeout Error Reading Calibrations");
             }
@@ -203,7 +204,7 @@ public class ComparisonModule extends FunctionalModule {
      * @throws IOException
      *             if the calibrations cannot be read from the vehicle
      */
-    private void reportCalibrationMismatch(ResultsListener listener, Set<CalibrationInformation> fileCals)
+    private void reportCalibrationMismatch(ResultsListener listener, List<CalibrationInformation> fileCals)
             throws IOException {
         String message = "The selected report file calibrations do not match the vehicle calibrations." + NL + NL +
                 "The Report Calibrations:" + NL + calibrationAsString(fileCals) + NL + NL

@@ -565,7 +565,6 @@ public class SystemTest {
      *             if the sleep is interrupted
      */
     private void wait(int startingValue, int endingValue, long timeout, TimeUnit timeUnit) throws InterruptedException {
-        timeUnit = TimeUnit.MILLISECONDS; // FIXME
         long maxTime = timeUnit.toMillis(timeout);
         long start = System.currentTimeMillis();
 
