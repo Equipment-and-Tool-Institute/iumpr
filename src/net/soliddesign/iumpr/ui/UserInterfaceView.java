@@ -3,6 +3,7 @@
  */
 package net.soliddesign.iumpr.ui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -31,6 +32,7 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.DefaultCaret;
@@ -56,8 +58,7 @@ public class UserInterfaceView implements IUserInterfaceView {
 
     private JButton abortButton;
 
-    private JComboBox<String> adapterComboBox;
-
+    private JComboBox<Adapter> adapterComboBox;
     private JLabel adapterLabel;
 
     private final BuildNumber buildNumber;
@@ -69,6 +70,8 @@ public class UserInterfaceView implements IUserInterfaceView {
     private JTextArea calsTextField;
 
     private JButton collectTestResultsButton;
+
+    private JComboBox<String> connectionStringComboBox;
 
     /**
      * The controller for the behavior of this view
@@ -202,17 +205,19 @@ public class UserInterfaceView implements IUserInterfaceView {
      *
      * @return JComboBox
      */
-    JComboBox<String> getAdapterComboBox() {
+    JComboBox<Adapter> getAdapterComboBox() {
         if (adapterComboBox == null) {
-            adapterComboBox = new JComboBox<>();
-            for (Adapter adapter : getController().getAdapters()) {
-                adapterComboBox.addItem(adapter.getName());
-            }
+            adapterComboBox = new JComboBox<>(getController().getAdapters().toArray(Adapter[]::new));
             adapterComboBox.setToolTipText("RP1210 Communications Adapter");
             adapterComboBox.setSelectedIndex(-1);
             adapterComboBox.addItemListener(e -> {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
-                    getController().onAdapterComboBoxItemSelected((String) e.getItem());
+                    Adapter adapter = (Adapter) e.getItem();
+                    getController().onAdapterComboBoxItemSelected(adapter);
+                    connectionStringComboBox.removeAllItems();
+                    for (String s : adapter.getConnectionStrings()) {
+                        connectionStringComboBox.addItem(s);
+                    }
                 }
             });
         }
@@ -303,6 +308,18 @@ public class UserInterfaceView implements IUserInterfaceView {
         return collectTestResultsButton;
     }
 
+    private JComboBox<String> getConnectionStringCombo() {
+        if (connectionStringComboBox == null) {
+            connectionStringComboBox = new JComboBox<>();
+            connectionStringComboBox.addItemListener(e -> {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    getController().onAdapterConnectionString((String) e.getItem());
+                }
+            });
+        }
+        return connectionStringComboBox;
+    }
+
     /**
      * Returns the {@link UserInterfaceController} that controls the view
      *
@@ -339,7 +356,7 @@ public class UserInterfaceView implements IUserInterfaceView {
             frame = new JFrame();
             frame.setTitle("IUMPR Data Collection Tool v" + getBuildNumber().getVersionNumber());
             frame.setBounds(100, 100, 600, 600);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             frame.setIconImage(Resources.getLogoImage());
         }
         return frame;
@@ -517,7 +534,10 @@ public class UserInterfaceView implements IUserInterfaceView {
             comboBoxGbc.anchor = GridBagConstraints.WEST;
             comboBoxGbc.gridx = 1;
             comboBoxGbc.gridy = 0;
-            reportSetupPanel.add(getAdapterComboBox(), comboBoxGbc);
+            JPanel p = new JPanel(new BorderLayout());
+            p.add(getAdapterComboBox(), BorderLayout.CENTER);
+            p.add(getConnectionStringCombo(), BorderLayout.EAST);
+            reportSetupPanel.add(p, comboBoxGbc);
 
             GridBagConstraints fileLabelGbc = new GridBagConstraints();
             fileLabelGbc.insets = new Insets(0, 5, 5, 5);
@@ -574,7 +594,6 @@ public class UserInterfaceView implements IUserInterfaceView {
             selectFileButton.addActionListener(event -> {
                 getController().onSelectFileButtonClicked();
             });
-            selectFileButton.setEnabled(false);
         }
         return selectFileButton;
     }

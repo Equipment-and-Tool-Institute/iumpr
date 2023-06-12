@@ -53,6 +53,11 @@ public class UserInterfaceController implements IUserInterfaceController {
     private Controller activeController;
 
     /**
+     * The Adapter being used to communicate with the vehicle
+     */
+    private Adapter adapter;
+
+    /**
      * The possible {@link Adapter} that can be used for communications with the
      * vehicle
      */
@@ -63,6 +68,8 @@ public class UserInterfaceController implements IUserInterfaceController {
     private CollectResultsController collectResultsController;
 
     private ComparisonModule comparisonModule;
+
+    private String connectionString;
 
     private DataPlateController dataPlateController;
 
@@ -86,15 +93,9 @@ public class UserInterfaceController implements IUserInterfaceController {
     private final RP1210 rp1210;
 
     /**
-     * The Adapter being used to communicate with the vehicle
-     */
-    private Adapter selectedAdapter;
-
-    /**
      * The {@link IUserInterfaceView} that is being controlled
      */
     private final IUserInterfaceView view;
-
     private String vin;
 
     /**
@@ -168,6 +169,39 @@ public class UserInterfaceController implements IUserInterfaceController {
         getView().setCollectTestResultsButtonEnabled(true);
         getView().setMonitorCompletionButtonEnabled(true);
         setActiveController(null);
+    }
+
+    /**
+     * Sets the selected adapter. This should only be used for testing.
+     *
+     * @param selectedAdapter
+     *            the selectedAdapter to set
+     */
+    private void connectAdapter() {
+        try {
+            if (bus != null) {
+                bus.close();
+            }
+            // bus = rp1210.setAdapter(selectedAdapter, 0xF9);
+            Bus bus = RP1210.createBus(adapter,
+                    connectionString,
+                    0xF9,
+                    (type, msg) -> {
+                        getResultsListener().onResult("RP1210 ERROR: " + msg);
+                        getReportFileModule().onResult("RP1210 ERROR: " + msg);
+                        if (!imposterReported && type == ErrorType.IMPOSTER) {
+                            imposterReported = true;
+                            getResultsListener().onUrgentMessage(msg,
+                                    "RP1210 ERROR",
+                                    0/* ? */);
+                        }
+                    });
+            setBus(bus);
+        } catch (BusException e) {
+            getLogger().log(Level.SEVERE, "Error Setting Adapter", e);
+            getView().displayDialog("Communications could not be established using the selected adapter.",
+                    "Communication Failure", JOptionPane.ERROR_MESSAGE, false);
+        }
     }
 
     private void dataPlateReportComplete(boolean success) {
@@ -307,7 +341,7 @@ public class UserInterfaceController implements IUserInterfaceController {
      * @return the selectedAdapter
      */
     Adapter getSelectedAdapter() {
-        return selectedAdapter;
+        return adapter;
     }
 
     private IUserInterfaceView getView() {
@@ -334,25 +368,13 @@ public class UserInterfaceController implements IUserInterfaceController {
     }
 
     @Override
-    public void onAdapterComboBoxItemSelected(String selectedAdapterName) {
-        // Connecting to the adapter can take "a while"
-        executor.execute(() -> {
-            resetView();
-            getView().setAdapterComboBoxEnabled(false);
-            getView().setSelectFileButtonEnabled(false);
-            getView().setProgressBarText("Connecting to Adapter");
+    public void onAdapterComboBoxItemSelected(Adapter selectedAdapter) {
+        adapter = selectedAdapter;
+    }
 
-            Adapter matchedAdapter = null;
-            for (Adapter adapter : getAdapters()) {
-                String name = adapter.getName();
-                if (name.equals(selectedAdapterName)) {
-                    matchedAdapter = adapter;
-                    break;
-                }
-            }
-            setSelectedAdapter(matchedAdapter);
-            checkSetupComplete();
-        });
+    @Override
+    public void onAdapterConnectionString(String s) {
+        connectionString = s;
     }
 
     /*
@@ -365,6 +387,7 @@ public class UserInterfaceController implements IUserInterfaceController {
     public void onCollectTestResultsButtonClicked() {
         getView().setCollectTestResultsButtonEnabled(false);
         getView().setMonitorCompletionButtonEnabled(false);
+        connectAdapter();
         runController(collectResultsController);
     }
 
@@ -456,6 +479,9 @@ public class UserInterfaceController implements IUserInterfaceController {
 
             ResultsListener resultsListener = getResultsListener();
             try {
+                resultsListener.onProgress(1, 6, "Connecting RP1210");
+                connectAdapter();
+
                 resultsListener.onProgress(1, 6, "Reading Vehicle Identification Number");
                 vin = getComparisonModule().getVin();
                 getView().setVin(vin);
@@ -565,44 +591,6 @@ public class UserInterfaceController implements IUserInterfaceController {
     void setReportFile(File file) throws IOException {
         getReportFileModule().setReportFile(getResultsListener(), file, isNewFile());
         reportFile = file;
-    }
-
-    /**
-     * Sets the selected adapter. This should only be used for testing.
-     *
-     * @param selectedAdapter
-     *            the selectedAdapter to set
-     */
-    private void setSelectedAdapter(Adapter selectedAdapter) {
-        try {
-            Bus bus;
-            if (selectedAdapter != null) {
-                // bus = rp1210.setAdapter(selectedAdapter, 0xF9);
-                bus = RP1210.createBus(selectedAdapter,
-                        "J1939",
-                        0xF9,
-                        (type, msg) -> {
-                            getResultsListener().onResult("RP1210 ERROR: " + msg);
-                            getReportFileModule().onResult("RP1210 ERROR: " + msg);
-                            if (!imposterReported && type == ErrorType.IMPOSTER) {
-                                imposterReported = true;
-                                getResultsListener().onUrgentMessage(msg,
-                                        "RP1210 ERROR",
-                                        0/* ? */);
-                            }
-                        });
-            } else {
-                bus = null;
-            }
-            this.selectedAdapter = selectedAdapter;
-            if (bus != null) {
-                setBus(bus);
-            }
-        } catch (BusException e) {
-            getLogger().log(Level.SEVERE, "Error Setting Adapter", e);
-            getView().displayDialog("Communications could not be established using the selected adapter.",
-                    "Communication Failure", JOptionPane.ERROR_MESSAGE, false);
-        }
     }
 
     /**

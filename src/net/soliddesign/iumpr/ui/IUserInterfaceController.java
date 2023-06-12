@@ -59,7 +59,9 @@ public interface IUserInterfaceController {
      * @param selectedAdapterName
      *            the name of the selected adapter
      */
-    void onAdapterComboBoxItemSelected(String selectedAdapterName);
+    void onAdapterComboBoxItemSelected(Adapter a);
+
+    void onAdapterConnectionString(String s);
 
     /**
      * Called when the {@link UserInterfaceView} Collect Tests Results Button is

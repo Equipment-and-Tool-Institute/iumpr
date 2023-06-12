@@ -140,7 +140,7 @@ public class UserInterfaceControllerTest {
 
     @Test
     public void testDisconnect() throws Exception {
-        instance.onAdapterComboBoxItemSelected("Adapter1");
+        instance.onAdapterComboBoxItemSelected(adapter1);
         executor.run();
 
         instance.disconnect();
@@ -168,7 +168,7 @@ public class UserInterfaceControllerTest {
 
     @Test
     public void testDisconnectHandlesException() throws Exception {
-        instance.onAdapterComboBoxItemSelected("Adapter1");
+        instance.onAdapterComboBoxItemSelected(adapter1);
         executor.run();
 
         Mockito.doThrow(new BusException("Testing")).when(rp1210Bus).stop();
@@ -236,7 +236,7 @@ public class UserInterfaceControllerTest {
         instance.setReportFile(file);
         when(rp1210Bus.getAddress()).thenReturn(0xF9);
 
-        instance.onAdapterComboBoxItemSelected("Adapter1");
+        instance.onAdapterComboBoxItemSelected(adapter1);
         executor.run();
 
         J1939 actual = instance.getNewJ1939();
@@ -270,7 +270,7 @@ public class UserInterfaceControllerTest {
     public void testOnAdapterComboBoxItemSelectedWithNoFile() throws Exception {
         instance.setReportFile(null);
 
-        instance.onAdapterComboBoxItemSelected("Adapter1");
+        instance.onAdapterComboBoxItemSelected(adapter1);
         executor.run();
 
         assertEquals("Adapter1", instance.getSelectedAdapter().getName());
@@ -543,7 +543,7 @@ public class UserInterfaceControllerTest {
 
     @Test
     public void testOnFileChosenWithAdapter() throws Exception {
-        instance.onAdapterComboBoxItemSelected("Adapter1");
+        instance.onAdapterComboBoxItemSelected(adapter1);
         executor.run();
 
         verify(rp1210).getAdapters();

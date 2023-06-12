@@ -139,7 +139,7 @@ public class SystemTest {
     public void testExistingFile() throws Exception {
         // Select the Adapter
         assertEquals(1, view.getEnabled());
-        controller.onAdapterComboBoxItemSelected("Loop Back Adapter");
+        controller.onAdapterComboBoxItemSelected(RP1210.LOOP_BACK_ADAPTER);
         // Give time for the adapter to be connected
         wait(1, 3, 3, TimeUnit.SECONDS);
 
@@ -207,7 +207,7 @@ public class SystemTest {
     public void testExistingFileWithBadCal() throws Exception {
         // Select the Adapter
         assertEquals(1, view.getEnabled());
-        controller.onAdapterComboBoxItemSelected("Loop Back Adapter");
+        controller.onAdapterComboBoxItemSelected(RP1210.LOOP_BACK_ADAPTER);
         // Give time for the adapter to be connected
         wait(1, 3, 3, TimeUnit.SECONDS);
 
@@ -268,7 +268,7 @@ public class SystemTest {
     public void testExistingFileWithBadVin() throws Exception {
         // Select the Adapter
         assertEquals(1, view.getEnabled());
-        controller.onAdapterComboBoxItemSelected("Loop Back Adapter");
+        controller.onAdapterComboBoxItemSelected(RP1210.LOOP_BACK_ADAPTER);
         // Give time for the adapter to be connected
         wait(1, 3, 3, TimeUnit.SECONDS);
 
@@ -322,7 +322,7 @@ public class SystemTest {
     public void testExistingFileWithGapTSCC() throws Exception {
         // Select the Adapter
         assertEquals(1, view.getEnabled());
-        controller.onAdapterComboBoxItemSelected("Loop Back Adapter");
+        controller.onAdapterComboBoxItemSelected(RP1210.LOOP_BACK_ADAPTER);
         // Give time for the adapter to be connected
         wait(1, 3, 3, TimeUnit.SECONDS);
 
@@ -376,7 +376,7 @@ public class SystemTest {
     public void testExistingFileWithResetTSCC() throws Exception {
         // Select the Adapter
         assertEquals(1, view.getEnabled());
-        controller.onAdapterComboBoxItemSelected("Loop Back Adapter");
+        controller.onAdapterComboBoxItemSelected(RP1210.LOOP_BACK_ADAPTER);
         // Give time for the adapter to be connected
         wait(1, 3, 3, TimeUnit.SECONDS);
 
@@ -430,7 +430,7 @@ public class SystemTest {
     public void testNewFile() throws Exception {
         // Select the Adapter
         assertEquals(1, view.getEnabled());
-        controller.onAdapterComboBoxItemSelected("Loop Back Adapter");
+        controller.onAdapterComboBoxItemSelected(RP1210.LOOP_BACK_ADAPTER);
         // Give time for the adapter to be connected
         wait(1, 3, 3, TimeUnit.SECONDS);
 
@@ -500,7 +500,7 @@ public class SystemTest {
     public void testStoppingGenerateDataPlate() throws Exception {
         // Select the Adapter
         assertEquals(1, view.getEnabled());
-        controller.onAdapterComboBoxItemSelected("Loop Back Adapter");
+        controller.onAdapterComboBoxItemSelected(RP1210.LOOP_BACK_ADAPTER);
         // Give time for the adapter to be connected
         wait(1, 3, 3, TimeUnit.SECONDS);
 

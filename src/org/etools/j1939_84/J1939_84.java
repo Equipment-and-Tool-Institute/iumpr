@@ -8,9 +8,4 @@ public class J1939_84 {
     static public Logger getLogger() {
         return Logger.getLogger("J1939");
     }
-
-    public static boolean isTesting() {
-        // TODO Auto-generated method stub
-        return false;
-    }
 }

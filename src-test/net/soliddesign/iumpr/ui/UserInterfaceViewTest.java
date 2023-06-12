@@ -45,6 +45,10 @@ import net.soliddesign.iumpr.ui.status.StatusView;
 @RunWith(MockitoJUnitRunner.class)
 public class UserInterfaceViewTest {
 
+    private static final Adapter adapter1 = new Adapter("Adapter1", "SD", (short) 1);
+
+    private static final Adapter adapter2 = new Adapter("Adapter2", "SD", (short) 2);
+
     @Mock
     private BuildNumber buildNumber;
 
@@ -61,8 +65,8 @@ public class UserInterfaceViewTest {
     @Before
     public void setUp() throws Exception {
         List<Adapter> adapters = new ArrayList<>();
-        adapters.add(new Adapter("Adapter1", "SD", (short) 1));
-        adapters.add(new Adapter("Adapter2", "SD", (short) 2));
+        adapters.add(adapter1);
+        adapters.add(adapter2);
         when(controller.getAdapters()).thenReturn(adapters);
 
         when(buildNumber.getVersionNumber()).thenReturn("12.34");
@@ -84,7 +88,7 @@ public class UserInterfaceViewTest {
 
     @Test
     public void testAdapterComboBox() {
-        JComboBox<String> adapterComboBox = instance.getAdapterComboBox();
+        JComboBox<Adapter> adapterComboBox = instance.getAdapterComboBox();
         assertTrue(adapterComboBox.isEnabled());
         assertNull(adapterComboBox.getSelectedItem());
         assertEquals(2, adapterComboBox.getItemCount());
@@ -92,10 +96,10 @@ public class UserInterfaceViewTest {
         assertEquals("Adapter2", adapterComboBox.getItemAt(1));
 
         adapterComboBox.setSelectedIndex(1);
-        verify(controller).onAdapterComboBoxItemSelected("Adapter2");
+        verify(controller).onAdapterComboBoxItemSelected(adapter2);
 
         adapterComboBox.setSelectedIndex(0);
-        verify(controller).onAdapterComboBoxItemSelected("Adapter1");
+        verify(controller).onAdapterComboBoxItemSelected(adapter1);
 
         instance.setAdapterComboBoxEnabled(false);
         assertFalse(adapterComboBox.isEnabled());
