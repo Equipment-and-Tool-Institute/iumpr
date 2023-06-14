@@ -5,6 +5,8 @@ package net.soliddesign.iumpr.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -32,6 +34,7 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -56,9 +59,31 @@ public class UserInterfaceView implements IUserInterfaceView {
 
     private static final String SELECT_FILE = "Select File...";
 
+    static {
+        // scale the fonts for JOptionPanes
+        float FONT_SCALE = 2.0f;
+        Font font = new JOptionPane().getFont();
+        font = font.deriveFont(font.getSize() * FONT_SCALE);
+        UIManager.put("OptionPane.messageFont", font);
+        UIManager.put("OptionPane.buttonFont", font);
+    }
+
+    static public void scaleFont(Component c, double scale) {
+        Font font = c.getFont();
+        if (font != null) {
+            c.setFont(font.deriveFont((float) (font.getSize() * scale)));
+        }
+        if (c instanceof Container) {
+            for (var d : ((Container) c).getComponents()) {
+                scaleFont(d, scale);
+            }
+        }
+    }
+
     private JButton abortButton;
 
     private JComboBox<Adapter> adapterComboBox;
+
     private JLabel adapterLabel;
 
     private final BuildNumber buildNumber;
@@ -355,7 +380,7 @@ public class UserInterfaceView implements IUserInterfaceView {
         if (frame == null) {
             frame = new JFrame();
             frame.setTitle("IUMPR Data Collection Tool v" + getBuildNumber().getVersionNumber());
-            frame.setBounds(100, 100, 600, 600);
+            frame.setBounds(100, 100, 1600, 1000);
             frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             frame.setIconImage(Resources.getLogoImage());
         }
@@ -573,7 +598,7 @@ public class UserInterfaceView implements IUserInterfaceView {
     JTextArea getReportTextArea() {
         if (reportTextArea == null) {
             reportTextArea = new JTextArea(0, 80);
-            reportTextArea.setFont(new Font("Courier", Font.PLAIN, 12));
+            reportTextArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
             reportTextArea.setEditable(false);
             reportTextArea.setLineWrap(false);
             DefaultCaret caret = (DefaultCaret) reportTextArea.getCaret();
@@ -792,6 +817,7 @@ public class UserInterfaceView implements IUserInterfaceView {
                 getController().disconnect();
             }
         });
+        scaleFont(getFrame(), 2.0);
     }
 
     /**
@@ -814,7 +840,10 @@ public class UserInterfaceView implements IUserInterfaceView {
      */
     @Override
     public void setAdapterComboBoxEnabled(boolean enabled) {
-        refreshUI(() -> getAdapterComboBox().setEnabled(enabled));
+        refreshUI(() -> {
+            getAdapterComboBox().setEnabled(enabled);
+            getConnectionStringCombo().setEnabled(enabled);
+        });
     }
 
     /*
@@ -949,5 +978,4 @@ public class UserInterfaceView implements IUserInterfaceView {
     public void setVin(String vin) {
         refreshUI(() -> getVinTextField().setText(vin));
     }
-
 }
