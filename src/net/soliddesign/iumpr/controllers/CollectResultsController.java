@@ -21,6 +21,7 @@ import net.soliddesign.iumpr.modules.BannerModule.Type;
 import net.soliddesign.iumpr.modules.ComparisonModule;
 import net.soliddesign.iumpr.modules.DiagnosticReadinessModule;
 import net.soliddesign.iumpr.modules.EngineSpeedModule;
+import net.soliddesign.iumpr.modules.NoxBinningGhgTrackingModule;
 import net.soliddesign.iumpr.modules.OBDTestsModule;
 import net.soliddesign.iumpr.modules.VehicleInformationModule;
 
@@ -32,6 +33,8 @@ import net.soliddesign.iumpr.modules.VehicleInformationModule;
  */
 public class CollectResultsController extends Controller {
 
+    private NoxBinningGhgTrackingModule noxBinningGhgTrackingModule;
+
     private OBDTestsModule obdTestsModule;
 
     /**
@@ -40,7 +43,8 @@ public class CollectResultsController extends Controller {
     public CollectResultsController() {
         this(Executors.newSingleThreadScheduledExecutor(), new EngineSpeedModule(),
                 new BannerModule(Type.COLLECTION_LOG), new DateTimeModule(), new VehicleInformationModule(),
-                new DiagnosticReadinessModule(), new OBDTestsModule(), new ComparisonModule());
+                new DiagnosticReadinessModule(), new OBDTestsModule(), new ComparisonModule(),
+                new NoxBinningGhgTrackingModule());
     }
 
     /**
@@ -66,20 +70,26 @@ public class CollectResultsController extends Controller {
     public CollectResultsController(ScheduledExecutorService executor, EngineSpeedModule engineSpeedModule,
             BannerModule bannerModule, DateTimeModule dateTimeModule, VehicleInformationModule vehicleInformationModule,
             DiagnosticReadinessModule diagnosticReadinessModule, OBDTestsModule obdTestsModule,
-            ComparisonModule comparisonModule) {
+            ComparisonModule comparisonModule, NoxBinningGhgTrackingModule noxBinningGhgTrackingModule) {
         super(executor, engineSpeedModule, bannerModule, dateTimeModule, vehicleInformationModule,
                 diagnosticReadinessModule, comparisonModule);
         this.obdTestsModule = obdTestsModule;
+        this.noxBinningGhgTrackingModule = noxBinningGhgTrackingModule;
+    }
+
+    private NoxBinningGhgTrackingModule getNoxBinningHghTrackingModule() {
+        return noxBinningGhgTrackingModule;
     }
 
     @Override
     protected int getTotalSteps() {
-        return 17 + 4; // +4 is for the compareToVehicle
+        return 18 + 4; // +4 is for the compareToVehicle
     }
 
     @Override
     protected void run() throws Throwable {
         obdTestsModule.setJ1939(getJ1939());
+        noxBinningGhgTrackingModule.setJ1939(getJ1939());
 
         // This is "Function E"
 
@@ -117,6 +127,11 @@ public class CollectResultsController extends Controller {
         addBlankLineToReport();
         incrementProgress("Requesting OBD Test Results");
         obdTestsModule.reportOBDTests(getListener(), obdModules);
+
+        // 29.1 issue #84 Insert NOX Binning and GHG Tracking Queries
+        addBlankLineToReport();
+        incrementProgress("Requesting NOX Binning and GHG Tracking");
+        getNoxBinningHghTrackingModule().reportInformation(getListener(), obdModules);
 
         // Step 30
         addBlankLineToReport();

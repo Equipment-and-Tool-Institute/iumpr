@@ -182,8 +182,7 @@ public class UserInterfaceController implements IUserInterfaceController {
             if (bus != null) {
                 bus.close();
             }
-            // bus = rp1210.setAdapter(selectedAdapter, 0xF9);
-            Bus bus = RP1210.createBus(adapter,
+            bus = RP1210.createBus(adapter,
                     connectionString,
                     0xF9,
                     (type, msg) -> {
@@ -196,7 +195,7 @@ public class UserInterfaceController implements IUserInterfaceController {
                                     0/* ? */);
                         }
                     });
-            setBus(bus);
+            getComparisonModule().setJ1939(getNewJ1939());
         } catch (BusException e) {
             getLogger().log(Level.SEVERE, "Error Setting Adapter", e);
             getView().displayDialog("Communications could not be established using the selected adapter.",
@@ -564,11 +563,6 @@ public class UserInterfaceController implements IUserInterfaceController {
             activeController.stop();
         }
         activeController = controller;
-    }
-
-    private void setBus(Bus bus) throws BusException {
-        this.bus = bus;
-        getComparisonModule().setJ1939(getNewJ1939());
     }
 
     /**

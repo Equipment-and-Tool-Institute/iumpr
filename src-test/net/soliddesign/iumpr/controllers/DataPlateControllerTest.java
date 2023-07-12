@@ -34,6 +34,7 @@ import net.soliddesign.iumpr.modules.ComparisonModule;
 import net.soliddesign.iumpr.modules.DTCModule;
 import net.soliddesign.iumpr.modules.DiagnosticReadinessModule;
 import net.soliddesign.iumpr.modules.EngineSpeedModule;
+import net.soliddesign.iumpr.modules.NoxBinningGhgTrackingModule;
 import net.soliddesign.iumpr.modules.ReportFileModule;
 import net.soliddesign.iumpr.modules.VehicleInformationModule;
 
@@ -49,7 +50,7 @@ public class DataPlateControllerTest {
 
     private static final int SKIP_STEP = 7;
 
-    private static final int TOTAL_STEPS = 28;
+    private static final int TOTAL_STEPS = 29;
 
     @Mock
     private BannerModule bannerModule;
@@ -81,6 +82,9 @@ public class DataPlateControllerTest {
     private ResultsListener listener;
 
     @Mock
+    private NoxBinningGhgTrackingModule noxBinningGhgTrackingModule;
+
+    @Mock
     private ReportFileModule reportFileModule;
 
     @Mock
@@ -90,7 +94,7 @@ public class DataPlateControllerTest {
     public void setUp() throws Exception {
         when(bannerModule.getTypeName()).thenReturn("Data Plate");
         instance = new DataPlateController(executor, engineSpeedModule, bannerModule, dateTimeModule,
-                vehicleInformationModule, diagnosticReadinessModule, dtcModule, comparisonModule);
+                vehicleInformationModule, diagnosticReadinessModule, dtcModule, comparisonModule,noxBinningGhgTrackingModule);
     }
 
     @After
@@ -940,7 +944,7 @@ public class DataPlateControllerTest {
         runnableCaptor.getValue().run();
 
         InOrder inOrder = inOrder(listener, engineSpeedModule, comparisonModule, dtcModule, bannerModule,
-                reportFileModule, vehicleInformationModule, diagnosticReadinessModule);
+                reportFileModule, vehicleInformationModule, diagnosticReadinessModule, noxBinningGhgTrackingModule);
 
         inOrder.verify(vehicleInformationModule).setJ1939(j1939);
         inOrder.verify(diagnosticReadinessModule).setJ1939(j1939);
@@ -1088,6 +1092,14 @@ public class DataPlateControllerTest {
                 JOptionPane.WARNING_MESSAGE);
         inOrder.verify(reportFileModule).onMessage("There were Diagnostic Trouble Codes reported.", "DTCs Exist",
                 JOptionPane.WARNING_MESSAGE);
+
+        // NOx Binning
+        step++;
+        inOrder.verify(listener).onResult("");
+        inOrder.verify(reportFileModule).onResult("");
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting NOX Binning and GHG Tracking");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting NOX Binning and GHG Tracking");
+        inOrder.verify(noxBinningGhgTrackingModule).reportInformation(any(ResultsListener.class), eq(List.of(0)));
 
         step++;
         inOrder.verify(listener).onResult("");
@@ -1155,7 +1167,7 @@ public class DataPlateControllerTest {
         runnableCaptor.getValue().run();
 
         InOrder inOrder = inOrder(listener, engineSpeedModule, comparisonModule, dtcModule, bannerModule,
-                reportFileModule, vehicleInformationModule, diagnosticReadinessModule);
+                reportFileModule, vehicleInformationModule, diagnosticReadinessModule, noxBinningGhgTrackingModule);
 
         inOrder.verify(vehicleInformationModule).setJ1939(j1939);
         inOrder.verify(diagnosticReadinessModule).setJ1939(j1939);
@@ -1303,6 +1315,14 @@ public class DataPlateControllerTest {
                 JOptionPane.WARNING_MESSAGE);
         inOrder.verify(reportFileModule).onMessage("There were Diagnostic Trouble Codes reported.", "DTCs Exist",
                 JOptionPane.WARNING_MESSAGE);
+
+        // NOx Binning
+        step++;
+        inOrder.verify(listener).onResult("");
+        inOrder.verify(reportFileModule).onResult("");
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting NOX Binning and GHG Tracking");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting NOX Binning and GHG Tracking");
+        inOrder.verify(noxBinningGhgTrackingModule).reportInformation(any(ResultsListener.class), eq(List.of(0)));
 
         step++;
         inOrder.verify(listener).onResult("");
@@ -1370,7 +1390,7 @@ public class DataPlateControllerTest {
         runnableCaptor.getValue().run();
 
         InOrder inOrder = inOrder(listener, engineSpeedModule, comparisonModule, dtcModule, bannerModule,
-                reportFileModule, vehicleInformationModule, diagnosticReadinessModule);
+                reportFileModule, vehicleInformationModule, diagnosticReadinessModule, noxBinningGhgTrackingModule);
 
         inOrder.verify(vehicleInformationModule).setJ1939(j1939);
         inOrder.verify(diagnosticReadinessModule).setJ1939(j1939);
@@ -1517,6 +1537,14 @@ public class DataPlateControllerTest {
                 JOptionPane.WARNING_MESSAGE);
         inOrder.verify(reportFileModule).onMessage("There were Diagnostic Trouble Codes reported.", "DTCs Exist",
                 JOptionPane.WARNING_MESSAGE);
+
+        // NOx Binning
+        step++;
+        inOrder.verify(listener).onResult("");
+        inOrder.verify(reportFileModule).onResult("");
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting NOX Binning and GHG Tracking");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting NOX Binning and GHG Tracking");
+        inOrder.verify(noxBinningGhgTrackingModule).reportInformation(any(ResultsListener.class), eq(List.of(0)));
 
         step++;
         inOrder.verify(listener).onResult("");
@@ -1584,7 +1612,7 @@ public class DataPlateControllerTest {
         runnableCaptor.getValue().run();
 
         InOrder inOrder = inOrder(listener, engineSpeedModule, comparisonModule, dtcModule, bannerModule,
-                reportFileModule, vehicleInformationModule, diagnosticReadinessModule);
+                reportFileModule, vehicleInformationModule, diagnosticReadinessModule, noxBinningGhgTrackingModule);
 
         inOrder.verify(vehicleInformationModule).setJ1939(j1939);
         inOrder.verify(diagnosticReadinessModule).setJ1939(j1939);
@@ -1733,6 +1761,14 @@ public class DataPlateControllerTest {
         inOrder.verify(reportFileModule).onMessage("There were Diagnostic Trouble Codes reported.", "DTCs Exist",
                 JOptionPane.WARNING_MESSAGE);
 
+        // NOx Binning
+        step++;
+        inOrder.verify(listener).onResult("");
+        inOrder.verify(reportFileModule).onResult("");
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting NOX Binning and GHG Tracking");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting NOX Binning and GHG Tracking");
+        inOrder.verify(noxBinningGhgTrackingModule).reportInformation(any(ResultsListener.class), eq(List.of(0)));
+
         step++;
         inOrder.verify(listener).onResult("");
         inOrder.verify(reportFileModule).onResult("");
@@ -1799,7 +1835,7 @@ public class DataPlateControllerTest {
         runnableCaptor.getValue().run();
 
         InOrder inOrder = inOrder(listener, engineSpeedModule, comparisonModule, dtcModule, bannerModule,
-                reportFileModule, vehicleInformationModule, diagnosticReadinessModule);
+                reportFileModule, vehicleInformationModule, diagnosticReadinessModule, noxBinningGhgTrackingModule);
 
         inOrder.verify(vehicleInformationModule).setJ1939(j1939);
         inOrder.verify(diagnosticReadinessModule).setJ1939(j1939);
@@ -1942,6 +1978,14 @@ public class DataPlateControllerTest {
         inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting DM28");
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting DM28");
         inOrder.verify(dtcModule).reportDM28(any(ResultsListener.class));
+
+        // NOx Binning
+        step++;
+        inOrder.verify(listener).onResult("");
+        inOrder.verify(reportFileModule).onResult("");
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting NOX Binning and GHG Tracking");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting NOX Binning and GHG Tracking");
+        inOrder.verify(noxBinningGhgTrackingModule).reportInformation(any(ResultsListener.class), eq(List.of(0)));
 
         step++;
         inOrder.verify(listener).onResult("");
@@ -2011,7 +2055,7 @@ public class DataPlateControllerTest {
         runnableCaptor.getValue().run();
 
         InOrder inOrder = inOrder(listener, engineSpeedModule, comparisonModule, dtcModule, bannerModule,
-                reportFileModule, vehicleInformationModule, diagnosticReadinessModule);
+                reportFileModule, vehicleInformationModule, diagnosticReadinessModule, noxBinningGhgTrackingModule);
 
         inOrder.verify(vehicleInformationModule).setJ1939(j1939);
         inOrder.verify(diagnosticReadinessModule).setJ1939(j1939);
@@ -2154,6 +2198,14 @@ public class DataPlateControllerTest {
         inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting DM28");
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting DM28");
         inOrder.verify(dtcModule).reportDM28(any(ResultsListener.class));
+
+        // NOx Binning
+        step++;
+        inOrder.verify(listener).onResult("");
+        inOrder.verify(reportFileModule).onResult("");
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting NOX Binning and GHG Tracking");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting NOX Binning and GHG Tracking");
+        inOrder.verify(noxBinningGhgTrackingModule).reportInformation(any(ResultsListener.class), eq(List.of(0)));
 
         step++;
         inOrder.verify(listener).onResult("");

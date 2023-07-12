@@ -39,6 +39,7 @@ import net.soliddesign.iumpr.modules.DTCModule;
 import net.soliddesign.iumpr.modules.DiagnosticReadinessModule;
 import net.soliddesign.iumpr.modules.EngineSpeedModule;
 import net.soliddesign.iumpr.modules.MonitorTrackingModule;
+import net.soliddesign.iumpr.modules.NoxBinningGhgTrackingModule;
 import net.soliddesign.iumpr.modules.OBDTestsModule;
 import net.soliddesign.iumpr.modules.ReportFileModule;
 import net.soliddesign.iumpr.modules.TestDateTimeModule;
@@ -109,7 +110,7 @@ public class SystemTest {
                         dateTimeModule,
                         new VehicleInformationModule(dateTimeModule),
                         new DiagnosticReadinessModule(dateTimeModule),
-                        new DTCModule(dateTimeModule), new ComparisonModule()),
+                        new DTCModule(dateTimeModule), new ComparisonModule(), new NoxBinningGhgTrackingModule()),
                 new CollectResultsController(Executors.newSingleThreadScheduledExecutor(),
                         new EngineSpeedModule(),
                         new BannerModule(Type.COLLECTION_LOG, dateTimeModule, buildNumber),
@@ -117,7 +118,7 @@ public class SystemTest {
                         new VehicleInformationModule(dateTimeModule),
                         new DiagnosticReadinessModule(dateTimeModule),
                         new OBDTestsModule(dateTimeModule),
-                        new ComparisonModule()),
+                        new ComparisonModule(), new NoxBinningGhgTrackingModule()),
                 monitorCompletionController,
                 new ComparisonModule(),
                 new RP1210(),

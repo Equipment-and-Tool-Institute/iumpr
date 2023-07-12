@@ -119,6 +119,10 @@ public class J1939 {
 
     private static final String TIMEOUT_MESSAGE = "Timeout - No Response";
 
+    /**
+     * Only consider response to the sent packet. Packets received before sent,
+     * should be ignored.
+     */
     static private Predicate<Packet> after(Packet sent) {
         return new Predicate<>() {
             // sent == null for TP requests and some tests

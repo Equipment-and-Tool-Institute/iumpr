@@ -17,6 +17,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
+import java.util.prefs.Preferences;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -234,17 +235,27 @@ public class UserInterfaceView implements IUserInterfaceView {
         if (adapterComboBox == null) {
             adapterComboBox = new JComboBox<>(getController().getAdapters().toArray(Adapter[]::new));
             adapterComboBox.setToolTipText("RP1210 Communications Adapter");
-            adapterComboBox.setSelectedIndex(-1);
             adapterComboBox.addItemListener(e -> {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     Adapter adapter = (Adapter) e.getItem();
                     getController().onAdapterComboBoxItemSelected(adapter);
-                    connectionStringComboBox.removeAllItems();
+                    getConnectionStringCombo().removeAllItems();
+                    String defConnectionString = Preferences.userNodeForPackage(getClass()).get("connection string",
+                            null);
                     for (String s : adapter.getConnectionStrings()) {
-                        connectionStringComboBox.addItem(s);
+                        getConnectionStringCombo().addItem(s);
                     }
+                    getConnectionStringCombo().setSelectedItem(defConnectionString);
+
+                    Preferences.userNodeForPackage(getClass()).put("adapter", adapter.getName());
                 }
             });
+
+            adapterComboBox.setSelectedIndex(-1); // default to no selection
+            String defAdapter = Preferences.userNodeForPackage(getClass()).get("adapter", null);
+            getController().getAdapters().stream()
+                    .filter(a -> a.getName().equals(defAdapter)).findFirst()
+                    .ifPresent(a -> adapterComboBox.setSelectedItem(a));
         }
         return adapterComboBox;
     }
@@ -339,6 +350,7 @@ public class UserInterfaceView implements IUserInterfaceView {
             connectionStringComboBox.addItemListener(e -> {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     getController().onAdapterConnectionString((String) e.getItem());
+                    Preferences.userNodeForPackage(getClass()).put("connection string", (String) e.getItem());
                 }
             });
         }

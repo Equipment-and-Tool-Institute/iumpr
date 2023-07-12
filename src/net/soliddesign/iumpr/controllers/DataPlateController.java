@@ -19,6 +19,7 @@ import net.soliddesign.iumpr.modules.ComparisonModule;
 import net.soliddesign.iumpr.modules.DTCModule;
 import net.soliddesign.iumpr.modules.DiagnosticReadinessModule;
 import net.soliddesign.iumpr.modules.EngineSpeedModule;
+import net.soliddesign.iumpr.modules.NoxBinningGhgTrackingModule;
 import net.soliddesign.iumpr.modules.VehicleInformationModule;
 
 /**
@@ -33,13 +34,15 @@ public class DataPlateController extends Controller {
 
     private final DTCModule dtcModule;
 
+    private final NoxBinningGhgTrackingModule noxBinningGhgTrackingModule;
+
     /**
      * Constructor
      */
     public DataPlateController() {
         this(Executors.newSingleThreadScheduledExecutor(), new EngineSpeedModule(), new BannerModule(Type.DATA_PLATE),
                 new DateTimeModule(), new VehicleInformationModule(), new DiagnosticReadinessModule(), new DTCModule(),
-                new ComparisonModule());
+                new ComparisonModule(), new NoxBinningGhgTrackingModule());
     }
 
     /**
@@ -65,20 +68,26 @@ public class DataPlateController extends Controller {
     public DataPlateController(ScheduledExecutorService executor, EngineSpeedModule engineSpeedModule,
             BannerModule bannerModule, DateTimeModule dateTimeModule, VehicleInformationModule vehicleInformationModule,
             DiagnosticReadinessModule diagnosticReadinessModule, DTCModule dtcModule,
-            ComparisonModule comparisonModule) {
+            ComparisonModule comparisonModule, NoxBinningGhgTrackingModule noxBinningGhgTrackingModule) {
         super(executor, engineSpeedModule, bannerModule, dateTimeModule, vehicleInformationModule,
                 diagnosticReadinessModule, comparisonModule);
         this.dtcModule = dtcModule;
+        this.noxBinningGhgTrackingModule = noxBinningGhgTrackingModule;
+    }
+
+    private NoxBinningGhgTrackingModule getNoxBinningHghTrackingModule() {
+        return noxBinningGhgTrackingModule;
     }
 
     @Override
     protected int getTotalSteps() {
-        return 24 + 4; // +4 is for the compareToVehicle;
+        return 25 + 4; // +4 is for the compareToVehicle;
     }
 
     @Override
     protected void run() throws Throwable {
         dtcModule.setJ1939(getJ1939());
+        getNoxBinningHghTrackingModule().setJ1939(getJ1939());
 
         // Step 1 is handled in the super
 
@@ -227,6 +236,11 @@ public class DataPlateController extends Controller {
             getListener().onMessage("There were Diagnostic Trouble Codes reported.", "DTCs Exist",
                     JOptionPane.WARNING_MESSAGE);
         }
+
+        // 42.1 issue #84 Insert NOX Binning and GHG Tracking Queries
+        addBlankLineToReport();
+        incrementProgress("Requesting NOX Binning and GHG Tracking");
+        getNoxBinningHghTrackingModule().reportInformation(getListener(), obdModules);
 
         // Step 43
         addBlankLineToReport();
