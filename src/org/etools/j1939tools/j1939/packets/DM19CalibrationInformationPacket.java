@@ -5,7 +5,6 @@ package org.etools.j1939tools.j1939.packets;
 
 import static org.etools.j1939_84.J1939_84.NL;
 
-import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,17 +36,25 @@ public class DM19CalibrationInformationPacket extends GenericPacket {
         private final byte[] rawCvn;
 
         public CalibrationInformation(String calId, int cvn) {
+            this(calId, Integer.toHexString(cvn));
+        }
+
+        public CalibrationInformation(String calId, String cvn) {
 
             if (calId.length() >= 17) {
                 calibrationIdentification = calId.substring(0, 17);
             } else {
-                calibrationIdentification = String.format("%0$-16s", calId).replace(' ', (char) 0x00);
+                calibrationIdentification = String.format("%-16s", calId).replace(' ', (char) 0x00);
             }
 
-            calibrationVerificationNumber = String.format("%04X", cvn).replace(' ', (char) 0x00);
+            if (cvn.length() >= 9) {
+                calibrationVerificationNumber = cvn.substring(0, 9);
+            } else {
+                calibrationVerificationNumber = String.format("%-8s", cvn).replace(' ', (char) 0x00);
+            }
 
             rawCalId = calibrationIdentification.getBytes(StandardCharsets.UTF_8);
-            rawCvn = Arrays.copyOfRange(BigInteger.valueOf(cvn).toByteArray(), 0, 4);
+            rawCvn = calibrationVerificationNumber.getBytes(StandardCharsets.UTF_8);
 
         }
 
