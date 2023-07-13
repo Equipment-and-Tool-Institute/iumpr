@@ -3,7 +3,6 @@
  */
 package net.soliddesign.iumpr.modules;
 
-import static org.etools.j1939tools.j1939.J1939.GLOBAL_ADDR;
 import static org.etools.j1939tools.modules.GhgTrackingModule.GHG_ACTIVE_100_HR;
 import static org.etools.j1939tools.modules.GhgTrackingModule.GHG_ACTIVE_GREEN_HOUSE_100_HR;
 import static org.etools.j1939tools.modules.GhgTrackingModule.GHG_ACTIVE_HYBRID_100_HR;
@@ -30,8 +29,7 @@ import java.util.stream.Stream;
 
 import org.etools.j1939tools.CommunicationsListener;
 import org.etools.j1939tools.bus.BusResult;
-import org.etools.j1939tools.bus.Packet;
-import org.etools.j1939tools.j1939.packets.DM19CalibrationInformationPacket;
+import org.etools.j1939tools.j1939.packets.DM24SPNSupportPacket;
 import org.etools.j1939tools.j1939.packets.GenericPacket;
 import org.etools.j1939tools.modules.DateTimeModule;
 import org.etools.j1939tools.modules.GhgTrackingModule;
@@ -64,17 +62,29 @@ public class NoxBinningGhgTrackingModule extends FunctionalModule {
     }
 
     public void reportInformation(ResultsListener listener, List<Integer> obdAddresses) {
-        Packet request = getJ1939().createRequestPacket(DM19CalibrationInformationPacket.PGN, GLOBAL_ADDR);
-        generateReport(listener, "Global DM19 (Calibration Information) Request",
-                DM19CalibrationInformationPacket.class,
-                request);
-
         for (int sa : obdAddresses) {
-            testSp12675(sa, listener);
-            testSp12730(sa, listener);
-            testSp12691(sa, listener);
-            testSp12797(sa, listener);
-            testSp12783(sa, listener);
+            getJ1939()
+                    .requestDS("DS DM24 Request", DM24SPNSupportPacket.class, sa, listener)
+                    .getPacket()
+                    .flatMap(p -> p.left)
+                    .ifPresent(p -> {
+                        List<Integer> spns = p.getSpns().stream().map(spn -> spn.getId()).collect(Collectors.toList());
+                        if (spns.contains(12675)) {
+                            testSp12675(sa, listener);
+                        }
+                        if (spns.contains(12730)) {
+                            testSp12730(sa, listener);
+                        }
+                        if (spns.contains(12691)) {
+                            testSp12691(sa, listener);
+                        }
+                        if (spns.contains(12797)) {
+                            testSp12797(sa, listener);
+                        }
+                        if (spns.contains(12783)) {
+                            testSp12783(sa, listener);
+                        }
+                    });
         }
 
     }
