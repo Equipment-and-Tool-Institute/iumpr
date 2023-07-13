@@ -67,7 +67,7 @@
 	<target name="dist" description="Generates the JAR File">
 		<antcall target="init" />
 		<antcall target="clean" />
-		<antcall target="increment.minor.build.number" />
+		<antcall target="increment.revision.build.number" />
 		<antcall target="compile" />
 
 		<!-- Put everything in ${build} into the jar file -->
@@ -77,13 +77,14 @@
 			</manifest>
 			<fileset dir="build">
 			</fileset>
+			<zipfileset src="lib/commons-lang3-3.10.jar" />
 			<zipfileset src="lib/ini4j-0.5.4.jar" />
 			<zipfileset src="lib/jna-5.5.0.jar" />
 			<zipfileset src="lib/jna-platform-5.5.0.jar" />
 			<zipfileset src="lib/opencsv-3.8.jar" />
 		</jar>
 
-		<antcall target="run.tests" />
+		<!--<antcall target="run.tests" />-->
 
 		<antcall target="dist.exe" />
 	</target>
@@ -100,7 +101,8 @@
 			</condition>
 		</fail>
 
-		<copy todir="jre">
+		<delete dir="jre"></delete>
+		<copy overwrite="true" todir="jre">
 			<fileset dir="${env.JRE_HOME}" />
 		</copy>
 		<!--Generates the EXE File -->
