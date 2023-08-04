@@ -6,7 +6,9 @@ package net.soliddesign.iumpr.controllers;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.function.Supplier;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -278,13 +280,13 @@ public abstract class Controller {
      *            the {@link ReportFileModule} that will be used to read and
      *            generate the report
      */
-    public void execute(ResultsListener listener, J1939 j1939, ReportFileModule reportFileModule) {
+    public CompletableFuture<Void> execute(ResultsListener listener, J1939 j1939, ReportFileModule reportFileModule) {
         setJ1939(j1939);
         this.reportFileModule = reportFileModule;
 
         ending = null;
         compositeListener = new CompositeResultsListener(listener, reportFileModule);
-        getExecutor().execute(getRunnable());
+        return CompletableFuture.supplyAsync(getRunnable(), getExecutor());
     }
 
     /**
@@ -428,7 +430,7 @@ public abstract class Controller {
      *
      * @return {@link Runnable}
      */
-    private Runnable getRunnable() {
+    private Supplier<Void> getRunnable() {
         return () -> {
             try {
                 setupProgress(getTotalSteps());
@@ -452,6 +454,7 @@ public abstract class Controller {
             } finally {
                 finished();
             }
+            return null;
         };
     }
 

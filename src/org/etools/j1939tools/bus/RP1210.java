@@ -21,6 +21,7 @@ import org.ini4j.Ini;
 import org.ini4j.Profile.Section;
 
 import net.soliddesign.iumpr.IUMPR;
+import net.soliddesign.iumpr.system.Engine;
 
 /**
  * Class used to gather the RP1210 Adapters available for vehicle communications
@@ -69,6 +70,11 @@ public class RP1210 {
             String connectionString,
             int address,
             BiConsumer<RP1210Bus.ErrorType, String> errorFn) throws BusException {
+        if ("Simulated".equals(adapter.getDLLName())) {
+            EchoBus bus = new EchoBus(address);
+            new Engine(bus);
+            return bus;
+        }
         return new J1939TP(new RP1210Bus(adapter, connectionString, address, true, errorFn), address, true);
     }
 

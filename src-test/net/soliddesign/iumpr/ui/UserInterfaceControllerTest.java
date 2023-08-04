@@ -141,7 +141,7 @@ public class UserInterfaceControllerTest {
     @Test
     public void testDisconnect() throws Exception {
         instance.onAdapterComboBoxItemSelected(adapter1);
-        executor.run();
+        // executor.run();
 
         instance.disconnect();
 
@@ -169,7 +169,7 @@ public class UserInterfaceControllerTest {
     @Test
     public void testDisconnectHandlesException() throws Exception {
         instance.onAdapterComboBoxItemSelected(adapter1);
-        executor.run();
+        // executor.run();
 
         Mockito.doThrow(new BusException("Testing")).when(rp1210Bus).stop();
 
@@ -237,7 +237,7 @@ public class UserInterfaceControllerTest {
         when(rp1210Bus.getAddress()).thenReturn(0xF9);
 
         instance.onAdapterComboBoxItemSelected(adapter1);
-        executor.run();
+        // executor.run();
 
         J1939 actual = instance.getNewJ1939();
         assertEquals(0xF9, actual.getBusAddress());
@@ -271,7 +271,7 @@ public class UserInterfaceControllerTest {
         instance.setReportFile(null);
 
         instance.onAdapterComboBoxItemSelected(adapter1);
-        executor.run();
+        // executor.run();
 
         assertEquals("Adapter1", instance.getSelectedAdapter().getName());
 
@@ -544,7 +544,7 @@ public class UserInterfaceControllerTest {
     @Test
     public void testOnFileChosenWithAdapter() throws Exception {
         instance.onAdapterComboBoxItemSelected(adapter1);
-        executor.run();
+        // executor.run();
 
         verify(rp1210).getAdapters();
         // verify(rp1210).setAdapter(adapter1, 0xF9);
@@ -726,7 +726,7 @@ public class UserInterfaceControllerTest {
         when(comparisonModule.getVin()).thenReturn("12345678901234567890");
         when(comparisonModule.getCalibrationsAsString()).thenThrow(new IOException("Cals not read"));
 
-        instance.onReadVehicleInfoButtonClicked();
+        instance.onReadVehicleInfoButtonClicked().join();
         executor.run();
 
         verify(comparisonModule).getVin();
@@ -759,7 +759,7 @@ public class UserInterfaceControllerTest {
     public void testOnReadVehicleInfoButtonClickedWithNullVin() throws Exception {
         when(comparisonModule.getVin()).thenThrow(new IOException("VIN not read"));
 
-        instance.onReadVehicleInfoButtonClicked();
+        instance.onReadVehicleInfoButtonClicked().join();
         executor.run();
 
         verify(comparisonModule).getVin();
@@ -790,7 +790,7 @@ public class UserInterfaceControllerTest {
         when(comparisonModule.compareFileToVehicle(listenerCaptor.capture(), eq(reportFileModule), eq(2), eq(6)))
                 .thenReturn(false);
 
-        instance.onReadVehicleInfoButtonClicked();
+        instance.onReadVehicleInfoButtonClicked().join();
         executor.run();
 
         verify(comparisonModule).reset();
@@ -826,7 +826,7 @@ public class UserInterfaceControllerTest {
         when(comparisonModule.compareFileToVehicle(any(ResultsListener.class), eq(reportFileModule), eq(2), eq(6)))
                 .thenReturn(true);
 
-        instance.onReadVehicleInfoButtonClicked();
+        instance.onReadVehicleInfoButtonClicked().join();
         executor.run();
 
         assertEquals("12345678901234567890", instance.getVin());

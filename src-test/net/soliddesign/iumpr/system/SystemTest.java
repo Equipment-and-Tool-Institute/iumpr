@@ -6,7 +6,6 @@ package net.soliddesign.iumpr.system;
 import static net.soliddesign.iumpr.IUMPR.NL;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -80,7 +79,8 @@ public class SystemTest {
 
         DateTimeModule dateTimeModule = new TestDateTimeModule();
 
-        ScheduledExecutorService scheduledThreadPool = Executors.newScheduledThreadPool(2);
+        ScheduledExecutorService scheduledThreadPool = Executors.newScheduledThreadPool(2,
+                r -> new Thread(r, "SystemTest"));
 
         BuildNumber buildNumber = new BuildNumber() {
             @Override
@@ -141,12 +141,6 @@ public class SystemTest {
         // Select the Adapter
         assertEquals(1, view.getEnabled());
         controller.onAdapterComboBoxItemSelected(RP1210.LOOP_BACK_ADAPTER);
-        // Give time for the adapter to be connected
-        wait(1, 3, 3, TimeUnit.SECONDS);
-
-        // Check enabled status and connect the engine
-        J1939 j1939 = controller.getNewJ1939();
-        engine = new Engine(j1939.getBus());
 
         // Select an existing file
         File testFile = File.createTempFile("testing", ".iumpr");
@@ -154,41 +148,24 @@ public class SystemTest {
         try (InputStream in = SystemTest.class.getResourceAsStream("expectedNewFile.txt")) {
             Files.copy(in, testFile.toPath());
         }
-        controller.onFileChosen(testFile);
-        // Give time for the file to be scanned
-        wait(3, 7, 30, TimeUnit.SECONDS);
+        controller.onFileChosen(testFile).join();
 
         // Read Vehicle Information
-        controller.onReadVehicleInfoButtonClicked();
-        // Wait for vehicle info to be read
-        wait(7, 31, 10, TimeUnit.SECONDS);
+        controller.onReadVehicleInfoButtonClicked().join();
         assertEquals("3HAMKSTN0FL575012", view.vin);
         assertEquals("CAL ID of PBT5MPR3 and CVN of 0x40DCBF96", view.cals);
 
         // Generate Data Plate
-        controller.onGenerateDataPlateButtonClicked();
-        // Wait for Generate Data Plate to end
-        wait(31, 112, 60, TimeUnit.SECONDS);
+        controller.onGenerateDataPlateButtonClicked().join();
 
         // Monitor Tracking Completion
         controller.onMonitorCompletionButtonClicked();
-        // Wait of Monitor Tracking to begin
-        wait(112, 16, 1, TimeUnit.SECONDS);
+        Thread.sleep(2000);
         // End Tracking right away
-        MonitorCompletionController mcc = (MonitorCompletionController) controller.getActiveController();
-        mcc.endTracking();
-        // Wait for the tracking to end
-        wait(16, 112, 30, TimeUnit.SECONDS);
+        ((MonitorCompletionController) controller.getActiveController()).endTracking();
 
         // Collect Test Results
-        controller.onCollectTestResultsButtonClicked();
-        // Wait for Collecting Test Results to begin
-        wait(112, 16, 1, TimeUnit.SECONDS);
-        // Wait for Collecting Test Results to complete
-        wait(16, 112, 30, TimeUnit.SECONDS);
-
-        // The line with the file is removed from the results because it's
-        // variable
+        controller.onCollectTestResultsButtonClicked().join();
 
         // Read the expected results
         String expectedResults = getFileContents("expectedExistingFileResults.txt");
@@ -209,8 +186,6 @@ public class SystemTest {
         // Select the Adapter
         assertEquals(1, view.getEnabled());
         controller.onAdapterComboBoxItemSelected(RP1210.LOOP_BACK_ADAPTER);
-        // Give time for the adapter to be connected
-        wait(1, 3, 3, TimeUnit.SECONDS);
 
         // Check enabled status and connect the engine
         J1939 j1939 = controller.getNewJ1939();
@@ -223,14 +198,11 @@ public class SystemTest {
         try (InputStream in = SystemTest.class.getResourceAsStream("invalidCal.txt")) {
             Files.copy(in, testFile.toPath());
         }
-        controller.onFileChosen(testFile);
-        // Give time for the file to be scanned
-        wait(3, 7, 5, TimeUnit.SECONDS);
+        controller.onFileChosen(testFile).join();
 
         // Read Vehicle Information
-        controller.onReadVehicleInfoButtonClicked();
-        // Wait for vehicle info to be read
-        wait(7, 7, 5, TimeUnit.SECONDS);
+        controller.onReadVehicleInfoButtonClicked().join();
+
         assertEquals("3HAMKSTN0FL575012", view.vin);
         assertEquals("CAL ID of PBT5MPR3 and CVN of 0x40DCBF96", view.cals);
 
@@ -241,12 +213,12 @@ public class SystemTest {
         // Check the messages sent back to the UI
 
         StringBuilder sb = new StringBuilder();
-        sb.append("Connecting to Adapter").append(NL);
-        sb.append("Select Report File").append(NL);
+        // sb.append("Select Report File").append(NL);
         for (int i = 0; i < 170; i++) {
             sb.append("Scanning Report File").append(NL);
         }
         sb.append("Push Read Vehicle Info Button").append(NL);
+        sb.append("Connecting RP1210").append(NL);
         sb.append("Reading Vehicle Identification Number").append(NL);
         sb.append("Reading Vehicle Calibrations").append(NL);
         sb.append("Reading VIN from Vehicle").append(NL);
@@ -270,8 +242,6 @@ public class SystemTest {
         // Select the Adapter
         assertEquals(1, view.getEnabled());
         controller.onAdapterComboBoxItemSelected(RP1210.LOOP_BACK_ADAPTER);
-        // Give time for the adapter to be connected
-        wait(1, 3, 3, TimeUnit.SECONDS);
 
         // Check enabled status and connect the engine
         J1939 j1939 = controller.getNewJ1939();
@@ -284,14 +254,10 @@ public class SystemTest {
         try (InputStream in = SystemTest.class.getResourceAsStream("invalidVin.txt")) {
             Files.copy(in, testFile.toPath());
         }
-        controller.onFileChosen(testFile);
-        // Give time for the file to be scanned
-        wait(3, 7, 5, TimeUnit.SECONDS);
+        controller.onFileChosen(testFile).join();
 
         // Read Vehicle Information
-        controller.onReadVehicleInfoButtonClicked();
-        // Wait for vehicle info to be read
-        wait(7, 7, 5, TimeUnit.SECONDS);
+        controller.onReadVehicleInfoButtonClicked().join();
         assertEquals("3HAMKSTN0FL575012", view.vin);
         assertEquals("CAL ID of PBT5MPR3 and CVN of 0x40DCBF96", view.cals);
 
@@ -302,12 +268,12 @@ public class SystemTest {
         // Check the messages sent back to the UI
 
         StringBuilder sb = new StringBuilder();
-        sb.append("Connecting to Adapter").append(NL);
-        sb.append("Select Report File").append(NL);
+        // sb.append("Select Report File").append(NL);
         for (int i = 0; i < 170; i++) {
             sb.append("Scanning Report File").append(NL);
         }
         sb.append("Push Read Vehicle Info Button").append(NL);
+        sb.append("Connecting RP1210").append(NL);
         sb.append("Reading Vehicle Identification Number").append(NL);
         sb.append("Reading Vehicle Calibrations").append(NL);
         sb.append("Reading VIN from Vehicle").append(NL);
@@ -324,8 +290,6 @@ public class SystemTest {
         // Select the Adapter
         assertEquals(1, view.getEnabled());
         controller.onAdapterComboBoxItemSelected(RP1210.LOOP_BACK_ADAPTER);
-        // Give time for the adapter to be connected
-        wait(1, 3, 3, TimeUnit.SECONDS);
 
         // Check enabled status and connect the engine
         J1939 j1939 = controller.getNewJ1939();
@@ -338,14 +302,10 @@ public class SystemTest {
         try (InputStream in = SystemTest.class.getResourceAsStream("tsccGap.txt")) {
             Files.copy(in, testFile.toPath());
         }
-        controller.onFileChosen(testFile);
-        // Give time for the file to be scanned
-        wait(3, 7, 5, TimeUnit.SECONDS);
+        controller.onFileChosen(testFile).join();
 
         // Read Vehicle Information
-        controller.onReadVehicleInfoButtonClicked();
-        // Wait for vehicle info to be read
-        wait(7, 31, 30, TimeUnit.SECONDS);
+        controller.onReadVehicleInfoButtonClicked().join();
         assertEquals("3HAMKSTN0FL575012", view.vin);
         assertEquals("CAL ID of PBT5MPR3 and CVN of 0x40DCBF96", view.cals);
 
@@ -354,12 +314,12 @@ public class SystemTest {
         // Check the messages sent back to the UI
 
         StringBuilder sb = new StringBuilder();
-        sb.append("Connecting to Adapter").append(NL);
-        sb.append("Select Report File").append(NL);
+        // sb.append("Select Report File").append(NL);
         for (int i = 0; i < 170; i++) {
             sb.append("Scanning Report File").append(NL);
         }
         sb.append("Push Read Vehicle Info Button").append(NL);
+        sb.append("Connecting RP1210").append(NL);
         sb.append("Reading Vehicle Identification Number").append(NL);
         sb.append("Reading Vehicle Calibrations").append(NL);
         sb.append("Reading VIN from Vehicle").append(NL);
@@ -378,8 +338,6 @@ public class SystemTest {
         // Select the Adapter
         assertEquals(1, view.getEnabled());
         controller.onAdapterComboBoxItemSelected(RP1210.LOOP_BACK_ADAPTER);
-        // Give time for the adapter to be connected
-        wait(1, 3, 3, TimeUnit.SECONDS);
 
         // Check enabled status and connect the engine
         J1939 j1939 = controller.getNewJ1939();
@@ -393,14 +351,10 @@ public class SystemTest {
             Files.copy(in, testFile.toPath());
         }
 
-        controller.onFileChosen(testFile);
-        // Give time for the file to be scanned
-        wait(3, 7, 5, TimeUnit.SECONDS);
+        controller.onFileChosen(testFile).join();
 
         // Read Vehicle Information
-        controller.onReadVehicleInfoButtonClicked();
-        // Wait for vehicle info to be read
-        wait(7, 31, 30, TimeUnit.SECONDS);
+        controller.onReadVehicleInfoButtonClicked().join();
         assertEquals("3HAMKSTN0FL575012", view.vin);
         assertEquals("CAL ID of PBT5MPR3 and CVN of 0x40DCBF96", view.cals);
 
@@ -409,12 +363,12 @@ public class SystemTest {
         // Check the messages sent back to the UI
 
         StringBuilder sb = new StringBuilder();
-        sb.append("Connecting to Adapter").append(NL);
-        sb.append("Select Report File").append(NL);
+        // sb.append("Select Report File").append(NL);
         for (int i = 0; i < 170; i++) {
             sb.append("Scanning Report File").append(NL);
         }
         sb.append("Push Read Vehicle Info Button").append(NL);
+        sb.append("Connecting RP1210").append(NL);
         sb.append("Reading Vehicle Identification Number").append(NL);
         sb.append("Reading Vehicle Calibrations").append(NL);
         sb.append("Reading VIN from Vehicle").append(NL);
@@ -432,8 +386,6 @@ public class SystemTest {
         // Select the Adapter
         assertEquals(1, view.getEnabled());
         controller.onAdapterComboBoxItemSelected(RP1210.LOOP_BACK_ADAPTER);
-        // Give time for the adapter to be connected
-        wait(1, 3, 3, TimeUnit.SECONDS);
 
         // Check enabled status and connect the engine
         J1939 j1939 = controller.getNewJ1939();
@@ -443,43 +395,31 @@ public class SystemTest {
         File testFile = File.createTempFile("testing", ".iumpr");
         // File cannot exist so the controller sees it as new
         assertTrue(testFile.delete());
-        controller.onFileChosen(testFile);
-        // Give time for the file to be scanned
-        wait(3, 7, 5, TimeUnit.SECONDS);
+        controller.onFileChosen(testFile).join();
 
         // Read Vehicle Information
-        controller.onReadVehicleInfoButtonClicked();
-        // Wait for vehicle info to be read
-        wait(7, 31, 10, TimeUnit.SECONDS);
+        controller.onReadVehicleInfoButtonClicked().join();
         assertEquals("3HAMKSTN0FL575012", view.vin);
         assertEquals("CAL ID of PBT5MPR3 and CVN of 0x40DCBF96", view.cals);
 
         // Generate Data Plate
-        controller.onGenerateDataPlateButtonClicked();
-        // Wait for Generate Data Plate to end
-        wait(31, 112, 60, TimeUnit.SECONDS);
+        controller.onGenerateDataPlateButtonClicked().join();
 
         // Monitor Tracking Completion
         controller.onMonitorCompletionButtonClicked();
-        // Wait of Monitor Tracking to begin
-        wait(112, 16, 1, TimeUnit.SECONDS);
 
-        assertTrue(view.statusViewVisible);
+        while (!view.statusViewVisible) {
+            Thread.sleep(100);
+        }
         // Let the tracking run through one cycle
         Thread.sleep(TimeUnit.SECONDS.toMillis(60));
 
         // End Tracking
         MonitorCompletionController mcc = (MonitorCompletionController) controller.getActiveController();
         mcc.endTracking();
-        // Wait for the tracking to end
-        wait(16, 112, 30, TimeUnit.SECONDS);
 
         // Collect Test Results
-        controller.onCollectTestResultsButtonClicked();
-        // Wait for Collecting Test Results to begin
-        wait(112, 16, 1, TimeUnit.SECONDS);
-        // Wait for Collecting Test Results to complete
-        wait(16, 112, 30, TimeUnit.SECONDS);
+        controller.onCollectTestResultsButtonClicked().join();
 
         // The line with the file is removed from the results because it's
         // variable
@@ -502,8 +442,6 @@ public class SystemTest {
         // Select the Adapter
         assertEquals(1, view.getEnabled());
         controller.onAdapterComboBoxItemSelected(RP1210.LOOP_BACK_ADAPTER);
-        // Give time for the adapter to be connected
-        wait(1, 3, 3, TimeUnit.SECONDS);
 
         // Check enabled status and connect the engine
         J1939 j1939 = controller.getNewJ1939();
@@ -513,26 +451,19 @@ public class SystemTest {
         File testFile = File.createTempFile("testing", ".iumpr");
         // File cannot exist so the controller sees it as new
         assertTrue(testFile.delete());
-        controller.onFileChosen(testFile);
-        // Give time for the file to be scanned
-        wait(3, 7, 5, TimeUnit.SECONDS);
+        controller.onFileChosen(testFile).join();
 
         // Read Vehicle Information
-        controller.onReadVehicleInfoButtonClicked();
-        // Wait for vehicle info to be read
-        wait(7, 31, 10, TimeUnit.SECONDS);
+        controller.onReadVehicleInfoButtonClicked().join();
         assertEquals("3HAMKSTN0FL575012", view.vin);
         assertEquals("CAL ID of PBT5MPR3 and CVN of 0x40DCBF96", view.cals);
 
         // Generate Data Plate
-        controller.onGenerateDataPlateButtonClicked();
-        // Wait for Generate Data Plate to begin
-        wait(31, 16, 60, TimeUnit.SECONDS);
+        controller.onGenerateDataPlateButtonClicked().join();
 
         Thread.sleep(10000);
 
         controller.onStopButtonClicked();
-        wait(16, 28, 3, TimeUnit.SECONDS);
 
         // The line with the file is removed from the results because it's
         // variable
@@ -548,45 +479,5 @@ public class SystemTest {
         // Check the messages sent back to the UI
         String expectedMessages = getFileContents("expectedNewFileMessagesStopped.txt");
         assertEquals(expectedMessages, view.getMessages());
-    }
-
-    /**
-     * Helper method to wait on the UI changes
-     *
-     * @param startingValue
-     *            the enabled mask that the UI will be at when the wait starts.
-     * @param endingValue
-     *            the enabled mask that the UI is expected to be at to end the
-     *            wait
-     * @param timeout
-     *            the maximum time to wait for the UI to change
-     * @param timeUnit
-     *            the {@link TimeUnit} of the timeout
-     * @throws InterruptedException
-     *             if the sleep is interrupted
-     */
-    private void wait(int startingValue, int endingValue, long timeout, TimeUnit timeUnit) throws InterruptedException {
-        long maxTime = timeUnit.toMillis(timeout);
-        long start = System.currentTimeMillis();
-
-        while (view.getEnabled() == startingValue) {
-            if (System.currentTimeMillis() - start > maxTime) {
-                assertEquals("transition: " + startingValue + " -> " + endingValue, startingValue, view.getEnabled());
-                if (System.currentTimeMillis() - start > maxTime * 2) {
-                    fail("Timeout waiting for starting value to change");
-                }
-            }
-            Thread.sleep(100);
-        }
-
-        while (view.getEnabled() != endingValue) {
-            if (System.currentTimeMillis() - start > maxTime) {
-                assertEquals("transition: " + startingValue + " -> " + endingValue, endingValue, view.getEnabled());
-                if (System.currentTimeMillis() - start > maxTime * 2) {
-                    fail("Timeout waiting for ending value to change");
-                }
-            }
-            Thread.sleep(100);
-        }
     }
 }

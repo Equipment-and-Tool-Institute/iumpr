@@ -144,7 +144,7 @@ public class Engine implements AutoCloseable {
 
         // DM21
         sim.response(p -> isRequestFor(49408, p),
-                () -> Packet.create(49408, ADDR, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                () -> Packet.create(49408 | 0xFF, ADDR, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                         dtcsCleared ? 0x00 : 0x77));
 
         // DM24 supported SPNs

@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
@@ -263,6 +264,9 @@ public class UserInterfaceController implements IUserInterfaceController {
 
     @Override
     public J1939 getNewJ1939() {
+        if (bus == null) {
+            connectAdapter();
+        }
         return new J1939(bus);
     }
 
@@ -383,11 +387,11 @@ public class UserInterfaceController implements IUserInterfaceController {
      * onCollectTestResultsButtonClicked()
      */
     @Override
-    public void onCollectTestResultsButtonClicked() {
+    public CompletableFuture<Void> onCollectTestResultsButtonClicked() {
         getView().setCollectTestResultsButtonEnabled(false);
         getView().setMonitorCompletionButtonEnabled(false);
         connectAdapter();
-        runController(collectResultsController);
+        return runController(collectResultsController);
     }
 
     /*
@@ -398,8 +402,8 @@ public class UserInterfaceController implements IUserInterfaceController {
      * File)
      */
     @Override
-    public void onFileChosen(File file) {
-        executor.execute(() -> {
+    public CompletableFuture<Void> onFileChosen(File file) {
+        return CompletableFuture.supplyAsync(() -> {
             resetView();
             getView().setAdapterComboBoxEnabled(false);
             getView().setSelectFileButtonEnabled(false);
@@ -425,7 +429,8 @@ public class UserInterfaceController implements IUserInterfaceController {
             checkSetupComplete();
             getView().setAdapterComboBoxEnabled(true);
             getView().setSelectFileButtonEnabled(true);
-        });
+            return null;
+        }, executor);
     }
 
     /*
@@ -435,12 +440,12 @@ public class UserInterfaceController implements IUserInterfaceController {
      * onGenerateDataPlateButtonClicked()
      */
     @Override
-    public void onGenerateDataPlateButtonClicked() {
+    public CompletableFuture<Void> onGenerateDataPlateButtonClicked() {
         getView().setGenerateDataPlateButtonEnabled(false);
         getView().setReadVehicleInfoButtonEnabled(false);
         getView().setAdapterComboBoxEnabled(false);
         getView().setSelectFileButtonEnabled(false);
-        runController(dataPlateController);
+        return runController(dataPlateController);
     }
 
     @Override
@@ -469,8 +474,8 @@ public class UserInterfaceController implements IUserInterfaceController {
      * onReadVehicleInfoButtonClicked()
      */
     @Override
-    public void onReadVehicleInfoButtonClicked() {
-        executor.execute(() -> {
+    public CompletableFuture<Void> onReadVehicleInfoButtonClicked() {
+        return CompletableFuture.supplyAsync(() -> {
             resetView();
             getView().setAdapterComboBoxEnabled(false);
             getView().setSelectFileButtonEnabled(false);
@@ -491,6 +496,8 @@ public class UserInterfaceController implements IUserInterfaceController {
 
                 result = getComparisonModule().compareFileToVehicle(resultsListener, getReportFileModule(), 2, 6);
             } catch (IOException e) {
+                e.printStackTrace();
+
                 getView().setProgressBarText(e.getMessage());
                 getView().displayDialog(e.getMessage(), "Communications Error", JOptionPane.ERROR_MESSAGE, false);
             } finally {
@@ -503,7 +510,8 @@ public class UserInterfaceController implements IUserInterfaceController {
                 getView().setAdapterComboBoxEnabled(true);
                 getView().setSelectFileButtonEnabled(true);
             }
-        });
+            return null;
+        }, executor);
     }
 
     /*
@@ -546,9 +554,9 @@ public class UserInterfaceController implements IUserInterfaceController {
         getView().setReadVehicleInfoButtonEnabled(false);
     }
 
-    private void runController(Controller controller) {
+    private CompletableFuture<Void> runController(Controller controller) {
         setActiveController(controller);
-        getActiveController().execute(getResultsListener(), getNewJ1939(), getReportFileModule());
+        return getActiveController().execute(getResultsListener(), getNewJ1939(), getReportFileModule());
     }
 
     /**

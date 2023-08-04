@@ -5,6 +5,7 @@ package net.soliddesign.iumpr.ui;
 
 import java.io.File;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import org.etools.j1939tools.bus.Adapter;
 import org.etools.j1939tools.j1939.J1939;
@@ -67,21 +68,24 @@ public interface IUserInterfaceController {
      * Called when the {@link UserInterfaceView} Collect Tests Results Button is
      * clicked
      */
-    void onCollectTestResultsButtonClicked();
+    CompletableFuture<Void> onCollectTestResultsButtonClicked();
 
     /**
      * Called when the use has selected a report file
      *
      * @param file
      *            the file to use for the report
+     * @return
      */
-    void onFileChosen(File file);
+    CompletableFuture<Void> onFileChosen(File file);
 
     /**
      * Called when the {@link UserInterfaceView} Generate Data Plate Button is
      * clicked
+     *
+     * @return
      */
-    void onGenerateDataPlateButtonClicked();
+    CompletableFuture<Void> onGenerateDataPlateButtonClicked();
 
     /**
      * Called when the {@link UserInterfaceView} Help Button is clicked
@@ -91,14 +95,18 @@ public interface IUserInterfaceController {
     /**
      * Called when the {@link UserInterfaceView} Monitor Completion Button is
      * clicked
+     *
+     * @return
      */
     void onMonitorCompletionButtonClicked();
 
     /**
      * Called when the {@link UserInterfaceView} Read Vehicle Information Button
      * is clicked
+     *
+     * @return
      */
-    void onReadVehicleInfoButtonClicked();
+    CompletableFuture<Void> onReadVehicleInfoButtonClicked();
 
     /**
      * Called when the Select File Button has been clicked

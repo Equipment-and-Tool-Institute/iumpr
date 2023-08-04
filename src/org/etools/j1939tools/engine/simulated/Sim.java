@@ -28,12 +28,6 @@ import org.etools.j1939tools.bus.Packet;
 public class Sim implements AutoCloseable {
 
     /**
-     * The collection of responses. If the response returns true, then don't try
-     * other responses.
-     */
-    public final Collection<Function<Packet, Boolean>> responses = new ArrayList<>();
-
-    /**
      * The communications bus
      */
     private final Bus bus;
@@ -49,6 +43,12 @@ public class Sim implements AutoCloseable {
         }
     }, "Sim Thread"));
 
+    /**
+     * The collection of responses. If the response returns true, then don't try
+     * other responses.
+     */
+    public final Collection<Function<Packet, Boolean>> responses = new ArrayList<>();
+
     public Sim(Bus bus) throws BusException {
         this(bus, false);
     }
@@ -58,11 +58,11 @@ public class Sim implements AutoCloseable {
         // stream is collected in the current thread to avoid missing any
         // packets during the Thread startup.
         Stream<Packet> stream = bus.read(365, TimeUnit.DAYS)
-                                   .peek(p -> {
-                                       if (logPackets) {
-                                           J1939_84.getLogger().log(Level.FINE, p.toTimeString());
-                                       }
-                                   });
+                .peek(p -> {
+                    if (logPackets) {
+                        J1939_84.getLogger().log(Level.FINE, p.toTimeString());
+                    }
+                });
         exec.submit(() -> stream.parallel().forEach(packet -> {
             for (var r : responses) {
                 if (r.apply(packet)) {
@@ -80,18 +80,20 @@ public class Sim implements AutoCloseable {
     /**
      * Sends a response every time
      *
-     * @param  predicate
-     *                       the {@link Predicate} used to determine if the {@link Packet}
-     *                       should be sent
-     * @param  supplier
-     *                       the {@link Supplier} of the {@link Packet}
-     * @return           this
+     * @param predicate
+     *            the {@link Predicate} used to determine if the {@link Packet}
+     *            should be sent
+     * @param supplier
+     *            the {@link Supplier} of the {@link Packet}
+     * @return this
      */
     public Sim response(Predicate<Packet> predicate, Function<Packet, Packet> supplier) {
         responses.add(request -> {
             try {
                 if (predicate.test(request)) {
                     Packet response = supplier.apply(request);
+                    // System.err.println("sim: " + request + " -> " +
+                    // response);
                     send(response);
                     // if request is not to broadcast, only accept first
                     // response
@@ -116,13 +118,13 @@ public class Sim implements AutoCloseable {
     /**
      * Schedules a {@link Runnable} periodically
      *
-     * @param  period
-     *                    how often the {@link Runnable} should be run
-     * @param  unit
-     *                    the {@link TimeUnit} for the delay and period
-     * @param  run
-     *                    the {@link Runnable} to run
-     * @return        this
+     * @param period
+     *            how often the {@link Runnable} should be run
+     * @param unit
+     *            the {@link TimeUnit} for the delay and period
+     * @param run
+     *            the {@link Runnable} to run
+     * @return this
      */
     public Sim schedule(int period, TimeUnit unit, Runnable run) {
         exec.scheduleWithFixedDelay(run, period, period, unit);
@@ -132,13 +134,13 @@ public class Sim implements AutoCloseable {
     /**
      * Schedules a {@link Packet} to be sent periodically
      *
-     * @param  period
-     *                      how often the {@link Packet} should be sent
-     * @param  unit
-     *                      the {@link TimeUnit} for the delay and period
-     * @param  supplier
-     *                      the {@link Supplier} of the {@link Packet} to send
-     * @return          this
+     * @param period
+     *            how often the {@link Packet} should be sent
+     * @param unit
+     *            the {@link TimeUnit} for the delay and period
+     * @param supplier
+     *            the {@link Supplier} of the {@link Packet} to send
+     * @return this
      */
     public Sim schedule(int period, TimeUnit unit, Supplier<Packet> supplier) {
         return schedule(period, unit, () -> send(supplier.get()));
@@ -160,7 +162,7 @@ public class Sim implements AutoCloseable {
      * Sends a {@link Packet} now.
      *
      * @param packet
-     *                   the {@link Packet}
+     *            the {@link Packet}
      */
     public void sendNow(Packet packet) {
         exec.execute(() -> send(packet));
