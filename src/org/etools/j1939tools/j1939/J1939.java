@@ -418,6 +418,11 @@ public class J1939 {
         return bus.getAddress();
     }
 
+    private CommunicationsListener getDefaultListener() {
+        return x -> {
+        };
+    }
+
     /**
      * Count of warnings detected in J1939 and J1939TP.
      */
@@ -926,29 +931,26 @@ public class J1939 {
 
     // JUNK
     public <T extends GenericPacket> Stream<T> requestMultiple(Class<T> class1) {
-        return requestGlobal(null, class1, x -> {
-        }).getPackets().stream();
+        return requestGlobal(null, class1, getDefaultListener()).getPackets().stream();
     }
 
     // JUNK
     public <T extends GenericPacket> Stream<T> requestMultiple(Class<T> class1, Packet requestPacket) {
-        RequestResult<T> requestGlobal = requestGlobal(null, J1939.getPgn(class1), requestPacket, x -> {
-        });
+        RequestResult<T> requestGlobal = requestGlobal(null, J1939.getPgn(class1), requestPacket, getDefaultListener());
         return requestGlobal.getPackets().stream();
     }
 
     // JUNK -
     public <T extends GenericPacket> Optional<T> requestPacket(Packet packet, Class<T> class1, int addr,
             int times) {
-        BusResult<T> requestDS = requestDS(class1.getName(), J1939.getPgn(class1), packet, null);
+        BusResult<T> requestDS = requestDS(class1.getName(), J1939.getPgn(class1), packet, getDefaultListener());
         return requestDS.getPacket().flatMap(p -> p.left);
     }
 
     // JUNK -
     public <T extends GenericPacket> Optional<T> requestPacket(Packet request, Class<T> class1,
             int addr, int times, long timeout) {
-        BusResult<T> requestDS = requestDS(null, J1939.getPgn(class1), request, x -> {
-        });
+        BusResult<T> requestDS = requestDS(null, J1939.getPgn(class1), request, getDefaultListener());
         return requestDS.getPacket().flatMap(e -> e.left);
     }
 

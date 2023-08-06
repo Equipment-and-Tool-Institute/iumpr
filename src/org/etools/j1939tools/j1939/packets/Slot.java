@@ -31,21 +31,12 @@ public class Slot {
         this.length = length;
     }
 
-    /**
-     * @param  data
-     *                  the byte array containing the data from the packet
-     * @return      a String of the value
-     */
-    public String asStringNoUnit(byte[] data) {
-        return asString(false, data);
-    }
-
-    /**
-     * @param  data The byte array containing the data from the packet.
-     * @return      A String representation of the value with units of measure.
-     */
-    public String asString(byte[] data) {
-        return asString(true, data);
+    public byte[] asBytes(double value) {
+        if (isAscii()) {
+            return new byte[0];
+        }
+        double unscaled = unscale(value);
+        return toBytes(unscaled);
     }
 
     private String asString(boolean includeUnits, byte[] data) {
@@ -92,12 +83,30 @@ public class Slot {
     }
 
     /**
+     * @param data
+     *            The byte array containing the data from the packet.
+     * @return A String representation of the value with units of measure.
+     */
+    public String asString(byte[] data) {
+        return asString(true, data);
+    }
+
+    /**
+     * @param data
+     *            the byte array containing the data from the packet
+     * @return a String of the value
+     */
+    public String asStringNoUnit(byte[] data) {
+        return asString(false, data);
+    }
+
+    /**
      * Returns the data in a scaled value. If the type is ASCII or the value is
      * NOT_AVAILABLE or ERROR, null is returned
      *
-     * @param  data
-     *                  the byte array containing the data from the packet
-     * @return      the scaled value or null
+     * @param data
+     *            the byte array containing the data from the packet
+     * @return the scaled value or null
      */
     public Double asValue(byte[] data) {
         if (isAscii() || data.length == 0) {
@@ -117,14 +126,6 @@ public class Slot {
         return scale(value);
     }
 
-    public byte[] asBytes(double value) {
-        if (isAscii()) {
-            return new byte[0];
-        }
-        double unscaled = unscale(value);
-        return toBytes(unscaled);
-    }
-
     private long flipBytes(byte[] data) {
         long value = 0;
         for (int i = 0; i < getByteLength(); i++) {
@@ -139,6 +140,14 @@ public class Slot {
             bytes[i] += (byte) (value >> (i * 8)) & 0xFF;
         }
         return bytes;
+    }
+
+    public int getByteLength() {
+        int byteLength = length / 8;
+        if (length % 8 != 0) {
+            byteLength++;
+        }
+        return byteLength;
     }
 
     public int getId() {
@@ -228,10 +237,6 @@ public class Slot {
         return maskedValue == mask;
     }
 
-    private long mask(int dataLength) {
-        return ~0L >>> (dataLength - length);
-    }
-
     private long mask() {
         return ~0L >>> (64 - length);
     }
@@ -239,9 +244,9 @@ public class Slot {
     /**
      * Returns a scaled value. That is result = value * scaling + offset
      *
-     * @param  value
-     *                   the value to scale
-     * @return       double
+     * @param value
+     *            the value to scale
+     * @return double
      */
     public double scale(double value) {
         double result = value;
@@ -252,6 +257,24 @@ public class Slot {
             result += getOffset();
         }
         return result;
+    }
+
+    private byte[] toBytes(double value) {
+        long data = Double.valueOf(value).longValue();
+        if (length <= 8) {
+            return new byte[] { (byte) (data & mask()) };
+        }
+        return flipBytes(data & mask());
+    }
+
+    public long toValue(byte[] data) {
+        if (data.length == 0) {
+            return -1;
+        }
+        if (length <= 8) {
+            return data[0] & 0xFF & mask();
+        }
+        return flipBytes(data) & mask();
     }
 
     private double unscale(double value) {
@@ -265,32 +288,5 @@ public class Slot {
         }
         return result;
     }
-
-    public long toValue(byte[] data) {
-        if (data.length == 0) {
-            return -1;
-        }
-        if (length <= 8) {
-            return data[0] & 0xFF & mask();
-        }
-        return flipBytes(data) & mask();
-    }
-
-    public int getByteLength() {
-        int byteLength = length / 8;
-        if (length % 8 != 0) {
-            byteLength++;
-        }
-        return byteLength;
-    }
-
-    private byte[] toBytes(double value) {
-        long data = Double.valueOf(value).longValue();
-        if (length <= 8) {
-            return new byte[] { (byte) (data & mask()) };
-        }
-        return flipBytes(data & mask());
-    }
-
 
 }
