@@ -67,7 +67,6 @@
 	<target name="dist" description="Generates the JAR File">
 		<antcall target="init" />
 		<antcall target="clean" />
-		<antcall target="increment.revision.build.number" />
 		<antcall target="compile" />
 
 		<!-- Put everything in ${build} into the jar file -->
