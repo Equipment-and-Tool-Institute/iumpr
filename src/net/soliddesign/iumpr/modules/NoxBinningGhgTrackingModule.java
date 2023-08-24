@@ -68,7 +68,8 @@ public class NoxBinningGhgTrackingModule extends FunctionalModule {
                     .getPacket()
                     .flatMap(p -> p.left)
                     .ifPresent(p -> {
-                        List<Integer> spns = p.getSpns().stream().map(spn -> spn.getId()).collect(Collectors.toList());
+                        List<Integer> spns = p.getSupportedSpns().stream().map(spn -> spn.getSpn())
+                                .collect(Collectors.toList());
                         if (spns.contains(12675)) {
                             testSp12675(sa, listener);
                         }
