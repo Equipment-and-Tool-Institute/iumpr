@@ -14,12 +14,14 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 
 import javax.swing.JOptionPane;
 
 import org.etools.j1939tools.bus.Adapter;
 import org.etools.j1939tools.bus.Bus;
 import org.etools.j1939tools.bus.BusException;
+import org.etools.j1939tools.bus.Packet;
 import org.etools.j1939tools.bus.RP1210;
 import org.etools.j1939tools.bus.RP1210Bus;
 import org.etools.j1939tools.bus.RP1210Bus.ErrorType;
@@ -80,6 +82,8 @@ public class UserInterfaceController implements IUserInterfaceController {
 
     private boolean imposterReported;
 
+    private Stream<Packet> loggerStream = Stream.of();
+
     private MonitorCompletionController monitorCompletionController;
 
     private boolean newFile;
@@ -92,11 +96,11 @@ public class UserInterfaceController implements IUserInterfaceController {
     private final ReportFileModule reportFileModule;
 
     private final RP1210 rp1210;
-
     /**
      * The {@link IUserInterfaceView} that is being controlled
      */
     private final IUserInterfaceView view;
+
     private String vin;
 
     /**
@@ -182,6 +186,7 @@ public class UserInterfaceController implements IUserInterfaceController {
         try {
             if (bus != null) {
                 bus.close();
+                loggerStream.close();
             }
             bus = RP1210.createBus(adapter,
                     connectionString,
@@ -196,7 +201,9 @@ public class UserInterfaceController implements IUserInterfaceController {
                                     0/* ? */);
                         }
                     });
-            getComparisonModule().setJ1939(getNewJ1939());
+            J1939 j1939 = getNewJ1939();
+            getComparisonModule().setJ1939(j1939);
+            loggerStream = j1939.startLogger("IUMPR-CAN-");
         } catch (BusException e) {
             getLogger().log(Level.SEVERE, "Error Setting Adapter", e);
             getView().displayDialog("Communications could not be established using the selected adapter.",
