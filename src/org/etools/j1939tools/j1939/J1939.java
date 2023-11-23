@@ -752,11 +752,15 @@ public class J1939 {
     }
 
     /**
-     * 1. send request to global 2. collect responses announced within 600 ms 3.
-     * if any responses are NACK 03 3.1 send request to global 3.2 collect
-     * responses announced within 600 ms 4. for any NACK 03 responses, replace
-     * with results of DS request (announced within 600 ms) 5. for any NACK 03
-     * responses, replace with results of DS request (announced within 600 ms)
+     * <pre>
+      * 1. send request to global
+      * 2. collect responses announced within 600 ms
+      * 3. if any responses are NACK 03
+      *   3.1 send request to global
+      *   3.2 collect responses announced within 600 ms
+      * 4. for any NACK 03 responses, replace with results of DS request (announced within 600 ms)
+      * 5. for any NACK 03 responses, replace with results of DS request (announced within 600 ms)
+     * </pre>
      */
     public <T extends GenericPacket> RequestResult<T> requestGlobal(String title,
             int pgn,

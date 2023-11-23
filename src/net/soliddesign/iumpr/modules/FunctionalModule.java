@@ -5,6 +5,7 @@ package net.soliddesign.iumpr.modules;
 
 import static net.soliddesign.iumpr.IUMPR.NL;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -59,7 +60,11 @@ public abstract class FunctionalModule {
         if (packets.isEmpty()) {
             listener.onResult(TIMEOUT_MESSAGE);
         } else {
-            List<String> strings = packets.stream().map(getPacketMapperFunction()).collect(Collectors.toList());
+            List<String> strings = packets.stream()
+                    .sorted(Comparator.comparing((T p) -> p.getPacket()
+                            .getTimestamp()))
+                    .map(getPacketMapperFunction())
+                    .toList();
             listener.onResult(strings);
         }
         return packets;
