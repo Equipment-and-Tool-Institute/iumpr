@@ -352,6 +352,7 @@ public class J1939DaRepository {
             case "On Request":
             case "As requested":
             case "As required":
+            case "As required.":
             case "On powerup and on request":
             case "As required but no more often than 500 ms":
             case "When needed":
@@ -361,13 +362,13 @@ public class J1939DaRepository {
             // 10 ms
             case "To engine: Control Purpose dependent or 10 ms\n"
                     + "To retarder: 50 ms":
-                return 10;
+                return -10;
 
             // 20 ms
             case "Manufacturer defined, not faster than 20 ms":
             case "Default broadcast rate of 20 ms unless the sending device has received Engine Start Control Message Rate (SPN 7752) from the engine start arbitrator indicating a switch to 250 ms and on change, but no faster than 20 ms.":
             case "Default broadcast rate of 20 ms unless the arbitrator is transmitting Engine Start Control Message Rate (SPN 7752) indicating a switch to 250 ms or on change, but no faster than 20 ms.":
-                return 20;
+                return -20;
 
             // 50 ms
             case "System dependent; either 50 ms as needed for active control, or as a continuous 50 ms periodic broadcast.":
@@ -379,9 +380,13 @@ public class J1939DaRepository {
             case "Every 50ms and on change of \"Blind Spot Detection state\" or change of \"Collision Warning Level\" but no faster than every 10 ms":
                 return -50;
 
-            case "Engine speed dependent": // Got a better guess?
+            case "Engine speed dependent":
+                return -1;
+
             case "manufacturer defined, not faster than 100 ms":
             case "Manufacturer defined, not faster than 100 ms":
+                return -100;
+
             case "100 ms\n"
                     + "\n"
                     + "Note: Systems developed to the standard published before January, 2015 transmit at a 1s rate.":
@@ -392,6 +397,8 @@ public class J1939DaRepository {
 
             case "Application dependent, but no faster than 10 ms and no slower than 100 ms.":
             case "Engine speed dependent when active, otherwise every 100 ms":
+            case "100 ms and on change, but no faster than 10 ms.":
+            case "Every 100 ms and on change of more than 10% since last transmission but no faster than every 10 ms":
                 return -100;
 
             case "When active: 20 ms; else 200 ms":
@@ -432,10 +439,13 @@ public class J1939DaRepository {
                     + "May be sent on change if necessary to convey an instantaneous peak twist value above some threshold has occurred.":
             case "Transmitted only if DC EVSE is connected.\n"
                     + "Every 1 s and on change of state but no faster than every 100 ms.":
+            case "Transmission rate is once per engine combustion cycle when running, otherwise every 1 s":
+            case "Every 1 s and on change but no faster than 100 ms":
+            case "1 s and on change but no greater than 100 ms":
                 return -1000;
 
             case "Every 5 s and on change of torque/speed points of more than 10% since last transmission but no faster than every 500 ms":
-                return 5000;
+                return -5000;
 
             case "Engine speed dependent when there is no combustion, once every 5 s otherwise.":
             case "Engine speed dependent when knock present, once every 5 s otherwise.":
@@ -446,6 +456,8 @@ public class J1939DaRepository {
                     + "\n"
                     + "Note: Systems developed to the standard published before December, 2016 may be transmitted on request.":
             case "Cycles through all available axle groups once every ten seconds, with at least a 20 ms gap and at most a 200 ms gap between the transmission of each of the available axle groups.":
+            case "Every 10 s and on change of configuration but no faster than 1 s":
+            case "Every 10 s and, at the sender's option, after a significant change, e.g., more than 10% since the last transmission, or to account for a change reported in SPN 7711, Vehicle Trailer Status; but no faster than 1 s.":
                 return -10000;
 
             // no clue what to do with these
@@ -471,6 +483,9 @@ public class J1939DaRepository {
             case "On request.  Upon request, will be broadcast as many times as required to transmit all available axle groups.":
             case "As needed.  Broadcast whenever an axle group equipped with an on-board scale joined or left the on-board scale subset.":
             case "On request or sender may transmit every 5 s until acknowledged by reception of the engine configuration message PGN 65251 SPN 7828.":
+            case "As required, but no faster than 1 s.":
+            case "As needed.  See PG Description.":
+            case "At initialization, on request, when SPN 22713 changes, and when a torque map changes by more than 10% but no faster than 1 s.":
                 return 0;
 
             default:
