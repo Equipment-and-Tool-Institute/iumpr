@@ -380,6 +380,7 @@ public class UserInterfaceController implements IUserInterfaceController {
     @Override
     public void onAdapterComboBoxItemSelected(Adapter selectedAdapter) {
         adapter = selectedAdapter;
+        getReportFileModule().setAdapter(adapter);
     }
 
     @Override

@@ -25,6 +25,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import org.etools.j1939tools.bus.Adapter;
 import org.etools.j1939tools.bus.Packet;
 import org.etools.j1939tools.j1939.packets.DM19CalibrationInformationPacket;
 import org.etools.j1939tools.j1939.packets.DM19CalibrationInformationPacket.CalibrationInformation;
@@ -180,6 +181,8 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
      * Flag indicating if the file is new or existing
      */
     private boolean newFile;
+
+    private Adapter adapter;
 
     /**
      * The Number of queries for the session
@@ -725,6 +728,7 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
     public void reportFileInformation(ResultsListener listener) {
         listener.onResult(
                 getDateTime() + (isNewFile() ? " New" : " Existing") + " File: " + reportFile.getAbsolutePath());
+        listener.onResult(getDateTime() + " Selected Adapter: " + getAdapterString());
     }
 
     /**
@@ -896,6 +900,22 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
             }
             writer = Files.newBufferedWriter(reportFile.toPath(), StandardOpenOption.APPEND);
         }
+    }
+
+    /**
+     * Sets the adapter to be included in the report
+     *
+     * @param adapter
+     */
+    public void setAdapter(Adapter adapter) {
+        this.adapter = adapter;
+    }
+
+    private String getAdapterString(){
+        if (adapter != null){
+            return adapter.getDLLName() + " - " + adapter.getName();
+        }
+        return "";
     }
 
     /**
