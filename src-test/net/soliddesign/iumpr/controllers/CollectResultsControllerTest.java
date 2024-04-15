@@ -349,7 +349,7 @@ public class CollectResultsControllerTest {
 
         List<DM5DiagnosticReadinessPacket> dm5Packets = Collections.singletonList(new DM5DiagnosticReadinessPacket(
                 Packet.create(DM5DiagnosticReadinessPacket.PGN, 0x00, 1, 2, 3, 4, 5, 6, 7, 8)));
-        when(diagnosticReadinessModule.getDM5Packets(any(ResultsListener.class), eq(false))).thenReturn(dm5Packets);
+        when(diagnosticReadinessModule.getDM5Packets(any(ResultsListener.class), eq(true))).thenReturn(dm5Packets);
 
         when(diagnosticReadinessModule.reportDM26(any(ResultsListener.class))).thenReturn(true);
 
@@ -434,7 +434,7 @@ public class CollectResultsControllerTest {
         inOrder.verify(reportFileModule).onResult("");
         inOrder.verify(listener).onProgress(14, 22, "Requesting DM5");
         inOrder.verify(reportFileModule).onProgress(14, 22, "Requesting DM5");
-        inOrder.verify(diagnosticReadinessModule).getDM5Packets(any(ResultsListener.class), eq(false));
+        inOrder.verify(diagnosticReadinessModule).getDM5Packets(any(ResultsListener.class), eq(true));
         inOrder.verify(listener).onResult("");
         inOrder.verify(reportFileModule).onResult("");
         inOrder.verify(reportFileModule).getInitialMonitorsTime();

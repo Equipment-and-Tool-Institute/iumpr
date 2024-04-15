@@ -1129,10 +1129,105 @@ public class DiagnosticReadinessModuleTest {
         expected += "2007-12-03T10:15:30.000 Global DM5 Request" + NL;
         expected += "10:15:30.000 18EAFFA5 [3] CE FE 00 (TX)" + NL;
         expected += "10:15:30.000 18FECE00 [8] 11 22 14 44 55 66 77 88" + NL;
+        expected += "DM5 from Engine #1 (0): OBD Compliance: HD OBD (20), Active Codes: 17, Previously Active Codes: 34" + NL +
+                "Continuously Monitored System Support/Status:" + NL +
+                "    Comprehensive component        supported, not complete" + NL +
+                "    Fuel System                not supported,     complete" + NL +
+                "    Misfire                    not supported,     complete" + NL +
+                "Non-continuously Monitored System Support/Status:" + NL +
+                "    A/C system refrigerant         supported, not complete" + NL +
+                "    Boost pressure control sys     supported,     complete" + NL +
+                "    Catalyst                       supported, not complete" + NL +
+                "    Cold start aid system      not supported,     complete" + NL +
+                "    Diesel Particulate Filter      supported,     complete" + NL +
+                "    EGR/VVT system             not supported,     complete" + NL +
+                "    Evaporative system             supported, not complete" + NL +
+                "    Exhaust Gas Sensor         not supported, not complete" + NL +
+                "    Exhaust Gas Sensor heater      supported, not complete" + NL +
+                "    Heated catalyst            not supported, not complete" + NL +
+                "    NMHC converting catalyst   not supported,     complete" + NL +
+                "    NOx catalyst/adsorber      not supported, not complete" + NL +
+                "    Secondary air system       not supported,     complete" + NL;
         expected += "10:15:30.000 18FECE00 [8] 11 22 14 44 55 66 77 88" + NL;
+        expected += "DM5 from Engine #1 (0): OBD Compliance: HD OBD (20), Active Codes: 17, Previously Active Codes: 34" + NL +
+                "Continuously Monitored System Support/Status:" + NL +
+                "    Comprehensive component        supported, not complete" + NL +
+                "    Fuel System                not supported,     complete" + NL +
+                "    Misfire                    not supported,     complete" + NL +
+                "Non-continuously Monitored System Support/Status:" + NL +
+                "    A/C system refrigerant         supported, not complete" + NL +
+                "    Boost pressure control sys     supported,     complete" + NL +
+                "    Catalyst                       supported, not complete" + NL +
+                "    Cold start aid system      not supported,     complete" + NL +
+                "    Diesel Particulate Filter      supported,     complete" + NL +
+                "    EGR/VVT system             not supported,     complete" + NL +
+                "    Evaporative system             supported, not complete" + NL +
+                "    Exhaust Gas Sensor         not supported, not complete" + NL +
+                "    Exhaust Gas Sensor heater      supported, not complete" + NL +
+                "    Heated catalyst            not supported, not complete" + NL +
+                "    NMHC converting catalyst   not supported,     complete" + NL +
+                "    NOx catalyst/adsorber      not supported, not complete" + NL +
+                "    Secondary air system       not supported,     complete" + NL;
         expected += "10:15:30.000 18FECE17 [8] 01 02 03 04 05 06 07 08" + NL;
+        expected += "DM5 from Instrument Cluster #1 (23): OBD Compliance: OBD and OBD II (3), Active Codes: 1, Previously Active Codes: 2" + NL +
+                "Continuously Monitored System Support/Status:" + NL +
+                "    Comprehensive component        supported,     complete" + NL +
+                "    Fuel System                not supported,     complete" + NL +
+                "    Misfire                    not supported,     complete" + NL +
+                "Non-continuously Monitored System Support/Status:" + NL +
+                "    A/C system refrigerant     not supported,     complete" + NL +
+                "    Boost pressure control sys     supported,     complete" + NL +
+                "    Catalyst                       supported, not complete" + NL +
+                "    Cold start aid system      not supported,     complete" + NL +
+                "    Diesel Particulate Filter      supported,     complete" + NL +
+                "    EGR/VVT system             not supported,     complete" + NL +
+                "    Evaporative system             supported, not complete" + NL +
+                "    Exhaust Gas Sensor         not supported,     complete" + NL +
+                "    Exhaust Gas Sensor heater  not supported,     complete" + NL +
+                "    Heated catalyst            not supported, not complete" + NL +
+                "    NMHC converting catalyst   not supported,     complete" + NL +
+                "    NOx catalyst/adsorber      not supported, not complete" + NL +
+                "    Secondary air system       not supported,     complete" + NL;
         expected += "10:15:30.000 18FECE17 [8] 01 02 03 04 05 06 07 08" + NL;
+        expected += "DM5 from Instrument Cluster #1 (23): OBD Compliance: OBD and OBD II (3), Active Codes: 1, Previously Active Codes: 2" + NL +
+                "Continuously Monitored System Support/Status:" + NL +
+                "    Comprehensive component        supported,     complete" + NL +
+                "    Fuel System                not supported,     complete" + NL +
+                "    Misfire                    not supported,     complete" + NL +
+                "Non-continuously Monitored System Support/Status:" + NL +
+                "    A/C system refrigerant     not supported,     complete" + NL +
+                "    Boost pressure control sys     supported,     complete" + NL +
+                "    Catalyst                       supported, not complete" + NL +
+                "    Cold start aid system      not supported,     complete" + NL +
+                "    Diesel Particulate Filter      supported,     complete" + NL +
+                "    EGR/VVT system             not supported,     complete" + NL +
+                "    Evaporative system             supported, not complete" + NL +
+                "    Exhaust Gas Sensor         not supported,     complete" + NL +
+                "    Exhaust Gas Sensor heater  not supported,     complete" + NL +
+                "    Heated catalyst            not supported, not complete" + NL +
+                "    NMHC converting catalyst   not supported,     complete" + NL +
+                "    NOx catalyst/adsorber      not supported, not complete" + NL +
+                "    Secondary air system       not supported,     complete" + NL;
         expected += "10:15:30.000 18FECE21 [8] 10 20 13 40 50 60 70 80" + NL;
+        expected += "DM5 from Body Controller (33): OBD Compliance: HD OBD P (19), Active Codes: 16, Previously Active Codes: 32" + NL +
+                "Continuously Monitored System Support/Status:" + NL +
+                "    Comprehensive component    not supported, not complete" + NL +
+                "    Fuel System                not supported,     complete" + NL +
+                "    Misfire                    not supported,     complete" + NL +
+                "Non-continuously Monitored System Support/Status:" + NL +
+                "    A/C system refrigerant         supported, not complete" + NL +
+                "    Boost pressure control sys not supported,     complete" + NL +
+                "    Catalyst                   not supported,     complete" + NL +
+                "    Cold start aid system      not supported,     complete" + NL +
+                "    Diesel Particulate Filter  not supported,     complete" + NL +
+                "    EGR/VVT system             not supported,     complete" + NL +
+                "    Evaporative system         not supported,     complete" + NL +
+                "    Exhaust Gas Sensor         not supported, not complete" + NL +
+                "    Exhaust Gas Sensor heater      supported, not complete" + NL +
+                "    Heated catalyst            not supported,     complete" + NL +
+                "    NMHC converting catalyst   not supported,     complete" + NL +
+                "    NOx catalyst/adsorber      not supported,     complete" + NL +
+                "    Secondary air system       not supported,     complete" + NL;
         expected += "Engine #1 (0) reported as an HD-OBD Module." + NL;
         expected += "Body Controller (33) reported as an HD-OBD Module." + NL;
 

@@ -270,7 +270,7 @@ public class DiagnosticReadinessModule extends FunctionalModule {
      * @return List of source addresses
      */
     public List<Integer> getOBDModules(ResultsListener listener) {
-        List<DM5DiagnosticReadinessPacket> packets = getDM5Packets(listener, false);
+        List<DM5DiagnosticReadinessPacket> packets = getDM5Packets(listener, true);
         Set<Integer> addressSet = packets.stream().filter(t -> t.isHdObd()).map(t -> t.getSourceAddress())
                 .collect(Collectors.toSet());
         List<Integer> addresses = new ArrayList<>(addressSet);

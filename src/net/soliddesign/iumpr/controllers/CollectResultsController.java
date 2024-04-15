@@ -137,7 +137,7 @@ public class CollectResultsController extends Controller {
         addBlankLineToReport();
         incrementProgress("Requesting DM5");
         List<DM5DiagnosticReadinessPacket> dm5Packets = getDiagnosticReadinessModule().getDM5Packets(getListener(),
-                false);
+                true);
         addBlankLineToReport();
         Set<MonitoredSystem> systems = DiagnosticReadinessModule.getSystems(dm5Packets);
         String initialMonitorsTime = getDateTimeModule().format(getReportFileModule().getInitialMonitorsTime());
