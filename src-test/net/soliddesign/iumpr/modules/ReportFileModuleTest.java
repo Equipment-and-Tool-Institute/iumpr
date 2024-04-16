@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.etools.j1939tools.bus.Adapter;
 import org.etools.j1939tools.j1939.packets.DM19CalibrationInformationPacket.CalibrationInformation;
 import org.junit.After;
 import org.junit.Before;
@@ -568,10 +569,11 @@ public class ReportFileModuleTest {
         writer.close();
 
         instance.setReportFile(listener, file, false);
-
+        instance.setAdapter(new Adapter("Nexiq USBLink 2", "NULN2R32", (short) 1));
         instance.reportFileInformation(listener);
 
-        String expected = "2007-12-03T10:15:30.000 Existing File: " + path + NL;
+        String expected = "2007-12-03T10:15:30.000 Existing File: " + path + NL +
+                "2007-12-03T10:15:30.000 Selected Adapter: NULN2R32 - Nexiq USBLink 2" + NL;
         assertEquals(expected, listener.getResults());
     }
 
@@ -581,10 +583,12 @@ public class ReportFileModuleTest {
         when(reportFile.getAbsolutePath()).thenReturn("files/users/report.iumpr");
         when(reportFile.toPath()).thenReturn(file.toPath());
         instance.setReportFile(listener, reportFile, true);
+        instance.setAdapter(new Adapter("Nexiq USBLink 2", "NULN2R32", (short) 1));
 
         instance.reportFileInformation(listener);
 
-        String expected = "2007-12-03T10:15:30.000 New File: files/users/report.iumpr" + NL;
+        String expected = "2007-12-03T10:15:30.000 New File: files/users/report.iumpr" + NL +
+                "2007-12-03T10:15:30.000 Selected Adapter: NULN2R32 - Nexiq USBLink 2" + NL;
         assertEquals(expected, listener.getResults());
     }
 
