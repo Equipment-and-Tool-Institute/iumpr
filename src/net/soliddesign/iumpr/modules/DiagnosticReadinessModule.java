@@ -579,10 +579,10 @@ public class DiagnosticReadinessModule extends FunctionalModule {
         String[] finalDateTime = finalTime.split("T");
         listener.onResult(separator1);
         listener.onResult("| " + sourceSpace + " | " + nameSpace + " |  Initial Status |   Last Status   |");
-        listener.onResult("| " + sourceSpace + " | " + nameSpace + " |    " + initialDateTime[0] + "   |    "
-                + finalDateTime[0] + "   |");
-        listener.onResult("| " + sourceSpace + " | " + nameSpace + " |   " + initialDateTime[1] + "  |   "
-                + finalDateTime[1] + "  |");
+        listener.onResult("| " + sourceSpace + " | " + nameSpace + " |    " + padRight(initialDateTime[0], 13) + "|    "
+                + padRight(finalDateTime[0], 13) + "|");
+        listener.onResult("| " + sourceSpace + " | " + nameSpace + " |   " + padRight(initialDateTime[1], 14) + "|   "
+                + padRight(finalDateTime[1], 14) + "|");
         listener.onResult(separator1);
 
         boolean diff = initialIgnitionCycles != finalIgnitionCycles;
