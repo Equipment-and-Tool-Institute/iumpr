@@ -165,7 +165,7 @@ public class DiagnosticReadinessModule extends FunctionalModule {
      * Constructor
      */
     public DiagnosticReadinessModule() {
-        this(new DateTimeModule());
+        this(DateTimeModule.getInstance());
     }
 
     /**

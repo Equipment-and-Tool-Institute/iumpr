@@ -42,7 +42,7 @@ public class CollectResultsController extends Controller {
      */
     public CollectResultsController() {
         this(Executors.newSingleThreadScheduledExecutor(), new EngineSpeedModule(),
-                new BannerModule(Type.COLLECTION_LOG), new DateTimeModule(), new VehicleInformationModule(),
+                new BannerModule(Type.COLLECTION_LOG), DateTimeModule.getInstance(), new VehicleInformationModule(),
                 new DiagnosticReadinessModule(), new OBDTestsModule(), new ComparisonModule(),
                 new NoxBinningGhgTrackingModule());
     }

@@ -41,7 +41,7 @@ public class DataPlateController extends Controller {
      */
     public DataPlateController() {
         this(Executors.newSingleThreadScheduledExecutor(), new EngineSpeedModule(), new BannerModule(Type.DATA_PLATE),
-                new DateTimeModule(), new VehicleInformationModule(), new DiagnosticReadinessModule(), new DTCModule(),
+                DateTimeModule.getInstance(), new VehicleInformationModule(), new DiagnosticReadinessModule(), new DTCModule(),
                 new ComparisonModule(), new NoxBinningGhgTrackingModule());
     }
 

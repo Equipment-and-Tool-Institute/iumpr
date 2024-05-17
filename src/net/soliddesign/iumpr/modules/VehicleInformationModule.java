@@ -38,7 +38,7 @@ public class VehicleInformationModule extends FunctionalModule {
      * Constructor
      */
     public VehicleInformationModule() {
-        this(new DateTimeModule());
+        this(DateTimeModule.getInstance());
     }
 
     /**

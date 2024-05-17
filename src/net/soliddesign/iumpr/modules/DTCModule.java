@@ -39,7 +39,7 @@ public class DTCModule extends FunctionalModule {
      * Constructor
      */
     public DTCModule() {
-        this(new DateTimeModule());
+        this(DateTimeModule.getInstance());
     }
 
     /**

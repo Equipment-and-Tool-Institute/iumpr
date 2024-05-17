@@ -36,7 +36,7 @@ public class OBDTestsModule extends FunctionalModule {
      * Constructor
      */
     public OBDTestsModule() {
-        this(new DateTimeModule());
+        this(DateTimeModule.getInstance());
     }
 
     /**

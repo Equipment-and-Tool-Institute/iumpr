@@ -19,7 +19,7 @@ import org.etools.j1939tools.modules.DateTimeModule;
 public class EngineSpeedModule extends FunctionalModule {
 
     public EngineSpeedModule() {
-        super(new DateTimeModule());
+        super(DateTimeModule.getInstance());
     }
 
     private EngineSpeedPacket getEngineSpeedPacket() {
