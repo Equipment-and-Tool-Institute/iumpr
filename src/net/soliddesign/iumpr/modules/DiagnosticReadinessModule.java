@@ -334,19 +334,20 @@ public class DiagnosticReadinessModule extends FunctionalModule {
             if (packets.isEmpty()) {
                 listener.onResult(TIMEOUT_MESSAGE);
             } else {
-                for (ParsedPacket packet : packets) {
+                packets.stream().sorted((p1, p2) -> p1.getPacket().getTimestamp().compareTo(p2.getPacket().getTimestamp()))
+                        .forEach(packet -> {
                     listener.onResult(packet.getPacket().toTimeString());
                     if (fullString) {
                         listener.onResult(packet.toString());
                     }
-                }
+                });
             }
         }
         return packets;
     }
 
     /**
-     * Helper method to return the {@link Status} of the {@link MonitoredSystem}
+     * Helper method to return the status of the {@link MonitoredSystem}
      * padded with extra space on the right if necessary
      *
      * @param system
