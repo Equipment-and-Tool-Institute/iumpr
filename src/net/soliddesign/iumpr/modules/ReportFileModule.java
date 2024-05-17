@@ -15,6 +15,7 @@ import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAccessor;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -290,7 +291,7 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
                 dateCheckingOn = true;
             }
 
-            if (lastInstant != null && lineInstant.isBefore(lastInstant)) {
+            if (lastInstant != null && lineInstant.isBefore(lastInstant.minus(1, ChronoUnit.SECONDS))) {
                 if (dateCheckingOn) {
                     throw new ReportFileException(Problem.DATE_INCONSISTENT);
                 } else {
