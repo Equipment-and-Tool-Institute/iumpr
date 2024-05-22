@@ -56,7 +56,7 @@ public class BannerModule extends FunctionalModule {
      *            the Report {@link Type} this banner will be for
      */
     public BannerModule(Type type) {
-        this(type, new DateTimeModule(), new BuildNumber());
+        this(type, DateTimeModule.getInstance(), new BuildNumber());
     }
 
     /**

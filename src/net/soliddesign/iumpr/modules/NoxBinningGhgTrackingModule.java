@@ -50,8 +50,8 @@ public class NoxBinningGhgTrackingModule extends FunctionalModule {
     private final NOxBinningModule nOxBinningModule;
 
     public NoxBinningGhgTrackingModule() {
-        this(new DateTimeModule(), new GhgTrackingModule(new DateTimeModule()),
-                new NOxBinningModule(new DateTimeModule()));
+        this(DateTimeModule.getInstance(), new GhgTrackingModule(DateTimeModule.getInstance()),
+                new NOxBinningModule(DateTimeModule.getInstance()));
     }
 
     public NoxBinningGhgTrackingModule(DateTimeModule dateTimeModule, GhgTrackingModule ghgTrackingModule,
