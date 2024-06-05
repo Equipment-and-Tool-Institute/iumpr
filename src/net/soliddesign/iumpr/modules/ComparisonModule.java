@@ -59,7 +59,7 @@ public class ComparisonModule extends FunctionalModule {
     private String vin;
 
     public ComparisonModule() {
-        super(new DateTimeModule());
+        super(DateTimeModule.getInstance());
     }
 
     /**

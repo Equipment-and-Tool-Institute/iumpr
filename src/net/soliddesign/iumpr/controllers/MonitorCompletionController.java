@@ -35,7 +35,7 @@ public class MonitorCompletionController extends Controller {
      */
     public MonitorCompletionController() {
         this(Executors.newScheduledThreadPool(2), new EngineSpeedModule(), new BannerModule(Type.MONITOR_LOG),
-                new DateTimeModule(), new VehicleInformationModule(), new DiagnosticReadinessModule(),
+                DateTimeModule.getInstance(), new VehicleInformationModule(), new DiagnosticReadinessModule(),
                 new ComparisonModule());
     }
 

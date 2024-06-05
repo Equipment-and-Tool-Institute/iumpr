@@ -15,6 +15,7 @@ import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAccessor;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -226,7 +227,7 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
      * Constructor
      */
     public ReportFileModule() {
-        this(new DateTimeModule(), IUMPR.getLogger());
+        this(DateTimeModule.getInstance(), IUMPR.getLogger());
     }
 
     /**
@@ -293,7 +294,7 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
                 dateCheckingOn = true;
             }
 
-            if (lastInstant != null && lineInstant.isBefore(lastInstant)) {
+            if (lastInstant != null && lineInstant.isBefore(lastInstant.minus(1, ChronoUnit.SECONDS))) {
                 if (dateCheckingOn) {
                     throw new ReportFileException(Problem.DATE_INCONSISTENT);
                 } else {
@@ -644,9 +645,11 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
         String pattern = pgn >= 0xF000 ? String.format(".*%04X.*", pgn)
                 : String.format(".*(%04X|%04X|%04X).*", pgn | 0xFF, pgn & 0xFF00, (pgn & 0xFF00) | 0xF9);
         if (line.matches(pattern)) {
-            int index = line.indexOf(" ");
-            String trimmedLine = line.substring(index + 1);
-            Packet packet = Packet.parse(trimmedLine);
+            if (line.matches(String.format(".*\\d\\d:\\d\\d:\\d\\d\\.\\d* .*"))){
+                int index = line.indexOf(" ");
+                line = line.substring(index + 1);
+            }
+            Packet packet = Packet.parse(line);
             int id = packet.getId();
             if (id < 0xF000) {
                 id &= 0xFF00;

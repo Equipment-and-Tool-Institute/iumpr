@@ -52,7 +52,7 @@ public class DateTimeModule {
 
     private DateTimeFormatter timeFormatter;
 
-    public DateTimeModule() {
+    protected DateTimeModule() {
     }
 
     /**
@@ -90,7 +90,7 @@ public class DateTimeModule {
      * Formats the given {@link TemporalAccessor} as a {@link String} which
      * includes only the Time
      *
-     * @param dateTime
+     * @param time
      *            the {@link TemporalAccessor} to format
      * @return {@link String}
      * @throws DateTimeException
