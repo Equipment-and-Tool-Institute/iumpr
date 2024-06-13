@@ -153,6 +153,7 @@
 				<batchtest fork="true" todir="${build}/tests" skipNonTests="true">
 					<fileset dir="${build}">
 						<include name="**/*Test.class" />
+						<include name="**/*.txt" />
 					</fileset>
 				</batchtest>
 			</junit>
