@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch4jConfig>
-  <headerType>gui</headerType>
-  <jar>..\dist\IUMPR.jar</jar>
-  <outfile>..\dist\IUMPR.exe</outfile>
-  <chdir>.</chdir>
-  <priority>high</priority>
+
+	<!--DEPRECATED! update pom.xml-->
+
+	<headerType>gui</headerType>
+	<jar>..\dist\IUMPR.jar</jar>
+	<outfile>..\dist\IUMPR.exe</outfile>
+	<chdir>.</chdir>
+	<priority>high</priority>
 	<jre>
 		<path>jre</path>
 		<initialHeapSize>256</initialHeapSize>
