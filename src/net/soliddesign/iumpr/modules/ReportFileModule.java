@@ -284,7 +284,9 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
         LocalDateTime lineInstant = parseDateTime(line);
 
         if (lineInstant != null) {
-            if (lineInstant.isAfter(LocalDateTime.now())) {
+            LocalDateTime now = LocalDateTime.now().plus(1, ChronoUnit.SECONDS);
+            if (lineInstant.isAfter(now)) {
+                getLogger().log(Level.SEVERE, Problem.DATE_INCONSISTENT.string + ": " + lineInstant + " > " + now);
                 throw new ReportFileException(Problem.DATE_RESET);
             }
 
@@ -294,11 +296,16 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
                 dateCheckingOn = true;
             }
 
-            if (lastInstant != null && lineInstant.isBefore(lastInstant.minus(1, ChronoUnit.SECONDS))) {
-                if (dateCheckingOn) {
-                    throw new ReportFileException(Problem.DATE_INCONSISTENT);
-                } else {
-                    getLogger().log(Level.WARNING, Problem.DATE_INCONSISTENT.string);
+            if (lastInstant != null) {
+                LocalDateTime lastI = lastInstant.minus(1, ChronoUnit.SECONDS);
+                if (lineInstant.isBefore(lastI)) {
+                    if (dateCheckingOn) {
+                        getLogger().log(Level.SEVERE,
+                                Problem.DATE_INCONSISTENT.string + ": " + lineInstant + " < " + lastI);
+                        throw new ReportFileException(Problem.DATE_INCONSISTENT);
+                    } else {
+                        getLogger().log(Level.WARNING, Problem.DATE_INCONSISTENT.string);
+                    }
                 }
             }
 
@@ -627,7 +634,7 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
             }
         }
 
-        if (lineInstant instanceof LocalTime) {
+        if (lineInstant instanceof LocalTime && lastInstant != null) {
             return ((LocalTime) lineInstant).atDate(lastInstant.toLocalDate());
         } else if (lineInstant instanceof LocalDateTime) {
             return (LocalDateTime) lineInstant;
@@ -645,7 +652,7 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
         String pattern = pgn >= 0xF000 ? String.format(".*%04X.*", pgn)
                 : String.format(".*(%04X|%04X|%04X).*", pgn | 0xFF, pgn & 0xFF00, (pgn & 0xFF00) | 0xF9);
         if (line.matches(pattern)) {
-            if (line.matches(String.format(".*\\d\\d:\\d\\d:\\d\\d\\.\\d* .*"))){
+            if (line.matches(String.format(".*\\d\\d:\\d\\d:\\d\\d\\.\\d* .*"))) {
                 int index = line.indexOf(" ");
                 line = line.substring(index + 1);
             }
