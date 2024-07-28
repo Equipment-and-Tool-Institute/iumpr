@@ -15,7 +15,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
 
 import java.awt.Color;
@@ -34,6 +33,7 @@ import org.etools.j1939tools.j1939.packets.MonitoredSystem;
 import org.etools.j1939tools.j1939.packets.ParsedPacket;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
  * Unit tests for the {@link MonitorsTable} class
@@ -757,7 +757,7 @@ public class MonitorsTableTest {
         instance.process(packet);
 
         assertFalse(tableUpdated);
-        verifyZeroInteractions(packet);
+        Mockito.verifyNoMoreInteractions(packet);
     }
 
 }
