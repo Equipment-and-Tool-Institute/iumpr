@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.etools</groupId>
 	<artifactId>iumpr</artifactId>
-	<version>0.0.0</version>
+	<version>1.9.8</version>
 	<name>IUMPR</name>
 	<description>IUMPR Tool</description>
 	<build>
@@ -28,10 +28,43 @@
 		</testResources>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.14.1</version>
+				<configuration>
+					<reuseForks>true</reuseForks>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.3.1</version>
+				<executions>
+					<execution>
+						<id>version-properties</id>
+						<!-- here the phase you need -->
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>
+								${basedir}/src/net/soliddesign/iumpr/resources</outputDirectory>
+							<resources>
+								<resource>
+									<directory>etc</directory>
+									<include>version.properties</include>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.1</version>
 				<configuration>
-					<release>11</release>
+					<release>21</release>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -80,9 +113,29 @@
 							</classPath>
 							<jre>
 								<path>jre</path>
-								<minVersion>17</minVersion>
+								<minVersion>21</minVersion>
 							</jre>
 						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.12</version>
+				<executions>
+					<execution>
+						<id>prepare-unit-tests</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>jacoco-site</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
 					</execution>
 				</executions>
 			</plugin>
@@ -107,8 +160,6 @@
 						<id>build-windows-installer</id>
 						<configuration>
 							<scriptFile>etc/nullsoft.nsi</scriptFile>
-							<outputFile>${project.name}-setup-${project.version}.exe</outputFile>
-							<verbosityLevel>10</verbosityLevel>
 						</configuration>
 						<goals>
 							<goal>make</goal>
@@ -118,6 +169,19 @@
 			</plugin>
 		</plugins>
 	</build>
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.github.spotbugs</groupId>
+				<artifactId>spotbugs-maven-plugin</artifactId>
+				<version>4.8.6.2</version>
+			</plugin>
+		</plugins>
+	</reporting>
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/com.opencsv/opencsv -->
 		<dependency>
