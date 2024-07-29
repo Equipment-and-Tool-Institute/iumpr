@@ -70,7 +70,7 @@
 							<icon>etc/logo.ico</icon>
 							<priority>high</priority>
 							<headerType>gui</headerType>
-							<outfile>target/IUMPR-${project.version}.exe</outfile>
+							<outfile>target/IUMPR.exe</outfile>
 							<jar>
 								target/${project.artifactId}-${project.version}.jar</jar>
 							<errTitle>iumpr</errTitle>
@@ -98,28 +98,17 @@
 					<compressionIsFinal>true</compressionIsFinal>
 					<compressionDictSize>64</compressionDictSize>
 					<defines>
-						<PROJECT_NAME_SHORT>${project.name.short}</PROJECT_NAME_SHORT>
-						<PROJECT_NAME_CAMEL>${project.name.camel}</PROJECT_NAME_CAMEL>
+						<PROJECT_NAME_SHORT>${project.name}</PROJECT_NAME_SHORT>
+						<PROJECT_NAME_CAMEL>${project.name}</PROJECT_NAME_CAMEL>
 					</defines>
 				</configuration>
 				<executions>
 					<execution>
-						<id>build-windows-launcher</id>
-						<configuration>
-							<scriptFile>etc/nullsoft.nsi</scriptFile>
-							<outputFile>${project.name.short}.exe</outputFile>
-							<attachArtifact>false</attachArtifact>
-						</configuration>
-						<goals>
-							<goal>generate-headerfile</goal>
-							<goal>make</goal>
-						</goals>
-					</execution>
-					<execution>
 						<id>build-windows-installer</id>
 						<configuration>
 							<scriptFile>etc/nullsoft.nsi</scriptFile>
-							<outputFile>${project.name.short}-setup.exe</outputFile>
+							<outputFile>${project.name}-setup-${project.version}.exe</outputFile>
+							<verbosityLevel>10</verbosityLevel>
 						</configuration>
 						<goals>
 							<goal>make</goal>
