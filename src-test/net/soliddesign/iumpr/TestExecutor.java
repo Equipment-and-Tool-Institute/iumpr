@@ -16,16 +16,13 @@ import java.util.concurrent.Executor;
  */
 public class TestExecutor implements Executor {
 
-    private Runnable command;
-
     @Override
     public void execute(Runnable command) {
-        this.command = command;
+        assertNotNull(command);
+        command.run();
     }
 
     public void run() {
-        assertNotNull(command);
-        command.run();
     }
 
 }

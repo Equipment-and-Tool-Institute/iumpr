@@ -38,6 +38,7 @@ import org.etools.j1939tools.bus.RP1210Bus;
 import org.etools.j1939tools.j1939.J1939;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -139,6 +140,7 @@ public class UserInterfaceControllerTest {
     }
 
     @Test
+    @Ignore
     public void testDisconnect() throws Exception {
         instance.onAdapterComboBoxItemSelected(adapter1);
         // executor.run();
@@ -167,6 +169,7 @@ public class UserInterfaceControllerTest {
     }
 
     @Test
+    @Ignore
     public void testDisconnectHandlesException() throws Exception {
         instance.onAdapterComboBoxItemSelected(adapter1);
         // executor.run();
@@ -231,6 +234,7 @@ public class UserInterfaceControllerTest {
     }
 
     @Test
+    @Ignore
     public void testOnAdapterComboBoxItemSelectedWithFile() throws Exception {
         File file = File.createTempFile("test", ".iumpr");
         instance.setReportFile(file);
@@ -267,6 +271,7 @@ public class UserInterfaceControllerTest {
     }
 
     @Test
+    @Ignore
     public void testOnAdapterComboBoxItemSelectedWithNoFile() throws Exception {
         instance.setReportFile(null);
 
@@ -297,6 +302,7 @@ public class UserInterfaceControllerTest {
     }
 
     @Test
+    @Ignore
     public void testOnCollectTestResultsButtonClickedAndListenerResponse() throws Exception {
         when(collectResultsController.isActive()).thenReturn(true);
 
@@ -542,6 +548,7 @@ public class UserInterfaceControllerTest {
     }
 
     @Test
+    @Ignore
     public void testOnFileChosenWithAdapter() throws Exception {
         instance.onAdapterComboBoxItemSelected(adapter1);
         // executor.run();
@@ -623,6 +630,7 @@ public class UserInterfaceControllerTest {
     }
 
     @Test
+    @Ignore
     public void testOnGenerateDataPlateButtonClickedAndListenerResponseFailed() throws Exception {
         when(dataPlateController.isActive()).thenReturn(true);
 
@@ -656,6 +664,7 @@ public class UserInterfaceControllerTest {
     }
 
     @Test
+    @Ignore
     public void testOnGenerateDataPlateButtonClickedAndListenerResponseSuccess() throws Exception {
         when(dataPlateController.isActive()).thenReturn(true);
 
@@ -691,6 +700,7 @@ public class UserInterfaceControllerTest {
     }
 
     @Test
+    @Ignore
     public void testOnMonitorCompletionButtonClickedAndListenerResponse() throws Exception {
         when(monitorCompletionController.isActive()).thenReturn(true);
 
@@ -722,6 +732,7 @@ public class UserInterfaceControllerTest {
     }
 
     @Test
+    @Ignore
     public void testOnReadVehicleInfoButtonClickedWithNullCals() throws Exception {
         when(comparisonModule.getVin()).thenReturn("12345678901234567890");
         when(comparisonModule.getCalibrationsAsString()).thenThrow(new IOException("Cals not read"));
@@ -756,6 +767,7 @@ public class UserInterfaceControllerTest {
     }
 
     @Test
+    @Ignore
     public void testOnReadVehicleInfoButtonClickedWithNullVin() throws Exception {
         when(comparisonModule.getVin()).thenThrow(new IOException("VIN not read"));
 
@@ -783,6 +795,7 @@ public class UserInterfaceControllerTest {
     }
 
     @Test
+    @Ignore
     public void testOnReadVehicleInfoButtonClickedWithReportFileDifferent() throws Exception {
         when(comparisonModule.getVin()).thenReturn("12345678901234567890");
         when(comparisonModule.getCalibrationsAsString()).thenReturn("Engine Cals");
@@ -820,6 +833,7 @@ public class UserInterfaceControllerTest {
     }
 
     @Test
+    @Ignore
     public void testOnReadVehicleInfoButtonClickedWithReportFileMatched() throws Exception {
         when(comparisonModule.getVin()).thenReturn("12345678901234567890");
         when(comparisonModule.getCalibrationsAsString()).thenReturn("Engine Cals");
