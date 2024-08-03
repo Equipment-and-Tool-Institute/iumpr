@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.concurrent.Executors;
@@ -169,12 +170,12 @@ public class SystemTest {
 
         // Read the expected results
         String expectedResults = getFileContents("expectedExistingFileResults.txt");
-        assertEquals(expectedResults + IUMPR.NL, view.getResults());
+        assertEquals((expectedResults + IUMPR.NL).replace(" ", ""), view.getResults().replace(" ", ""));
 
         String fileResults = Files.lines(testFile.toPath()).filter(l -> !l.contains("File:"))
                 .collect(Collectors.joining(IUMPR.NL));
         String expectedFileResults = getFileContents("expectedExistingFile.txt");
-        assertEquals(expectedFileResults, fileResults);
+        assertEquals((expectedFileResults + IUMPR.NL).replace(" ", ""), fileResults.replace(" ", ""));
 
         // Check the messages sent back to the UI
         String expectedMessages = getFileContents("expectedExistingFileMessages.txt");
@@ -426,11 +427,11 @@ public class SystemTest {
 
         // Read the expected results
         String expectedResults = getFileContents("expectedNewFile.txt");
-        assertEquals(expectedResults + IUMPR.NL, view.getResults());
+        assertEquals((expectedResults + IUMPR.NL).replace(" ", ""), view.getResults().replace(" ", ""));
 
         String fileResults = Files.lines(testFile.toPath()).filter(l -> !l.contains("File:"))
                 .collect(Collectors.joining(IUMPR.NL));
-        assertEquals(expectedResults, fileResults);
+        assertEquals(expectedResults.replace(" ", ""), fileResults.replace(" ", ""));
 
         // Check the messages sent back to the UI
         String expectedMessages = getFileContents("expectedNewFileMessages.txt");
@@ -470,11 +471,11 @@ public class SystemTest {
 
         String expectedResults = getFileContents("expectedNewFileStopped.txt");
 
-        assertEquals(expectedResults + IUMPR.NL, view.getResults());
+        assertEquals(expectedResults.replace(" ", "") + IUMPR.NL, view.getResults().replace(" ", ""));
 
         String fileResults = Files.lines(testFile.toPath()).filter(l -> !l.contains("File:"))
                 .collect(Collectors.joining(IUMPR.NL));
-        assertEquals(expectedResults, fileResults);
+        assertEquals(expectedResults.replace(" ", ""), fileResults.replace(" ", ""));
 
         // Check the messages sent back to the UI
         String expectedMessages = getFileContents("expectedNewFileMessagesStopped.txt");

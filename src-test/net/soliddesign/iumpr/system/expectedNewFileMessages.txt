@@ -1,7 +1,6 @@
-Connecting to Adapter
-Select Report File
 Scanning Report File
 Push Read Vehicle Info Button
+Connecting RP1210
 Reading Vehicle Identification Number
 Reading Vehicle Calibrations
 Selected Report File is new - not checked with vehicle.
@@ -27,6 +26,7 @@ Requesting DM6
 Requesting DM12
 Requesting DM23
 Requesting DM28
+Requesting NOX Binning and GHG Tracking
 Requesting DM21
 Reading Vehicle Distance
 Requesting Engine Hours
@@ -107,33 +107,37 @@ Monitors/Ratios Update #4: 1 Seconds Until Next Update
 Monitors/Ratios Update #5: Reading Engine Speed
 Monitors/Ratios Update #5: Requesting DM5
 Monitors/Ratios Update #5: Requesting DM20
-Reporting Monitored Systems Results
-Reporting Performance Ratio Results
-Requesting DM21
-Reading Vehicle Distance
-Requesting Engine Hours
-Generating Quality Information
-Data Monitor Log Completed
+Monitors/Ratios Update #5: Requesting DM26
+Monitors/Ratios Update #5: Requesting DM21
+Monitors/Ratios Update #5: 10 Seconds Until Next Update
+Monitors/Ratios Update #5: 9 Seconds Until Next Update
+Monitors/Ratios Update #5: 8 Seconds Until Next Update
+Monitors/Ratios Update #5: 7 Seconds Until Next Update
+Monitors/Ratios Update #5: 6 Seconds Until Next Update
+Monitors/Ratios Update #5: 5 Seconds Until Next Update
+Monitors/Ratios Update #5: 4 Seconds Until Next Update
+Monitors/Ratios Update #5: 3 Seconds Until Next Update
+Monitors/Ratios Update #5: 2 Seconds Until Next Update
+Monitors/Ratios Update #5: 1 Seconds Until Next Update
+Monitors/Ratios Update #6: Reading Engine Speed
+Monitors/Ratios Update #6: Requesting DM5
+Monitors/Ratios Update #6: Requesting DM20
+Monitors/Ratios Update #6: Requesting DM26
+Monitors/Ratios Update #6: Requesting DM21
+Monitors/Ratios Update #6: 10 Seconds Until Next Update
+Monitors/Ratios Update #6: 9 Seconds Until Next Update
+Monitors/Ratios Update #6: 8 Seconds Until Next Update
+Monitors/Ratios Update #6: 7 Seconds Until Next Update
+Monitors/Ratios Update #6: 6 Seconds Until Next Update
+Monitors/Ratios Update #6: 5 Seconds Until Next Update
 
 Reading Engine Speed
 Comparing Vehicle to Report File
 Reading VIN from Vehicle
+Reporting Monitored Systems Results
+Data Monitor Log Stopped
 Reading Calibrations from Vehicle
 Reading Time Since Code Cleared from Vehicle
 Selected Report File Matches Connected Vehicle
 Generating Header
-Requesting VIN
-Requesting Calibration Information
-Requesting DM21
-Requesting HD OBD Modules
-Requesting OBD Test Results
-Requesting DM5
-Requesting DM26
-Requesting DM20
-Requesting DM21
-Reading Vehicle Distance
-Requesting Engine Hours
-Requesting VIN
-Requesting Calibration Information
-Generating Quality Information
-Data Collection Log Completed
+Data Collection Log Stopped

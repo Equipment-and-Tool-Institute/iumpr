@@ -25,7 +25,8 @@ public class DateTimeModuleTest {
 
     @Before
     public void setUp() {
-        instance = DateTimeModule.getInstance();
+        instance = new DateTimeModule() {
+        };
     }
 
     @Test
