@@ -2,3 +2,5 @@
 /build/
 /jre/
 /dist/
+/target/
+/dependency-reduced-pom.xml

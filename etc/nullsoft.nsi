@@ -31,7 +31,7 @@ LicenseData "..\LICENSE"
 # This will be in the installer/uninstaller's title bar
 Name "${COMPANYNAME} - ${APPNAME}"
 Icon "logo.ico"
-outFile "..\dist\IUMPR-installer.exe"
+outFile "..\target\IUMPR-installer.exe"
  
 !include LogicLib.nsh
  
@@ -62,7 +62,7 @@ section "install"
     createDirectory "$INSTDIR\jre"
 	file /r "..\jre\"
     setOutPath $INSTDIR
-	file "..\dist\IUMPR.exe"
+	file "..\target\IUMPR.exe"
 	file "logo.ico"
 	# Add any other files for the install directory (license files, app data, etc) here
  

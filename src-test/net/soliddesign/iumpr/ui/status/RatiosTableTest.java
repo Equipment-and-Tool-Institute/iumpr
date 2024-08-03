@@ -9,7 +9,6 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
 
 import java.awt.Color;
@@ -32,6 +31,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -498,7 +498,7 @@ public class RatiosTableTest {
         instance.process(packet);
 
         assertFalse(tableUpdated);
-        verifyZeroInteractions(packet);
+        Mockito.verifyNoMoreInteractions(packet);
     }
 
     private void validateBackgroundColor(Color expectedColor, int row) {
