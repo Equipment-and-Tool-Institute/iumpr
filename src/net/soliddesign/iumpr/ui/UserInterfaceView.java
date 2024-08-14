@@ -15,6 +15,7 @@ import java.awt.Insets;
 import java.awt.event.ItemEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 import java.util.prefs.Preferences;
@@ -373,12 +374,23 @@ public class UserInterfaceView implements IUserInterfaceView {
      */
     JFileChooser getFileChooser() {
         if (fileChooser == null) {
-            fileChooser = new JFileChooser();
-            final FileNameExtensionFilter filter = new FileNameExtensionFilter("IUMPR Data Files",
+            final String KEY = "directory";
+            String dir = Preferences.userNodeForPackage(getClass()).get(KEY, "");
+            fileChooser = new JFileChooser(dir);
+            scaleFont(fileChooser, 1.5);
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("IUMPR Data Files",
                     UserInterfaceController.FILE_SUFFIX);
             fileChooser.setFileFilter(filter);
             fileChooser.setDialogTitle("Create or Select Report File");
-
+            fileChooser.addActionListener(
+                    e -> {
+                        File file = fileChooser.getSelectedFile();
+                        if (file != null) {
+                            Preferences.userNodeForPackage(getClass())
+                                    .put(KEY,
+                                            file.getParent());
+                        }
+                    });
         }
         return fileChooser;
     }
