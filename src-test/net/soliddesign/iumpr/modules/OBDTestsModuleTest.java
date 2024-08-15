@@ -116,68 +116,69 @@ public class OBDTestsModuleTest {
         List<Integer> obdModules = Arrays.asList(new Integer[] { 0x00, 0x55 });
         instance.reportOBDTests(listener, obdModules);
 
-        String expected = "2007-12-03T10:15:30.000 Direct DM24 Request to Engine #1 (0)\r\n"
-                + "10:15:30.000 18EA00A5 [3] B6 FD 00 (TX)\r\n"
-                + "10:15:30.000 18FDB600 [16] 66 00 1B 01 5C 00 1F 01 00 02 1B 01 9C F0 FB 00\r\n"
-                + "DM24 from Engine #1 (0): [\r\n"
-                + "  D F T D F\r\n"
-                + "  a r e M F\r\n"
-                + "  t F s 5 l\r\n"
-                + "  a r t 8 n  SPN — SP Name\r\n"
-                + "  ------------------------\r\n"
-                + "          1  SPN 92 - Engine Percent Load At Current Speed\r\n"
-                + "      T   1  SPN 102 - Engine Intake Manifold #1 Pressure\r\n"
-                + "      T   1  SPN 512 - Driver's Demand Engine - Percent Torque\r\n"
-                + "      T   0  SPN 520348 - Manufacturer Assignable SPN\r\n"
-                + "]\r\n"
-                + "Freeze Frame data length = 0 bytes\r\n"
-                + "\r\n"
-                + "\r\n"
-                + "2007-12-03T10:15:30.000 Direct DM24 Request to DPF Controller (85)\r\n"
-                + "10:15:30.000 18EA55A5 [3] B6 FD 00 (TX)\r\n"
-                + "10:15:30.000 18FDB655 [12] A7 13 1C 00 0C 11 18 00 9A 0C 18 00\r\n"
-                + "DM24 from DPF Controller (85): [\r\n"
-                + "  D F T D F\r\n"
-                + "  a r e M F\r\n"
-                + "  t F s 5 l\r\n"
-                + "  a r t 8 n  SPN — SP Name\r\n"
-                + "  ------------------------\r\n"
-                + "  D F T   0  SPN 3226 - AFT 1 Outlet NOx 1\r\n"
-                + "  D F T   0  SPN 4364 - AFT 1 SCR Conversion Efficiency\r\n"
-                + "  D F     0  SPN 5031 - AFT 1 Outlet NOx Sensor Heater Ratio\r\n"
-                + "]\r\n"
-                + "Freeze Frame data length = 0 bytes\r\n"
-                + "\r\n"
-                + "\r\n"
-                + "2007-12-03T10:15:30.000 Direct DM30 Requests to Engine #1 (0)\r\n"
-                + "10:15:30.000 18E300A5 [8] F7 66 00 1F FF FF FF FF (TX)\r\n"
-                + "10:15:30.000 18A40000 [12] F7 66 00 12 D0 00 00 FB FF FF FF FF\r\n"
-                + "DM30 from Engine #1 (0): SPN 102 FMI 18 (SLOT 208) Result: Test Not Complete.\r\n"
-                + "\r\n"
-                + "10:15:30.000 18E300A5 [8] F7 00 02 1F FF FF FF FF (TX)\r\n"
-                + "10:15:30.000 18A40000 [12] F7 00 02 12 D0 00 00 FB FF FF FF FF\r\n"
-                + "DM30 from Engine #1 (0): SPN 512 FMI 18 (SLOT 208) Result: Test Not Complete.\r\n"
-                + "\r\n"
-                + "10:15:30.000 18E300A5 [8] F7 9C F0 FF FF FF FF FF (TX)\r\n"
-                + "10:15:30.000 18A40000 [12] F7 9C F0 FF D0 00 00 FB FF FF FF FF\r\n"
-                + "DM30 from Engine #1 (0): SPN 520348 FMI 31 (SLOT 208) Result: Test Not Complete.\r\n"
-                + "\r\n"
-                + "2007-12-03T10:15:30.000 Direct DM30 Requests to DPF Controller (85)\r\n"
-                + "10:15:30.000 18E355A5 [8] F7 9A 0C 1F FF FF FF FF (TX)\r\n"
-                + "10:15:30.000 18A40055 [12] F7 9A 0C 0A 00 01 00 FB FF FF FF FF\r\n"
-                + "DM30 from DPF Controller (85): SPN 3226 FMI 10 (SLOT 256) Result: Test Not Complete.\r\n"
-                + "\r\n"
-                + "10:15:30.000 18E355A5 [8] F7 0C 11 1F FF FF FF FF (TX)\r\n"
-                + "10:15:30.000 18A40055 [12] F7 0C 11 00 FB FF FF FF FF FF FF FF\r\n"
-                + "DM30 from DPF Controller (85): SPN 4364 FMI 0 (SLOT 65531) Result: Test Passed. Min: N/A, Value: 65,535, Max: N/A\r\n"
-                + "\r\n"
-                + "Incomplete Tests: [\r\n"
-                + "  DPF Controller (85): SPN 3226 FMI 10 (SLOT 256) Result: Test Not Complete.\r\n"
-                + "  Engine #1 (0): SPN 102 FMI 18 (SLOT 208) Result: Test Not Complete.\r\n"
-                + "  Engine #1 (0): SPN 512 FMI 18 (SLOT 208) Result: Test Not Complete.\r\n"
-                + "  Engine #1 (0): SPN 520348 FMI 31 (SLOT 208) Result: Test Not Complete.\r\n"
-                + "]\r\n"
-                + "4 Incomplete Tests\r\n";
+        String expected = "2007-12-03T10:15:30.000 Direct DM24 Request to Engine #1 (0)" + NL
+                + "10:15:30.000 18EA00A5 [3] B6 FD 00 (TX)" + NL
+                + "10:15:30.000 18FDB600 [16] 66 00 1B 01 5C 00 1F 01 00 02 1B 01 9C F0 FB 00" + NL
+                + "DM24 from Engine #1 (0): [" + NL
+                + "  D F T D F" + NL
+                + "  a r e M F" + NL
+                + "  t F s 5 l" + NL
+                + "  a r t 8 n  SPN — SP Name" + NL
+                + "  ------------------------" + NL
+                + "          1  SPN 92 - Engine Percent Load At Current Speed" + NL
+                + "      T   1  SPN 102 - Engine Intake Manifold #1 Pressure" + NL
+                + "      T   1  SPN 512 - Driver's Demand Engine - Percent Torque" + NL
+                + "      T   0  SPN 520348 - Manufacturer Assignable SPN" + NL
+                + "]" + NL
+                + "Freeze Frame data length = 0 bytes" + NL
+                + "" + NL
+                + "" + NL
+                + "2007-12-03T10:15:30.000 Direct DM24 Request to DPF Controller (85)" + NL
+                + "10:15:30.000 18EA55A5 [3] B6 FD 00 (TX)" + NL
+                + "10:15:30.000 18FDB655 [12] A7 13 1C 00 0C 11 18 00 9A 0C 18 00" + NL
+                + "DM24 from DPF Controller (85): [" + NL
+                + "  D F T D F" + NL
+                + "  a r e M F" + NL
+                + "  t F s 5 l" + NL
+                + "  a r t 8 n  SPN — SP Name" + NL
+                + "  ------------------------" + NL
+                + "  D F T   0  SPN 3226 - AFT 1 Outlet NOx 1" + NL
+                + "  D F T   0  SPN 4364 - AFT 1 SCR Conversion Efficiency" + NL
+                + "  D F     0  SPN 5031 - AFT 1 Outlet NOx Sensor Heater Ratio" + NL
+                + "]" + NL
+                + "Freeze Frame data length = 0 bytes" + NL
+                + "" + NL
+                + "" + NL
+                + "2007-12-03T10:15:30.000 Direct DM30 Requests to Engine #1 (0)" + NL
+                + "10:15:30.000 18E300A5 [8] F7 66 00 1F FF FF FF FF (TX)" + NL
+                + "10:15:30.000 18A40000 [12] F7 66 00 12 D0 00 00 FB FF FF FF FF" + NL
+                + "DM30 from Engine #1 (0): SPN 102 FMI 18 (SLOT 208) Result: Test Not Complete." + NL
+                + "" + NL
+                + "10:15:30.000 18E300A5 [8] F7 00 02 1F FF FF FF FF (TX)" + NL
+                + "10:15:30.000 18A40000 [12] F7 00 02 12 D0 00 00 FB FF FF FF FF" + NL
+                + "DM30 from Engine #1 (0): SPN 512 FMI 18 (SLOT 208) Result: Test Not Complete." + NL
+                + "" + NL
+                + "10:15:30.000 18E300A5 [8] F7 9C F0 FF FF FF FF FF (TX)" + NL
+                + "10:15:30.000 18A40000 [12] F7 9C F0 FF D0 00 00 FB FF FF FF FF" + NL
+                + "DM30 from Engine #1 (0): SPN 520348 FMI 31 (SLOT 208) Result: Test Not Complete." + NL
+                + "" + NL
+                + "2007-12-03T10:15:30.000 Direct DM30 Requests to DPF Controller (85)" + NL
+                + "10:15:30.000 18E355A5 [8] F7 9A 0C 1F FF FF FF FF (TX)" + NL
+                + "10:15:30.000 18A40055 [12] F7 9A 0C 0A 00 01 00 FB FF FF FF FF" + NL
+                + "DM30 from DPF Controller (85): SPN 3226 FMI 10 (SLOT 256) Result: Test Not Complete." + NL
+                + "" + NL
+                + "10:15:30.000 18E355A5 [8] F7 0C 11 1F FF FF FF FF (TX)" + NL
+                + "10:15:30.000 18A40055 [12] F7 0C 11 00 FB FF FF FF FF FF FF FF" + NL
+                + "DM30 from DPF Controller (85): SPN 4364 FMI 0 (SLOT 65531) Result: Test Passed. Min: N/A, Value: 65,535, Max: N/A"
+                + NL
+                + "" + NL
+                + "Incomplete Tests: [" + NL
+                + "  DPF Controller (85): SPN 3226 FMI 10 (SLOT 256) Result: Test Not Complete." + NL
+                + "  Engine #1 (0): SPN 102 FMI 18 (SLOT 208) Result: Test Not Complete." + NL
+                + "  Engine #1 (0): SPN 512 FMI 18 (SLOT 208) Result: Test Not Complete." + NL
+                + "  Engine #1 (0): SPN 520348 FMI 31 (SLOT 208) Result: Test Not Complete." + NL
+                + "]" + NL
+                + "4 Incomplete Tests" + NL;
         assertEquals(expected, listener.getResults());
 
         verify(j1939, times(5)).getBusAddress();
@@ -228,26 +229,27 @@ public class OBDTestsModuleTest {
         List<Integer> obdModules = Arrays.asList(new Integer[] { 0x00 });
         instance.reportOBDTests(listener, obdModules);
 
-        String expected = "2007-12-03T10:15:30.000 Direct DM24 Request to Engine #1 (0)\r\n"
-                + "10:15:30.000 18EA00A5 [3] B6 FD 00 (TX)\r\n"
-                + "10:15:30.000 18FDB600 [4] 66 00 1B 01\r\n"
-                + "DM24 from Engine #1 (0): [\r\n"
-                + "  D F T D F\r\n"
-                + "  a r e M F\r\n"
-                + "  t F s 5 l\r\n"
-                + "  a r t 8 n  SPN — SP Name\r\n"
-                + "  ------------------------\r\n"
-                + "      T   1  SPN 102 - Engine Intake Manifold #1 Pressure\r\n"
-                + "]\r\n"
-                + "Freeze Frame data length = 0 bytes\r\n"
-                + "\r\n"
-                + "\r\n"
-                + "2007-12-03T10:15:30.000 Direct DM30 Requests to Engine #1 (0)\r\n"
-                + "10:15:30.000 18E300A5 [8] F7 66 00 1F FF FF FF FF (TX)\r\n"
-                + "10:15:30.000 18A40000 [12] F7 66 00 12 D0 00 00 FA FF FF FF FF\r\n"
-                + "DM30 from Engine #1 (0): SPN 102 FMI 18 (SLOT 208) Result: Test Passed. Min: N/A, Value: 64,000, Max: N/A count\r\n"
-                + "\r\n"
-                + "All Tests Complete\r\n";
+        String expected = "2007-12-03T10:15:30.000 Direct DM24 Request to Engine #1 (0)" + NL
+                + "10:15:30.000 18EA00A5 [3] B6 FD 00 (TX)" + NL
+                + "10:15:30.000 18FDB600 [4] 66 00 1B 01" + NL
+                + "DM24 from Engine #1 (0): [" + NL
+                + "  D F T D F" + NL
+                + "  a r e M F" + NL
+                + "  t F s 5 l" + NL
+                + "  a r t 8 n  SPN — SP Name" + NL
+                + "  ------------------------" + NL
+                + "      T   1  SPN 102 - Engine Intake Manifold #1 Pressure" + NL
+                + "]" + NL
+                + "Freeze Frame data length = 0 bytes" + NL
+                + "" + NL
+                + "" + NL
+                + "2007-12-03T10:15:30.000 Direct DM30 Requests to Engine #1 (0)" + NL
+                + "10:15:30.000 18E300A5 [8] F7 66 00 1F FF FF FF FF (TX)" + NL
+                + "10:15:30.000 18A40000 [12] F7 66 00 12 D0 00 00 FA FF FF FF FF" + NL
+                + "DM30 from Engine #1 (0): SPN 102 FMI 18 (SLOT 208) Result: Test Passed. Min: N/A, Value: 64,000, Max: N/A count"
+                + NL
+                + "" + NL
+                + "All Tests Complete" + NL;
 
         assertEquals(expected, listener.getResults());
 
@@ -273,27 +275,27 @@ public class OBDTestsModuleTest {
         List<Integer> obdModules = Arrays.asList(new Integer[] { 0x00 });
         instance.reportOBDTests(listener, obdModules);
 
-        String expected = "2007-12-03T10:15:30.000 Direct DM24 Request to Engine #1 (0)\r\n"
-                + "10:15:30.000 18EA00A5 [3] B6 FD 00 (TX)\r\n"
-                + "10:15:30.000 18FDB600 [4] 66 00 1B 01\r\n"
-                + "DM24 from Engine #1 (0): [\r\n"
-                + "  D F T D F\r\n"
-                + "  a r e M F\r\n"
-                + "  t F s 5 l\r\n"
-                + "  a r t 8 n  SPN — SP Name\r\n"
-                + "  ------------------------\r\n"
-                + "      T   1  SPN 102 - Engine Intake Manifold #1 Pressure\r\n"
-                + "]\r\n"
-                + "Freeze Frame data length = 0 bytes\r\n"
-                + "\r\n"
-                + "\r\n"
-                + "2007-12-03T10:15:30.000 Direct DM30 Requests to Engine #1 (0)\r\n"
-                + "10:15:30.000 18E300A5 [8] F7 66 00 1F FF FF FF FF (TX)\r\n"
-                + "Error: Timeout - No Response.\r\n"
-                + "\r\n"
-                + "No Scaled Tests Results from Engine #1 (0)\r\n"
-                + "\r\n"
-                + "ERROR No tests results returned\r\n";
+        String expected = "2007-12-03T10:15:30.000 Direct DM24 Request to Engine #1 (0)" + NL
+                + "10:15:30.000 18EA00A5 [3] B6 FD 00 (TX)" + NL
+                + "10:15:30.000 18FDB600 [4] 66 00 1B 01" + NL
+                + "DM24 from Engine #1 (0): [" + NL
+                + "  D F T D F" + NL
+                + "  a r e M F" + NL
+                + "  t F s 5 l" + NL
+                + "  a r t 8 n  SPN — SP Name" + NL
+                + "  ------------------------" + NL
+                + "      T   1  SPN 102 - Engine Intake Manifold #1 Pressure" + NL
+                + "]" + NL
+                + "Freeze Frame data length = 0 bytes" + NL
+                + "" + NL
+                + "" + NL
+                + "2007-12-03T10:15:30.000 Direct DM30 Requests to Engine #1 (0)" + NL
+                + "10:15:30.000 18E300A5 [8] F7 66 00 1F FF FF FF FF (TX)" + NL
+                + "Error: Timeout - No Response." + NL
+                + "" + NL
+                + "No Scaled Tests Results from Engine #1 (0)" + NL
+                + "" + NL
+                + "ERROR No tests results returned" + NL;
 
         assertEquals(expected, listener.getResults());
 
@@ -315,23 +317,23 @@ public class OBDTestsModuleTest {
         List<Integer> obdModules = Arrays.asList(new Integer[] { 0x00 });
         instance.reportOBDTests(listener, obdModules);
 
-        String expected = "2007-12-03T10:15:30.000 Direct DM24 Request to Engine #1 (0)\r\n"
-                + "10:15:30.000 18EA00A5 [3] B6 FD 00 (TX)\r\n"
-                + "10:15:30.000 18FDB600 [4] 66 00 1C 01\r\n"
-                + "DM24 from Engine #1 (0): [\r\n"
-                + "  D F T D F\r\n"
-                + "  a r e M F\r\n"
-                + "  t F s 5 l\r\n"
-                + "  a r t 8 n  SPN — SP Name\r\n"
-                + "  ------------------------\r\n"
-                + "  D F     1  SPN 102 - Engine Intake Manifold #1 Pressure\r\n"
-                + "]\r\n"
-                + "Freeze Frame data length = 1 bytes\r\n"
-                + "\r\n"
-                + "\r\n"
-                + "Engine #1 (0) does not have any tests that support scaled tests results\r\n"
-                + "\r\n"
-                + "ERROR No tests results returned\r\n";
+        String expected = "2007-12-03T10:15:30.000 Direct DM24 Request to Engine #1 (0)" + NL
+                + "10:15:30.000 18EA00A5 [3] B6 FD 00 (TX)" + NL
+                + "10:15:30.000 18FDB600 [4] 66 00 1C 01" + NL
+                + "DM24 from Engine #1 (0): [" + NL
+                + "  D F T D F" + NL
+                + "  a r e M F" + NL
+                + "  t F s 5 l" + NL
+                + "  a r t 8 n  SPN — SP Name" + NL
+                + "  ------------------------" + NL
+                + "  D F     1  SPN 102 - Engine Intake Manifold #1 Pressure" + NL
+                + "]" + NL
+                + "Freeze Frame data length = 1 bytes" + NL
+                + "" + NL
+                + "" + NL
+                + "Engine #1 (0) does not have any tests that support scaled tests results" + NL
+                + "" + NL
+                + "ERROR No tests results returned" + NL;
 
         assertEquals(expected, listener.getResults());
 
