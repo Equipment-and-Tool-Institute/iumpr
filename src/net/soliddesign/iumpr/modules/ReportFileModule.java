@@ -3,13 +3,12 @@
  */
 package net.soliddesign.iumpr.modules;
 
+import static java.util.logging.Level.INFO;
+import static java.util.logging.Level.WARNING;
 import static net.soliddesign.iumpr.IUMPR.NL;
 import static org.etools.j1939tools.bus.Packet.TX;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.IOException;
-import java.io.UncheckedIOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
@@ -17,14 +16,13 @@ import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAccessor;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import org.etools.j1939tools.bus.Adapter;
 import org.etools.j1939tools.bus.Packet;
@@ -123,6 +121,8 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
      * The text that indicates there's an excessive TSCC Gap in the file
      */
     private static final String TIME_GAP_MESSAGE = "ERROR Excess Time Since Code Cleared Gap of";
+
+    private static final String ZIP_FILE_END = "-IUMPR-CAN.zip";
 
     /**
      * The Calibrations from the file mapped to source address
@@ -579,6 +579,29 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
         } catch (IOException e) {
             getLogger().log(Level.SEVERE, "Error writing end of program statement", e);
         }
+
+        getJ1939().getLogFilePath().ifPresentOrElse(s -> {
+            File busLogFile = new File(s);
+
+            String zipFileName = reportFile.toPath().toString();
+            zipFileName = zipFileName.substring(0, zipFileName.lastIndexOf(".")) + ZIP_FILE_END;
+            File zipFile = new File(zipFileName);
+
+            try(ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(zipFile))){
+                zos.putNextEntry(new ZipEntry(busLogFile.getName().toString()));
+                Files.copy(busLogFile.toPath(), zos);
+                zos.closeEntry();
+            }catch(IOException e){
+                logger.log(WARNING, "Failed to add .asc CAN log to zip file.");
+            }
+
+            //same file management logic as in J1939 class
+            Stream.of(zipFile.getParentFile()
+                    .listFiles((dir, name) -> name.endsWith(ZIP_FILE_END)))
+                    .sorted(Comparator.comparing(f -> -f.lastModified()))
+                    .skip(10)
+                    .forEach(f -> f.delete());
+        }, () -> logger.log(INFO, "No .asc CAN log found."));
     }
 
     @Override

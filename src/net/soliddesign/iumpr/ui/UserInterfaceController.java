@@ -203,6 +203,7 @@ public class UserInterfaceController implements IUserInterfaceController {
                     });
             J1939 j1939 = getNewJ1939();
             getComparisonModule().setJ1939(j1939);
+            getReportFileModule().setJ1939(j1939);
             loggerStream = j1939.startLogger("IUMPR-CAN-");
         } catch (BusException e) {
             getLogger().log(Level.SEVERE, "Error Setting Adapter", e);
