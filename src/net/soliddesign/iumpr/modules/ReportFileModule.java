@@ -584,7 +584,7 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
             File busLogFile = new File(s);
 
             String zipFileName = reportFile.toPath().toString();
-            zipFileName = zipFileName.substring(0, zipFileName.lastIndexOf(".")) + ZIP_FILE_END;
+            zipFileName = zipFileName.substring(0, zipFileName.lastIndexOf(".")) + "-" + getDateTime().replace(":", "-") + ZIP_FILE_END;
             File zipFile = new File(zipFileName);
 
             try(ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(zipFile))){
