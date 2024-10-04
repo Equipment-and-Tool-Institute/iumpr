@@ -18,6 +18,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import javax.swing.JOptionPane;
 
 import org.etools.j1939tools.j1939.J1939;
+import org.etools.j1939tools.modules.CSERSModule;
 import org.etools.j1939tools.modules.DateTimeModule;
 import org.junit.After;
 import org.junit.Before;
@@ -50,7 +51,7 @@ public class DataPlateControllerTest {
 
     private static final int SKIP_STEP = 7;
 
-    private static final int TOTAL_STEPS = 29;
+    private static final int TOTAL_STEPS = 30;
 
     @Mock
     private BannerModule bannerModule;
@@ -85,6 +86,9 @@ public class DataPlateControllerTest {
     private NoxBinningGhgTrackingModule noxBinningGhgTrackingModule;
 
     @Mock
+    private CSERSModule csersModule;
+
+    @Mock
     private ReportFileModule reportFileModule;
 
     @Mock
@@ -94,7 +98,8 @@ public class DataPlateControllerTest {
     public void setUp() throws Exception {
         when(bannerModule.getTypeName()).thenReturn("Data Plate");
         instance = new DataPlateController(executor, engineSpeedModule, bannerModule, dateTimeModule,
-                vehicleInformationModule, diagnosticReadinessModule, dtcModule, comparisonModule,noxBinningGhgTrackingModule);
+                vehicleInformationModule, diagnosticReadinessModule, dtcModule, comparisonModule,
+                noxBinningGhgTrackingModule, csersModule);
     }
 
     @After
@@ -944,7 +949,7 @@ public class DataPlateControllerTest {
         runnableCaptor.getValue().run();
 
         InOrder inOrder = inOrder(listener, engineSpeedModule, comparisonModule, dtcModule, bannerModule,
-                reportFileModule, vehicleInformationModule, diagnosticReadinessModule, noxBinningGhgTrackingModule);
+                reportFileModule, vehicleInformationModule, diagnosticReadinessModule, noxBinningGhgTrackingModule, csersModule);
 
         inOrder.verify(vehicleInformationModule).setJ1939(j1939);
         inOrder.verify(diagnosticReadinessModule).setJ1939(j1939);
@@ -1100,6 +1105,14 @@ public class DataPlateControllerTest {
         inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting NOX Binning and GHG Tracking");
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting NOX Binning and GHG Tracking");
         inOrder.verify(noxBinningGhgTrackingModule).reportInformation(any(ResultsListener.class), eq(List.of(0)));
+
+        // CSERS
+        step++;
+        inOrder.verify(listener).onResult("");
+        inOrder.verify(reportFileModule).onResult("");
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting CSERS data");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting CSERS data");
+        inOrder.verify(csersModule).reportInformation(any(ResultsListener.class), eq(List.of(0)));
 
         step++;
         inOrder.verify(listener).onResult("");
@@ -1167,7 +1180,7 @@ public class DataPlateControllerTest {
         runnableCaptor.getValue().run();
 
         InOrder inOrder = inOrder(listener, engineSpeedModule, comparisonModule, dtcModule, bannerModule,
-                reportFileModule, vehicleInformationModule, diagnosticReadinessModule, noxBinningGhgTrackingModule);
+                reportFileModule, vehicleInformationModule, diagnosticReadinessModule, noxBinningGhgTrackingModule, csersModule);
 
         inOrder.verify(vehicleInformationModule).setJ1939(j1939);
         inOrder.verify(diagnosticReadinessModule).setJ1939(j1939);
@@ -1323,6 +1336,14 @@ public class DataPlateControllerTest {
         inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting NOX Binning and GHG Tracking");
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting NOX Binning and GHG Tracking");
         inOrder.verify(noxBinningGhgTrackingModule).reportInformation(any(ResultsListener.class), eq(List.of(0)));
+
+        //CSERS
+        step++;
+        inOrder.verify(listener).onResult("");
+        inOrder.verify(reportFileModule).onResult("");
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting CSERS data");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting CSERS data");
+        inOrder.verify(csersModule).reportInformation(any(ResultsListener.class), eq(List.of(0)));
 
         step++;
         inOrder.verify(listener).onResult("");
@@ -1390,7 +1411,7 @@ public class DataPlateControllerTest {
         runnableCaptor.getValue().run();
 
         InOrder inOrder = inOrder(listener, engineSpeedModule, comparisonModule, dtcModule, bannerModule,
-                reportFileModule, vehicleInformationModule, diagnosticReadinessModule, noxBinningGhgTrackingModule);
+                reportFileModule, vehicleInformationModule, diagnosticReadinessModule, noxBinningGhgTrackingModule, csersModule);
 
         inOrder.verify(vehicleInformationModule).setJ1939(j1939);
         inOrder.verify(diagnosticReadinessModule).setJ1939(j1939);
@@ -1545,6 +1566,14 @@ public class DataPlateControllerTest {
         inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting NOX Binning and GHG Tracking");
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting NOX Binning and GHG Tracking");
         inOrder.verify(noxBinningGhgTrackingModule).reportInformation(any(ResultsListener.class), eq(List.of(0)));
+
+        //CSERS
+        step++;
+        inOrder.verify(listener).onResult("");
+        inOrder.verify(reportFileModule).onResult("");
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting CSERS data");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting CSERS data");
+        inOrder.verify(csersModule).reportInformation(any(ResultsListener.class), eq(List.of(0)));
 
         step++;
         inOrder.verify(listener).onResult("");
@@ -1612,7 +1641,7 @@ public class DataPlateControllerTest {
         runnableCaptor.getValue().run();
 
         InOrder inOrder = inOrder(listener, engineSpeedModule, comparisonModule, dtcModule, bannerModule,
-                reportFileModule, vehicleInformationModule, diagnosticReadinessModule, noxBinningGhgTrackingModule);
+                reportFileModule, vehicleInformationModule, diagnosticReadinessModule, noxBinningGhgTrackingModule, csersModule);
 
         inOrder.verify(vehicleInformationModule).setJ1939(j1939);
         inOrder.verify(diagnosticReadinessModule).setJ1939(j1939);
@@ -1769,6 +1798,14 @@ public class DataPlateControllerTest {
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting NOX Binning and GHG Tracking");
         inOrder.verify(noxBinningGhgTrackingModule).reportInformation(any(ResultsListener.class), eq(List.of(0)));
 
+        //CSERS
+        step++;
+        inOrder.verify(listener).onResult("");
+        inOrder.verify(reportFileModule).onResult("");
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting CSERS data");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting CSERS data");
+        inOrder.verify(csersModule).reportInformation(any(ResultsListener.class), eq(List.of(0)));
+
         step++;
         inOrder.verify(listener).onResult("");
         inOrder.verify(reportFileModule).onResult("");
@@ -1835,7 +1872,7 @@ public class DataPlateControllerTest {
         runnableCaptor.getValue().run();
 
         InOrder inOrder = inOrder(listener, engineSpeedModule, comparisonModule, dtcModule, bannerModule,
-                reportFileModule, vehicleInformationModule, diagnosticReadinessModule, noxBinningGhgTrackingModule);
+                reportFileModule, vehicleInformationModule, diagnosticReadinessModule, noxBinningGhgTrackingModule, csersModule);
 
         inOrder.verify(vehicleInformationModule).setJ1939(j1939);
         inOrder.verify(diagnosticReadinessModule).setJ1939(j1939);
@@ -1986,6 +2023,14 @@ public class DataPlateControllerTest {
         inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting NOX Binning and GHG Tracking");
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting NOX Binning and GHG Tracking");
         inOrder.verify(noxBinningGhgTrackingModule).reportInformation(any(ResultsListener.class), eq(List.of(0)));
+
+        //CSERS
+        step++;
+        inOrder.verify(listener).onResult("");
+        inOrder.verify(reportFileModule).onResult("");
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting CSERS data");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting CSERS data");
+        inOrder.verify(csersModule).reportInformation(any(ResultsListener.class), eq(List.of(0)));
 
         step++;
         inOrder.verify(listener).onResult("");
@@ -2055,7 +2100,7 @@ public class DataPlateControllerTest {
         runnableCaptor.getValue().run();
 
         InOrder inOrder = inOrder(listener, engineSpeedModule, comparisonModule, dtcModule, bannerModule,
-                reportFileModule, vehicleInformationModule, diagnosticReadinessModule, noxBinningGhgTrackingModule);
+                reportFileModule, vehicleInformationModule, diagnosticReadinessModule, noxBinningGhgTrackingModule, csersModule);
 
         inOrder.verify(vehicleInformationModule).setJ1939(j1939);
         inOrder.verify(diagnosticReadinessModule).setJ1939(j1939);
@@ -2206,6 +2251,14 @@ public class DataPlateControllerTest {
         inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting NOX Binning and GHG Tracking");
         inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting NOX Binning and GHG Tracking");
         inOrder.verify(noxBinningGhgTrackingModule).reportInformation(any(ResultsListener.class), eq(List.of(0)));
+
+        //CSERS
+        step++;
+        inOrder.verify(listener).onResult("");
+        inOrder.verify(reportFileModule).onResult("");
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting CSERS data");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting CSERS data");
+        inOrder.verify(csersModule).reportInformation(any(ResultsListener.class), eq(List.of(0)));
 
         step++;
         inOrder.verify(listener).onResult("");
