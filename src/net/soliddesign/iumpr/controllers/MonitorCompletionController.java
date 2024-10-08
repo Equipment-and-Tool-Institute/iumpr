@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.etools.j1939tools.j1939.packets.MonitoredSystem;
 import org.etools.j1939tools.j1939.packets.PerformanceRatio;
 import org.etools.j1939tools.modules.DateTimeModule;
@@ -71,6 +72,7 @@ public class MonitorCompletionController extends Controller {
      * @param monitorTrackingModule
      *            the {@link MonitorTrackingModule}
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "Not a concern in desktop app.")
     public MonitorCompletionController(ScheduledExecutorService executor, EngineSpeedModule engineSpeedModule,
             BannerModule bannerModule, DateTimeModule dateTimeModule, VehicleInformationModule vehicleInformationModule,
             DiagnosticReadinessModule diagnosticReadinessModule, ComparisonModule comparisonModule,

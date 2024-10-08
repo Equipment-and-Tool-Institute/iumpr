@@ -123,6 +123,7 @@ public class MonitorTrackingModule extends FunctionalModule {
      *            the {@link ScheduledExecutorService} for running periodic
      *            tasks
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "Not a concern in desktop app.")
     public MonitorTrackingModule(DateTimeModule dateTimeModule, DiagnosticReadinessModule diagnosticReadinessModule,
             EngineSpeedModule engineSpeedModule, ScheduledExecutorService executor) {
         super(dateTimeModule);
@@ -195,6 +196,7 @@ public class MonitorTrackingModule extends FunctionalModule {
     /**
      * @return the lastRatios
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Not a concern in desktop app.")
     public Set<PerformanceRatio> getLastRatios() {
         return lastRatios;
     }
@@ -202,6 +204,7 @@ public class MonitorTrackingModule extends FunctionalModule {
     /**
      * @return the lastSystems
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Not a concern in desktop app.")
     public Set<MonitoredSystem> getLastSystems() {
         return lastSystems;
     }

@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.etools.j1939tools.bus.Packet;
 import org.etools.j1939tools.utils.CollectionUtils;
 
@@ -154,6 +155,7 @@ public class DM19CalibrationInformationPacket extends GenericPacket {
      *
      * @return List of {@link CalibrationInformation}
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Not a concern in desktop app.")
     public List<CalibrationInformation> getCalibrationInformation() {
         if (info == null || info.size() == 0) {
             info = parseAllInformation();

@@ -11,6 +11,7 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.etools.j1939tools.bus.BusException;
 import org.etools.j1939tools.bus.Packet;
 import org.etools.j1939tools.j1939.packets.AddressClaimPacket;
@@ -129,6 +130,7 @@ public class VehicleInformationModule extends FunctionalModule {
      * @param listener
      *            the {@link ResultsListener} that will be given the report
      */
+    @SuppressFBWarnings(value = {"FE_FLOATING_POINT_EQUALITY"}, justification = "Checking for exact ERROR or NOT_AVAILABLE value, no need to accommodate rounding.")
     public void reportVehicleDistance(ResultsListener listener) {
         listener.onResult(getDateTime() + " Vehicle Distance");
         Optional<HighResVehicleDistancePacket> hiResPacket = getJ1939()

@@ -14,6 +14,7 @@ import java.util.function.Supplier;
 import java.util.logging.Level;
 import java.util.stream.Stream;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.etools.j1939_84.J1939_84;
 import org.etools.j1939tools.bus.Bus;
 import org.etools.j1939tools.bus.BusException;
@@ -49,10 +50,12 @@ public class Sim implements AutoCloseable {
      */
     public final Collection<Function<Packet, Boolean>> responses = new ArrayList<>();
 
+    @SuppressFBWarnings(value = "CT_CONSTRUCTOR_THROW", justification = "Not a concern in desktop app.")
     public Sim(Bus bus) throws BusException {
         this(bus, false);
     }
 
+    @SuppressFBWarnings(value = "CT_CONSTRUCTOR_THROW", justification = "Not a concern in desktop app.")
     public Sim(Bus bus, boolean logPackets) throws BusException {
         this.bus = bus;
         // stream is collected in the current thread to avoid missing any

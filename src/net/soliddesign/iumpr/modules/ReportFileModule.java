@@ -24,6 +24,8 @@ import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.etools.j1939_84.J1939_84;
 import org.etools.j1939tools.bus.Adapter;
 import org.etools.j1939tools.bus.Packet;
 import org.etools.j1939tools.j1939.packets.DM19CalibrationInformationPacket;
@@ -238,6 +240,7 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
      * @param logger
      *            The {@link Logger} to use for logging
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "Not a concern in desktop app.")
     public ReportFileModule(DateTimeModule dateTimeModule, Logger logger) {
         super(dateTimeModule);
         this.logger = logger;
@@ -482,6 +485,7 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
      *
      * @return {@link Set} of {@link MonitoredSystem}
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Not a concern in desktop app.")
     public Set<MonitoredSystem> getInitialMonitors() {
         return initialMonitors;
     }
@@ -512,6 +516,7 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
      *
      * @return {@link Set} of {@link PerformanceRatio}
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Not a concern in desktop app.")
     public Set<PerformanceRatio> getInitialRatios() {
         return initialRatios;
     }
@@ -600,7 +605,11 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
                     .listFiles((dir, name) -> name.endsWith(ZIP_FILE_END)))
                     .sorted(Comparator.comparing(f -> -f.lastModified()))
                     .skip(10)
-                    .forEach(f -> f.delete());
+                    .forEach(f -> {
+                        if (!f.delete()) {
+                            J1939_84.getLogger().log(Level.INFO, "Failed to delete file " + f.getAbsolutePath());
+                        }
+                    });
         }, () -> logger.log(INFO, "No .asc CAN log found."));
     }
 
@@ -680,12 +689,14 @@ public class ReportFileModule extends FunctionalModule implements ResultsListene
                 line = line.substring(index + 1);
             }
             Packet packet = Packet.parse(line);
-            int id = packet.getId();
-            if (id < 0xF000) {
-                id &= 0xFF00;
-            }
-            if (packet != null && id == pgn) {
-                return packet;
+            if (packet != null) {
+                int id = packet.getId();
+                if (id < 0xF000) {
+                    id &= 0xFF00;
+                }
+                if (id == pgn) {
+                    return packet;
+                }
             }
         }
         return null;

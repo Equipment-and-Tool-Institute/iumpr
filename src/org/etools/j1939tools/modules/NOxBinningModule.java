@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.etools.j1939tools.j1939.Lookup;
 import org.etools.j1939tools.j1939.model.Spn;
 import org.etools.j1939tools.j1939.packets.GenericPacket;
@@ -52,6 +53,7 @@ public class NOxBinningModule {
     // 64260 NOx Tracking Engine Activity Lifetime Vehicle Distance Bins
     // 64261 NOx Tracking Engine Activity Lifetime Engine Output Energy Bins
     // NTEEEA
+    @SuppressFBWarnings(value = "MS_MUTABLE_ARRAY", justification = "Access by other classes required. Not a concern in desktop app.")
     public static final int[] NOx_LIFETIME_ACTIVITY_PGs = { 0, 0, 64261, 64258, 64259, 64260 };
     // 64262 NOx Tracking Valid NOx Lifetime Fuel Consumption Bins
     // 64263 NOx Tracking Valid NOx Lifetime Engine Run Time Bins
@@ -59,6 +61,7 @@ public class NOxBinningModule {
     // 64265 NOx Tracking Valid NOx Lifetime Engine Output Energy Bins
     // 64266 NOx Tracking Valid NOx Lifetime Engine Out NOx Mass Bins
     // 64267 NOx Tracking Valid NOx Lifetime System Out NOx Mass Bins
+    @SuppressFBWarnings(value = "MS_MUTABLE_ARRAY", justification = "Access by other classes required. Not a concern in desktop app.")
     public static final int[] NOx_LIFETIME_PGs = { 64267, 64266, 64265, 64262, 64263, 64264 };
     // PG Acronym NTFCA
     // NTEHA NTVMA NTEEA NTENA
@@ -70,6 +73,7 @@ public class NOxBinningModule {
     // 64277 NOx Tracking Active 100 Hour Engine Output Energy Bins
     // 64278 NOx Tracking Active 100 Hour Engine Out NOx Mass Bins
     // 64279 NOx Tracking Active 100 Hour System Out NOx Mass Bins
+    @SuppressFBWarnings(value = "MS_MUTABLE_ARRAY", justification = "Access by other classes required. Not a concern in desktop app.")
     public static final int[] NOx_TRACKING_ACTIVE_100_HOURS_PGs = { 64279, 64278, 64277, 64274, 64275, 64276 };
 
     // 64268 NOx Tracking Stored 100 Hour
@@ -78,6 +82,7 @@ public class NOxBinningModule {
     // 64271 NOx Tracking Stored 100 Hour
     // 64272 NOx Tracking Stored 100 Hour
     // 64273 NOx Tracking Stored 100 Hour
+    @SuppressFBWarnings(value = "MS_MUTABLE_ARRAY", justification = "Access by other classes required. Not a concern in desktop app.")
     public static final int[] NOx_TRACKING_STORED_100_HOURS_PGs = { 64273, 64272, 64271, 64268, 64269, 64270 };
 
     // public static final int[] NOx_ALL_PGNS =
@@ -96,6 +101,7 @@ public class NOxBinningModule {
     private final DateTimeModule dateTimeModule;
     private final DecimalFormat decimalFormat = new DecimalFormat("#,##0");
 
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "Not a concern in desktop app.")
     public NOxBinningModule(DateTimeModule dateTimeModule) {
         this.dateTimeModule = dateTimeModule;
     }
