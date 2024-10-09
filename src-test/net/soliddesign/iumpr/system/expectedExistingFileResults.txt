@@ -224,7 +224,7 @@ SPN247,EngineTotalHoursofOperation:3564.000h
 SPN249,EngineTotalRevolutions:NotAvailable
 
 
-2007-12-03T10:15:30.000TotalQueries:16
+2007-12-03T10:15:30.000TotalQueries:17
 2007-12-03T10:15:30.000TotalTimeOutErrors:1
 
 2007-12-03T10:15:30.000IUMPRDataCollectionToolDataPlateReportENDOFREPORT

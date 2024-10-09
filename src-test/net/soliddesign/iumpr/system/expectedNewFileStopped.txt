@@ -225,7 +225,7 @@ Engine Hours, Revolutions from Engine #1 (0):
   SPN   249, Engine Total Revolutions: Not Available
 
 
-2007-12-03T10:15:30.000 Total Queries: 17
+2007-12-03T10:15:30.000 Total Queries: 18
 2007-12-03T10:15:30.000 Total Time Out Errors: 1
 
 2007-12-03T10:15:30.000 IUMPR Data Collection Tool Data Plate Report END OF REPORT

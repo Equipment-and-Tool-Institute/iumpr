@@ -19,10 +19,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.etools.j1939tools.bus.Adapter;
+import org.etools.j1939tools.j1939.J1939;
 import org.etools.j1939tools.j1939.packets.DM19CalibrationInformationPacket.CalibrationInformation;
 import org.junit.After;
 import org.junit.Before;
@@ -31,6 +33,7 @@ import org.junit.Test;
 import net.soliddesign.iumpr.controllers.TestResultsListener;
 import net.soliddesign.iumpr.modules.ReportFileModule.Problem;
 import net.soliddesign.iumpr.modules.ReportFileModule.ReportFileException;
+import org.mockito.Mock;
 
 /**
  * Unit tests for the {@link ReportFileModule} class
@@ -45,6 +48,7 @@ public class ReportFileModuleTest {
     private ReportFileModule instance;
     private TestResultsListener listener;
     private Logger logger;
+    private J1939 j1939;
 
     @Before
     public void setUp() throws Exception {
@@ -61,6 +65,9 @@ public class ReportFileModuleTest {
 
         logger = mock(Logger.class);
         instance = new ReportFileModule(dateTimeModule, logger);
+        j1939 = mock(J1939.class);
+        when(j1939.getLogFilePath()).thenReturn(Optional.empty());
+        instance.setJ1939(j1939);
     }
 
     @After
