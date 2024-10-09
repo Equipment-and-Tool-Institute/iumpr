@@ -11,7 +11,6 @@ import java.util.concurrent.ScheduledExecutorService;
 
 import javax.swing.JOptionPane;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.etools.j1939tools.modules.DateTimeModule;
 
 import net.soliddesign.iumpr.modules.BannerModule;
@@ -37,13 +36,15 @@ public class DataPlateController extends Controller {
 
     private final NoxBinningGhgTrackingModule noxBinningGhgTrackingModule;
 
+    private final CSERSModule csersModule;
+
     /**
      * Constructor
      */
     public DataPlateController() {
         this(Executors.newSingleThreadScheduledExecutor(), new EngineSpeedModule(), new BannerModule(Type.DATA_PLATE),
                 DateTimeModule.getInstance(), new VehicleInformationModule(), new DiagnosticReadinessModule(), new DTCModule(),
-                new ComparisonModule(), new NoxBinningGhgTrackingModule());
+                new ComparisonModule(), new NoxBinningGhgTrackingModule(), new CSERSModule());
     }
 
     /**
@@ -70,15 +71,20 @@ public class DataPlateController extends Controller {
     public DataPlateController(ScheduledExecutorService executor, EngineSpeedModule engineSpeedModule,
             BannerModule bannerModule, DateTimeModule dateTimeModule, VehicleInformationModule vehicleInformationModule,
             DiagnosticReadinessModule diagnosticReadinessModule, DTCModule dtcModule,
-            ComparisonModule comparisonModule, NoxBinningGhgTrackingModule noxBinningGhgTrackingModule) {
+            ComparisonModule comparisonModule, NoxBinningGhgTrackingModule noxBinningGhgTrackingModule, CSERSModule csersModule) {
         super(executor, engineSpeedModule, bannerModule, dateTimeModule, vehicleInformationModule,
                 diagnosticReadinessModule, comparisonModule);
         this.dtcModule = dtcModule;
         this.noxBinningGhgTrackingModule = noxBinningGhgTrackingModule;
+        this.csersModule = csersModule;
     }
 
     private NoxBinningGhgTrackingModule getNoxBinningHghTrackingModule() {
         return noxBinningGhgTrackingModule;
+    }
+
+    private CSERSModule getCSERSModule(){
+        return csersModule;
     }
 
     @Override
@@ -90,6 +96,7 @@ public class DataPlateController extends Controller {
     protected void run() throws Throwable {
         dtcModule.setJ1939(getJ1939());
         getNoxBinningHghTrackingModule().setJ1939(getJ1939());
+        getCSERSModule().setJ1939(getJ1939());
 
         // Step 1 is handled in the super
 
@@ -243,6 +250,11 @@ public class DataPlateController extends Controller {
         addBlankLineToReport();
         incrementProgress("Requesting NOX Binning and GHG Tracking");
         getNoxBinningHghTrackingModule().reportInformation(getListener(), obdModules);
+
+        //CSERS
+        addBlankLineToReport();
+        incrementProgress("Requesting CSERS data");
+        getCSERSModule().reportInformation(getListener(), obdModules);
 
         // Step 43
         addBlankLineToReport();

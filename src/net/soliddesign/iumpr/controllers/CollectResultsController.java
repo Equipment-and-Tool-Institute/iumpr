@@ -15,6 +15,7 @@ import org.etools.j1939tools.j1939.packets.DM20MonitorPerformanceRatioPacket;
 import org.etools.j1939tools.j1939.packets.DM5DiagnosticReadinessPacket;
 import org.etools.j1939tools.j1939.packets.MonitoredSystem;
 import org.etools.j1939tools.j1939.packets.PerformanceRatio;
+import org.etools.j1939tools.modules.CSERSModule;
 import org.etools.j1939tools.modules.DateTimeModule;
 
 import net.soliddesign.iumpr.modules.BannerModule;
@@ -36,6 +37,8 @@ public class CollectResultsController extends Controller {
 
     private NoxBinningGhgTrackingModule noxBinningGhgTrackingModule;
 
+    private CSERSModule csersModule;
+
     private OBDTestsModule obdTestsModule;
 
     /**
@@ -46,7 +49,7 @@ public class CollectResultsController extends Controller {
         this(Executors.newSingleThreadScheduledExecutor(), new EngineSpeedModule(),
                 new BannerModule(Type.COLLECTION_LOG), DateTimeModule.getInstance(), new VehicleInformationModule(),
                 new DiagnosticReadinessModule(), new OBDTestsModule(), new ComparisonModule(),
-                new NoxBinningGhgTrackingModule());
+                new NoxBinningGhgTrackingModule(), new CSERSModule());
     }
 
     /**
@@ -73,26 +76,32 @@ public class CollectResultsController extends Controller {
     public CollectResultsController(ScheduledExecutorService executor, EngineSpeedModule engineSpeedModule,
             BannerModule bannerModule, DateTimeModule dateTimeModule, VehicleInformationModule vehicleInformationModule,
             DiagnosticReadinessModule diagnosticReadinessModule, OBDTestsModule obdTestsModule,
-            ComparisonModule comparisonModule, NoxBinningGhgTrackingModule noxBinningGhgTrackingModule) {
+            ComparisonModule comparisonModule, NoxBinningGhgTrackingModule noxBinningGhgTrackingModule, CSERSModule csersModule) {
         super(executor, engineSpeedModule, bannerModule, dateTimeModule, vehicleInformationModule,
                 diagnosticReadinessModule, comparisonModule);
         this.obdTestsModule = obdTestsModule;
         this.noxBinningGhgTrackingModule = noxBinningGhgTrackingModule;
+        this.csersModule = csersModule;
     }
 
     private NoxBinningGhgTrackingModule getNoxBinningHghTrackingModule() {
         return noxBinningGhgTrackingModule;
     }
 
+    private CSERSModule getCSERSModule(){
+        return csersModule;
+    }
+
     @Override
     protected int getTotalSteps() {
-        return 18 + 4; // +4 is for the compareToVehicle
+        return 19 + 4; // +4 is for the compareToVehicle
     }
 
     @Override
     protected void run() throws Throwable {
         obdTestsModule.setJ1939(getJ1939());
         noxBinningGhgTrackingModule.setJ1939(getJ1939());
+        csersModule.setJ1939(getJ1939());
 
         // This is "Function E"
 
@@ -135,6 +144,11 @@ public class CollectResultsController extends Controller {
         addBlankLineToReport();
         incrementProgress("Requesting NOX Binning and GHG Tracking");
         getNoxBinningHghTrackingModule().reportInformation(getListener(), obdModules);
+
+        //CSERS
+        addBlankLineToReport();
+        incrementProgress("Requesting CSERS data");
+        getCSERSModule().reportInformation(getListener(), obdModules);
 
         // Step 30
         addBlankLineToReport();

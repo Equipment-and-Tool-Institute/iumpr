@@ -27,6 +27,7 @@ import org.etools.j1939tools.j1939.packets.DM20MonitorPerformanceRatioPacket;
 import org.etools.j1939tools.j1939.packets.DM5DiagnosticReadinessPacket;
 import org.etools.j1939tools.j1939.packets.MonitoredSystem;
 import org.etools.j1939tools.j1939.packets.PerformanceRatio;
+import org.etools.j1939tools.modules.CSERSModule;
 import org.etools.j1939tools.modules.DateTimeModule;
 import org.junit.After;
 import org.junit.Before;
@@ -56,6 +57,8 @@ import net.soliddesign.iumpr.modules.VehicleInformationModule;
 @SuppressFBWarnings(value = "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", justification = "It's complaining about the verify steps")
 @RunWith(MockitoJUnitRunner.class)
 public class CollectResultsControllerTest {
+
+    private static int TOTAL_STEPS = 23;
 
     @Mock
     private BannerModule bannerModule;
@@ -87,6 +90,9 @@ public class CollectResultsControllerTest {
     private NoxBinningGhgTrackingModule noxBinningGhgTrackingModule;
 
     @Mock
+    private CSERSModule csersModule;
+
+    @Mock
     private OBDTestsModule obdTestsModule;
 
     @Mock
@@ -100,20 +106,20 @@ public class CollectResultsControllerTest {
         when(bannerModule.getTypeName()).thenReturn("Data Collection");
 
         instance = new CollectResultsController(executor, engineSpeedModule, bannerModule, dateTimeModule,
-                vehicleInformationModule, diagnosticReadinessModule, obdTestsModule, comparisonModule, noxBinningGhgTrackingModule);
+                vehicleInformationModule, diagnosticReadinessModule, obdTestsModule, comparisonModule, noxBinningGhgTrackingModule, csersModule);
     }
 
     @After
     public void tearDown() throws Exception {
         verifyNoMoreInteractions(engineSpeedModule, bannerModule, vehicleInformationModule, diagnosticReadinessModule,
                 comparisonModule, j1939, reportFileModule, listener, obdTestsModule, noxBinningGhgTrackingModule,
-                executor);
+                csersModule, executor);
     }
 
     @Test
     public void testAbortIfNoOBDModules() throws Exception {
         when(engineSpeedModule.isEngineCommunicating()).thenReturn(true);
-        when(comparisonModule.compareFileToVehicle(any(ResultsListener.class), eq(reportFileModule), eq(2), eq(22)))
+        when(comparisonModule.compareFileToVehicle(any(ResultsListener.class), eq(reportFileModule), eq(2), eq(23)))
                 .thenReturn(true);
         when(reportFileModule.getMinutesSinceCodeClear()).thenReturn((double) 1234);
         List<Integer> obdModules = Collections.emptyList();
@@ -124,7 +130,7 @@ public class CollectResultsControllerTest {
         verify(executor).execute(runnableCaptor.capture());
         runnableCaptor.getValue().run();
 
-        InOrder inOrder = inOrder(listener, engineSpeedModule, comparisonModule, obdTestsModule,noxBinningGhgTrackingModule, bannerModule,
+        InOrder inOrder = inOrder(listener, engineSpeedModule, comparisonModule, obdTestsModule,noxBinningGhgTrackingModule, csersModule, bannerModule,
                 reportFileModule, vehicleInformationModule, diagnosticReadinessModule);
 
         inOrder.verify(vehicleInformationModule).setJ1939(j1939);
@@ -132,52 +138,62 @@ public class CollectResultsControllerTest {
         inOrder.verify(comparisonModule).setJ1939(j1939);
         inOrder.verify(engineSpeedModule).setJ1939(j1939);
 
-        inOrder.verify(listener).onProgress(0, 22, "");
-        inOrder.verify(reportFileModule).onProgress(0, 22, "");
+        int steps = 0;
+        inOrder.verify(listener).onProgress(steps, TOTAL_STEPS, "");
+        inOrder.verify(reportFileModule).onProgress(steps, TOTAL_STEPS, "");
 
-        inOrder.verify(listener).onProgress(1, 22, "Reading Engine Speed");
-        inOrder.verify(reportFileModule).onProgress(1, 22, "Reading Engine Speed");
+        steps++;
+        inOrder.verify(listener).onProgress(steps, TOTAL_STEPS, "Reading Engine Speed");
+        inOrder.verify(reportFileModule).onProgress(steps, TOTAL_STEPS, "Reading Engine Speed");
         inOrder.verify(engineSpeedModule).isEngineCommunicating();
 
-        inOrder.verify(listener).onProgress(2, 22, "Comparing Vehicle to Report File");
-        inOrder.verify(reportFileModule).onProgress(2, 22, "Comparing Vehicle to Report File");
+        steps++;
+        inOrder.verify(listener).onProgress(steps, TOTAL_STEPS, "Comparing Vehicle to Report File");
+        inOrder.verify(reportFileModule).onProgress(steps, TOTAL_STEPS, "Comparing Vehicle to Report File");
         inOrder.verify(comparisonModule).reset();
-        inOrder.verify(comparisonModule).compareFileToVehicle(any(ResultsListener.class), eq(reportFileModule), eq(2),
-                eq(22));
+        inOrder.verify(comparisonModule).compareFileToVehicle(any(ResultsListener.class), eq(reportFileModule), eq(steps),
+                eq(TOTAL_STEPS));
 
         // Why are these late?
         inOrder.verify(obdTestsModule).setJ1939(j1939);
         inOrder.verify(noxBinningGhgTrackingModule).setJ1939(j1939);
+        inOrder.verify(csersModule).setJ1939(j1939);
 
-        inOrder.verify(listener).onProgress(7, 22, "Generating Header");
-        inOrder.verify(reportFileModule).onProgress(7, 22, "Generating Header");
+        steps += 5;
+        inOrder.verify(listener).onProgress(steps, TOTAL_STEPS, "Generating Header");
+        inOrder.verify(reportFileModule).onProgress(steps, TOTAL_STEPS, "Generating Header");
         inOrder.verify(bannerModule).reportHeader(any(ResultsListener.class));
 
+        steps++;
         inOrder.verify(listener).onResult("");
         inOrder.verify(reportFileModule).onResult("");
-        inOrder.verify(listener).onProgress(8, 22, "Requesting VIN");
-        inOrder.verify(reportFileModule).onProgress(8, 22, "Requesting VIN");
+        inOrder.verify(listener).onProgress(steps, TOTAL_STEPS, "Requesting VIN");
+        inOrder.verify(reportFileModule).onProgress(steps, TOTAL_STEPS, "Requesting VIN");
         inOrder.verify(vehicleInformationModule).reportVin(any(ResultsListener.class));
 
+        steps++;
         inOrder.verify(listener).onResult("");
         inOrder.verify(reportFileModule).onResult("");
-        inOrder.verify(listener).onProgress(9, 22, "Requesting Calibration Information");
-        inOrder.verify(reportFileModule).onProgress(9, 22, "Requesting Calibration Information");
+        inOrder.verify(listener).onProgress(steps, TOTAL_STEPS, "Requesting Calibration Information");
+        inOrder.verify(reportFileModule).onProgress(steps, TOTAL_STEPS, "Requesting Calibration Information");
         inOrder.verify(vehicleInformationModule).reportCalibrationInformation(any(ResultsListener.class));
 
+        steps++;
         inOrder.verify(listener).onResult("");
         inOrder.verify(reportFileModule).onResult("");
-        inOrder.verify(listener).onProgress(10, 22, "Requesting DM21");
-        inOrder.verify(reportFileModule).onProgress(10, 22, "Requesting DM21");
+        inOrder.verify(listener).onProgress(steps, TOTAL_STEPS, "Requesting DM21");
+        inOrder.verify(reportFileModule).onProgress(steps, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).getMinutesSinceCodeClear();
         inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq((double) 1234));
 
+        steps++;
         inOrder.verify(listener).onResult("");
         inOrder.verify(reportFileModule).onResult("");
-        inOrder.verify(listener).onProgress(11, 22, "Requesting HD OBD Modules");
-        inOrder.verify(reportFileModule).onProgress(11, 22, "Requesting HD OBD Modules");
+        inOrder.verify(listener).onProgress(steps, TOTAL_STEPS, "Requesting HD OBD Modules");
+        inOrder.verify(reportFileModule).onProgress(steps, TOTAL_STEPS, "Requesting HD OBD Modules");
         inOrder.verify(diagnosticReadinessModule).getOBDModules(any(ResultsListener.class));
 
+        steps++;
         inOrder.verify(listener).onResult("");
         inOrder.verify(reportFileModule).onResult("");
         inOrder.verify(bannerModule).reportAborted(any(ResultsListener.class));
@@ -186,8 +202,8 @@ public class CollectResultsControllerTest {
         inOrder.verify(reportFileModule).onResult("");
 
         inOrder.verify(bannerModule).getTypeName();
-        inOrder.verify(listener).onProgress(22, 22, "Data Collection Aborted");
-        inOrder.verify(reportFileModule).onProgress(22, 22, "Data Collection Aborted");
+        inOrder.verify(listener).onProgress(23, TOTAL_STEPS, "Data Collection Aborted");
+        inOrder.verify(reportFileModule).onProgress(23, TOTAL_STEPS, "Data Collection Aborted");
         inOrder.verify(listener).onComplete(false);
         inOrder.verify(reportFileModule).onComplete(false);
     }
@@ -195,7 +211,7 @@ public class CollectResultsControllerTest {
     @Test
     public void testAbortIfVehicleMismatch() throws Exception {
         when(engineSpeedModule.isEngineCommunicating()).thenReturn(true);
-        when(comparisonModule.compareFileToVehicle(any(ResultsListener.class), eq(reportFileModule), eq(2), eq(22)))
+        when(comparisonModule.compareFileToVehicle(any(ResultsListener.class), eq(reportFileModule), eq(2), eq(TOTAL_STEPS)))
                 .thenReturn(false);
 
         instance.execute(listener, j1939, reportFileModule);
@@ -211,18 +227,21 @@ public class CollectResultsControllerTest {
         inOrder.verify(comparisonModule).setJ1939(j1939);
         inOrder.verify(engineSpeedModule).setJ1939(j1939);
 
-        inOrder.verify(listener).onProgress(0, 22, "");
-        inOrder.verify(reportFileModule).onProgress(0, 22, "");
+        int step = 0;
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "");
 
-        inOrder.verify(listener).onProgress(1, 22, "Reading Engine Speed");
-        inOrder.verify(reportFileModule).onProgress(1, 22, "Reading Engine Speed");
+        step++;
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Reading Engine Speed");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Reading Engine Speed");
         inOrder.verify(engineSpeedModule).isEngineCommunicating();
 
-        inOrder.verify(listener).onProgress(2, 22, "Comparing Vehicle to Report File");
-        inOrder.verify(reportFileModule).onProgress(2, 22, "Comparing Vehicle to Report File");
+        step++;
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Comparing Vehicle to Report File");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Comparing Vehicle to Report File");
         inOrder.verify(comparisonModule).reset();
-        inOrder.verify(comparisonModule).compareFileToVehicle(any(ResultsListener.class), eq(reportFileModule), eq(2),
-                eq(22));
+        inOrder.verify(comparisonModule).compareFileToVehicle(any(ResultsListener.class), eq(reportFileModule), eq(step),
+                eq(TOTAL_STEPS));
 
         inOrder.verify(listener).onResult("");
         inOrder.verify(reportFileModule).onResult("");
@@ -232,8 +251,8 @@ public class CollectResultsControllerTest {
         inOrder.verify(reportFileModule).onResult("");
 
         inOrder.verify(bannerModule).getTypeName();
-        inOrder.verify(listener).onProgress(22, 22, "Data Collection Aborted");
-        inOrder.verify(reportFileModule).onProgress(22, 22, "Data Collection Aborted");
+        inOrder.verify(listener).onProgress(23, TOTAL_STEPS, "Data Collection Aborted");
+        inOrder.verify(reportFileModule).onProgress(23, TOTAL_STEPS, "Data Collection Aborted");
         inOrder.verify(listener).onComplete(false);
         inOrder.verify(reportFileModule).onComplete(false);
     }
@@ -287,11 +306,11 @@ public class CollectResultsControllerTest {
         inOrder.verify(comparisonModule).setJ1939(j1939);
         inOrder.verify(engineSpeedModule).setJ1939(j1939);
 
-        inOrder.verify(listener).onProgress(0, 22, "");
-        inOrder.verify(reportFileModule).onProgress(0, 22, "");
+        inOrder.verify(listener).onProgress(0, TOTAL_STEPS, "");
+        inOrder.verify(reportFileModule).onProgress(0, TOTAL_STEPS, "");
 
-        inOrder.verify(listener).onProgress(1, 22, "Reading Engine Speed");
-        inOrder.verify(reportFileModule).onProgress(1, 22, "Reading Engine Speed");
+        inOrder.verify(listener).onProgress(1, TOTAL_STEPS, "Reading Engine Speed");
+        inOrder.verify(reportFileModule).onProgress(1, TOTAL_STEPS, "Reading Engine Speed");
 
         verify(engineSpeedModule, atLeastOnce()).isEngineCommunicating();
 
@@ -301,8 +320,8 @@ public class CollectResultsControllerTest {
         inOrder.verify(reportFileModule).onMessage(
                 "The engine is not communicating.  Please check the adapter connection with the vehicle and/or turn the key on/start the vehicle.",
                 "Engine Not Communicating", JOptionPane.WARNING_MESSAGE);
-        inOrder.verify(listener).onProgress(1, 22, "Engine Not Communicating.  Please start vehicle or push Stop");
-        inOrder.verify(reportFileModule).onProgress(1, 22,
+        inOrder.verify(listener).onProgress(1, TOTAL_STEPS, "Engine Not Communicating.  Please start vehicle or push Stop");
+        inOrder.verify(reportFileModule).onProgress(1, TOTAL_STEPS,
                 "Engine Not Communicating.  Please start vehicle or push Stop");
 
         inOrder.verify(listener).onResult("");
@@ -312,8 +331,8 @@ public class CollectResultsControllerTest {
         inOrder.verify(listener).onResult("");
         inOrder.verify(reportFileModule).onResult("");
         inOrder.verify(bannerModule).getTypeName();
-        inOrder.verify(listener).onProgress(22, 22, "Data Collection Stopped");
-        inOrder.verify(reportFileModule).onProgress(22, 22, "Data Collection Stopped");
+        inOrder.verify(listener).onProgress(TOTAL_STEPS, TOTAL_STEPS, "Data Collection Stopped");
+        inOrder.verify(reportFileModule).onProgress(TOTAL_STEPS, TOTAL_STEPS, "Data Collection Stopped");
         inOrder.verify(listener).onComplete(false);
         inOrder.verify(reportFileModule).onComplete(false);
     }
@@ -322,7 +341,7 @@ public class CollectResultsControllerTest {
     @Test
     public void testHappyPath() throws Exception {
         when(engineSpeedModule.isEngineCommunicating()).thenReturn(true);
-        when(comparisonModule.compareFileToVehicle(any(ResultsListener.class), eq(reportFileModule), eq(2), eq(22)))
+        when(comparisonModule.compareFileToVehicle(any(ResultsListener.class), eq(reportFileModule), eq(2), eq(TOTAL_STEPS)))
                 .thenReturn(true);
         when(reportFileModule.getMinutesSinceCodeClear()).thenReturn((double) 1234).thenReturn((double) 1234);
 
@@ -363,7 +382,7 @@ public class CollectResultsControllerTest {
         verify(executor).execute(runnableCaptor.capture());
         runnableCaptor.getValue().run();
 
-        InOrder inOrder = inOrder(listener, engineSpeedModule, comparisonModule, obdTestsModule, noxBinningGhgTrackingModule, bannerModule,
+        InOrder inOrder = inOrder(listener, engineSpeedModule, comparisonModule, obdTestsModule, noxBinningGhgTrackingModule, csersModule, bannerModule,
                 reportFileModule, vehicleInformationModule, diagnosticReadinessModule);
 
         inOrder.verify(vehicleInformationModule).setJ1939(j1939);
@@ -371,69 +390,89 @@ public class CollectResultsControllerTest {
         inOrder.verify(comparisonModule).setJ1939(j1939);
         inOrder.verify(engineSpeedModule).setJ1939(j1939);
 
-        inOrder.verify(listener).onProgress(0, 22, "");
-        inOrder.verify(reportFileModule).onProgress(0, 22, "");
+        int step = 0;
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "");
 
-        inOrder.verify(listener).onProgress(1, 22, "Reading Engine Speed");
-        inOrder.verify(reportFileModule).onProgress(1, 22, "Reading Engine Speed");
+        step++;
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Reading Engine Speed");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Reading Engine Speed");
         inOrder.verify(engineSpeedModule).isEngineCommunicating();
 
-        inOrder.verify(listener).onProgress(2, 22, "Comparing Vehicle to Report File");
-        inOrder.verify(reportFileModule).onProgress(2, 22, "Comparing Vehicle to Report File");
+        step++;
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Comparing Vehicle to Report File");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Comparing Vehicle to Report File");
         inOrder.verify(comparisonModule).reset();
         inOrder.verify(comparisonModule).compareFileToVehicle(any(ResultsListener.class), eq(reportFileModule), eq(2),
-                eq(22));
+                eq(TOTAL_STEPS));
 
         // Why are these late?
         inOrder.verify(obdTestsModule).setJ1939(j1939);
         inOrder.verify(noxBinningGhgTrackingModule).setJ1939(j1939);
+        inOrder.verify(csersModule).setJ1939(j1939);
 
-        inOrder.verify(listener).onProgress(7, 22, "Generating Header");
-        inOrder.verify(reportFileModule).onProgress(7, 22, "Generating Header");
+        step+= 5;
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Generating Header");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Generating Header");
         inOrder.verify(bannerModule).reportHeader(any(ResultsListener.class));
 
+        step++;
         inOrder.verify(listener).onResult("");
         inOrder.verify(reportFileModule).onResult("");
-        inOrder.verify(listener).onProgress(8, 22, "Requesting VIN");
-        inOrder.verify(reportFileModule).onProgress(8, 22, "Requesting VIN");
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting VIN");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting VIN");
         inOrder.verify(vehicleInformationModule).reportVin(any(ResultsListener.class));
 
+        step++;
         inOrder.verify(listener).onResult("");
         inOrder.verify(reportFileModule).onResult("");
-        inOrder.verify(listener).onProgress(9, 22, "Requesting Calibration Information");
-        inOrder.verify(reportFileModule).onProgress(9, 22, "Requesting Calibration Information");
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting Calibration Information");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting Calibration Information");
         inOrder.verify(vehicleInformationModule).reportCalibrationInformation(any(ResultsListener.class));
 
+        step++;
         inOrder.verify(listener).onResult("");
         inOrder.verify(reportFileModule).onResult("");
-        inOrder.verify(listener).onProgress(10, 22, "Requesting DM21");
-        inOrder.verify(reportFileModule).onProgress(10, 22, "Requesting DM21");
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting DM21");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).getMinutesSinceCodeClear();
         inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq((double) 1234));
 
+        step++;
         inOrder.verify(listener).onResult("");
         inOrder.verify(reportFileModule).onResult("");
-        inOrder.verify(listener).onProgress(11, 22, "Requesting HD OBD Modules");
-        inOrder.verify(reportFileModule).onProgress(11, 22, "Requesting HD OBD Modules");
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting HD OBD Modules");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting HD OBD Modules");
         inOrder.verify(diagnosticReadinessModule).getOBDModules(any(ResultsListener.class));
 
+        step++;
         inOrder.verify(listener).onResult("");
         inOrder.verify(reportFileModule).onResult("");
-        inOrder.verify(listener).onProgress(12, 22, "Requesting OBD Test Results");
-        inOrder.verify(reportFileModule).onProgress(12, 22, "Requesting OBD Test Results");
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting OBD Test Results");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting OBD Test Results");
         inOrder.verify(obdTestsModule).reportOBDTests(any(ResultsListener.class), eq(obdModules));
 
         // NOx Binning
+        step++;
         inOrder.verify(listener).onResult("");
         inOrder.verify(reportFileModule).onResult("");
-        inOrder.verify(listener).onProgress(13, 22, "Requesting NOX Binning and GHG Tracking");
-        inOrder.verify(reportFileModule).onProgress(13, 22, "Requesting NOX Binning and GHG Tracking");
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting NOX Binning and GHG Tracking");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting NOX Binning and GHG Tracking");
         inOrder.verify(noxBinningGhgTrackingModule).reportInformation(any(ResultsListener.class), eq(List.of(0)));
 
+        //CSERS
+        step++;
         inOrder.verify(listener).onResult("");
         inOrder.verify(reportFileModule).onResult("");
-        inOrder.verify(listener).onProgress(14, 22, "Requesting DM5");
-        inOrder.verify(reportFileModule).onProgress(14, 22, "Requesting DM5");
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting CSERS data");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting CSERS data");
+        inOrder.verify(csersModule).reportInformation(any(ResultsListener.class), eq(List.of(0)));
+
+        step++;
+        inOrder.verify(listener).onResult("");
+        inOrder.verify(reportFileModule).onResult("");
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting DM5");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting DM5");
         inOrder.verify(diagnosticReadinessModule).getDM5Packets(any(ResultsListener.class), eq(false));
         inOrder.verify(listener).onResult("");
         inOrder.verify(reportFileModule).onResult("");
@@ -442,16 +481,18 @@ public class CollectResultsControllerTest {
         inOrder.verify(diagnosticReadinessModule).reportMonitoredSystems(any(ResultsListener.class),
                 eq(initialSystems), any(Collection.class), eq("MonitorTime"), eq("CurrentTime"));
 
+        step++;
         inOrder.verify(listener).onResult("");
         inOrder.verify(reportFileModule).onResult("");
-        inOrder.verify(listener).onProgress(15, 22, "Requesting DM26");
-        inOrder.verify(reportFileModule).onProgress(15, 22, "Requesting DM26");
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting DM26");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting DM26");
         inOrder.verify(diagnosticReadinessModule).reportDM26(any(ResultsListener.class));
 
+        step++;
         inOrder.verify(listener).onResult("");
         inOrder.verify(reportFileModule).onResult("");
-        inOrder.verify(listener).onProgress(16, 22, "Requesting DM20");
-        inOrder.verify(reportFileModule).onProgress(16, 22, "Requesting DM20");
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting DM20");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting DM20");
         inOrder.verify(diagnosticReadinessModule).getDM20Packets(any(ResultsListener.class), eq(false));
         inOrder.verify(listener).onResult("");
         inOrder.verify(reportFileModule).onResult("");
@@ -463,41 +504,47 @@ public class CollectResultsControllerTest {
                 eq(initialRatios), any(Collection.class), eq(987), any(int.class), eq(654),
                 any(int.class), eq("RatioTime"), eq("CurrentTime"));
 
+        step++;
         inOrder.verify(listener).onResult("");
         inOrder.verify(reportFileModule).onResult("");
-        inOrder.verify(listener).onProgress(17, 22, "Requesting DM21");
-        inOrder.verify(reportFileModule).onProgress(17, 22, "Requesting DM21");
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting DM21");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting DM21");
         inOrder.verify(reportFileModule).getMinutesSinceCodeClear();
         inOrder.verify(diagnosticReadinessModule).reportDM21(any(ResultsListener.class), eq((double) 1234));
 
+        step++;
         inOrder.verify(listener).onResult("");
         inOrder.verify(reportFileModule).onResult("");
-        inOrder.verify(listener).onProgress(18, 22, "Reading Vehicle Distance");
-        inOrder.verify(reportFileModule).onProgress(18, 22, "Reading Vehicle Distance");
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Reading Vehicle Distance");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Reading Vehicle Distance");
         inOrder.verify(vehicleInformationModule).reportVehicleDistance(any(ResultsListener.class));
 
+        step++;
         inOrder.verify(listener).onResult("");
         inOrder.verify(reportFileModule).onResult("");
-        inOrder.verify(listener).onProgress(19, 22, "Requesting Engine Hours");
-        inOrder.verify(reportFileModule).onProgress(19, 22, "Requesting Engine Hours");
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting Engine Hours");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting Engine Hours");
         inOrder.verify(vehicleInformationModule).reportEngineHours(any(ResultsListener.class));
 
+        step++;
         inOrder.verify(listener).onResult("");
         inOrder.verify(reportFileModule).onResult("");
-        inOrder.verify(listener).onProgress(20, 22, "Requesting VIN");
-        inOrder.verify(reportFileModule).onProgress(20, 22, "Requesting VIN");
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting VIN");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting VIN");
         inOrder.verify(vehicleInformationModule).reportVin(any(ResultsListener.class));
 
+        step++;
         inOrder.verify(listener).onResult("");
         inOrder.verify(reportFileModule).onResult("");
-        inOrder.verify(listener).onProgress(21, 22, "Requesting Calibration Information");
-        inOrder.verify(reportFileModule).onProgress(21, 22, "Requesting Calibration Information");
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Requesting Calibration Information");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Requesting Calibration Information");
         inOrder.verify(vehicleInformationModule).reportCalibrationInformation(any(ResultsListener.class));
 
+        step++;
         inOrder.verify(listener).onResult("");
         inOrder.verify(reportFileModule).onResult("");
-        inOrder.verify(listener).onProgress(22, 22, "Generating Quality Information");
-        inOrder.verify(reportFileModule).onProgress(22, 22, "Generating Quality Information");
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Generating Quality Information");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Generating Quality Information");
         inOrder.verify(reportFileModule).reportAndResetCommunicationQuality(any(ResultsListener.class));
         inOrder.verify(reportFileModule).reportQuality(any(ResultsListener.class));
 
@@ -509,8 +556,8 @@ public class CollectResultsControllerTest {
         inOrder.verify(reportFileModule).onResult("");
 
         inOrder.verify(bannerModule).getTypeName();
-        inOrder.verify(listener).onProgress(22, 22, "Data Collection Completed");
-        inOrder.verify(reportFileModule).onProgress(22, 22, "Data Collection Completed");
+        inOrder.verify(listener).onProgress(step, TOTAL_STEPS, "Data Collection Completed");
+        inOrder.verify(reportFileModule).onProgress(step, TOTAL_STEPS, "Data Collection Completed");
         inOrder.verify(listener).onComplete(true);
         inOrder.verify(reportFileModule).onComplete(true);
     }

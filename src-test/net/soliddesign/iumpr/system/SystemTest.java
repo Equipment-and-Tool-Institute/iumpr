@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 
 import org.etools.j1939tools.bus.RP1210;
 import org.etools.j1939tools.j1939.J1939;
+import org.etools.j1939tools.modules.CSERSModule;
 import org.etools.j1939tools.modules.DateTimeModule;
 import org.junit.After;
 import org.junit.Before;
@@ -111,7 +112,7 @@ public class SystemTest {
                         dateTimeModule,
                         new VehicleInformationModule(dateTimeModule),
                         new DiagnosticReadinessModule(dateTimeModule),
-                        new DTCModule(dateTimeModule), new ComparisonModule(), new NoxBinningGhgTrackingModule()),
+                        new DTCModule(dateTimeModule), new ComparisonModule(), new NoxBinningGhgTrackingModule(), new CSERSModule()),
                 new CollectResultsController(Executors.newSingleThreadScheduledExecutor(),
                         new EngineSpeedModule(),
                         new BannerModule(Type.COLLECTION_LOG, dateTimeModule, buildNumber),
@@ -119,7 +120,7 @@ public class SystemTest {
                         new VehicleInformationModule(dateTimeModule),
                         new DiagnosticReadinessModule(dateTimeModule),
                         new OBDTestsModule(dateTimeModule),
-                        new ComparisonModule(), new NoxBinningGhgTrackingModule()),
+                        new ComparisonModule(), new NoxBinningGhgTrackingModule(), new CSERSModule()),
                 monitorCompletionController,
                 new ComparisonModule(),
                 new RP1210(),
