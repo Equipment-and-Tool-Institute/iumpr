@@ -42,6 +42,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.DefaultCaret;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.etools.j1939tools.bus.Adapter;
 
 import net.soliddesign.iumpr.BuildNumber;
@@ -400,6 +401,7 @@ public class UserInterfaceView implements IUserInterfaceView {
      *
      * @return JFrame
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Not a concern in desktop app.")
     public JFrame getFrame() {
         if (frame == null) {
             frame = new JFrame();

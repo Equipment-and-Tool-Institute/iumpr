@@ -6,6 +6,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Optional;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.etools.j1939tools.j1939.model.Spn;
 import org.etools.j1939tools.j1939.packets.GenericPacket;
 import org.etools.j1939tools.utils.StringUtils;
@@ -14,6 +15,7 @@ public class GhgTrackingArrayModule {
 
     private final DateTimeModule dateTimeModule;
 
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "Not a concern in desktop app.")
     public GhgTrackingArrayModule(DateTimeModule dateTimeModule) {
         this.dateTimeModule = dateTimeModule;
     }

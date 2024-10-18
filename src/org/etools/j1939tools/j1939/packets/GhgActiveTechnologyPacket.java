@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.etools.j1939_84.J1939_84;
 import org.etools.j1939tools.bus.Packet;
 import org.etools.j1939tools.j1939.model.ActiveTechnology;
@@ -22,6 +23,7 @@ public class GhgActiveTechnologyPacket extends GenericPacket {
         return 5;
     }
 
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Not a concern in desktop app.")
     public List<ActiveTechnology> getActiveTechnologies() {
         if (activeTechnologies == null) {
             activeTechnologies = new ArrayList<>();
@@ -51,4 +53,15 @@ public class GhgActiveTechnologyPacket extends GenericPacket {
         }
         return result.toString();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
 }

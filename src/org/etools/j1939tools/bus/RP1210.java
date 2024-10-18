@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.etools.j1939_84.J1939_84;
 import org.etools.j1939tools.j1939.J1939TP;
 import org.ini4j.Ini;
@@ -138,6 +139,7 @@ public class RP1210 {
      * @throws BusException
      *             if there is a problem generating the list
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Not a concern in desktop app.")
     public List<Adapter> getAdapters() throws BusException {
         if (adapters == null) {
             adapters = new ArrayList<>();

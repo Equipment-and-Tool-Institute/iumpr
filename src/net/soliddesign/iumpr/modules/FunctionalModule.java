@@ -11,6 +11,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.etools.j1939tools.bus.Packet;
 import org.etools.j1939tools.j1939.J1939;
 import org.etools.j1939tools.j1939.packets.GenericPacket;
@@ -142,6 +143,7 @@ public abstract class FunctionalModule {
      * @param j1939
      *            the {@link J1939} to set
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "Not a concern in desktop app.")
     public void setJ1939(J1939 j1939) {
         this.j1939 = j1939;
     }

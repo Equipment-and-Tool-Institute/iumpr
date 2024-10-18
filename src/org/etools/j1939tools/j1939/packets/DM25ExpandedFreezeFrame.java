@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.etools.j1939tools.bus.Packet;
 import org.etools.j1939tools.utils.CollectionUtils;
 import org.etools.j1939tools.utils.FreezeFrameDataTranslator;
@@ -45,6 +46,7 @@ public class DM25ExpandedFreezeFrame extends GenericPacket {
      *
      * @return {@link List}
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Not a concern in desktop app.")
     public List<FreezeFrame> getFreezeFrames() {
         if (freezeFrames == null) {
             parsePacket();
