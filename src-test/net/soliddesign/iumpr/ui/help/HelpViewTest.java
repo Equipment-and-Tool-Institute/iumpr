@@ -30,7 +30,7 @@ public class HelpViewTest {
         instance = new HelpView();
     }
 
-    @Test
+    @Test(timeout = 5000)
     public void test() throws InvocationTargetException, InterruptedException {
         assertEquals(false, instance.isVisible());
         instance.setVisible(true);
@@ -44,6 +44,12 @@ public class HelpViewTest {
                 txt = instance.getEditorPane().getText();
             });
         }
+
+        // onee more time to avoid partial text.
+        Thread.sleep(200);
+        SwingUtilities.invokeAndWait(() -> {
+            txt = instance.getEditorPane().getText();
+        });
 
         assertTrue(txt.contains("IUMPR Data Collection Tool"));
 
