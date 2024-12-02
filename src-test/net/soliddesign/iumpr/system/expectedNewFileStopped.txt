@@ -200,6 +200,21 @@ DM24 from Engine #1 (0): [
 Freeze Frame data length = 0 bytes
 
 
+10:15:30.000 Destination Specific DS DM24 Request Request to Engine #1 (0)
+10:15:30.000 18EA00F9 [3] B6 FD 00 (TX)
+10:15:30.000 18FDB600 [8] 66 00 1B 01 95 04 1B 02
+DM24 from Engine #1 (0): [
+  D F T D F
+  a r e M F
+  t F s 5 l
+  a r t 8 n  SPN — SP Name
+  ------------------------
+      T   1  SPN 102 - Engine Intake Manifold #1 Pressure
+      T   2  SPN 1173 - Engine Turbocharger 2 Compressor Intake Temperature
+]
+Freeze Frame data length = 0 bytes
+
+
 2007-12-03T10:15:30.000 Global DM21 Request
 10:15:30.000 18EAFFF9 [3] 00 C1 00 (TX)
 10:15:30.000 18C1FF00 [8] 00 00 00 00 00 00 00 00

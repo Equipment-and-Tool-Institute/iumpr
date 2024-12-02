@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.etools.j1939tools.CommunicationsListener;
 import org.etools.j1939tools.bus.BusResult;
 import org.etools.j1939tools.j1939.packets.DM24SPNSupportPacket;
@@ -42,7 +43,8 @@ import net.soliddesign.iumpr.controllers.ResultsListener;
  */
 public class NoxBinningGhgTrackingModule extends FunctionalModule {
 
-    public class NoResponseException extends RuntimeException {
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "Not a concern in desktop app.")
+    static public class NoResponseException extends RuntimeException {
 
     }
 
@@ -96,7 +98,7 @@ public class NoxBinningGhgTrackingModule extends FunctionalModule {
                     getJ1939().createRequestPacket(pgn, sa), listener);
             Optional<GenericPacket> ret = requestDS.getPacket().flatMap(p -> p.left);
             if (ret.isEmpty()) {
-                new NoResponseException();
+                throw new NoResponseException();
             }
             return ret.get();
         };

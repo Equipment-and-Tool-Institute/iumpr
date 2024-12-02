@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.etools.j1939tools.j1939.packets.DM20MonitorPerformanceRatioPacket;
 import org.etools.j1939tools.j1939.packets.DM5DiagnosticReadinessPacket;
 import org.etools.j1939tools.j1939.packets.MonitoredSystem;
@@ -43,6 +44,7 @@ public class CollectResultsController extends Controller {
     /**
      * Constructor
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "Not a concern in desktop app.")
     public CollectResultsController() {
         this(Executors.newSingleThreadScheduledExecutor(), new EngineSpeedModule(),
                 new BannerModule(Type.COLLECTION_LOG), DateTimeModule.getInstance(), new VehicleInformationModule(),
@@ -70,6 +72,7 @@ public class CollectResultsController extends Controller {
      * @param comparisonModule
      *            the {@link ComparisonModule}
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "Not a concern in desktop app.")
     public CollectResultsController(ScheduledExecutorService executor, EngineSpeedModule engineSpeedModule,
             BannerModule bannerModule, DateTimeModule dateTimeModule, VehicleInformationModule vehicleInformationModule,
             DiagnosticReadinessModule diagnosticReadinessModule, OBDTestsModule obdTestsModule,

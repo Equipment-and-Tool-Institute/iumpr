@@ -13,6 +13,7 @@ import java.util.function.IntFunction;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import net.soliddesign.iumpr.controllers.ResultsListener;
 import org.etools.j1939tools.CommunicationsListener;
 import org.etools.j1939tools.bus.BusResult;
@@ -34,6 +35,8 @@ public class CSERSModule extends FunctionalModule{
     public CSERSModule(){
         this(DateTimeModule.getInstance());
     }
+
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "Not a concern in desktop app.")
     public CSERSModule(DateTimeModule dateTimeModule) {
         this.dateTimeModule = dateTimeModule;
     }
@@ -162,7 +165,8 @@ public class CSERSModule extends FunctionalModule{
         return new DecimalFormat("#,##0").format(value);
     }
 
-    public class NoResponseException extends RuntimeException {
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "Not a concern in desktop app.")
+    static public class NoResponseException extends RuntimeException {
     }
 
     private List<GenericPacket> requestPackets(CommunicationsListener listener, int sa, int... pgns) {
@@ -171,7 +175,7 @@ public class CSERSModule extends FunctionalModule{
                     getJ1939().createRequestPacket(pgn, sa), listener);
             Optional<GenericPacket> ret = requestDS.getPacket().flatMap(p -> p.left);
             if (ret.isEmpty()) {
-                new NoResponseException();
+                throw new NoResponseException();
             }
             return ret.get();
         };

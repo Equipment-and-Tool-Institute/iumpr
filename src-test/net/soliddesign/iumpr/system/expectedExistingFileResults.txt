@@ -198,6 +198,21 @@ T2SPN1173-EngineTurbocharger2CompressorIntakeTemperature
 FreezeFramedatalength=0bytes
 
 
+10:15:30.000DestinationSpecificDSDM24RequestRequesttoEngine#1(0)
+10:15:30.00018EA00F9[3]B6FD00(TX)
+10:15:30.00018FDB600[8]66001B0195041B02
+DM24fromEngine#1(0):[
+DFTDF
+areMF
+tFs5l
+art8nSPN—SPName
+------------------------
+T1SPN102-EngineIntakeManifold#1Pressure
+T2SPN1173-EngineTurbocharger2CompressorIntakeTemperature
+]
+FreezeFramedatalength=0bytes
+
+
 2007-12-03T10:15:30.000GlobalDM21Request
 10:15:30.00018EAFFF9[3]00C100(TX)
 10:15:30.00018C1FF00[8]0000000000000077

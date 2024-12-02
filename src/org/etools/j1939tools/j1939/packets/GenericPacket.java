@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.etools.j1939_84.J1939_84;
 import org.etools.j1939tools.bus.Packet;
 import org.etools.j1939tools.j1939.J1939DaRepository;
@@ -79,6 +80,7 @@ public class GenericPacket extends ParsedPacket {
         return getSpn(spn).filter(Spn::hasValue).map(Spn::getValue);
     }
 
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Not a concern in desktop app.")
     public List<Spn> getSpns() {
         if (spns == null) {
             spns = new ArrayList<>();
