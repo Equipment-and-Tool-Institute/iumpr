@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 
 import javax.swing.UIManager;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import net.soliddesign.iumpr.ui.UserInterfaceView;
 
 /**
@@ -55,6 +56,7 @@ public class IUMPR {
         }
     }
 
+    @SuppressFBWarnings(value = "MS_EXPOSE_REP", justification = "Not a concern in desktop app.")
     public static Logger getLogger() {
         return logger;
     }

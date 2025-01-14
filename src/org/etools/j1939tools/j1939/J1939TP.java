@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.etools.j1939tools.bus.Bus;
 import org.etools.j1939tools.bus.BusException;
 import org.etools.j1939tools.bus.EchoBus;
@@ -85,10 +86,12 @@ public class J1939TP implements Bus {
         this(bus, bus.getAddress());
     }
 
+    @SuppressFBWarnings(value = "CT_CONSTRUCTOR_THROW", justification = "Not a concern in desktop app.")
     public J1939TP(Bus bus, int address) throws BusException {
         this(bus, address, false);
     }
 
+    @SuppressFBWarnings(value = "CT_CONSTRUCTOR_THROW", justification = "Not a concern in desktop app.")
     public J1939TP(Bus bus, int address, boolean passAll) throws BusException {
         this.bus = bus;
         this.passAll = passAll;

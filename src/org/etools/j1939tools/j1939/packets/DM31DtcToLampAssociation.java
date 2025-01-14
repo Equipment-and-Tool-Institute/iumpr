@@ -9,6 +9,7 @@ import static org.etools.j1939tools.utils.CollectionUtils.join;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.etools.j1939tools.bus.Packet;
 
 
@@ -43,6 +44,7 @@ public class DM31DtcToLampAssociation extends GenericPacket {
     /**
      * @return the dtcLampStatuses
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Not a concern in desktop app.")
     public List<DTCLampStatus> getDtcLampStatuses() {
         if (dtcLampStatuses == null) {
             parsePacket();

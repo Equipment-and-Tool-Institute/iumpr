@@ -9,6 +9,7 @@ import static org.etools.j1939tools.utils.CollectionUtils.join;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.etools.j1939tools.bus.Packet;
 import org.etools.j1939tools.j1939.J1939DaRepository;
 import org.etools.j1939tools.j1939.model.Spn;
@@ -71,6 +72,7 @@ public class DM58RationalityFaultSpData extends GenericPacket {
         return spnId;
     }
 
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Not a concern in desktop app.")
     public byte[] getSpnDataBytes() {
         if (dataBytes == null) {
             byte[] bytes = getPacket().getBytes();
@@ -108,4 +110,13 @@ public class DM58RationalityFaultSpData extends GenericPacket {
         return spn;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

@@ -24,6 +24,7 @@ import java.time.temporal.TemporalAccessor;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.etools.j1939_84.J1939_84;
 
 /**
@@ -35,6 +36,7 @@ public class DateTimeModule {
     private static final long GIGA = 1000000000;
     private static DateTimeModule instance = new DateTimeModule();
 
+    @SuppressFBWarnings(value = "MS_EXPOSE_REP", justification = "Not a concern in desktop app.")
     public static DateTimeModule getInstance() {
         return instance;
     }
@@ -52,6 +54,7 @@ public class DateTimeModule {
 
     private DateTimeFormatter timeFormatter;
 
+    @SuppressFBWarnings(value = "SING_SINGLETON_HAS_NONPRIVATE_CONSTRUCTOR", justification = "Protected constructor for test access.")
     protected DateTimeModule() {
     }
 

@@ -11,6 +11,8 @@ import java.util.concurrent.ScheduledExecutorService;
 
 import javax.swing.JOptionPane;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import org.etools.j1939tools.modules.CSERSModule;
 import org.etools.j1939tools.modules.DateTimeModule;
 
@@ -68,6 +70,7 @@ public class DataPlateController extends Controller {
      * @param comparisonModule
      *            the {@link ComparisonModule}
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "Not a concern in desktop app.")
     public DataPlateController(ScheduledExecutorService executor, EngineSpeedModule engineSpeedModule,
             BannerModule bannerModule, DateTimeModule dateTimeModule, VehicleInformationModule vehicleInformationModule,
             DiagnosticReadinessModule diagnosticReadinessModule, DTCModule dtcModule,

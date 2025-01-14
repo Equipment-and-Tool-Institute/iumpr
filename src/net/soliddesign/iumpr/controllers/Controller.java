@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.etools.j1939tools.j1939.J1939;
 import org.etools.j1939tools.modules.DateTimeModule;
 
@@ -280,6 +281,7 @@ public abstract class Controller {
      *            the {@link ReportFileModule} that will be used to read and
      *            generate the report
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "Not a concern in desktop app.")
     public CompletableFuture<Void> execute(ResultsListener listener, J1939 j1939, ReportFileModule reportFileModule) {
         setJ1939(j1939);
         this.reportFileModule = reportFileModule;

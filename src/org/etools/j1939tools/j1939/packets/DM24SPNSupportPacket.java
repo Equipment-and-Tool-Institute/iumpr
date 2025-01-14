@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.etools.j1939tools.bus.Packet;
 import org.etools.j1939tools.j1939.Lookup;
 
@@ -127,6 +128,7 @@ public class DM24SPNSupportPacket extends GenericPacket {
      *
      * @return {@link List}
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Not a concern in desktop app.")
     public List<SupportedSPN> getSupportedSpns() {
         if (spns == null) {
             spns = new ArrayList<>();
@@ -136,6 +138,7 @@ public class DM24SPNSupportPacket extends GenericPacket {
         return spns;
     }
 
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Not a concern in desktop app.")
     public List<SupportedSPN> getFreezeFrameSPNsInOrder() {
         if (freezeFrameSPNs == null) {
             freezeFrameSPNs = new ArrayList<>();

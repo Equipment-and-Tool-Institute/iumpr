@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.etools.j1939tools.j1939.model.Spn;
 import org.etools.j1939tools.utils.CollectionUtils;
 
@@ -49,6 +50,7 @@ public class FreezeFrame {
         return CollectionUtils.join(new int[] { joinedData.length }, joinedData);
     }
 
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Not a concern in desktop app.")
     public List<Spn> getSPNs() {
         return spns;
     }

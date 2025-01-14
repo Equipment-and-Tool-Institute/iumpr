@@ -26,6 +26,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.etools.j1939_84.J1939_84;
 import org.etools.j1939tools.modules.DateTimeModule;
 
@@ -127,6 +128,7 @@ public class RP1210Bus implements Bus {
     // from the .INI file.
     private long timestampWeight;
 
+    @SuppressFBWarnings(value = "CT_CONSTRUCTOR_THROW", justification = "Not a concern in desktop app.")
     public RP1210Bus(Adapter adapter,
             String connectionString,
             int address,
@@ -147,6 +149,7 @@ public class RP1210Bus implements Bus {
     /**
      * Constructor exposed for testing
      */
+    @SuppressFBWarnings(value = {"CT_CONSTRUCTOR_THROW", "EI_EXPOSE_REP2"}, justification = "Not a concern in desktop app.")
     public RP1210Bus(RP1210Library rp1210Library,
             ExecutorService decodingExecutor,
             ExecutorService rp1210Executor,

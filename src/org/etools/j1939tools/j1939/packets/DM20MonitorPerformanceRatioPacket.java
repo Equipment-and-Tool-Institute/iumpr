@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.etools.j1939tools.bus.Packet;
 import org.etools.j1939tools.utils.NumberFormatter;
 
@@ -129,6 +130,7 @@ public class DM20MonitorPerformanceRatioPacket extends GenericPacket {
      *
      * @return {@link List}
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Not a concern in desktop app.")
     public List<PerformanceRatio> getRatios() {
         if (ratios == null) {
             ratios = parsePacket();

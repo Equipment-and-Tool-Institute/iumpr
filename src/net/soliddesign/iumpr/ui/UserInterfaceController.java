@@ -18,6 +18,7 @@ import java.util.stream.Stream;
 
 import javax.swing.JOptionPane;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.etools.j1939tools.bus.Adapter;
 import org.etools.j1939tools.bus.Bus;
 import org.etools.j1939tools.bus.BusException;
@@ -140,6 +141,7 @@ public class UserInterfaceController implements IUserInterfaceController {
      *            the {@link HelpView} that will display help for the
      *            application
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "Not a concern in desktop app.")
     public UserInterfaceController(IUserInterfaceView view, DataPlateController dataPlateController,
             CollectResultsController collectResultsController, MonitorCompletionController monitorCompletionController,
             ComparisonModule comparisonModule, RP1210 rp1210, ReportFileModule reportFileModule,
@@ -239,6 +241,7 @@ public class UserInterfaceController implements IUserInterfaceController {
      *
      * @return the activeController
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Not a concern in desktop app.")
     public Controller getActiveController() {
         return activeController;
     }
@@ -249,6 +252,7 @@ public class UserInterfaceController implements IUserInterfaceController {
      * @see net.soliddesign.iumpr.ui.IUserInterfaceController#getAdapters()
      */
     @Override
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Not a concern in desktop app.")
     public List<Adapter> getAdapters() {
         if (adapters == null) {
             adapters = new ArrayList<>();
@@ -293,6 +297,7 @@ public class UserInterfaceController implements IUserInterfaceController {
      * @return the {@link ReportFileModule}
      */
     @Override
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Not a concern in desktop app.")
     public ReportFileModule getReportFileModule() {
         return reportFileModule;
     }
