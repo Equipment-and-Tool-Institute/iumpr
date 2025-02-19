@@ -563,7 +563,7 @@ public class StatusView extends JFrame {
         monitorFuture = executor.schedule(() -> {
             try {
                 j1939.read()
-                        .filter(t -> monitorFuture != null || !monitorFuture.isCancelled())
+                        .filter(t -> monitorFuture != null && !monitorFuture.isCancelled())
                         .flatMap(p -> p.left.stream())
                         .forEach(this::processPacket);
             } catch (Exception e) {
