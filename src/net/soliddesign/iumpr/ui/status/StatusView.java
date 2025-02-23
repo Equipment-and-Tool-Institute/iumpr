@@ -590,11 +590,9 @@ public class StatusView extends JFrame {
     private void stop() {
         if (monitorFuture != null) {
             monitorFuture.cancel(true);
-            monitorFuture = null;
         }
         if (timeoutFuture != null) {
             timeoutFuture.cancel(true);
-            timeoutFuture = null;
         }
         j1939 = null;
     }
