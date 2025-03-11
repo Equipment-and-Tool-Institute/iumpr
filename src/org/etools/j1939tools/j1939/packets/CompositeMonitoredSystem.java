@@ -114,6 +114,9 @@ public class CompositeMonitoredSystem extends MonitoredSystem {
      */
     @Override
     public MonitoredSystemStatus getStatus() {
+        if (status == null){
+            status = getCompositeStatus();
+        }
         return status;
     }
 }
